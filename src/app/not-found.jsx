@@ -36,7 +36,7 @@ const NotFoundPage = () => {
           </h2>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-purple-600">
             <Link href="/" className="flex items-center gap-2 hover:underline">
-              <FiHome /> Home
+              <FiHome /> Home 
             </Link>
             <Link href="/services" className="flex items-center gap-2 hover:underline">
               <FiBriefcase /> Our Services
