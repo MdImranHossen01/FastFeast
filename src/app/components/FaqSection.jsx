@@ -47,14 +47,16 @@ export default function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+              className={`rounded-lg shadow-md overflow-hidden ${
+                openIndex === index ? "bg-orange-100" : "bg-white"
+              }`}
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full text-left px-6 py-4 focus:outline-none flex justify-between items-center"
               >
                 <span className="text-gray-800 font-medium">{faq.question}</span>
-                <span className="text-gray-500 text-xl">
+                <span className="text-orange-500 text-xl">
                   {openIndex === index ? "−" : "+"}
                 </span>
               </button>
