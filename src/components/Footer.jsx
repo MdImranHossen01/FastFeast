@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "./logo";
+import { FaFacebook, FaGithub, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -81,7 +82,22 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-3">
-            <div className="flex justify-start space-x-3"></div>
+            <div className="uppercase text-gray-900 font-semibold">
+              Social media
+            </div>
+            <div className="flex justify-start space-x-3">
+              <div className="flex justify-start space-x-3">
+                <a href="https://github.com/" target="_blank">
+                  <FaGithub size={25} color="orange" />
+                </a>
+                <a href="https://www.facebook.com/" target="_blank">
+                  <FaFacebook size={25} color="orange" />
+                </a>
+                <a href="https://www.youtube.com/" target="_blank">
+                  <FaYoutube size={27} color="orange" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
