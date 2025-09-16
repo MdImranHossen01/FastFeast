@@ -10,7 +10,7 @@ export default function Logo() {
         height={70}
         alt="logo"
         priority
-        className="w-12   sm:w-14  "
+        className="w-14   sm:w-16  "
       />
 
       <p className="text-2xl font-bold sm:text-3xl">
