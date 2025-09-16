@@ -1,9 +1,9 @@
 "use client"
 
-import BlogCard from '../../component/BlogCard';
+import BlogCard from '../../components/BlogCard';
 import { FaHome } from 'react-icons/fa'
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+
 
 
 
@@ -82,7 +82,7 @@ const posts = [
 {
   id: 11,
   title: "Traditional Bangladeshi Desserts You Can Order Online",
-  excerpt: "From mishti doi to chomchom, discover where to order authentic sweets.",
+  excerpt: "From mishti d-oi to chomchom, discover where to order authentic sweets.",
   content: "Full blog content here...",
   image: "https://images.unsplash.com/photo-1625944192516-3ffba5d5bb8e",
 },
