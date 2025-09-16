@@ -1,10 +1,16 @@
-import React from 'react'
+import React from "react";
 
-export default function page() {
+export default function Page() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Blog Page</h1>
-      <p className='text-3xl'>this a paragrap pages</p>
-    </div>
-  )
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6 py-12">
+      <div className="max-w-2xl text-center">
+        <h1 className="text-4xl font-extrabold text-purple-700 mb-4">
+          Blog Page
+        </h1>
+        <p className="text-lg text-gray-700">
+          This is a sample blog page. You can add articles, stories, or posts here.
+        </p>
+      </div>
+    </main>
+  );
 }
