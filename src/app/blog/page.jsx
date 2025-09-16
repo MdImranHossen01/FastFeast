@@ -26,7 +26,7 @@ export default function BlogPage() {
   return (
     <main className="container mx-auto px-4 py-8">
       <header className="mb-6">
-        <h1 className="text-3xl font-bold">Blog</h1>
+        <h1 className="text-3xl font-bold text-yellow-400">Blog</h1>
         <p className="text-gray-600">Latest tips, rider guides and food ordering news.</p>
       </header>
 
