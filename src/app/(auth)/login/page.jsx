@@ -38,7 +38,7 @@ return (
 Welcome Back
 </h1>
 <p className="text-center text-gray-500 dark:text-gray-400">
-Sign in to access your account
+Sign In
 </p>
 
 <form onSubmit={handleSubmit} className="space-y-4">
