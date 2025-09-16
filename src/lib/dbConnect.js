@@ -22,5 +22,6 @@ export const dbConnect = (collectionName) => {
     },
   });
 
+  // return db connect with collections name
   return client.db(DB_NAME).collection(collectionName);
 };
