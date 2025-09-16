@@ -105,13 +105,11 @@ export default function BlogPage() {
   const [tag, setTag] = useState('All');
   
 
-  // const handleBackToHome = () => {
-  //   navigate('/'); // Navigates to the home route
-  // };
+  
   
   
 
-  const allTags = ['All', ...new Set(posts.flatMap(p => p.tags))];
+const allTags = ['All', ...new Set(posts.flatMap(p => p.tags))];
 
   const filtered = posts.filter(p => {
     const matchTag = tag === 'All' ? true : p.tags.includes(tag);
@@ -129,7 +127,7 @@ export default function BlogPage() {
       <header className="mb-6 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-yellow-400">{metadata.title}</h1>
-          <p className="text-gray-600">Latest tips, rider guides and food ordering news.</p>
+          <p className="text-gray-600">{metadata.description} Latest tips, rider guides and food ordering news.</p>
         </div>
         <button className="btn btn-primary flex justify-center" >
       <FaHome style={{ marginRight: '8px' }} className='' /> {/* The icon */}
