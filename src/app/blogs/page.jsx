@@ -1,16 +1,9 @@
 "use client";
 
-import BlogCard from './components/BlogCard';
-import { FaHome } from 'react-icons/fa'
-import { useState } from 'react';
-import Link from 'next/link';
-
-
-
-
 import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
+import Link from "next/link";
 
 const posts = [
   {
@@ -34,9 +27,11 @@ const posts = [
   {
     id: 3,
     title: "Top 7 Biriyani Places in Dhaka You Can’t Miss",
-    excerpt: "From old Dhaka to Banani, here are the best biriyani spots loved by locals.",
+    excerpt:
+      "From old Dhaka to Banani, here are the best biriyani spots loved by locals.",
     content: "Full blog content here...",
-    image: "https://media-cdn.tripadvisor.com/media/photo-s/12/2e/0d/18/biryani.jpg",
+    image:
+      "https://media-cdn.tripadvisor.com/media/photo-s/12/2e/0d/18/biryani.jpg",
   },
   {
     id: 4,
@@ -113,32 +108,26 @@ const posts = [
 ];
 
 const metadata = {
-  title: 'FastFeast Food Journal – Tradition Meets Delivery',
-  description: 'Read about Bangladeshi cultural foods, modern delivery trends, and tasty tips for foodies across the nation.'
+  title: "FastFeast Food Journal – Tradition Meets Delivery",
+  description:
+    "Read about Bangladeshi cultural foods, modern delivery trends, and tasty tips for foodies across the nation.",
 };
 
-
 export default function BlogPage() {
-  const [query, setQuery] = useState('');
-  const [tag, setTag] = useState('All');
+  const [query, setQuery] = useState("");
+  const [tag, setTag] = useState("All");
 
+  const allTags = ["All", ...new Set(posts.flatMap((p) => p.tags))];
 
-
-
-
-
-  const allTags = ['All', ...new Set(posts.flatMap(p => p.tags))];
-
-  const filtered = posts.filter(p => {
-    const matchTag = tag === 'All' ? true : p.tags.includes(tag);
-    const matchQuery = query.trim() === '' ? true : (
-      p.title.toLowerCase().includes(query.toLowerCase()) ||
-      p.excerpt.toLowerCase().includes(query.toLowerCase())
-    );
+  const filtered = posts.filter((p) => {
+    const matchTag = tag === "All" ? true : p.tags.includes(tag);
+    const matchQuery =
+      query.trim() === ""
+        ? true
+        : p.title.toLowerCase().includes(query.toLowerCase()) ||
+          p.excerpt.toLowerCase().includes(query.toLowerCase());
     return matchTag && matchQuery;
   });
-
-
 
   return (
     <main className="container mx-auto px-4 pb-8 pt-28 space-y-6">
@@ -148,17 +137,19 @@ export default function BlogPage() {
             {metadata.title}
           </h1>
 
-          <p className="text-gray-600">{metadata.description}. Latest tips, rider guides and food ordering news.</p>
+          <p className="text-gray-600">
+            {metadata.description}. Latest tips, rider guides and food ordering
+            news.
+          </p>
         </div>
-       
 
         <Link href={"/"}>
-          <button className="btn btn-outline text-orange-500 rounded-sm flex justify-center hover:bg-orange-600 hover:text-white" >
-            <FaHome style={{ marginRight: '8px' }} className='' /> {/* The icon */}
+          <button className="btn btn-outline text-orange-500 rounded-sm flex justify-center hover:bg-orange-600 hover:text-white">
+            <FaHome style={{ marginRight: "8px" }} className="" />{" "}
+            {/* The icon */}
             Back to Home
           </button>
         </Link>
-
       </header>
 
       <section className="flex gap-4 mb-6 items-center">
@@ -170,8 +161,16 @@ export default function BlogPage() {
           className="input input-bordered w-full max-w-md"
         />
 
-        <select className="select select-bordered" value={tag} onChange={e => setTag(e.target.value)}>
-          {allTags?.map((t, index) => <option key={`${t} - ${index}`} value={t}>{t}</option>)}
+        <select
+          className="select select-bordered"
+          value={tag}
+          onChange={(e) => setTag(e.target.value)}
+        >
+          {allTags?.map((t, index) => (
+            <option key={`${t} - ${index}`} value={t}>
+              {t}
+            </option>
+          ))}
         </select>
       </section>
 
@@ -182,8 +181,6 @@ export default function BlogPage() {
           filtered.map((p) => <BlogCard key={p.id} post={p} />)
         )}
       </section>
-
-
     </main>
   );
 }
