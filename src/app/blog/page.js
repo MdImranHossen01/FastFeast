@@ -1,8 +1,9 @@
+"use client"
 import { useState } from 'react';
 import { posts } from '../data/posts';
 import BlogCard from '@/components/BlogCard';
 
-export const metadata = {
+ const metadata = {
   title: 'Blog - FastFeast',
   description: 'Food delivery related articles, tips and news'
 };
@@ -39,7 +40,7 @@ export default function BlogPage() {
         />
 
         <select className="select select-bordered" value={tag} onChange={e => setTag(e.target.value)}>
-          {allTags.map(t => <option key={t} value={t}>{t}</option>)}
+          {allTags?.map((t,index) => <option key={`${t} - ${index}`} value={t}>{t}</option>)}
         </select>
       </section>
 
