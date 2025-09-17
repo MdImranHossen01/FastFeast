@@ -24,12 +24,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}>
         <SessionWrapper>
          <header>
           <Navbar />
         </header>
-        <main>{children}</main>
+        <main className="flex-grow">{children}</main>
         <footer>
           <Footer />
         </footer>
