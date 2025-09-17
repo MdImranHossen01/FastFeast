@@ -3,6 +3,8 @@ import Logo from "./logo";
 import { FaFacebook, FaGithub, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
+
+
   return (
     <footer className="px-4 divide-y w-full   border-t-3 border-orange-400  text-gray-800">
       <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
@@ -105,7 +107,6 @@ const Footer = () => {
         © 2025 FastFeast. All rights reserved.
       </div>
     </footer>
-  );
-};
+  );};
 
 export default Footer;

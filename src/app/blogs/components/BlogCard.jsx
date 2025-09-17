@@ -1,10 +1,11 @@
 "use client"
 import Link from 'next/link'
 import React from 'react'
+import { FaBookOpen } from 'react-icons/fa'
 
 export default function BlogCard({ post }) {
   return (
-    <article className="card bg-base-100 shadow-md border p-2">
+    <article className="card bg-base-100 shadow-md border border-slate-50 p-2">
       <figure className="h-40 overflow-hidden">
         <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
 
@@ -23,8 +24,12 @@ export default function BlogCard({ post }) {
           <div className="text-xs text-gray-500">
             {post.author} · {post.date}
           </div>
-          <Link href={`/blog/${post.slug}`} className="btn btn-sm btn-primary">
-            Read
+          <Link
+            href={`/blog/${post.slug}`}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-medium shadow-md hover:from-orange-500 hover:to-orange-600 transition-all duration-300"
+          >
+            <FaBookOpen className="text-lg" />
+            Read More
           </Link>
         </div>
       </div>
