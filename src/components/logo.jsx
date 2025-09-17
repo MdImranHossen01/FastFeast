@@ -10,13 +10,12 @@ export default function Logo() {
         height={70}
         alt="logo"
         priority
-        className="w-14   sm:w-16  "
+        className="w-14 lg:w-16"
       />
 
-      <p className="text-2xl font-bold sm:text-3xl">
-        {" "}
-        <span className="text-red-700 ">Fast</span>
-        <span className="bg-gradient-to-r from-orange-600   to-orange-400 bg-clip-text text-transparent ">
+      <p className="text-2xl font-bold lg:text-4xl">
+        <span className="text-red-700">Fast</span>
+        <span className="bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
           Feast
         </span>
       </p>
