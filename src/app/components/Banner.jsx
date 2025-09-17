@@ -41,7 +41,7 @@ export default function Banner() {
       highlight: "Shakes • Ice Cream • Sandwiches • Tacos",
       offer: "🎉 Buy 1 Get 1 Free!",
       contact: "📞 880 9876 54321",
-      website: "🌐 www.fastfood.com",
+      website: "🌐 www.fastfeast.com",
       description: "Delicious treats made fresh daily to satisfy your cravings!",
     },
   ];
@@ -82,7 +82,7 @@ export default function Banner() {
                 className="text-center flex-1 px-6"
               >
                 <h1 className="flex items-center justify-center">
-                  <span className="text-orange-600 text-7xl md:text-8xl font-extrabold drop-shadow-lg">
+                  <span className="text-orange-700 text-7xl md:text-8xl font-extrabold drop-shadow-lg">
                     {slide.titleBig}
                   </span>
                   <span className="ml-3 text-white text-3xl sm:text-4xl md:text-5xl font-bold drop-shadow-lg">
