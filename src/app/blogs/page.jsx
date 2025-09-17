@@ -9,7 +9,7 @@ import Link from 'next/link';
 const posts = [
   {
     id: 1,
-    title: "5 Best Street Foods in Dhaka",
+    title: "5 Best Street Foods in Dhaka..",
     excerpt:
       "Discover the most delicious and affordable street foods you must try in Dhaka.",
     content: "Full blog content here...",
