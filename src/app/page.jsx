@@ -8,8 +8,9 @@ export default function Home() {
     <>
       <Banner />
       <SpecialOffers />
-      <Stat />
       <FAQSection />
+      <Stat />
+      <Service />
     </>
   );
 }
