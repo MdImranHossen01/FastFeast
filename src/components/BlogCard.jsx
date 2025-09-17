@@ -1,7 +1,6 @@
 "use client"
 import Link from 'next/link'
 import React from 'react'
-import { FaBookOpen } from 'react-icons/fa'
 
 export default function BlogCard({ post }) {
   return (
@@ -12,7 +11,7 @@ export default function BlogCard({ post }) {
       </figure>
       <div className="card-body">
         <h3 className="card-title text-lg">{post.title}</h3>
-        <p className="text-sm text-gray-700">{post.excerpt}</p>
+        <p className="text-sm text-gray-600">{post.excerpt}</p>
 
         <div className="flex items-center gap-2 mt-2">
           {post?.tags?.map((tag, index) => (
@@ -24,12 +23,8 @@ export default function BlogCard({ post }) {
           <div className="text-xs text-gray-500">
             {post.author} · {post.date}
           </div>
-          <Link
-            href={`/blog/${post.slug}`}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-medium shadow-md hover:from-orange-500 hover:to-orange-600 transition-all duration-300"
-          >
-            <FaBookOpen className="text-lg" />
-            Read More
+          <Link href={`/blog/${post.slug}`} className="btn btn-sm btn-primary">
+            Read
           </Link>
         </div>
       </div>
