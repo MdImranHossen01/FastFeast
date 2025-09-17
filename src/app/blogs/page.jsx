@@ -11,7 +11,7 @@ import Link from 'next/link';
 import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
-
+// all posts
 const posts = [
   {
     id: 1,
