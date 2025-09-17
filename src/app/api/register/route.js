@@ -6,14 +6,20 @@ export async function POST(req) {
     const { name, email, password, photoUrl } = await req.json();
 
     if (!email || !password) {
-      return Response.json({ success: false, message: "Missing fields" }, { status: 400 });
+      return Response.json(
+        { success: false, message: "Missing fields" },
+        { status: 400 }
+      );
     }
 
     const usersCollection = dbConnect(collectionsName.usersCollection);
 
     const existing = await usersCollection.findOne({ email });
     if (existing) {
-      return Response.json({ success: false, message: "User already exists" }, { status: 400 });
+      return Response.json(
+        { success: false, message: "User already exists" },
+        { status: 400 }
+      );
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -28,9 +34,11 @@ export async function POST(req) {
     });
 
     return Response.json({ success: true, insertedId: result.insertedId });
-  } 
-  catch (err) {
+  } catch (err) {
     console.error("Register error:", err);
-    return Response.json({ success: false, message: "Server error" }, { status: 500 });
+    return Response.json(
+      { success: false, message: "Server error" },
+      { status: 500 }
+    );
   }
 }

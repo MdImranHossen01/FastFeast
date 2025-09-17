@@ -42,7 +42,8 @@ export default function Banner() {
       offer: "🎉 Buy 1 Get 1 Free!",
       contact: "📞 880 9876 54321",
       website: "🌐 www.fastfeast.com",
-      description: "Delicious treats made fresh daily to satisfy your cravings!",
+      description:
+        "Delicious treats made fresh daily to satisfy your cravings!",
     },
   ];
 
@@ -64,11 +65,17 @@ export default function Banner() {
                     alt="Left Item"
                     initial={{ x: -60, opacity: 0 }}
                     animate={{ x: 0, opacity: 1, y: [0, -10, 0] }}
-                    transition={{ duration: 2, delay: i * 0.4, repeat: Infinity, repeatType: "loop" }}
+                    transition={{
+                      duration: 2,
+                      delay: i * 0.4,
+                      repeat: Infinity,
+                      repeatType: "loop",
+                    }}
                     className={`absolute rounded-xl object-cover drop-shadow-2xl border-4 border-white/20 
-                      ${i === 0
-                        ? "top-0 left-0 w-36 sm:w-40 md:w-48 lg:w-52"
-                        : "top-28 left-6 w-32 sm:w-36 md:w-44 lg:w-48"
+                      ${
+                        i === 0
+                          ? "top-0 left-0 w-36 sm:w-40 md:w-48 lg:w-52"
+                          : "top-28 left-6 w-32 sm:w-36 md:w-44 lg:w-48"
                       }`}
                   />
                 ))}
@@ -106,11 +113,17 @@ export default function Banner() {
                     alt="Right Item"
                     initial={{ x: 80, opacity: 0 }}
                     animate={{ x: 0, opacity: 1, y: [0, 10, 0] }}
-                    transition={{ duration: 2, delay: i * 0.4, repeat: Infinity, repeatType: "loop" }}
+                    transition={{
+                      duration: 2,
+                      delay: i * 0.4,
+                      repeat: Infinity,
+                      repeatType: "loop",
+                    }}
                     className={`absolute rounded-xl object-cover drop-shadow-2xl border-4 border-white/20
-                      ${i === 0
-                        ? "top-0 right-0 w-40 sm:w-48 md:w-56 lg:w-60"
-                        : "top-32 right-6 w-36 sm:w-44 md:w-52 lg:w-56"
+                      ${
+                        i === 0
+                          ? "top-0 right-0 w-40 sm:w-48 md:w-56 lg:w-60"
+                          : "top-32 right-6 w-36 sm:w-44 md:w-52 lg:w-56"
                       }`}
                   />
                 ))}
