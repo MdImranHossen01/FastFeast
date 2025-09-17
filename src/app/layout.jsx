@@ -4,6 +4,8 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
+import SessionWrapper from "./SessionWrapper";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,13 +27,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header>
+        <SessionWrapper>
+         <header>
           <Navbar />
         </header>
         <main>{children}</main>
         <footer>
           <Footer />
         </footer>
+        </SessionWrapper>
       </body>
     </html>
   );
