@@ -1,5 +1,14 @@
 import Image from "next/image";
+import Banner from "./components/Banner";
+import FAQSection from "./components/FaqSection";
+import SpecialOffers from "./components/SpecialOffers";
 
 export default function Home() {
-  return <h1>Welcome to Next.js extend efficiency in next level!</h1>;
+  return (
+    <>
+    <Banner/>
+    <SpecialOffers/>
+    <FAQSection/>
+    </>
+  );
 }
