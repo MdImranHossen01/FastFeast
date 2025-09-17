@@ -88,13 +88,13 @@ const Footer = () => {
             <div className="flex justify-start space-x-3">
               <div className="flex justify-start space-x-3">
                 <a href="https://github.com/" target="_blank">
-                  <FaGithub size={25} color="#f97316" />
+                  <FaGithub size={25} color="#ea580c" />
                 </a>
                 <a href="https://www.facebook.com/" target="_blank">
-                  <FaFacebook size={25} color="#f97316" />
+                  <FaFacebook size={25} color="#ea580c" />
                 </a>
                 <a href="https://www.youtube.com/" target="_blank">
-                  <FaYoutube size={27} color="#f97316" />
+                  <FaYoutube size={27} color="#ea580c" />
                 </a>
               </div>
             </div>
