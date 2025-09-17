@@ -1,7 +1,7 @@
 "use client";
 
 import { Provider } from "react-redux";
-import store from "@/app/[redux]/redux/store";
+import store from "@/app/(redux)/redux/store";
  
 const newstore = store;
 
