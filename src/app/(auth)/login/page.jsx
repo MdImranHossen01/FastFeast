@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -29,8 +29,7 @@ export default function LoginPage() {
 
     if (res.error) {
       Swal.fire("Error", res.error, "error");
-    } 
-    else {
+    } else {
       Swal.fire({
         icon: "success",
         title: "Welcome!",
@@ -87,7 +86,11 @@ export default function LoginPage() {
               className="absolute inset-y-0 right-0 pr-3 pt-5 flex items-center cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? <AiOutlineEyeInvisible size={25} /> : <AiOutlineEye size={25} />}
+              {showPassword ? (
+                <AiOutlineEyeInvisible size={25} />
+              ) : (
+                <AiOutlineEye size={25} />
+              )}
             </div>
           </div>
 
