@@ -1,8 +1,9 @@
 "use client";
 
-import BlogCard from "../../components/BlogCard";
+import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
+import Link from "next/link";
 
 const posts = [
   {
@@ -107,8 +108,9 @@ const posts = [
 ];
 
 const metadata = {
-  title: "Blog - FastFeast",
-  description: "Food delivery related articles, tips and news",
+  title: "FastFeast Food Journal – Tradition Meets Delivery",
+  description:
+    "Read about Bangladeshi cultural foods, modern delivery trends, and tasty tips for foodies across the nation.",
 };
 
 export default function BlogPage() {
@@ -128,22 +130,26 @@ export default function BlogPage() {
   });
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <header className="mb-6 flex justify-between items-center">
+    <main className="container mx-auto px-4 pb-8 pt-28 space-y-6">
+      <header className="mb-6 flex justify-between items-center space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-yellow-400">
+          <h1 className="text-4xl font-extrabold py-5 bg-gradient-to-r from-red-700 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
             {metadata.title}
           </h1>
+
           <p className="text-gray-600">
-            {metadata.description} Latest tips, rider guides and food ordering
+            {metadata.description}. Latest tips, rider guides and food ordering
             news.
           </p>
         </div>
-        <button className="btn btn-primary flex justify-center">
-          <FaHome style={{ marginRight: "8px" }} className="" />{" "}
-          {/* The icon */}
-          Back to Home
-        </button>
+
+        <Link href={"/"}>
+          <button className="btn btn-outline text-orange-500 rounded-sm flex justify-center hover:bg-orange-600 hover:text-white">
+            <FaHome style={{ marginRight: "8px" }} className="" />{" "}
+            {/* The icon */}
+            Back to Home
+          </button>
+        </Link>
       </header>
 
       <section className="flex gap-4 mb-6 items-center">
