@@ -5,27 +5,41 @@ import bcrypt from "bcrypt";
 
 export const registerUser = async (payload) => {
   const usersCollection = dbConnect(collectionsName.usersCollection);
+  const { email, password, name, imageFile } = payload;
 
-  // check email and password
-  const { email, password } = payload;
   if (!email || !password) return { success: false };
 
-  // get user from database by payload email
   const user = await usersCollection.findOne({ email });
+  if (user) return { success: false, message: "User already exists" };
 
-  // validation user exist or not
-  if (!user) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    payload.password = hashedPassword;
+  // hash password
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    const result = await usersCollection.insertOne(payload);
-    const { acknowledged, insertedId } = result;
+  // upload image on ImgBB
+  let photoUrl = null;
+  if (imageFile) {
+    const formData = new FormData();
+    formData.append("image", imageFile);
 
-    return {
-      acknowledged,
-      insertedId: insertedId.toString(),
-    };
+    const res = await fetch(
+      `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`,
+      { method: "POST", body: formData }
+    );
+    const data = await res.json();
+    photoUrl = data?.data?.url;
   }
 
-  return { success: false };
+  const result = await usersCollection.insertOne({
+    name,
+    email,
+    password: hashedPassword,
+    photoUrl,
+    createdAt: new Date(),
+    lastLogin: new Date(),
+  });
+
+  return {
+    acknowledged: result.acknowledged,
+    insertedId: result.insertedId.toString(),
+  };
 };

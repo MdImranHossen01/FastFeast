@@ -12,7 +12,7 @@ export default function BlogCard({ post }) {
       </figure>
       <div className="card-body">
         <h3 className="card-title text-lg">{post.title}</h3>
-        <p className="text-sm text-gray-600">{post.excerpt}</p>
+        <p className="text-sm text-gray-700">{post.excerpt}</p>
 
         <div className="flex items-center gap-2 mt-2">
           {post?.tags?.map((tag, index) => (

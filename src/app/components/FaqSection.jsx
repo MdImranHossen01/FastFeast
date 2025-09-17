@@ -39,7 +39,7 @@ export default function FAQSection() {
   return (
     <section className="bg-[#f5f5f5] py-16 px-4 md:px-16">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-10 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-700 mb-10 text-center">
           Frequently Asked Questions
         </h2>
 
@@ -55,8 +55,8 @@ export default function FAQSection() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full text-left px-6 py-4 focus:outline-none flex justify-between items-center"
               >
-                <span className="text-gray-800 font-medium">{faq.question}</span>
-                <span className="text-orange-500 text-xl">
+                <span className="text-gray-700 font-medium">{faq.question}</span>
+                <span className="text-orange-600 text-xl">
                   {openIndex === index ? "−" : "+"}
                 </span>
               </button>
