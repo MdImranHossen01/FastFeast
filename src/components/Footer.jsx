@@ -10,56 +10,46 @@ const Footer = () => {
 
   if (!pathname.includes("dashboard")) {
     return (
-      <footer className="px-4 divide-y w-full border-t-3 border-orange-400 text-gray-800">
-        <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
+      <footer className="px-4 w-full border-t-4 border-orange-500 text-gray-800 bg-gradient-to-b from-orange-50 to-white">
+        <div className="flex flex-col justify-between py-12 mx-auto space-y-8 lg:flex-row lg:space-y-0">
           <div className="lg:w-1/3">
             <div className="flex gap-2 flex-row justify-center items-center">
               <Logo />
             </div>
           </div>
-          <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 text-sm w-full md:w-2/3 mx-auto">
             <div className="space-y-3">
-              <h3 className="tracking-wide uppercase  text-gray-900 font-semibold">
+              <h3 className="tracking-wide uppercase text-gray-900 font-semibold">
                 Product
               </h3>
               <ul className="space-y-1">
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Integrations
-                  </a>
-                </li>
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Pricing
-                  </a>
-                </li>
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    FAQ
-                  </a>
-                </li>
+                {["Features", "Integrations", "Pricing", "FAQ"].map((item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="hover:text-orange-500 transition-colors duration-300"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="space-y-3">
-              <h3 className="tracking-wide uppercase  text-gray-900 font-semibold">
+              <h3 className="tracking-wide uppercase text-gray-900 font-semibold">
                 Company
               </h3>
               <ul className="space-y-1">
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Privacy
-                  </a>
-                </li>
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Terms of Service
-                  </a>
-                </li>
+                {["Privacy", "Terms of Service"].map((item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="hover:text-orange-500 transition-colors duration-300"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="space-y-3">
@@ -67,21 +57,16 @@ const Footer = () => {
                 Developer Resources
               </h3>
               <ul className="space-y-1">
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Public API
-                  </a>
-                </li>
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a rel="noopener noreferrer" href="#">
-                    Guides
-                  </a>
-                </li>
+                {["Public API", "Documentation", "Guides"].map((item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="hover:text-orange-500 transition-colors duration-300"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="space-y-3">
@@ -89,14 +74,26 @@ const Footer = () => {
                 Social media
               </div>
               <div className="flex justify-start space-x-3">
-                <div className="flex justify-start space-x-3">
-                  <a href="https://github.com/" target="_blank">
+                <div className="flex justify-start space-x-3 ">
+                  <a
+                    href="https://github.com/"
+                    target="_blank"
+                    className="transform transition hover:scale-110"
+                  >
                     <FaGithub size={25} color="#ea580c" />
                   </a>
-                  <a href="https://www.facebook.com/" target="_blank">
+                  <a
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    className="transform transition hover:scale-110 duration-300"
+                  >
                     <FaFacebook size={25} color="#ea580c" />
                   </a>
-                  <a href="https://www.youtube.com/" target="_blank">
+                  <a
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    className="transform transition hover:scale-110 duration-300"
+                  >
                     <FaYoutube size={27} color="#ea580c" />
                   </a>
                 </div>
@@ -104,8 +101,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="py-6 text-sm text-center dark:text-gray-600">
-          © 2025 FastFeast. All rights reserved.
+        {/* Bottom Text */}
+        <div className="py-6 text-sm text-center text-gray-600 border-t border-orange-100">
+          © 2025{" "}
+          <span className="font-semibold text-orange-500">FastFeast</span>. All
+          rights reserved.
         </div>
       </footer>
     );
