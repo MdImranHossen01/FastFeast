@@ -1,6 +1,6 @@
 import React from "react";
 
-const serviceData = [
+const servicesData = [
   {
     id: "01",
 
@@ -31,13 +31,13 @@ const serviceData = [
   },
 ];
 
-export default function Service() {
+export default function Services() {
   return (
     <section className="container mx-auto py-5">
       <h2 className="text-3xl font-bold text-center mb-8">Our Services</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
-        {serviceData.map((service) => (
+        {servicesData.map((service) => (
           <div
             key={service.id}
             className="card text-white card-lg p-1 bg-gradient-to-r from-orange-500 to-yellow-500  shadow-sm"
