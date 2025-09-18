@@ -52,9 +52,9 @@ export default function Navbar() {
       </li>
       <li>
         <Link
-          href={"/contact"}
+          href={"/contacts"}
           className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
-            pathname === "/contact" 
+            pathname === "/contacts" 
               ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md" 
               : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
           }`}
