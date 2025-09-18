@@ -22,17 +22,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}>
-        <SessionWrapper>
-         <header className="sticky top-0 z-50">
-          <Navbar />
-        </header>
-        <main className="flex-grow">{children}</main>
-        <footer>
-          <Footer />
-        </footer>
-        </SessionWrapper>
-      </body>
+      <SessionWrapper>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
+        >
+          <header className="sticky top-0 z-50">
+            <Navbar />
+          </header>
+          <main className="flex-grow">{children}</main>
+          <footer>
+            <Footer />
+          </footer>
+        </body>
+      </SessionWrapper>
     </html>
   );
 }
