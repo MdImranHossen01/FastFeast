@@ -12,6 +12,14 @@ export default function Navbar() {
 
   const navLinks = () => (
     <>
+    <li>
+        <Link
+          href={"/"}
+          className={pathname === "/" ? "text-orange-400" : "text-black"}
+        >
+          Home
+        </Link>
+      </li>
       <li>
         <Link
           href={"/blogs"}
@@ -26,6 +34,14 @@ export default function Navbar() {
           className={pathname === "/about" ? "text-orange-400" : "text-black"}
         >
           About
+        </Link>
+      </li>
+      <li>
+        <Link
+          href={"/contact"}
+          className={pathname === "/contact" ? "text-orange-400" : "text-black"}
+        >
+          Contact Us
         </Link>
       </li>
     </>
