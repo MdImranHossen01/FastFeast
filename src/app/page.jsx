@@ -16,12 +16,8 @@ export default function Home() {
       <Stats />
       <CTASection />
       <Services />
-<<<<<<< HEAD
+      <PopularBlogs />
       <NewsLetter />
-=======
-      <PopularBlogs/>
-      <NewsLetter/>
->>>>>>> 83b7f35096cb0e0ccb9413b172806936f198954e
     </>
   );
 }
