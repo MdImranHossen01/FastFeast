@@ -40,6 +40,7 @@ export default function UserMenu({ session, signOut }) {
             <img src={session.user.photoUrl} className="w-8 h-8 rounded-full" />
           )}
           <span>{session.user.name}</span>
+
           <button
             onClick={handleLogout}
             className="btn bg-red-500 text-white"
