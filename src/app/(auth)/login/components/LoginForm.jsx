@@ -33,7 +33,7 @@ export default function LoginForm() {
       Swal.fire({
         icon: "success",
         title: "Welcome!",
-        text: `Hello, ${formData.email}`,
+        text: "Logged in successfully",
         timer: 2000,
         showConfirmButton: false,
       });

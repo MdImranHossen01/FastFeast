@@ -1,156 +1,259 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay, EffectFade } from "swiper/modules";
 import { motion } from "framer-motion";
 
-const Slider = dynamic(() => import("react-slick"), { ssr: false });
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
 
-export default function Banner() {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 800,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: false,
-  };
+// Slider images & content
+const sliderContent = [
+  {
+    image:
+      "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=876&auto=format&fit=crop&ixlib=rb-4.1.0",
+    title: "Gourmet Burgers",
+    description:
+      "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
+    offer: "50% OFF",
+    tagline: "Today Only!",
+    cta: "Order Now",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0",
+    title: "Artisan Pizzas",
+    description:
+      "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
+    offer: "Buy 1 Get 1",
+    tagline: "Limited Time",
+    cta: "Explore Menu",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1512152272829-e3139592d56f?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0",
+    title: "Fresh Sushi & Bowls",
+    description:
+      "Expertly crafted rolls with the finest fish, delivered right to your door.",
+    offer: "Free Delivery",
+    tagline: "All Week",
+    cta: "See Specials",
+  },
+];
 
-  const slides = [
-    {
-      bg: "bg-gradient-to-r from-orange-700 to-orange-500",
-      leftImgs: ["/cola.jpg", "/fries.jpg"],
-      rightImgs: ["/burger.jpg", "/pizza.jpg"],
-      titleBig: "B",
-      titleMain: "Burgers & Drinks",
-      highlight: "Juicy Burgers • Cold Cola • Crispy Fries",
-      offer: "🔥 50% OFF for 24 hours!",
-      contact: "📞 880 1234 54678",
-      website: "🌐 www.burgerhouse.com",
-      description: "Fast delivery and fresh ingredients, every bite counts!",
-    },
-    {
-      bg: "bg-gradient-to-r from-orange-700 to-orange-500",
-      leftImgs: ["/shake.jpg", "/ice-cream.jpg"],
-      rightImgs: ["/sandwich.jpg", "/taco.jpg"],
-      titleBig: "F",
-      titleMain: "Fresh & Tasty",
-      highlight: "Shakes • Ice Cream • Sandwiches • Tacos",
-      offer: "🎉 Buy 1 Get 1 Free!",
-      contact: "📞 880 9876 54321",
-      website: "🌐 www.fastfeast.com",
-      description:
-        "Delicious treats made fresh daily to satisfy your cravings!",
-    },
-  ];
-
+const Banner = () => {
   return (
-    <div className="w-full rounded-2xl shadow-2xl overflow-hidden relative">
-      <Slider {...settings}>
-        {slides.map((slide, idx) => (
-          <div
-            key={idx}
-            className={`relative w-full h-[450px] md:h-[550px] lg:h-[600px] ${slide.bg}`}
-          >
-            <div className="absolute inset-0 flex items-center justify-between px-6 sm:px-12 lg:px-20">
-              {/* Left Corner Images */}
-              <div className="relative w-1/4 flex flex-col items-start">
-                {slide.leftImgs.map((img, i) => (
-                  <motion.img
-                    key={i}
-                    src={img}
-                    alt="Left Item"
-                    initial={{ x: -60, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1, y: [0, -10, 0] }}
-                    transition={{
-                      duration: 2,
-                      delay: i * 0.4,
-                      repeat: Infinity,
-                      repeatType: "loop",
-                    }}
-                    className={`absolute rounded-xl object-cover drop-shadow-2xl border-4 border-white/20 
-                      ${
-                        i === 0
-                          ? "top-0 left-0 w-36 sm:w-40 md:w-48 lg:w-52"
-                          : "top-28 left-6 w-32 sm:w-36 md:w-44 lg:w-48"
-                      }`}
-                  />
-                ))}
-              </div>
+    <section className="relative h-[70vh] md:h-[85vh] w-full overflow-hidden shadow-2xl">
+      <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        effect={"fade"}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        speed={1200}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+          el: ".custom-pagination",
+          renderBullet: (index, className) => {
+            return `<span class="${className} custom-bullet"></span>`;
+          },
+        }}
+        navigation={{
+          nextEl: ".custom-next",
+          prevEl: ".custom-prev",
+        }}
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}
+        className="h-full w-full"
+      >
+        {sliderContent.map((slide, index) => (
+          <SwiperSlide key={index} className="relative">
+            {/* Background image with zoom effect */}
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="slide-image w-full h-full object-cover"
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/20"></div>
+            </div>
 
-              {/* Center Text */}
-              <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                className="text-center flex-1 px-6"
-              >
-                <h1 className="flex items-center justify-center">
-                  <span className="text-orange-700 text-7xl md:text-8xl font-extrabold drop-shadow-lg">
-                    {slide.titleBig}
-                  </span>
-                  <span className="ml-3 text-white text-3xl sm:text-4xl md:text-5xl font-bold drop-shadow-lg">
-                    {slide.titleMain}
-                  </span>
-                </h1>
-                <p className="mt-2 text-orange-400 text-lg sm:text-2xl md:text-3xl font-semibold drop-shadow-md">
-                  {slide.highlight}
-                </p>
-                <p className="mt-3 text-white text-sm sm:text-base md:text-lg font-medium drop-shadow-md">
-                  {slide.description}
-                </p>
-              </motion.div>
+            {/* Content overlay */}
+            <div className="absolute inset-0 flex items-center">
+              <div className="container mx-auto px-4 md:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  {/* Text content */}
+                  <div className="text-white max-w-lg">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
+                      className="mb-2 inline-block bg-orange-500/90 px-4 py-1 rounded-full text-sm font-semibold"
+                    >
+                      🎉 Special Offer
+                    </motion.div>
 
-              {/* Right Corner Images */}
-              <div className="relative w-1/4 flex flex-col items-end">
-                {slide.rightImgs.map((img, i) => (
-                  <motion.img
-                    key={i}
-                    src={img}
-                    alt="Right Item"
-                    initial={{ x: 80, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1, y: [0, 10, 0] }}
-                    transition={{
-                      duration: 2,
-                      delay: i * 0.4,
-                      repeat: Infinity,
-                      repeatType: "loop",
-                    }}
-                    className={`absolute rounded-xl object-cover drop-shadow-2xl border-4 border-white/20
-                      ${
-                        i === 0
-                          ? "top-0 right-0 w-40 sm:w-48 md:w-56 lg:w-60"
-                          : "top-32 right-6 w-36 sm:w-44 md:w-52 lg:w-56"
-                      }`}
-                  />
-                ))}
+                    <motion.h1
+                      initial={{ opacity: 0, y: -30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
+                    >
+                      {slide.title}
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.5 }}
+                      className="text-lg md:text-xl mb-6 opacity-90"
+                    >
+                      {slide.description}
+                    </motion.p>
+
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
+                      className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6"
+                    >
+                      <div className="flex items-center">
+                        <span className="text-3xl font-bold text-orange-400">
+                          {slide.offer}
+                        </span>
+                        <span className="ml-2 text-white/90">
+                          {slide.tagline}
+                        </span>
+                      </div>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.9 }}
+                      className="flex flex-wrap gap-4"
+                    >
+                      <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        {slide.cta}
+                      </button>
+                      <button className="border border-white/30 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 backdrop-blur-sm">
+                        Learn More
+                      </button>
+                    </motion.div>
+                  </div>
+
+                  {/* Decorative element */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1, delay: 0.6 }}
+                    className="hidden md:flex justify-center"
+                  >
+                    <div className="relative w-64 h-64 bg-orange-500/10 rounded-full flex items-center justify-center backdrop-blur-md border border-orange-500/20">
+                      <div className="w-52 h-52 bg-orange-500/5 rounded-full border border-orange-500/10"></div>
+                      <div className="absolute text-white text-center">
+                        <span className="text-5xl font-bold">{slide.offer}</span>
+                        <p className="text-sm mt-2">{slide.tagline}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
 
-            {/* Bottom Info + Offer Button */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
-              {/* Offer Button */}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="bg-white/30 border border-white px-6 py-3 rounded-full text-white text-base sm:text-lg md:text-xl font-semibold shadow-lg backdrop-blur-md"
-              >
-                {slide.offer}
-              </motion.div>
-
-              {/* Contact & Website */}
-              <div className="flex gap-6 sm:gap-10 text-white text-sm sm:text-lg font-semibold drop-shadow-lg">
-                <p>{slide.contact}</p>
-                <p>{slide.website}</p>
+            {/* Bottom info */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.2 }}
+              className="absolute bottom-6 left-0 right-0"
+            >
+              <div className="container mx-auto px-4">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-white/80 text-sm">
+                  <div className="flex items-center gap-6">
+                    <span>🔥 100% Fresh Ingredients</span>
+                    <span>⏱️ 30-min Delivery Guarantee</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span>⭐ 4.9 (2,548 reviews)</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </SwiperSlide>
         ))}
-      </Slider>
-    </div>
+
+        {/* Custom navigation */}
+        <div className="custom-next absolute right-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/30 p-3 backdrop-blur-md hidden md:block">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+        <div className="custom-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/30 p-3 backdrop-blur-md hidden md:block">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </div>
+
+        {/* Custom pagination */}
+        <div className="custom-pagination absolute bottom-4 left-1/2 z-10 -translate-x-1/2"></div>
+      </Swiper>
+
+      {/* Global Styles */}
+      <style jsx global>{`
+        .custom-bullet {
+          width: 12px;
+          height: 12px;
+          background: rgba(255, 255, 255, 0.5);
+          border-radius: 50%;
+          margin: 0 4px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .custom-bullet:hover,
+        .swiper-pagination-bullet-active {
+          background: #ff7846 !important;
+          transform: scale(1.3);
+        }
+
+        .custom-next:hover,
+        .custom-prev:hover {
+          background: rgba(255, 120, 70, 0.8) !important;
+        }
+
+        /* Fix zoom effect every slide */
+        .slide-image {
+          transform: scale(1);
+          transition: none;
+        }
+
+        .swiper-slide-active .slide-image {
+          transform: scale(1.1);
+          transition: transform 10s ease-out;
+        }
+      `}</style>
+    </section>
   );
-}
+};
+
+export default Banner;
