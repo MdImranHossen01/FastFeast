@@ -1,14 +1,18 @@
-"use client"
-import Link from 'next/link'
-import React from 'react'
-import { FaBookOpen } from 'react-icons/fa'
+"use client";
+
+import Link from "next/link";
+import React from "react";
+import { FaBookOpen } from "react-icons/fa";
 
 export default function BlogCard({ post }) {
   return (
     <article className="card bg-base-100 shadow-md border border-slate-100 p-2">
       <figure className="h-40 overflow-hidden">
-        <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-
+        <img
+          src={post.image}
+          alt={post.title}
+          className="w-full h-full object-cover"
+        />
       </figure>
       <div className="card-body">
         <h3 className="card-title text-lg">{post.title}</h3>
@@ -16,7 +20,9 @@ export default function BlogCard({ post }) {
 
         <div className="flex items-center gap-2 mt-2">
           {post?.tags?.map((tag, index) => (
-            <span key={`${tag}-${index}`} className="badge badge-outline">{tag}</span>
+            <span key={`${tag}-${index}`} className="badge badge-outline">
+              {tag}
+            </span>
           ))}
         </div>
 
@@ -34,5 +40,5 @@ export default function BlogCard({ post }) {
         </div>
       </div>
     </article>
-  )
+  );
 }

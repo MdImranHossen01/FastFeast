@@ -1,9 +1,14 @@
-import Link from 'next/link';
-import { FiAlertTriangle, FiHome, FiBriefcase, FiMessageSquare } from 'react-icons/fi';
+import Link from "next/link";
+import {
+  FiAlertTriangle,
+  FiHome,
+  FiBriefcase,
+  FiMessageSquare,
+} from "react-icons/fi";
 
 const NotFoundPage = () => {
   return (
-    <main className="flex items-center justify-center min-h-[70vh] bg-gray-50 px-6 py-24 sm:py-32 lg:px-8">
+    <main className="flex items-center justify-center min-h-[70vh] bg-gray-50 p-4 lg:py-12">
       <div className="text-center bg-white p-12 rounded-2xl shadow-lg max-w-2xl w-full">
         <div className="flex items-center justify-center mb-6">
           <FiAlertTriangle className="h-12 w-12 text-purple-500" />
@@ -13,18 +18,22 @@ const NotFoundPage = () => {
           Oops! Page Not Found
         </h1>
         <p className="mt-6 text-base leading-7 text-gray-600">
-          Sorry, we couldn’t find the page you’re looking for. It might have been moved, deleted, or you may have mistyped the URL.
+          Sorry, we couldn’t find the page you’re looking for. It might have
+          been moved, deleted, or you may have mistyped the URL.
         </p>
 
         {/* Action Buttons */}
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link
             href="/"
-            className="rounded-md bg-purple-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            className="rounded-md bg-purple-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-purple-700 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
           >
-            Go back home
+            Go Home
           </Link>
-          <Link href="/contact" className="text-sm font-semibold text-gray-900 hover:underline">
+          <Link
+            href="/contact"
+            className="text-sm font-semibold text-gray-900 hover:underline"
+          >
             Contact support <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
@@ -36,12 +45,18 @@ const NotFoundPage = () => {
           </h2>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-purple-600">
             <Link href="/" className="flex items-center gap-2 hover:underline">
-              <FiHome /> Home 
+              <FiHome /> Home
             </Link>
-            <Link href="/services" className="flex items-center gap-2 hover:underline">
+            <Link
+              href="/services"
+              className="flex items-center gap-2 hover:underline"
+            >
               <FiBriefcase /> Our Services
             </Link>
-            <Link href="/blog" className="flex items-center gap-2 hover:underline">
+            <Link
+              href="/blog"
+              className="flex items-center gap-2 hover:underline"
+            >
               <FiMessageSquare /> Blog
             </Link>
           </div>

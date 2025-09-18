@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { FiCopy } from "react-icons/fi";
 
@@ -38,7 +39,7 @@ export default function SpecialOffers() {
   return (
     <section className="py-12 px-4 md:px-8 lg:px-16">
       <h2 className="text-3xl font-bold text-center mb-8">
-         Special Offers & Discounts
+        Special Offers & Discounts
       </h2>
 
       <div className="grid gap-6 md:grid-cols-3">
