@@ -1,6 +1,9 @@
 import React from "react";
 import Logo from "@/components/logo";
 
+import food from "../../assets/aboutPage/foods.png";
+import Image from "next/image";
+
 const AboutPage = () => {
   return (
     <div className="">
@@ -10,22 +13,24 @@ const AboutPage = () => {
           style={{
             backgroundImage: `linear-gradient(to bottom, #00000099 , #000000), url(/coffee_and_assorted.webp)`,
           }}
-          className="bg-center bg-cover bg-no-repeat py-10 "
+          className="bg-center bg-cover bg-no-repeat py-10  px-2"
         >
-          <div className="container mx-auto justify-between flex items-center">
-            <h1 className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white">
+          <div className="container mx-auto justify-between flex flex-col lg:flex-row items-center">
+            <h1 className="font-bold text-5xl md:text-5xl lg:text-7xl text-white my-14 ">
               About FastFest
             </h1>
-            <figure>
-              <img
-                src="/about/foods.png"
+            <figure className="relative">
+              <Image
                 alt="Image of Burgers, Pizzas, Pasta, and Fried Chicken"
+                src={food}
+                width={600}
+                height={200}
               />
             </figure>
           </div>
         </div>
         {/* blogs blow the banner */}
-        <p className="container mx-auto mt-8">
+        <p className="container mx-auto mt-8 px-2">
           Tired of waiting for your food to arrive cold or delayed? Our platform
           is the definitive solution. We've built a vast network of both popular
           eateries and hidden culinary gems across Bangladesh, all connected by
@@ -47,7 +52,7 @@ const AboutPage = () => {
         </p>
       </section>
 
-      <section className="container mx-auto my-10">
+      <section className="container mx-auto my-10 px-2">
         <div className="container">
           <Logo />
           <h4 className="text-2xl font-bold my-4">
