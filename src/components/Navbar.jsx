@@ -91,7 +91,7 @@ export default function Navbar() {
               ) : (
                 <div className="flex items-center space-x-4">
                   <Link
-                    href="/auth/login"
+                    href="/login"
                     className="px-6 py-2 border-2 border-orange-500 text-orange-500 font-semibold rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-300 hover:shadow-md"
                   >
                     Login
@@ -152,7 +152,7 @@ export default function Navbar() {
                 ) : (
                   <div className="flex flex-col space-y-3">
                     <Link
-                      href="/auth/login"
+                      href="/login"
                       className="w-full px-4 py-2 border-2 border-orange-500 text-orange-500 font-semibold rounded-lg text-center hover:bg-orange-500 hover:text-white transition-all duration-300"
                       onClick={() => setIsMenuOpen(false)}
                     >
