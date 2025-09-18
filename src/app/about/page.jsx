@@ -1,6 +1,5 @@
 import React from "react";
 import Logo from "@/components/logo";
-
 import food from "../../assets/aboutPage/foods.png";
 import Image from "next/image";
 import OurTeam from "./components/OurTeam";
@@ -73,7 +72,7 @@ const AboutPage = () => {
           </p>
         </div>
       </section>
-      <OurTeam/>
+      <OurTeam />
     </div>
   );
 };
