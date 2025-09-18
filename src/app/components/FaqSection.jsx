@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Lottie from "lottie-react";
+import faqAnimation from "../../assets/faq-animation.json"; // Replace with your actual animation path
 
 const faqs = [
   {
@@ -31,45 +33,55 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(0); // Set first item open by default
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="bg-[#f5f5f5] py-16 px-4 md:px-16">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-700 mb-10 text-center">
-          Frequently Asked Questions
-        </h2>
-
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className={`rounded-lg shadow-md overflow-hidden ${
-                openIndex === index ? "bg-orange-100" : "bg-white"
-              }`}
-            >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full text-left px-6 py-4 focus:outline-none flex justify-between items-center"
+    <section className="py-16 md:py-24 bg-base-100 transition-colors bg-gradient-to-br from-orange-50 to-amber-100 duration-300">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Have questions about our food delivery service? We've got answers. 
+            Here are some of the most common queries from our customers.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Accordion Section */}
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className={`collapse collapse-arrow bg-base-200 dark:bg-base-300 border border-base-300 dark:border-base-200 transition-colors duration-300 ${
+                  openIndex === index ? "collapse-open" : "collapse-close"
+                }`}
               >
-                <span className="text-gray-700 font-medium">
+                <input
+                  type="radio"
+                  name="faq-accordion"
+                  checked={openIndex === index}
+                  onChange={() => toggleFAQ(index)}
+                />
+                <div className="collapse-title text-xl font-medium text-gray-800 dark:text-gray-100">
                   {faq.question}
-                </span>
-                <span className="text-orange-600 text-xl">
-                  {openIndex === index ? "−" : "+"}
-                </span>
-              </button>
-              {openIndex === index && (
-                <div className="px-6 py-4 border-t border-gray-200 text-gray-700">
-                  {faq.answer}
                 </div>
-              )}
-            </div>
-          ))}
+                <div className="collapse-content">
+                  <p className="text-gray-700 dark:text-gray-300">{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Lottie Animation Section */}
+          <div className="hidden lg:block">
+            <Lottie animationData={faqAnimation} loop={true} />
+          </div>
         </div>
       </div>
     </section>
