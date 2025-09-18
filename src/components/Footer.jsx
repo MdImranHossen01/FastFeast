@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Logo from "./logo";
 import { FaFacebook, FaGithub, FaYoutube } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   return (
