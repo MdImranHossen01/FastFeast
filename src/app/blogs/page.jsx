@@ -1,11 +1,10 @@
 "use client";
-// all posts
 
 import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
-
+// post variable
 // const posts = [
 //   {
 //     id: 1,
@@ -108,7 +107,9 @@ import Link from "next/link";
 //   },
 // ];
 
+// 
 
+// 
 const posts = [
   {
     id: 1,
@@ -151,7 +152,7 @@ const posts = [
     excerpt:
       "Hungry at midnight? Here are the top food delivery apps that stay open late.",
     content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1604909053294-5e015ff3e0db",
+    image: "https://images.deliveryhero.io/image/fd-bd/LH/lfxp-listing.jpg",
   },
   {
     id: 6,
@@ -159,7 +160,7 @@ const posts = [
     excerpt:
       "Looking for budget-friendly cafes with Wi-Fi and cozy vibes? Here’s the list.",
     content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1527168027773-0cc890c1dbd0",
+    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/5c/62/96/usually-open-to-restaurant.jpg",
   },
   {
     id: 7,
@@ -167,7 +168,7 @@ const posts = [
     excerpt:
       "Tips and tricks to get discounts, promo codes, and free delivery offers.",
     content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxybuDTnr4fFkof1W5Xw16YDVUvesQ1G_qg&s",
   },
   {
     id: 8,
@@ -175,7 +176,7 @@ const posts = [
     excerpt:
       "From local favorites to international brands, these burgers are worth it.",
     content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1550547660-d9450f859349",
+    image: "https://miro.medium.com/v2/resize:fit:1400/1*EGTTGG0rJg4B0MyWDEwRHA.jpeg",
   },
   {
     id: 9,
@@ -199,7 +200,7 @@ const posts = [
     excerpt:
       "From mishti d-oi to chomchom, discover where to order authentic sweets.",
     content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1625944192516-3ffba5d5bb8e",
+    image: "https://www.shutterstock.com/image-photo/semiya-payasammithai-keralasweet-seviyan-kheer-600nw-610030196.jpg",
   },
   {
     id: 12,
@@ -207,7 +208,7 @@ const posts = [
     excerpt:
       "Ghost kitchens are changing the food industry – here’s what you need to know.",
     content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1586201375761-83865001e17d",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiedVFajKLvOu6ZN1Gw3XhjpT970MUrCaJTQ&s",
   },
 ];
 
