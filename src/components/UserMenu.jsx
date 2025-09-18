@@ -17,16 +17,12 @@ export default function UserMenu({ session, signOut }) {
           )}
           <span>{session.user.name}</span>
 
-          <Link href={"/dashboard/admin"}>
-            <button className="btn bg-red-500 text-white">Dashboard</button>
-          </Link>
-
-          {/* <button
+          <button
             onClick={() => signOut({ callbackUrl: "/" })}
             className="btn bg-red-500 text-white"
           >
             Logout
-          </button> */}
+          </button>
         </div>
       )}
     </div>
