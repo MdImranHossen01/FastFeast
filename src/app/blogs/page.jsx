@@ -1,11 +1,10 @@
 "use client";
-// all posts
 
 import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
-
+// post variable
 // const posts = [
 //   {
 //     id: 1,
@@ -108,7 +107,9 @@ import Link from "next/link";
 //   },
 // ];
 
+// 
 
+// 
 const posts = [
   {
     id: 1,
