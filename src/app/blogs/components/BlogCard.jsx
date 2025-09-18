@@ -9,7 +9,7 @@ export default function BlogCard({ post }) {
     <article className="card bg-base-100 shadow-md border border-slate-100 p-2">
       <figure className="h-40 overflow-hidden">
         <img
-          src={post.image}
+          src={post.coverImage}
           alt={post.title}
           className="w-full h-full object-cover"
         />
@@ -31,7 +31,7 @@ export default function BlogCard({ post }) {
             {post.author} · {post.date}
           </div>
           <Link
-            href={`/blog/${post.slug}`}
+            href={`/blogs/${post.slug}`}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-medium shadow-md hover:from-orange-500 hover:to-orange-600 transition-all duration-300"
           >
             <FaBookOpen className="text-lg" />
