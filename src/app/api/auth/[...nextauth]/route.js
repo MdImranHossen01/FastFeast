@@ -18,12 +18,17 @@ export const authOptions = {
       },
       async authorize(credentials) {
         const usersCollection = dbConnect(collectionsName.usersCollection);
-        const user = await usersCollection.findOne({ email: credentials.email });
-        
+        const user = await usersCollection.findOne({
+          email: credentials.email,
+        });
+
         if (!user) throw new Error("Invalid email or password");
         if (!user.password) throw new Error("User registered with Google");
-        
-        const isMatch = await bcrypt.compare(credentials.password, user.password);
+
+        const isMatch = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
         if (!isMatch) throw new Error("Invalid email or password");
 
         await usersCollection.updateOne(
@@ -52,7 +57,9 @@ export const authOptions = {
     async signIn({ user, account }) {
       if (account.provider === "google") {
         const usersCollection = dbConnect(collectionsName.usersCollection);
-        const existingUser = await usersCollection.findOne({ email: user.email });
+        const existingUser = await usersCollection.findOne({
+          email: user.email,
+        });
         if (!existingUser) {
           await usersCollection.insertOne({
             name: user.name,
