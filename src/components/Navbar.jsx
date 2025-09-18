@@ -86,24 +86,7 @@ export default function Navbar() {
           {/* User Menu / Auth Buttons */}
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
-              {session ? (
-                <UserMenu session={session} signOut={signOut} />
-              ) : (
-                <div className="flex items-center space-x-4">
-                  <Link
-                    href="/login"
-                    className="px-6 py-2 border-2 border-orange-500 text-orange-500 font-semibold rounded-lg hover:bg-orange-500 hover:text-white transition-all duration-300 hover:shadow-md"
-                  >
-                    Login
-                  </Link>
-                  {/* <Link
-                    href="/auth/register"
-                    className="px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
-                  >
-                    Sign Up
-                  </Link> */}
-                </div>
-              )}
+              <UserMenu session={session} signOut={signOut} />
             </div>
           </div>
 

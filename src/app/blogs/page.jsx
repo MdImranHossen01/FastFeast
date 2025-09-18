@@ -1,9 +1,11 @@
 "use client";
-import {posts} from "./posts"
+import { posts } from "./posts";
 import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 // post variable
 // const posts = [
 //   {
@@ -107,9 +109,9 @@ import Link from "next/link";
 //   },
 // ];
 
-// 
+//
 
-// 
+//
 // export const posts = [
 //   {
 //     id: 1,
@@ -235,57 +237,63 @@ export default function BlogPage() {
   });
 
   return (
-    <main className="container mx-auto px-4 pb-8 pt-28 space-y-6">
-      <header className="mb-6 flex justify-between items-center space-y-6">
-        <div>
-          <h1 className="text-4xl font-extrabold py-5 bg-gradient-to-r from-red-700 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
-            {metadata.title}
-          </h1>
+    <div>
+      <Navbar />
 
-          <p className="text-gray-600">
-            {metadata.description}. Latest tips, rider guides and food ordering
-            news.
-          </p>
-        </div>
+      <main className="container mx-auto px-4 pb-8 pt-28 space-y-6">
+        <header className="mb-6 flex justify-between items-center space-y-6">
+          <div>
+            <h1 className="text-4xl font-extrabold py-5 bg-gradient-to-r from-red-700 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+              {metadata.title}
+            </h1>
 
-        <Link href={"/"}>
-          <button className="btn btn-outline text-orange-500 rounded-sm flex justify-center hover:bg-orange-600 hover:text-white">
-            <FaHome style={{ marginRight: "8px" }} className="" />{" "}
-            {/* The icon */}
-            Back to Home
-          </button>
-        </Link>
-      </header>
+            <p className="text-gray-600">
+              {metadata.description}. Latest tips, rider guides and food
+              ordering news.
+            </p>
+          </div>
 
-      <section className="flex gap-4 mb-6 items-center">
-        <input
-          type="text"
-          placeholder="Search articles..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="input input-bordered w-full max-w-md"
-        />
+          <Link href={"/"}>
+            <button className="btn btn-outline text-orange-500 rounded-sm flex justify-center hover:bg-orange-600 hover:text-white">
+              <FaHome style={{ marginRight: "8px" }} className="" />{" "}
+              {/* The icon */}
+              Back to Home
+            </button>
+          </Link>
+        </header>
 
-        <select
-          className="select select-bordered"
-          value={tag}
-          onChange={(e) => setTag(e.target.value)}
-        >
-          {allTags?.map((t, index) => (
-            <option key={`${t} - ${index}`} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
-      </section>
+        <section className="flex gap-4 mb-6 items-center">
+          <input
+            type="text"
+            placeholder="Search articles..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="input input-bordered w-full max-w-md"
+          />
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.length === 0 ? (
-          <div className="text-gray-500">No posts found.</div>
-        ) : (
-          filtered.map((p) => <BlogCard key={p.id} post={p} />)
-        )}
-      </section>
-    </main>
+          <select
+            className="select select-bordered"
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
+          >
+            {allTags?.map((t, index) => (
+              <option key={`${t} - ${index}`} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </section>
+
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.length === 0 ? (
+            <div className="text-gray-500">No posts found.</div>
+          ) : (
+            filtered.map((p) => <BlogCard key={p.id} post={p} />)
+          )}
+        </section>
+      </main>
+
+      <Footer />
+    </div>
   );
 }
