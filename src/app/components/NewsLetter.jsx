@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { FiMail, FiCheck, FiAlertCircle, FiArrowRight } from "react-icons/fi";
+import newsletterimage from '../../../public/newsLetter.jpg';
 
 export default function NewsletterPage() {
   const [email, setEmail] = useState("");
@@ -77,7 +78,7 @@ export default function NewsletterPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-amber-600/10 z-10"></div>
               {bgImageLoaded && (
                 <img
-                  src="/NewsLetter.jpg"
+                  src={newsletterimage.src}
                   alt="Delicious food selection"
                   className="w-full h-64 md:h-full object-cover"
                 />
