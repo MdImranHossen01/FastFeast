@@ -29,10 +29,10 @@ const cardsData = [
   },
 ];
 
-export default function Stat() {
+export default function Stats() {
   return (
     <section className="bg-base-200">
-      <div className="grid grid-cols-4 gap-5 container mx-auto py-10 ">
+      <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 container mx-auto py-10 ">
         {cardsData?.map((card) => (
           <div
             key={card.id}
