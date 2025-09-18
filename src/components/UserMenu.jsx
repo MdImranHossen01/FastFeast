@@ -31,7 +31,7 @@ export default function UserMenu({ session, signOut }) {
   return (
     <div>
       {!session ? (
-        <Link href="/login" className="btn bg-orange-400 text-white">
+        <Link href="/login" className="btn bg-gradient-to-r from-orange-500 to-orange-600 text-white">
           Login
         </Link>
       ) : (
@@ -42,7 +42,7 @@ export default function UserMenu({ session, signOut }) {
           <span>{session.user.name}</span>
           <button
             onClick={handleLogout}
-            className="btn bg-red-500 text-white"
+            className="btn bg-gradient-to-r from-orange-500 to-orange-600 text-white"
           >
             Logout
           </button>

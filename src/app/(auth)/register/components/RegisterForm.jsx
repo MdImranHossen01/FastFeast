@@ -152,7 +152,7 @@ export default function RegisterForm() {
               />
               <label
                 htmlFor="image"
-                className="absolute top-0 left-0 h-full px-4 py-2 bg-gray-600 text-white font-medium 
+                className="absolute top-0 left-0 h-full px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium 
                  rounded-l-md cursor-pointer flex items-center justify-center"
               >
                 Choose File
@@ -171,7 +171,7 @@ export default function RegisterForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-gray-600 text-white rounded-md"
+            className="w-full py-2 px-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-md"
           >
             {loading ? "Registering..." : "Register"}
           </button>
