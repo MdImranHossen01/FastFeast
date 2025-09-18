@@ -32,7 +32,7 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="navbar top-0 fixed z-50 h-20 bg-base-100 shadow-sm">
+    <nav className="navbar sticky top-0 z-50 h-20 bg-base-100 shadow-sm">
       <div className="flex container mx-auto">
         <div className="navbar-start">
           <Link href="/">
