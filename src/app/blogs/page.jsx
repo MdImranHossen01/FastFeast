@@ -1,5 +1,5 @@
 "use client";
-
+import {posts} from "./posts"
 import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
@@ -110,107 +110,107 @@ import Link from "next/link";
 // 
 
 // 
-const posts = [
-  {
-    id: 1,
-    title: "5 Best Street Foods in Dhaka",
-    excerpt:
-      "Discover the most delicious and affordable street foods you must try in Dhaka.",
-    content: "Full blog content here...",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeytqlniSPVJ1S8R4-QjsLFBLuEUWWqpOu4g&s",
-  },
-  {
-    id: 2,
-    title: "Why Online Food Delivery is Growing in Bangladesh",
-    excerpt:
-      "Food delivery apps are changing the way we eat. Here’s why the trend is booming.",
-    content: "Full blog content here...",
-    image:
-      "https://pressxpress.org/wp-content/uploads/2023/07/food-delivery-revolution-in-Bangladesh.jpg",
-  },
-  {
-    id: 3,
-    title: "Top 7 Biriyani Places in Dhaka You Can’t Miss",
-    excerpt:
-      "From old Dhaka to Banani, here are the best biriyani spots loved by locals.",
-    content: "Full blog content here...",
-    image:
-      "https://www.travelmate.com.bd/wp-content/uploads/2018/09/Kachchi-Biriyani.jpg.webp",
-  },
-  {
-    id: 4,
-    title: "Healthy Eating Tips for Busy Professionals",
-    excerpt:
-      "Quick, healthy, and affordable meals you can order online while working.",
-    content: "Full blog content here...",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlEUlxk1wxeKotX0Afr35YzZN_qTKneNMD2g&s",
-  },
-  {
-    id: 5,
-    title: "Best Midnight Food Delivery Services in Dhaka",
-    excerpt:
-      "Hungry at midnight? Here are the top food delivery apps that stay open late.",
-    content: "Full blog content here...",
-    image: "https://images.deliveryhero.io/image/fd-bd/LH/lfxp-listing.jpg",
-  },
-  {
-    id: 6,
-    title: "Top 10 Cafes in Dhaka for Students",
-    excerpt:
-      "Looking for budget-friendly cafes with Wi-Fi and cozy vibes? Here’s the list.",
-    content: "Full blog content here...",
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/5c/62/96/usually-open-to-restaurant.jpg",
-  },
-  {
-    id: 7,
-    title: "How to Save Money on Food Delivery",
-    excerpt:
-      "Tips and tricks to get discounts, promo codes, and free delivery offers.",
-    content: "Full blog content here...",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxybuDTnr4fFkof1W5Xw16YDVUvesQ1G_qg&s",
-  },
-  {
-    id: 8,
-    title: "Best Burgers in Dhaka You Must Try",
-    excerpt:
-      "From local favorites to international brands, these burgers are worth it.",
-    content: "Full blog content here...",
-    image: "https://miro.medium.com/v2/resize:fit:1400/1*EGTTGG0rJg4B0MyWDEwRHA.jpeg",
-  },
-  {
-    id: 9,
-    title: "Vegan and Vegetarian Restaurants in Dhaka",
-    excerpt:
-      "Plant-based food lovers will enjoy these healthy and tasty options.",
-    content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1543353071-10c8ba85a904",
-  },
-  {
-    id: 10,
-    title: "Food Delivery Safety Tips During Rainy Season",
-    excerpt:
-      "How to make sure your food stays safe and hygienic during heavy rains.",
-    content: "Full blog content here...",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-  },
-  {
-    id: 11,
-    title: "Traditional Bangladeshi Desserts You Can Order Online",
-    excerpt:
-      "From mishti d-oi to chomchom, discover where to order authentic sweets.",
-    content: "Full blog content here...",
-    image: "https://www.shutterstock.com/image-photo/semiya-payasammithai-keralasweet-seviyan-kheer-600nw-610030196.jpg",
-  },
-  {
-    id: 12,
-    title: "The Rise of Cloud Kitchens in Bangladesh",
-    excerpt:
-      "Ghost kitchens are changing the food industry – here’s what you need to know.",
-    content: "Full blog content here...",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiedVFajKLvOu6ZN1Gw3XhjpT970MUrCaJTQ&s",
-  },
-];
+// export const posts = [
+//   {
+//     id: 1,
+//     title: "5 Best Street Foods in Dhaka",
+//     excerpt:
+//       "Discover the most delicious and affordable street foods you must try in Dhaka.",
+//     content: "Full blog content here...",
+//     image:
+//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeytqlniSPVJ1S8R4-QjsLFBLuEUWWqpOu4g&s",
+//   },
+//   {
+//     id: 2,
+//     title: "Why Online Food Delivery is Growing in Bangladesh",
+//     excerpt:
+//       "Food delivery apps are changing the way we eat. Here’s why the trend is booming.",
+//     content: "Full blog content here...",
+//     image:
+//       "https://pressxpress.org/wp-content/uploads/2023/07/food-delivery-revolution-in-Bangladesh.jpg",
+//   },
+//   {
+//     id: 3,
+//     title: "Top 7 Biriyani Places in Dhaka You Can’t Miss",
+//     excerpt:
+//       "From old Dhaka to Banani, here are the best biriyani spots loved by locals.",
+//     content: "Full blog content here...",
+//     image:
+//       "https://www.travelmate.com.bd/wp-content/uploads/2018/09/Kachchi-Biriyani.jpg.webp",
+//   },
+//   {
+//     id: 4,
+//     title: "Healthy Eating Tips for Busy Professionals",
+//     excerpt:
+//       "Quick, healthy, and affordable meals you can order online while working.",
+//     content: "Full blog content here...",
+//     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlEUlxk1wxeKotX0Afr35YzZN_qTKneNMD2g&s",
+//   },
+//   {
+//     id: 5,
+//     title: "Best Midnight Food Delivery Services in Dhaka",
+//     excerpt:
+//       "Hungry at midnight? Here are the top food delivery apps that stay open late.",
+//     content: "Full blog content here...",
+//     image: "https://images.deliveryhero.io/image/fd-bd/LH/lfxp-listing.jpg",
+//   },
+//   {
+//     id: 6,
+//     title: "Top 10 Cafes in Dhaka for Students",
+//     excerpt:
+//       "Looking for budget-friendly cafes with Wi-Fi and cozy vibes? Here’s the list.",
+//     content: "Full blog content here...",
+//     image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/5c/62/96/usually-open-to-restaurant.jpg",
+//   },
+//   {
+//     id: 7,
+//     title: "How to Save Money on Food Delivery",
+//     excerpt:
+//       "Tips and tricks to get discounts, promo codes, and free delivery offers.",
+//     content: "Full blog content here...",
+//     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxybuDTnr4fFkof1W5Xw16YDVUvesQ1G_qg&s",
+//   },
+//   {
+//     id: 8,
+//     title: "Best Burgers in Dhaka You Must Try",
+//     excerpt:
+//       "From local favorites to international brands, these burgers are worth it.",
+//     content: "Full blog content here...",
+//     image: "https://miro.medium.com/v2/resize:fit:1400/1*EGTTGG0rJg4B0MyWDEwRHA.jpeg",
+//   },
+//   {
+//     id: 9,
+//     title: "Vegan and Vegetarian Restaurants in Dhaka",
+//     excerpt:
+//       "Plant-based food lovers will enjoy these healthy and tasty options.",
+//     content: "Full blog content here...",
+//     image: "https://images.unsplash.com/photo-1543353071-10c8ba85a904",
+//   },
+//   {
+//     id: 10,
+//     title: "Food Delivery Safety Tips During Rainy Season",
+//     excerpt:
+//       "How to make sure your food stays safe and hygienic during heavy rains.",
+//     content: "Full blog content here...",
+//     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+//   },
+//   {
+//     id: 11,
+//     title: "Traditional Bangladeshi Desserts You Can Order Online",
+//     excerpt:
+//       "From mishti d-oi to chomchom, discover where to order authentic sweets.",
+//     content: "Full blog content here...",
+//     image: "https://www.shutterstock.com/image-photo/semiya-payasammithai-keralasweet-seviyan-kheer-600nw-610030196.jpg",
+//   },
+//   {
+//     id: 12,
+//     title: "The Rise of Cloud Kitchens in Bangladesh",
+//     excerpt:
+//       "Ghost kitchens are changing the food industry – here’s what you need to know.",
+//     content: "Full blog content here...",
+//     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiedVFajKLvOu6ZN1Gw3XhjpT970MUrCaJTQ&s",
+//   },
+// ];
 
 const metadata = {
   title: "FastFeast Food Journal – Tradition Meets Delivery",

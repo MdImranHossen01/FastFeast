@@ -18,8 +18,8 @@ export default function Navbar() {
         <Link
           href={"/"}
           className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
-            pathname === "/" 
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md" 
+            pathname === "/"
+              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
               : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
           }`}
         >
@@ -30,8 +30,8 @@ export default function Navbar() {
         <Link
           href={"/blogs"}
           className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
-            pathname === "/blogs" 
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md" 
+            pathname === "/blogs"
+              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
               : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
           }`}
         >
@@ -42,8 +42,8 @@ export default function Navbar() {
         <Link
           href={"/about"}
           className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
-            pathname === "/about" 
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md" 
+            pathname === "/about"
+              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
               : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
           }`}
         >
@@ -54,8 +54,8 @@ export default function Navbar() {
         <Link
           href={"/contacts"}
           className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
-            pathname === "/contacts" 
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md" 
+            pathname === "/contacts"
+              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
               : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
           }`}
         >
