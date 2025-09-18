@@ -5,17 +5,21 @@ import Stats from "./components/Stats";
 import Services from "./components/Service";
 import CTASection from "./components/CTASection";
 import NewsLetter from "./components/NewsLetter";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
+      <Navbar />
       <Banner />
       <SpecialOffers />
       <FAQSection />
       <Stats />
-      <CTASection/>
+      <CTASection />
       <Services />
-      <NewsLetter/>
+      <NewsLetter />
+      <Footer />
     </>
   );
 }

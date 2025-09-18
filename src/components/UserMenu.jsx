@@ -16,12 +16,17 @@ export default function UserMenu({ session, signOut }) {
             <img src={user.photoUrl} className="w-8 h-8 rounded-full" />
           )}
           <span>{session.user.name}</span>
-          <button
+
+          <Link href={"/dashboard/admin"}>
+            <button className="btn bg-red-500 text-white">Dashboard</button>
+          </Link>
+
+          {/* <button
             onClick={() => signOut({ callbackUrl: "/" })}
             className="btn bg-red-500 text-white"
           >
             Logout
-          </button>
+          </button> */}
         </div>
       )}
     </div>
