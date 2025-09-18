@@ -3,10 +3,11 @@ import Logo from "@/components/logo";
 
 import food from "../../assets/aboutPage/foods.png";
 import Image from "next/image";
+import OurTeam from "./components/OurTeam";
 
 const AboutPage = () => {
   return (
-    <div className="">
+    <div className="bg-base-200">
       <section className="">
         {/* Banner section */}
         <div
@@ -72,6 +73,7 @@ const AboutPage = () => {
           </p>
         </div>
       </section>
+      <OurTeam/>
     </div>
   );
 };
