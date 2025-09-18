@@ -1,33 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiMail, FiCheck, FiAlertCircle, FiArrowRight } from "react-icons/fi";
 
 export default function NewsletterPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bgImageLoaded, setBgImageLoaded] = useState(false);
+
+  // Load any dynamic client-only values here to avoid hydration mismatch
+  useEffect(() => {
+    setBgImageLoaded(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     if (!email) {
       setMessage("Please enter an email address");
       setIsSubmitting(false);
       return;
     }
-    
+
     if (!/\S+@\S+\.\S+/.test(email)) {
       setMessage("Please enter a valid email address");
       setIsSubmitting(false);
       return;
     }
-    
+
     // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       setMessage("Subscribed successfully! You'll receive our food updates soon.");
       setEmail("");
     } catch (error) {
@@ -39,14 +45,13 @@ export default function NewsletterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-amber-100 py-16">
-      {/* Container aligned with the navbar */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
-        {/* Header section */}
+        {/* Header */}
         <div className="text-center mb-10">
           <motion.div
             initial={{ opacity: 0 }}
@@ -64,17 +69,19 @@ export default function NewsletterPage() {
           </p>
         </div>
 
-        {/* Main content with full-width background */}
+        {/* Main content */}
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full">
           <div className="md:flex">
             {/* Visual Section */}
             <div className="md:w-2/5 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-amber-600/10 z-10"></div>
-              <img
-                src="/NewsLetter.jpg"
-                alt="Delicious food selection"
-                className="w-full h-64 md:h-full object-cover"
-              />
+              {bgImageLoaded && (
+                <img
+                  src="/NewsLetter.jpg"
+                  alt="Delicious food selection"
+                  className="w-full h-64 md:h-full object-cover"
+                />
+              )}
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-20 bg-gradient-to-t from-black/70 to-transparent">
                 <h2 className="text-2xl font-bold mb-2">Foodie Community</h2>
                 <p className="text-sm opacity-90">Join thousands of food lovers who get exclusive offers</p>
@@ -96,7 +103,6 @@ export default function NewsletterPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Subscribe to Our Newsletter
               </h2>
-              
               <p className="text-gray-600 mb-6">
                 Get the latest food delivery updates, exclusive offers, and tasty blogs straight to your inbox!
               </p>
@@ -107,7 +113,7 @@ export default function NewsletterPage() {
                   "Exclusive discounts",
                   "New restaurant alerts",
                   "Weekly food guides",
-                  "Priority delivery slots"
+                  "Priority delivery slots",
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-center">
                     <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-2">
@@ -159,10 +165,12 @@ export default function NewsletterPage() {
 
               {/* Message */}
               {message && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`p-3 rounded-lg mb-6 flex items-start ${message.includes("successfully") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}
+                  className={`p-3 rounded-lg mb-6 flex items-start ${
+                    message.includes("successfully") ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
+                  }`}
                 >
                   {message.includes("successfully") ? (
                     <FiCheck className="mt-0.5 mr-2 flex-shrink-0" />
@@ -183,9 +191,6 @@ export default function NewsletterPage() {
             </div>
           </div>
         </div>
-
-       
-       
       </motion.div>
     </div>
   );
