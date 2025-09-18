@@ -39,7 +39,7 @@ export default function CTASection() {
                                 Would you like millions of new customers to enjoy your amazing food and groceries? Let's start our partnership today!
                             </p>
                             <button className="btn bg-gradient-to-r from-orange-600 to-orange-400 rounded-lg text-gray-700 text-xl p-7 mt-5">
-                                Become a Partner <FaArrowRight />
+                                Become a Rider <FaArrowRight />
                             </button>
                         </div>
                     </div>
