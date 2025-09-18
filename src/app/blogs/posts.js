@@ -10,13 +10,21 @@ export const posts = [
       in Old Dhaka to samosas in New Market, these foods represent our culture 
       and tradition. Street foods are not only tasty but also affordable and 
       popular among students, office workers, and tourists.
+      Dhaka’s streets are full of mouthwatering flavors. From fuchka and chotpoti 
+      in Old Dhaka to samosas in New Market, these foods represent our culture 
+      and tradition. Street foods are not only tasty but also affordable and 
+      popular among students, office workers, and tourists.
+      Dhaka’s streets are full of mouthwatering flavors. From fuchka and chotpoti 
+      in Old Dhaka to samosas in New Market, these foods represent our culture 
+      and tradition. Street foods are not only tasty but also affordable and 
+      popular among students, office workers, and tourists.
     `,
     coverImage:
-      "https://upload.wikimedia.org/wikipedia/commons/3/34/Fuchka_in_Dhaka.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1ymaadJ9CB7DeLu6_qOTw5iIMeHwnHB2Y5Q&s",
     gallery: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeytqlniSPVJ1S8R4-QjsLFBLuEUWWqpOu4g&s",
-      "https://images.unsplash.com/photo-1604908177412-3f1f49a5a3ec",
-      "https://images.unsplash.com/photo-1543779503-6d89a7efed4f"
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROFnqLJUsFyhFrFItAtMB4qDeKYVPCbEVIFA&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSPrOBhSl4C5IYaCGOUl92c-Fq74-6zMRIIg&s"
     ],
     author: "Foodie Blogger",
     publishDate: "2025-09-10",
@@ -35,12 +43,57 @@ export const posts = [
       a part of daily life. People prefer the convenience, discounts, and wide 
       variety of options. The COVID-19 pandemic also accelerated this trend, 
       making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
+      The rapid growth of internet and smartphones has made food delivery apps 
+      a part of daily life. People prefer the convenience, discounts, and wide 
+      variety of options. The COVID-19 pandemic also accelerated this trend, 
+      making home delivery a necessity.
     `,
     coverImage:
-      "https://pressxpress.org/wp-content/uploads/2023/07/food-delivery-revolution-in-Bangladesh.jpg",
+      "https://cosmosgroup.sgp1.digitaloceanspaces.com/news/9608160.webp",
     gallery: [
       "https://pressxpress.org/wp-content/uploads/2023/07/food-delivery-revolution-in-Bangladesh.jpg",
-      "https://images.unsplash.com/photo-1617196038435-9c1470f5a90f",
+      "https://www.shutterstock.com/image-photo/kochi-kerala-india-december-31-260nw-2250410503.jpg",
+      "https://cdn.bdnews24.com/bdnews24/media/bdnews24-english/import/media/2020/04/14/food-delivery-boy--130420-07.jpg"
     ],
     author: "Tech Enthusiast",
     publishDate: "2025-08-25",
@@ -58,12 +111,49 @@ export const posts = [
       Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
       Biriyani are legendary places where people line up for hours. 
       From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
+      Dhaka is heaven for biriyani lovers. Star Kabab, Fakhruddin, and Haji 
+      Biriyani are legendary places where people line up for hours. 
+      From kacchi to tehari, Dhaka offers a wide variety of flavors.
     `,
     coverImage:
       "https://www.travelmate.com.bd/wp-content/uploads/2018/09/Kachchi-Biriyani.jpg.webp",
     gallery: [
-      "https://www.travelmate.com.bd/wp-content/uploads/2018/09/Kachchi-Biriyani.jpg.webp",
-      "https://images.unsplash.com/photo-1617191517605-2e17c9d3d2ec",
+      "https://i.ytimg.com/vi/_BlBH9DVRMk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA7hSmQKsS3Zx4faotahMlz9Fw5-A",
+      "https://substackcdn.com/image/fetch/$s_!TDHi!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc1b8a744-53a9-4416-8cac-67ad801de2cb_450x450.jpeg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK1yu4OEbp5C52MwySvQzD6fzOP-i1Tg3Ayw&s",
+      "https://sultansdinebd.com/wp-content/uploads/2025/04/Dum-Biriyani-Sultans-Dine-Traditional-Restaurant-Bangladesh-Rice-Dish-5-1.webp",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdJcPLJP5SSJ-M2-N3Cj0kCMoi4DJkfymiGg&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUWHqkLctmTsYySrrzlLniV9glkQev4Wk8_mMf6w_IeAlORB-iKv5T2H527vdHluwi174&usqp=CAU"
     ],
     author: "Food Explorer",
     publishDate: "2025-09-01",
@@ -81,12 +171,71 @@ export const posts = [
       Professionals in Dhaka often struggle to maintain a balanced diet. 
       By choosing salads, grilled items, and homemade-style delivery options, 
       you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
+      Professionals in Dhaka often struggle to maintain a balanced diet. 
+      By choosing salads, grilled items, and homemade-style delivery options, 
+      you can stay healthy while working long hours.
     `,
     coverImage:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlEUlxk1wxeKotX0Afr35YzZN_qTKneNMD2g&s",
     gallery: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlEUlxk1wxeKotX0Afr35YzZN_qTKneNMD2g&s",
+      "https://static.ffx.io/images/$zoom_1%2C$multiply_0.3001%2C$ratio_1.777778%2C$width_1946%2C$x_0%2C$y_174/t_crop_custom/q_86%2Cf_auto/63006f64012884ee0392afd22a7f7e1c13e6a3d0",
       "https://images.unsplash.com/photo-1555939594-58d7cb561ad1",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlgt9MHdD_QO_6iR5b5C9DbhNPUc-1qFdLhQ&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFMtCM67XQWgSrkYoBhADyqGjhqfMiKXKDKw&s"
     ],
     author: "Nutrition Expert",
     publishDate: "2025-09-12",
@@ -103,13 +252,61 @@ export const posts = [
     details: `
       Midnight cravings are real! Many apps and restaurants in Dhaka 
       now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.Midnight cravings are real! Many apps and restaurants in Dhaka now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.Midnight cravings are real! Many apps and restaurants in Dhaka now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.Midnight cravings are real! Many apps and restaurants in Dhaka now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.Midnight cravings are real! Many apps and restaurants in Dhaka now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.Midnight cravings are real! Many apps and restaurants in Dhaka now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
+      meals at any hour.
+      Midnight cravings are real! Many apps and restaurants in Dhaka 
+      now deliver food 24/7. From burgers to biriyani, you can enjoy 
       meals at any hour.
     `,
     coverImage:
       "https://images.deliveryhero.io/image/fd-bd/LH/lfxp-listing.jpg",
     gallery: [
-      "https://images.deliveryhero.io/image/fd-bd/LH/lfxp-listing.jpg",
-      "https://images.unsplash.com/photo-1606788075761-3f2d3a9b9b7b",
+      "https://images.deliveryhero.io/image/fd-no/LH/musp-listing.jpg?width=400&height=225",
+      "https://www.tbsnews.net/sites/default/files/styles/infograph/public/images/2021/12/17/grubs.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdt53v33RGjX0JGfkGUYIes5nCkhiE6hl6eg&s"
     ],
     author: "Night Owl",
     publishDate: "2025-09-05",
@@ -128,13 +325,31 @@ export const posts = [
       and provide free Wi-Fi. From North End Coffee Roasters to cozy rooftop 
       cafes in Dhanmondi, these spots are perfect for study sessions, group 
       projects, or just relaxing with friends.
+      Students in Dhaka love hanging out in cafes that are affordable, cozy, 
+      and provide free Wi-Fi. From North End Coffee Roasters to cozy rooftop 
+      cafes in Dhanmondi, these spots are perfect for study sessions, group 
+      projects, or just relaxing with friends.
+      Students in Dhaka love hanging out in cafes that are affordable, cozy, 
+      and provide free Wi-Fi. From North End Coffee Roasters to cozy rooftop 
+      cafes in Dhanmondi, these spots are perfect for study sessions, group 
+      projects, or just relaxing with friends.
+      Students in Dhaka love hanging out in cafes that are affordable, cozy, 
+      and provide free Wi-Fi. From North End Coffee Roasters to cozy rooftop 
+      cafes in Dhanmondi, these spots are perfect for study sessions, group 
+      projects, or just relaxing with friends.
+      Students in Dhaka love hanging out in cafes that are affordable, cozy, 
+      and provide free Wi-Fi. From North End Coffee Roasters to cozy rooftop 
+      cafes in Dhanmondi, these spots are perfect for study sessions, group 
+      projects, or just relaxing with friends.
     `,
     coverImage:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/5c/62/96/usually-open-to-restaurant.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw8yStxMDAZjAWgjg2BvIXCiG0ar3OtngboQ&s",
     gallery: [
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/5c/62/96/usually-open-to-restaurant.jpg",
-      "https://images.unsplash.com/photo-1511920170033-f8396924c348",
-      "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0",
+      "https://laptopfriendly.co/images/places/dhaka/brutown-cafe/thumb_brutown-cafe--dhaka.jpg",
+      "https://prothomblog.com/wp-content/uploads/2022/11/Best-Coffee-Shops-in-Dhaka-1024x576.jpg",
+      "https://businessinspection.com.bd/wp-content/uploads/2024/08/12375278_1169906063029107_165510323467519058_o-1024x682.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Y88VX75VvCMOGIEE1xBYM4vHCryfn59nnA&s"
     ],
     author: "Student Blogger",
     publishDate: "2025-08-28",
@@ -153,12 +368,40 @@ export const posts = [
       But with promo codes, loyalty points, and using multiple apps 
       to compare prices, you can save a lot. 
       Also, ordering combo meals instead of single items helps reduce costs.
+      Food delivery can get expensive if you order frequently. 
+      But with promo codes, loyalty points, and using multiple apps 
+      to compare prices, you can save a lot. 
+      Also, ordering combo meals instead of single items helps reduce costs.
+      Food delivery can get expensive if you order frequently. 
+      But with promo codes, loyalty points, and using multiple apps 
+      to compare prices, you can save a lot. 
+      Also, ordering combo meals instead of single items helps reduce costs.
+      Food delivery can get expensive if you order frequently. 
+      But with promo codes, loyalty points, and using multiple apps 
+      to compare prices, you can save a lot. 
+      Also, ordering combo meals instead of single items helps reduce costs.
+      Food delivery can get expensive if you order frequently. 
+      But with promo codes, loyalty points, and using multiple apps 
+      to compare prices, you can save a lot. 
+      Also, ordering combo meals instead of single items helps reduce costs.
+      Food delivery can get expensive if you order frequently. 
+      But with promo codes, loyalty points, and using multiple apps 
+      to compare prices, you can save a lot. 
+      Also, ordering combo meals instead of single items helps reduce costs.
+      Food delivery can get expensive if you order frequently. 
+      But with promo codes, loyalty points, and using multiple apps 
+      to compare prices, you can save a lot. 
+      Also, ordering combo meals instead of single items helps reduce costs.
+      Food delivery can get expensive if you order frequently. 
+      But with promo codes, loyalty points, and using multiple apps 
+      to compare prices, you can save a lot. 
+      Also, ordering combo meals instead of single items helps reduce costs.
     `,
     coverImage:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxybuDTnr4fFkof1W5Xw16YDVUvesQ1G_qg&s",
     gallery: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxybuDTnr4fFkof1W5Xw16YDVUvesQ1G_qg&s",
-      "https://images.unsplash.com/photo-1611078489935-3e248d6a0eee",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3dJBJh5hsJKAKzNKQM0EBEsb8oKdtmmYMVw&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKeLnlOk9o9eRx6iGUH9TxGubB2Sb90VnPPw&s",
     ],
     author: "Smart Saver",
     publishDate: "2025-09-14",
@@ -181,8 +424,10 @@ export const posts = [
     coverImage:
       "https://miro.medium.com/v2/resize:fit:1400/1*EGTTGG0rJg4B0MyWDEwRHA.jpeg",
     gallery: [
-      "https://miro.medium.com/v2/resize:fit:1400/1*EGTTGG0rJg4B0MyWDEwRHA.jpeg",
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2B38ndaThtONn60ptQnaI-ZB6UsfW_LMINQ&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaz-WPNPrwDRL2tLSf3iwf3UGEwTIVhTdvOg&s",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/6c/01/a8/bee-and-bacon-burger.jpg?w=1200&h=1200&s=1",
+      "https://images.deliveryhero.io/image/fd-bd/LH/s3ma-listing.jpg"
     ],
     author: "Burger Lover",
     publishDate: "2025-09-08",
@@ -227,10 +472,12 @@ export const posts = [
       Avoid items that spoil quickly in humid weather.
     `,
     coverImage:
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/99/f7/2e/bahar-all-day-dining.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-      "https://images.unsplash.com/photo-1617191519409-d5b8b6a2f9c5",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCPH7YxZ1p168qn20yu-jHSYsRUcTcbI_j3Q&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4XG0xkYVejPSc_DhDly-XdvYq_LA9RDu05A&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIz8O6nQTJ2UR0YUxNtgtViPh19Qq3TI2t2A&s",
+      "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2022/07/22/food_photo_noor_1.jpg"
     ],
     author: "Safety Advisor",
     publishDate: "2025-07-30",
