@@ -8,7 +8,7 @@ export default function UserMenu({ session }) {
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
-    signOut(); 
+    signOut();
   };
 
   return (
@@ -44,7 +44,11 @@ export default function UserMenu({ session }) {
               strokeWidth="2"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </button>
 

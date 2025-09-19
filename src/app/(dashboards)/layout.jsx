@@ -1,7 +1,6 @@
 "use client";
 
 import Logo from "@/components/logo";
-import Link from "next/link";
 import React, { useState } from "react";
 import DashboardLinks from "./components/DashboardLinks";
 import { Menu, X } from "lucide-react";
@@ -19,9 +18,7 @@ export default function DashboardLayout({ children }) {
       >
         {/* Logo */}
         <div className="flex items-center justify-center h-16 border-b border-white/20">
-          <Link href={"/"}>
-            <Logo />
-          </Link>
+          <Logo />
         </div>
 
         {/* Links */}
