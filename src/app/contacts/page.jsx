@@ -1,5 +1,4 @@
 // File: app/contact/page.jsx
-
 import React from "react";
 
 const ContactsPage = () => {
