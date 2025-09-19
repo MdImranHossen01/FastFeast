@@ -75,9 +75,9 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center">
-                <Logo />
-              </Link>
+              {/* <Link href="/" className="flex items-center"> */}
+              <Logo />
+              {/* </Link> */}
             </div>
 
             {/* Desktop Navigation */}
