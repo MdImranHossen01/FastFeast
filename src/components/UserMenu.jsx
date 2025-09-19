@@ -36,8 +36,8 @@ export default function UserMenu({ session, signOut }) {
         </Link>
       ) : (
         <div className="flex items-center gap-2">
-          {session.user?.photoUrl && (
-            <img src={session.user.photoUrl} className="w-8 h-8 rounded-full" />
+          {session.user?.image && (
+            <img src={session.user.image} className="w-8 h-8 rounded-full" />
           )}
           <span>{session.user.name}</span>
           <button
