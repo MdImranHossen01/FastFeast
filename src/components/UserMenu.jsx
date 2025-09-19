@@ -41,10 +41,7 @@ export default function UserMenu({ session, signOut }) {
           )}
           <span>{session.user.name}</span>
 
-          <button
-            onClick={handleLogout}
-            className="btn bg-red-500 text-white"
-          >
+          <button onClick={handleLogout} className="btn bg-red-500 text-white">
             Logout
           </button>
         </div>
