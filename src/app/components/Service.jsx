@@ -1,30 +1,37 @@
+"use client";
 import React from "react";
+import {
+  FaMapMarkerAlt,
+  FaMobileAlt,
+  FaMotorcycle,
+  FaStore,
+} from "react-icons/fa";
 
 const servicesData = [
   {
     id: "01",
-
+    icon: <FaMapMarkerAlt className="w-8 h-8 text-white" />,
     title: "Real-Time Order Tracking",
     description:
       "Track your food order live with real-time GPS from kitchen to doorstep, see every movement instantly, follow accurate delivery timelines, and stay fully updated with safe and reliable status alerts.",
   },
   {
     id: "02",
-
+    icon: <FaMotorcycle className="w-8 h-8 text-white" />,
     title: "Fast Delivery by Riders",
     description:
       "Receive your meals quickly and safely from our trained delivery riders, enjoy smooth and timely drop-offs, get accurate arrival estimates, and experience fast and reliable food delivery every time.",
   },
   {
     id: "03",
-
+    icon: <FaMobileAlt className="w-8 h-8 text-white" />,
     title: "Online Food Ordering",
     description:
       "Browse restaurants and order your favorite meals with a simple online system, explore detailed menus easily, place orders within seconds, and enjoy a smooth and reliable ordering experience always.",
   },
   {
     id: "04",
-
+    icon: <FaStore className="w-8 h-8 text-white" />,
     title: "Restaurant Partnership",
     description:
       "Join our platform and grow your restaurant with seamless online tools, add and manage your menus easily, handle orders with full control, and build a trusted and reliable food business network.",
@@ -33,22 +40,22 @@ const servicesData = [
 
 export default function Services() {
   return (
-    <section className="container mx-auto py-5">
-      <h2 className="text-3xl font-bold text-center mb-8">Our Services</h2>
+    <section className="container mx-auto py-16 px-4">
+      <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {servicesData.map((service) => (
           <div
             key={service.id}
-            className="card text-white card-lg p-1 bg-gradient-to-r from-orange-500 to-yellow-500  shadow-sm"
+            className="bg-gradient-to-br from-orange-500 to-yellow-500 text-white rounded-2xl shadow-lg hover:shadow-2xl transform   transition hover:scale-105 duration-300 p-6 flex flex-col items-center text-center"
           >
-            <div className="card-body">
+            <div className="bg-white/20 rounded-full p-5 mb-5 hover:scale-110 transition duration-300">
               {service.icon}
-              <h2 className="text-2xl font-semibold text-center ">
-                {service.title}
-              </h2>
-              <p className=" ">{service.description}</p>
             </div>
+            <h2 className="text-xl font-semibold mb-3">{service.title}</h2>
+            <p className="text-base leading-relaxed max-w-xs">
+              {service.description}
+            </p>
           </div>
         ))}
       </div>
