@@ -31,19 +31,19 @@ export default function UserMenu({ session, signOut }) {
   return (
     <div>
       {!session ? (
-        <Link href="/login" className="btn bg-orange-400 text-white">
+        <Link href="/login" className="btn bg-gradient-to-r from-orange-500 to-orange-600 text-white">
           Login
         </Link>
       ) : (
         <div className="flex items-center gap-2">
-          {session.user?.photoUrl && (
-            <img src={session.user.photoUrl} className="w-8 h-8 rounded-full" />
+          {session.user?.image && (
+            <img src={session.user.image} className="w-8 h-8 rounded-full" />
           )}
           <span>{session.user.name}</span>
 
           <button
             onClick={handleLogout}
-            className="btn bg-red-500 text-white"
+            className="btn bg-gradient-to-r from-orange-500 to-orange-600 text-white"
           >
             Logout
           </button>
