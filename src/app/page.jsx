@@ -14,10 +14,10 @@ export default function Home() {
       <SpecialOffers />
       <FAQSection />
       <Stats />
-      <CTASection/>
+      <CTASection />
       <Services />
-      <PopularBlogs/>
-      <NewsLetter/>
+      <PopularBlogs />
+      <NewsLetter />
     </>
   );
 }
