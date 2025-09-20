@@ -446,12 +446,42 @@ export const posts = [
       now provide plant-based menus including vegan biriyani, salads, 
       smoothies, and more. These options are healthy, affordable, 
       and environment-friendly.
+      Veganism is slowly growing in Bangladesh. Some restaurants in Dhaka 
+      now provide plant-based menus including vegan biriyani, salads, 
+      smoothies, and more. These options are healthy, affordable, 
+      and environment-friendly.
+      Veganism is slowly growing in Bangladesh. Some restaurants in Dhaka 
+      now provide plant-based menus including vegan biriyani, salads, 
+      smoothies, and more. These options are healthy, affordable, 
+      and environment-friendly.
+      Veganism is slowly growing in Bangladesh. Some restaurants in Dhaka 
+      now provide plant-based menus including vegan biriyani, salads, 
+      smoothies, and more. These options are healthy, affordable, 
+      and environment-friendly.
+      Veganism is slowly growing in Bangladesh. Some restaurants in Dhaka 
+      now provide plant-based menus including vegan biriyani, salads, 
+      smoothies, and more. These options are healthy, affordable, 
+      and environment-friendly.
+      Veganism is slowly growing in Bangladesh. Some restaurants in Dhaka 
+      now provide plant-based menus including vegan biriyani, salads, 
+      smoothies, and more. These options are healthy, affordable, 
+      and environment-friendly.
+      Veganism is slowly growing in Bangladesh. Some restaurants in Dhaka 
+      now provide plant-based menus including vegan biriyani, salads, 
+      smoothies, and more. These options are healthy, affordable, 
+      and environment-friendly.
+      Veganism is slowly growing in Bangladesh. Some restaurants in Dhaka 
+      now provide plant-based menus including vegan biriyani, salads, 
+      smoothies, and more. These options are healthy, affordable, 
+      and environment-friendly.
     `,
     coverImage:
       "https://images.unsplash.com/photo-1543353071-10c8ba85a904",
     gallery: [
-      "https://images.unsplash.com/photo-1543353071-10c8ba85a904",
-      "https://images.unsplash.com/photo-1506086679524-493c64fdfaa6",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCPH7YxZ1p168qn20yu-jHSYsRUcTcbI_j3Q&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4XG0xkYVejPSc_DhDly-XdvYq_LA9RDu05A&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIz8O6nQTJ2UR0YUxNtgtViPh19Qq3TI2t2A&s",
+      "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2022/07/22/food_photo_noor_1.jpg",
     ],
     author: "Health Blogger",
     publishDate: "2025-08-20",
@@ -470,9 +500,49 @@ export const posts = [
       To ensure food safety, always order from reliable restaurants, 
       check packaging, and consume the food within recommended time. 
       Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
+      Rainy season brings a lot of challenges for food delivery. 
+      To ensure food safety, always order from reliable restaurants, 
+      check packaging, and consume the food within recommended time. 
+      Avoid items that spoil quickly in humid weather.
     `,
     coverImage:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/99/f7/2e/bahar-all-day-dining.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7y6VhrTOgM1HEHJxRmLe600IR9oXoh2z3YA&s",
     gallery: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCPH7YxZ1p168qn20yu-jHSYsRUcTcbI_j3Q&s",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4XG0xkYVejPSc_DhDly-XdvYq_LA9RDu05A&s",
@@ -496,12 +566,53 @@ export const posts = [
       Sweets like mishti doi, chomchom, roshogolla, and semai 
       are now available online through trusted sweet shops. 
       These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
+      Bangladeshi desserts are a true delight. 
+      Sweets like mishti doi, chomchom, roshogolla, and semai 
+      are now available online through trusted sweet shops. 
+      These traditional items are perfect for festivals and celebrations.
     `,
     coverImage:
-      "https://www.shutterstock.com/image-photo/semiya-payasammithai-keralasweet-seviyan-kheer-600nw-610030196.jpg",
+      "https://1.bp.blogspot.com/-nMvJO9CQT7Q/VHCIslr8XsI/AAAAAAAAAiQ/hu1kVfgnlZU/s1600/Bogra%2BPhoto%2B(4)%2B%2B21-11-14.jpg",
     gallery: [
-      "https://www.shutterstock.com/image-photo/semiya-payasammithai-keralasweet-seviyan-kheer-600nw-610030196.jpg",
-      "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cbb",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBxcFlMKUUMyMEFy9MzX7e7anSaJh2JrcxSA&s",
+      "https://cdn.daily-sun.com/public/news_images/2017/05/09/Daily-Sun-48-01-09-05-2017.jpg",
+      "https://thumbs.dreamstime.com/b/bengali-sweets-khir-toast-traditional-bangladesh-white-background-94468255.jpg",
+      "https://www.tasteatlas.com/Images/Dishes/b53ee1a62b704a36b63361822681ed47.jpg",
+      "https://www.shutterstock.com/image-photo/popular-bangladeshi-dessert-gulab-jamun-260nw-2570561961.jpg",
+      "https://www.shutterstock.com/image-photo/indian-bengali-sweet-called-rasogulla-260nw-2314823085.jpg",
+      "https://www.tasteatlas.com/images/dishes/2e24738e7ac843adbe7a1fa253449af7.jpg"
     ],
     author: "Sweet Tooth",
     publishDate: "2025-09-15",
@@ -520,12 +631,33 @@ export const posts = [
       They save money by avoiding dine-in facilities, which allows them to focus 
       on food quality and delivery speed. This trend is rapidly growing in Dhaka 
       and other cities in Bangladesh.
+      Cloud kitchens (also called ghost kitchens) are delivery-only restaurants. 
+      They save money by avoiding dine-in facilities, which allows them to focus 
+      on food quality and delivery speed. This trend is rapidly growing in Dhaka 
+      and other cities in Bangladesh.
+      Cloud kitchens (also called ghost kitchens) are delivery-only restaurants. 
+      They save money by avoiding dine-in facilities, which allows them to focus 
+      on food quality and delivery speed. This trend is rapidly growing in Dhaka 
+      and other cities in Bangladesh.
+      Cloud kitchens (also called ghost kitchens) are delivery-only restaurants. 
+      They save money by avoiding dine-in facilities, which allows them to focus 
+      on food quality and delivery speed. This trend is rapidly growing in Dhaka 
+      and other cities in Bangladesh.
+      Cloud kitchens (also called ghost kitchens) are delivery-only restaurants. 
+      They save money by avoiding dine-in facilities, which allows them to focus 
+      on food quality and delivery speed. This trend is rapidly growing in Dhaka 
+      and other cities in Bangladesh.
+      Cloud kitchens (also called ghost kitchens) are delivery-only restaurants. 
+      They save money by avoiding dine-in facilities, which allows them to focus 
+      on food quality and delivery speed. This trend is rapidly growing in Dhaka 
+      and other cities in Bangladesh.
     `,
     coverImage:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiedVFajKLvOu6ZN1Gw3XhjpT970MUrCaJTQ&s",
+      "https://backofhouse.io/hs-fs/hubfs/Imported_Blog_Media/pexels-rene-asmussen-2544829_agla1l-1.jpg?width=750&height=420&name=pexels-rene-asmussen-2544829_agla1l-1.jpg",
     gallery: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiedVFajKLvOu6ZN1Gw3XhjpT970MUrCaJTQ&s",
       "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnAar_JY2N8NYJxn8gBs-4U6GxkaW0EsMJDA&s"
     ],
     author: "Food Industry Analyst",
     publishDate: "2025-08-18",
