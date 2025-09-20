@@ -25,7 +25,7 @@ export default function BlogDetails() {
   return (
     <main className="container mx-auto px-4 py-12">
       {/* Cover Image */}
-      <div className="w-full h-72 md:h-[400px] overflow-hidden rounded-xl shadow-lg mb-8">
+      <div className="w-full h-72 md:h-[500px] overflow-hidden rounded-xl shadow-lg mb-8">
         <img
           src={post.coverImage || post.image}
           alt={post.title}
@@ -61,7 +61,7 @@ export default function BlogDetails() {
                 <img
                   src={img}
                   alt={`Gallery ${index}`}
-                  className="w-full h-48 object-cover hover:scale-105 transition-transform"
+                  className="w-full h-78 object-cover hover:scale-150 transition-transform"
                 />
               </div>
             ))}
