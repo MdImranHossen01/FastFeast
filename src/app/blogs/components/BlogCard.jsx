@@ -6,12 +6,12 @@ import { FaBookOpen } from "react-icons/fa";
 
 export default function BlogCard({ post }) {
   return (
-    <article className="card bg-base-100 shadow-md border border-slate-100 p-2">
+    <article className="card bg-base-200 hover:bg-white shadow-md border border-slate-100 p-2">
       <figure className="h-60 overflow-hidden">
         <img
           src={post.coverImage}
           alt={post.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover hover:scale-120 transition-transform"
         />
       </figure>
       <div className="card-body">
