@@ -4,6 +4,7 @@ import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
+// import getBlogs from "../actions/blogs/getBlogs";
 // post variable
 // const posts = [
 //   {
@@ -221,6 +222,9 @@ const metadata = {
 export default function BlogPage() {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");
+
+  // const blogs = await getBlogs();
+  // console.log(blogs);
 
   const allTags = ["All", ...new Set(posts.flatMap((p) => p.tags))];
 

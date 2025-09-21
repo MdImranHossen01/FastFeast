@@ -7,12 +7,12 @@ export async function GET() {
     const blogs = await blogsCollection.find().toArray();
 
     // Convert ObjectId to string so it's valid JSON
-    const cleanData = blogs.map((blog) => ({
-      ...blog,
-      _id: blog._id.toString(),
-    }));
+    // const cleanData = blogs.map((blog) => ({
+    //   ...blog,
+    //   _id: blog._id.toString(),
+    // }));
 
-    return Response.json(cleanData, { status: 200 });
+    return Response.json(blogs, { status: 200 });
   } catch (error) {
     return Response.json(
       { success: false, message: error.message },
