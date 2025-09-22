@@ -10,28 +10,28 @@ import {
 const servicesData = [
   {
     id: "01",
-    icon: <FaMapMarkerAlt className="w-8 h-8 text-white" />,
+    icon: <FaMapMarkerAlt className="w-8 h-8  " />,
     title: "Real-Time Order Tracking",
     description:
       "Track your food order live with real-time GPS from kitchen to doorstep, see every movement instantly, follow accurate delivery timelines, and stay fully updated with safe and reliable status alerts.",
   },
   {
     id: "02",
-    icon: <FaMotorcycle className="w-8 h-8 text-white" />,
+    icon: <FaMotorcycle className="w-8 h-8  " />,
     title: "Fast Delivery by Riders",
     description:
       "Receive your meals quickly and safely from our trained delivery riders, enjoy smooth and timely drop-offs, get accurate arrival estimates, and experience fast and reliable food delivery every time.",
   },
   {
     id: "03",
-    icon: <FaMobileAlt className="w-8 h-8 text-white" />,
+    icon: <FaMobileAlt className="w-8 h-8  " />,
     title: "Online Food Ordering",
     description:
       "Browse restaurants and order your favorite meals with a simple online system, explore detailed menus easily, place orders within seconds, and enjoy a smooth and reliable ordering experience always.",
   },
   {
     id: "04",
-    icon: <FaStore className="w-8 h-8 text-white" />,
+    icon: <FaStore className="w-8 h-8  " />,
     title: "Restaurant Partnership",
     description:
       "Join our platform and grow your restaurant with seamless online tools, add and manage your menus easily, handle orders with full control, and build a trusted and reliable food business network.",
@@ -47,9 +47,9 @@ export default function Services() {
         {servicesData.map((service) => (
           <div
             key={service.id}
-            className="bg-gradient-to-br from-orange-500 to-yellow-500 text-white rounded-2xl shadow-lg hover:shadow-2xl transform   transition hover:scale-105 duration-300 p-6 flex flex-col items-center text-center"
+            className="  rounded-2xl shadow-lg hover:shadow-xl transform   transition hover:translate-y-2 duration-300 p-6 flex flex-col items-center text-center"
           >
-            <div className="bg-white/20 rounded-full p-5 mb-5 hover:scale-110 transition duration-300">
+            <div className="  rounded-full p-5 mb-5 hover:scale-110  shadow-sm transition duration-300">
               {service.icon}
             </div>
             <h2 className="text-xl font-semibold mb-3">{service.title}</h2>
