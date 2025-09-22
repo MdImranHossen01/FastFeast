@@ -3,17 +3,16 @@
 export default async function getBlogs() {
   try {
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/blogs`, {
-      cache: "no-store",
-    });
+    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/blogs`);
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch data: ${res.status}`);
+      return [];
     }
 
     const data = await res.json();
     return data;
   } catch (error) {
-    return { success: false, message: error.message };
+    console.error("Error fetching data:", error.message);
+    return [];
   }
 }
