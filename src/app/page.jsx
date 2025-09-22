@@ -12,13 +12,13 @@ export default function Home() {
   return (
     <>
       <Banner />
-      <SpecialOffers/>
-      
+      <SpecialOffers />
+
       <Stats />
       <CTASection />
       <Services />
       <PopularBlogs />
-      <OurPartner/>
+      <OurPartner />
       <FAQSection />
       <NewsLetter />
     </>
