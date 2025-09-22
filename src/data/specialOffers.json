@@ -5,7 +5,7 @@
     "subtitle": "With fries & drink",
     "price": "৳199",
     "oldPrice": "৳299",
-    "img": "https://i.ibb.co/hxhmqdX3/grilled-burger-french-fries-food-generative-ai-188544-8516.jpg",
+    "img": "https://i.ibb.co.com/QFmnkYXX/burger.png",
     "badge": "25% OFF"
   },
   {
@@ -14,16 +14,17 @@
     "subtitle": "Large + 2 sides",
     "price": "৳499",
     "oldPrice": "৳699",
-    "img": "https://i.ibb.co/23XpTbwn/family-pizza-combo-20923330.jpg",
+    "img": "https://i.ibb.co.com/23t66ksn/pizza.png",
     "badge": "30% OFF"
   },
+
   {
     "id": 3,
     "title": "Sushi for Two",
     "subtitle": "12 pcs assorted",
     "price": "৳349",
     "oldPrice": "৳449",
-    "img": "https://i.ibb.co/dwXQsNSj/zvubrrjb3p611.jpg",
+    "img": "https://i.ibb.co.com/QFTLxZ6n/shusi.png",
     "badge": "20% OFF"
   },
   {
@@ -32,7 +33,7 @@
     "subtitle": "Fresh & crunchy",
     "price": "৳149",
     "oldPrice": "৳199",
-    "img": "https://i.ibb.co/jZ4CD64T/lunch-ideas.jpg",
+    "img": "https://i.ibb.co.com/YT34SyLS/salad.png",
     "badge": "25% OFF"
   },
   {
@@ -41,7 +42,7 @@
     "subtitle": "Eggs, toast & coffee",
     "price": "৳159",
     "oldPrice": "৳219",
-    "img": "https://i.ibb.co/CKD1wXCC/Breakfast-board28.jpg",
+    "img": "https://i.ibb.co.com/FbyTYJkh/brak.png",
     "badge": "28% OFF"
   },
   {
@@ -50,7 +51,7 @@
     "subtitle": "2 pastries + tea",
     "price": "৳89",
     "oldPrice": "৳129",
-    "img": "https://i.ibb.co/x8JKprC7/915ac0f5a12397193604fee28a3b6a3c.jpg",
+    "img": "https://i.ibb.co.com/67qjdq3w/tea.png",
     "badge": "31% OFF"
   }
 ]
