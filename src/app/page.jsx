@@ -6,17 +6,20 @@ import Services from "./components/Service";
 import CTASection from "./components/CTASection";
 import NewsLetter from "./components/NewsLetter";
 import PopularBlogs from "./components/PopularBlogs";
+import OurPartner from "./components/OurPartner";
 
 export default function Home() {
   return (
     <>
       <Banner />
       <SpecialOffers />
-      <FAQSection />
+      
       <Stats />
       <CTASection />
       <Services />
       <PopularBlogs />
+      <OurPartner/>
+      <FAQSection />
       <NewsLetter />
     </>
   );
