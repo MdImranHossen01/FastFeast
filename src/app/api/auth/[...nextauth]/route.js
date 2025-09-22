@@ -40,7 +40,7 @@ export const authOptions = {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
-          photoUrl: user.photoUrl,
+          image: user.photoUrl,
         };
       },
     }),
@@ -65,7 +65,7 @@ export const authOptions = {
             name: user.name,
             email: user.email,
             password: null,
-            photoUrl: user.image,
+            image: user.image,
             createdAt: new Date(),
             lastLogin: new Date(),
           });

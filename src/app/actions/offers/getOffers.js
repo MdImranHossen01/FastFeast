@@ -1,9 +1,9 @@
 "use server";
 
-export default async function getBlogs() {
+export default async function getOffers() {
   try {
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/blogs`);
+    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/offers`);
 
     if (!res.ok) {
       return [];

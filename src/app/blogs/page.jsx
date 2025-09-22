@@ -4,6 +4,7 @@ import BlogCard from "./components/BlogCard";
 import { FaHome } from "react-icons/fa";
 import { useState } from "react";
 import Link from "next/link";
+// import getBlogs from "../actions/blogs/getBlogs";
 // post variable
 // const posts = [
 //   {
@@ -222,6 +223,9 @@ export default function BlogPage() {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");
 
+  // const blogs = await getBlogs();
+  // console.log(blogs);
+
   const allTags = ["All", ...new Set(posts.flatMap((p) => p.tags))];
 
   const filtered = posts.filter((p) => {
@@ -279,7 +283,7 @@ export default function BlogPage() {
         </select>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filtered.length === 0 ? (
           <div className="text-gray-500">No posts found.</div>
         ) : (

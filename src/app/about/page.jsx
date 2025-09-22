@@ -3,8 +3,12 @@ import Logo from "@/components/logo";
 import food from "../../assets/aboutPage/foods.png";
 import Image from "next/image";
 import OurTeam from "./components/OurTeam";
+import getBlogs from "../actions/blogs/getBlogs";
 
-const AboutPage = () => {
+const AboutPage = async () => {
+  const blogs = await getBlogs();
+  console.log(blogs);
+  
   return (
     <div className="bg-base-200">
       <section className="">
@@ -52,7 +56,7 @@ const AboutPage = () => {
         </p>
       </section>
 
-      <section className="container mx-auto my-10 px-2">
+      <section data-aos="fade-left" className="container mx-auto my-10 px-2">
         <div className="container">
           <Logo />
           <h4 className="text-2xl font-bold my-4">

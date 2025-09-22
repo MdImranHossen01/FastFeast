@@ -3,8 +3,8 @@ import { collectionsName, dbConnect } from "@/lib/dbConnect";
 export async function GET() {
   try {
     // connect blogs collections
-    const blogsCollection = dbConnect(collectionsName.blogsCollection);
-    const blogs = await blogsCollection.find().toArray();
+    const offersCollection = dbConnect(collectionsName.offersCollection);
+    const offers = await offersCollection.find().toArray();
 
     // Convert ObjectId to string so it's valid JSON
     // const cleanData = blogs.map((blog) => ({
@@ -12,7 +12,7 @@ export async function GET() {
     //   _id: blog._id.toString(),
     // }));
 
-    return Response.json(blogs, { status: 200 });
+    return Response.json(offers, { status: 200 });
   } catch (error) {
     return Response.json(
       { success: false, message: error.message },
@@ -23,9 +23,9 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const blog = await req.json();
-    const blogsCollection = dbConnect(collectionsName.blogsCollection);
-    const result = await blogsCollection.insertOne(blog);
+    const offer = await req.json();
+    const offersCollection = dbConnect(collectionsName.offersCollection);
+    const result = await offersCollection.insertOne(offer);
 
     return Response.json(
       {
