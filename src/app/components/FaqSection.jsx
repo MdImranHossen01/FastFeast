@@ -43,10 +43,10 @@ export default function FAQSection() {
     <section className="py-16 md:py-24 transition-colors">
       <div className="mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
             Have questions about our food delivery service? We've got answers. 
             Here are some of the most common queries from our customers.
           </p>
