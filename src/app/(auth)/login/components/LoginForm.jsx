@@ -12,6 +12,7 @@ export default function LoginForm() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   const handleChange = (e) =>
@@ -21,12 +22,12 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-    });
-
+ const res = await signIn("credentials", {
+  redirect: false,
+  email: formData.email,
+  password: formData.password,
+  remember: rememberMe,
+});
     if (res.error) {
       Swal.fire("Error", res.error, "error");
     } else {
@@ -94,6 +95,24 @@ export default function LoginForm() {
             </div>
           </div>
 
+
+  <div className="flex justify-between">
+  <div className="flex items-center mt-2">
+  <input
+    type="checkbox"
+    checked={rememberMe}
+    onChange={() => setRememberMe(!rememberMe)}
+    className="h-4 w-4 text-orange-600 border-gray-300 rounded"
+  />
+  <label className="ml-2 text-sm text-gray-600 dark:text-gray-300">
+    Remember me
+  </label>
+</div>
+<Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
+  Forgot password?
+</Link>
+
+</div>
           <button
             type="submit"
             disabled={loading}
