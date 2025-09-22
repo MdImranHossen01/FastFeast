@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @plugin "daisyui";
+/* In globals.css or SpecialOffers.jsx */
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
 
 :root {
   --background: #ffffff;
