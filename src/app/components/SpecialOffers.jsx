@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import dynamic from "next/dynamic";
+import offersData from "../../data/specialOffers.json"; 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -37,63 +38,6 @@ function NextArrow(props) {
 }
 
 export default function SpecialOffers() {
-  const offers = [
-    {
-      id: 1,
-      title: "Classic Burger Combo",
-      subtitle: "With fries & drink",
-      price: "৳199",
-      oldPrice: "৳299",
-      img: "https://i.ibb.co/hxhmqdX3/grilled-burger-french-fries-food-generative-ai-188544-8516.jpg",
-      badge: "25% OFF",
-    },
-    {
-      id: 2,
-      title: "Family Pizza Deal",
-      subtitle: "Large + 2 sides",
-      price: "৳499",
-      oldPrice: "৳699",
-      img: "https://i.ibb.co/23XpTbwn/family-pizza-combo-20923330.jpg",
-      badge: "30% OFF",
-    },
-    {
-      id: 3,
-      title: "Sushi for Two",
-      subtitle: "12 pcs assorted",
-      price: "৳349",
-      oldPrice: "৳449",
-      img: "https://i.ibb.co/dwXQsNSj/zvubrrjb3p611.jpg",
-      badge: "20% OFF",
-    },
-    {
-      id: 4,
-      title: "Healthy Salad Box",
-      subtitle: "Fresh & crunchy",
-      price: "৳149",
-      oldPrice: "৳199",
-      img: "https://i.ibb.co/jZ4CD64T/lunch-ideas.jpg",
-      badge: "25% OFF",
-    },
-    {
-      id: 5,
-      title: "Breakfast Platter",
-      subtitle: "Eggs, toast & coffee",
-      price: "৳159",
-      oldPrice: "৳219",
-      img: "https://i.ibb.co/CKD1wXCC/Breakfast-board28.jpg",
-      badge: "28% OFF",
-    },
-    {
-      id: 6,
-      title: "Tea Time Sweets",
-      subtitle: "2 pastries + tea",
-      price: "৳89",
-      oldPrice: "৳129",
-      img: "https://i.ibb.co/x8JKprC7/915ac0f5a12397193604fee28a3b6a3c.jpg",
-      badge: "31% OFF",
-    },
-  ];
-
   const settings = {
     dots: true,
     infinite: true,
@@ -122,7 +66,7 @@ export default function SpecialOffers() {
 
       <div className="relative">
         <Slider {...settings}>
-          {offers.map((offer) => (
+          {offersData.map((offer) => (
             <div key={offer.id} className="px-2">
               <div className="card bg-base-100 shadow-lg overflow-hidden rounded-2xl transform transition-transform hover:scale-105 hover:shadow-2xl h-full flex flex-col">
                 <div className="relative h-48 md:h-56 lg:h-60 w-full overflow-hidden">
