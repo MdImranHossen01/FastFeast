@@ -57,7 +57,7 @@ export default function NewsletterPage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
+            transition={{ delay: 0.2, duration: 1.5 }}
             className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-500 text-white mb-4"
           >
             <FiMail className="text-2xl" />
@@ -71,10 +71,10 @@ export default function NewsletterPage() {
         </div>
 
         {/* Main content */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden w-full">
+        <div className="bg-white rounded-2xl shadow-md overflow-hidden w-full">
           <div className="md:flex">
             {/* Visual Section */}
-            <div className="md:w-2/5 relative">
+            <div className="md:w-3/5 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-amber-600/10 z-10"></div>
               {bgImageLoaded && (
                 <img
