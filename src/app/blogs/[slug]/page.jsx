@@ -61,7 +61,7 @@ export default function BlogDetails() {
                 <img
                   src={img}
                   alt={`Gallery ${index}`}
-                  className="w-full h-78 object-cover hover:scale-150 transition-transform"
+                  className="w-full h-78 object-cover hover:scale-110 transition-transform"
                 />
               </div>
             ))}
