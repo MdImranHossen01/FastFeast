@@ -3,9 +3,10 @@
 import Image from "next/image";
 import React from "react";
 import dynamic from "next/dynamic";
-import offersData from "../../data/specialOffers.json"; 
+import offersData from "../../data/specialOffers.json";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+// import getOffers from "../actions/offers/getOffers";
 
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
@@ -58,7 +59,9 @@ export default function SpecialOffers() {
   return (
     <section className="max-w-6xl mx-auto px-4 py-12">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-extrabold mb-2">Special Offers Just For You!</h1>
+        <h1 className="text-4xl font-extrabold mb-2">
+          Special Offers Just For You!
+        </h1>
         <p className="text-gray-500 text-lg">
           Grab your favorite meals at unbeatable prices. Limited time only!
         </p>
@@ -83,14 +86,20 @@ export default function SpecialOffers() {
                 <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="font-semibold text-lg">{offer.title}</h3>
-                    <p className="text-sm text-gray-500 mb-3">{offer.subtitle}</p>
+                    <p className="text-sm text-gray-500 mb-3">
+                      {offer.subtitle}
+                    </p>
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <div>
                       <div className="text-xl font-bold">{offer.price}</div>
-                      <div className="text-sm line-through text-gray-400">{offer.oldPrice}</div>
+                      <div className="text-sm line-through text-gray-400">
+                        {offer.oldPrice}
+                      </div>
                     </div>
-                    <button className="btn btn-sm btn-primary">Order Now</button>
+                    <button className="btn btn-sm btn-primary">
+                      Order Now
+                    </button>
                   </div>
                 </div>
               </div>
