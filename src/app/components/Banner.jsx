@@ -28,14 +28,14 @@ const sliderContent = [
     title: "Artisan Pizzas",
     description:
       "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
-    offer: "Buy 1 Get 1",
+    offer: "20% OFF",
     tagline: "Limited Time",
     cta: "Explore Menu",
   },
   {
     image:
       "https://images.unsplash.com/photo-1512152272829-e3139592d56f?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0",
-    title: "Fresh Sushi & Bowls",
+    title: "Fresh Sushi",
     description:
       "Expertly crafted rolls with the finest fish, delivered right to your door.",
     offer: "Free Delivery",
@@ -97,7 +97,7 @@ const Banner = () => {
                       transition={{ duration: 0.8, delay: 0.3 }}
                       className="mb-2 inline-block bg-orange-500/90 px-4 py-1 rounded-full text-sm font-semibold"
                     >
-                      🎉 Special Offer
+                      Special Offer
                     </motion.div>
 
                     <motion.h1
@@ -159,7 +159,9 @@ const Banner = () => {
                     <div className="relative w-64 h-64 bg-orange-500/10 rounded-full flex items-center justify-center backdrop-blur-md border border-orange-500/20">
                       <div className="w-52 h-52 bg-orange-500/5 rounded-full border border-orange-500/10"></div>
                       <div className="absolute text-white text-center">
-                        <span className="text-5xl font-bold">{slide.offer}</span>
+                        <span className="text-5xl font-bold">
+                          {slide.offer}
+                        </span>
                         <p className="text-sm mt-2">{slide.tagline}</p>
                       </div>
                     </div>
@@ -168,25 +170,8 @@ const Banner = () => {
               </div>
             </div>
 
-            {/* Bottom info */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.2 }}
-              className="absolute bottom-6 left-0 right-0"
-            >
-              <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-white/80 text-sm">
-                  <div className="flex items-center gap-6">
-                    <span>🔥 100% Fresh Ingredients</span>
-                    <span>⏱️ 30-min Delivery Guarantee</span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span>⭐ 4.9 (2,548 reviews)</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+           
+         
           </SwiperSlide>
         ))}
 
@@ -199,7 +184,12 @@ const Banner = () => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </div>
         <div className="custom-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/30 p-3 backdrop-blur-md hidden md:block">
@@ -210,7 +200,12 @@ const Banner = () => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </div>
 
