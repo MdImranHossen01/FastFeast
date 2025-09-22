@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Lottie from "lottie-react";
-import faqAnimation from "../../assets/faq-animation.json"; // Replace with your actual animation path
+import faqAnimation from "../../assets/faq-animation.json"; 
 
 const faqs = [
   {
@@ -33,15 +33,15 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(0); // Set first item open by default
+  const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="py-16 md:py-24 bg-base-100 transition-colors bg-gradient-to-br from-orange-50 to-amber-100 duration-300">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-24 transition-colors">
+      <div className="mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Frequently Asked Questions
@@ -51,33 +51,35 @@ export default function FAQSection() {
             Here are some of the most common queries from our customers.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Accordion Section */}
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className={`collapse collapse-arrow bg-base-200 dark:bg-base-300 border border-base-300 dark:border-base-200 transition-colors duration-300 ${
-                  openIndex === index ? "collapse-open" : "collapse-close"
-                }`}
+                className="border border-base-300 rounded-xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md"
               >
-                <input
-                  type="radio"
-                  name="faq-accordion"
-                  checked={openIndex === index}
-                  onChange={() => toggleFAQ(index)}
-                />
-                <div className="collapse-title text-xl font-medium text-gray-800 dark:text-gray-100">
-                  {faq.question}
-                </div>
-                <div className="collapse-content">
-                  <p className="text-gray-700 dark:text-gray-300">{faq.answer}</p>
+                <button
+                  className="w-full flex justify-between items-center p-5 text-lg font-medium text-gray-800 hover:text-orange-600 transition-colors"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  <span>{faq.question}</span>
+                  <span className="text-orange-500 text-2xl font-bold">
+                    {openIndex === index ? "−" : "+"}
+                  </span>
+                </button>
+                <div
+                  className={`px-5 pb-5 text-gray-700 transition-all duration-300 ${
+                    openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <p>{faq.answer}</p>
                 </div>
               </div>
             ))}
           </div>
-          
+
           {/* Lottie Animation Section */}
           <div className="hidden lg:block">
             <Lottie animationData={faqAnimation} loop={true} />
