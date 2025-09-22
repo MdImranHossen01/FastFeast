@@ -1,94 +1,70 @@
-// File: components/OurPartner.jsx
-
 "use client";
 
-import React from 'react';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper modules
-import { Autoplay, Pagination } from 'swiper/modules';
+import React from "react";
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from "swiper/react";
 
-// A simple array for partner logos. Replace with your actual data.
+import { Autoplay } from "swiper/modules";
+
+import "swiper/css";
+
+// Your partner logos array
 const partnerLogos = [
-  { src: 'https://i.ibb.co/L8DDdSn/niceresto.png', alt: 'Nice Resto Logo' },
-  { src: 'https://i.ibb.co/bJCbT5f/good-food.png', alt: 'Good Food Logo' },
-  { src: 'https://i.ibb.co/GQLD9GM/season-food.png', alt: 'Season Food Logo' },
-  { src: 'https://i.ibb.co/JqjT254/speedy-fork.png', alt: 'Speedy Fork Logo' },
-  { src: 'https://i.ibb.co/hK3kqt0/ecofood.png', alt: 'Ecofood Logo' },
-  // Add more logos if you want
-  { src: 'https://i.ibb.co/L8DDdSn/niceresto.png', alt: 'Nice Resto Logo' },
-  { src: 'https://i.ibb.co/bJCbT5f/good-food.png', alt: 'Good Food Logo' },
+  { src: "https://i.ibb.co/VcC54xRN/1.png", alt: "Partner Logo 1" },
+  { src: "https://i.ibb.co/fm2tYG4/2.png", alt: "Partner Logo 2" },
+  { src: "https://i.ibb.co/tTzpTRXx/3.png", alt: "Partner Logo 3" },
+  { src: "https://i.ibb.co/8Dtwjvjn/4.png", alt: "Partner Logo 4" },
+  { src: "https://i.ibb.co/LXJM9jKV/5.png", alt: "Partner Logo 5" },
+  { src: "https://i.ibb.co/sppkFvDq/6.png", alt: "Partner Logo 6" },
+  { src: "https://i.ibb.co/j9cR6QFK/7.png", alt: "Partner Logo 7" },
 ];
 
 const OurPartner = () => {
-    return (
-        <section className="bg-white py-12 lg:py-20">
-            <div className="container mx-auto px-4">
-                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-                    Our Partners
-                </h2>
-                <Swiper
-                    modules={[Autoplay, Pagination]}
-                    spaceBetween={30}
-                    loop={true}
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                    }}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    breakpoints={{
-                        // when window width is >= 320px
-                        320: {
-                            slidesPerView: 2,
-                            spaceBetween: 20,
-                        },
-                        // when window width is >= 768px
-                        768: {
-                            slidesPerView: 3,
-                            spaceBetween: 30,
-                        },
-                        // when window width is >= 1024px
-                        1024: {
-                            slidesPerView: 5,
-                            spaceBetween: 40,
-                        },
-                    }}
-                    className="mySwiper"
-                >
-                    {partnerLogos.map((logo, index) => (
-                        <SwiperSlide key={index}>
-                            <div className="flex items-center justify-center h-24">
-                                <img 
-                                    src={logo.src} 
-                                    alt={logo.alt} 
-                                    className="max-h-16 w-auto object-contain" 
-                                />
-                            </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
-            
-            {/* Custom styles for pagination bullets to match the image */}
-            <style jsx global>{`
-                .swiper-pagination-bullet {
-                    background-color: #fecaca !important; /* Lighter red/pink */
-                    width: 10px !important;
-                    height: 10px !important;
-                    opacity: 1 !important;
-                }
-                .swiper-pagination-bullet-active {
-                    background-color: #dc2626 !important; /* Darker red */
-                }
-            `}</style>
-        </section>
-    );
+  return (
+    <section className="bg-slate-50 py-16 sm:py-20">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+           Our Partner
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            We're proud to partner with a diverse range of restaurants and food
+            businesses to bring you the best culinary experiences.
+          </p>
+        </div>
+
+        {/* Swiper Carousel */}
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={30}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            320: { slidesPerView: 2, spaceBetween: 20 },
+            768: { slidesPerView: 4, spaceBetween: 30 },
+            1024: { slidesPerView: 5, spaceBetween: 40 },
+          }}
+          className="mySwiper"
+        >
+          {partnerLogos.map((logo, index) => (
+            <SwiperSlide key={index} className="cursor-pointer">
+              <div className="flex items-center justify-center h-24">
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="max-h-40 w-auto object-contain filter hover:grayscale-0 transition-all duration-300 hover:scale-110"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </section>
+  );
 };
 
 export default OurPartner;
