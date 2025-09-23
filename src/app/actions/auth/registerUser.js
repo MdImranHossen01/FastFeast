@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 
 export const registerUser = async (payload) => {
   const usersCollection = dbConnect(collectionsName.usersCollection);
-  const { email, password, name, imageFile } = payload;
+  const { email, password, name, photoUrl } = payload; // frontend sends the URL
 
   if (!email || !password) return { success: false };
 
@@ -15,31 +15,18 @@ export const registerUser = async (payload) => {
   // hash password
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // upload image on ImgBB
-  let photoUrl = null;
-  if (imageFile) {
-    const formData = new FormData();
-    formData.append("image", imageFile);
-
-    const res = await fetch(
-      `https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`,
-      { method: "POST", body: formData }
-    );
-    const data = await res.json();
-    photoUrl = data?.data?.url;
-  }
-
+  // insert user into DB
   const result = await usersCollection.insertOne({
     name,
     email,
     password: hashedPassword,
-    photoUrl,
+    photoUrl: photoUrl || null, // optional
     createdAt: new Date(),
     lastLogin: new Date(),
   });
 
   return {
-    acknowledged: result.acknowledged,
+    success: result.acknowledged,
     insertedId: result.insertedId.toString(),
   };
 };
