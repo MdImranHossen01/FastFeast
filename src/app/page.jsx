@@ -7,6 +7,7 @@ import NewsLetter from "./components/NewsLetter";
 import PopularBlogs from "./components/PopularBlogs";
 import OurPartner from "./components/OurPartner";
 import SpecialOffers from "./components/SpecialOffers";
+import CustomersReview from "./components/CustomersReview";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <PopularBlogs />
       <OurPartner />
       <FAQSection />
+      <CustomersReview/>
       <NewsLetter />
     </>
   );
