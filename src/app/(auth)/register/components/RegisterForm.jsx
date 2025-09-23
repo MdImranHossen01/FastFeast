@@ -1,11 +1,12 @@
 "use client";
 
+import { registerUser } from "@/app/actions/auth/registerUser";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
 
 export default function RegisterForm() {
@@ -13,7 +14,7 @@ export default function RegisterForm() {
     name: "",
     email: "",
     password: "",
-    image: null,
+    image: null, 
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -28,71 +29,75 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       let photoUrl = "";
 
-      // 1. Upload image to ImgBB
+      // Upload image to ImgBB if a file is selected
       if (formData.image) {
         const imgData = new FormData();
         imgData.append("image", formData.image);
-
         const res = await fetch(
           `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
           { method: "POST", body: imgData }
         );
-
         const data = await res.json();
-
         if (data.success) {
           photoUrl = data.data.url;
         } else {
-          alert("Image upload failed!");
+          Swal.fire("Error", "Image upload failed!", "error");
           setLoading(false);
           return;
         }
       }
 
-      // 2. Save user in DB
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          photoUrl,
-        }),
-      });
+           const result = await registerUser({
+           name: formData.name,
+           email: formData.email,
+           password: formData.password,
+           photoUrl, 
+         });
 
-      const result = await res.json();
 
-      if (res.error) {
-        Swal.fire("Error", res.error, "error");
-      } else {
+      if (result.success) {
         Swal.fire({
           icon: "success",
-          title: "Congratulations!",
-          text: `${formData.name}`,
-          timer: 2000,
-          showConfirmButton: false,
+          title: "Registration Successful",
+          text: "Your account has been created successfully!",
+          confirmButtonColor: "#2563eb",
         });
+        setFormData({ name: "", email: "", password: "", image: null });
         router.push("/login");
+      } 
+      else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: result.message || "Registration failed",
+          confirmButtonColor: "#dc2626",
+        });
       }
-    } catch (err) {
-      console.error("Error registering:", err);
-      alert("Something went wrong!");
-    } finally {
+    } 
+    catch (error) {
+      console.error("Register error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        text: "Something went wrong. Please try again later.",
+        confirmButtonColor: "#dc2626",
+      });
+    } 
+    finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">
           Create an Account
         </h1>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <input
@@ -146,14 +151,11 @@ export default function RegisterForm() {
                 readOnly
                 value={formData.image ? formData.image.name : ""}
                 placeholder="No file chosen"
-                className="w-full px-4 py-2 pl-32 border border-gray-300 dark:border-gray-600 
-                 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 
-                 focus:outline-none focus:ring-2"
+                className="w-full px-4 py-2 pl-32 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2"
               />
               <label
                 htmlFor="image"
-                className="absolute top-0 left-0 h-full px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium 
-                 rounded-l-md cursor-pointer flex items-center justify-center"
+                className="absolute top-0 left-0 h-full px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-medium rounded-l-md cursor-pointer flex items-center justify-center"
               >
                 Choose File
                 <input
@@ -176,6 +178,13 @@ export default function RegisterForm() {
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
+
+        <div className="flex items-center gap-4 my-6">
+          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+          <span className="text-gray-500 dark:text-gray-400 text-sm">or</span>
+          <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+        </div>
+
 
         {/* Google Sign In */}
         <button
