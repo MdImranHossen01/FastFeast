@@ -24,7 +24,7 @@ export default function RestaurantsCard({ restaurant }) {
     return stars;
   };
   return (
-    <div className=" ">
+    <div className="">
       <div className="card bg-base-100 shadow-md hover:shadow-lg hover:-translate-y-1   transition-transform  transition-shadow duration-300 cursor-pointer">
         {/* banner */}
         <figure>
@@ -67,7 +67,7 @@ export default function RestaurantsCard({ restaurant }) {
               {restaurant.cuisines.map((cuisine, i) => (
                 <div
                   key={i}
-                  className="badge mr-2 text-gray-700  border-gray-300  "
+                  className="badge px-2 mr-2  border border-gray-300 "
                 >
                   {cuisine}
                 </div>
@@ -93,7 +93,7 @@ export default function RestaurantsCard({ restaurant }) {
           </div>
 
           {/* menu preview */}
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             {/* menu */}
             <div className="  text-gray-700">
               {restaurant.menu.slice(0, 2).map((item, i) => (
@@ -103,20 +103,20 @@ export default function RestaurantsCard({ restaurant }) {
                     className="w-10  h-10 rounded-xl"
                     alt=""
                   />
-                  <span>{item.name}</span> <span>-</span>
+                  <span>{item.name}-</span>
                   <span className="flex items-center">
                     {item.price}
                     <TbCurrencyTaka />
                   </span>
                   {i === 1 && restaurant.menu.length > 1 && (
-                    <span className="font-bold">. . .</span>
+                    <span className="font-bold">...</span>
                   )}
                 </div>
               ))}
             </div>
             {/* view menu button */}
             <div className="card-actions   items-end">
-              <button className="flex  text-orange-500 items-center gap-2 hover:border-b   hover:translate-x-0.5 duration-300  ">
+              <button className="flex  text-orange-500 items-center gap-2 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5 duration-300  ">
                 View Menu <FaArrowRight className="" />
               </button>
             </div>
