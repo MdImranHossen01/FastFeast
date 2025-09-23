@@ -3,7 +3,7 @@ export const restaurants = [
     id: "rest_001",
     slug: "kacchi-bhai-dhanmondi",
     name: "Kacchi Bhai",
-    logo: "/images/restaurants/kacchi-bhai/logo.jpg",
+    logo: "https://i.ibb.co.com/1YFN5k3C/kacchi-bhai-2-logo.png",
     banner:
       "https://bestlistbd.com/wp-content/uploads/classified-listing/2021/09/177534213_311121510627014_6362311441237242299_n.jpg",
     rating: 4.6,
@@ -87,7 +87,7 @@ export const restaurants = [
     id: "rest_002",
     slug: "pizza-point-gulshan",
     name: "Pizza Point",
-    logo: "/images/restaurants/pizza-point/logo.jpg",
+    logo: "https://i.ibb.co.com/WWxNbFgt/pizza-point-3.png",
     banner:
       "https://www.fbgcdn.com/pictures/ba4249fb-fde9-4acf-8352-b158850379f9.jpg",
     rating: 4.3,
@@ -171,7 +171,7 @@ export const restaurants = [
     id: "rest_003",
     slug: "banani-bites",
     name: "Banani Bites",
-    logo: "/images/restaurants/banani-bites/logo.jpg",
+    logo: "https://i.ibb.co.com/7t409KqN/banani-bites-logo.png",
     banner:
       "https://mybayutcdn.bayut.com/mybayut/wp-content/uploads/Rolla-Sharjah-restaurants-021120.jpg",
     rating: 4.8,
@@ -253,7 +253,7 @@ export const restaurants = [
     id: "rest_004",
     slug: "burger-hub-mirpur",
     name: "Burger Hub",
-    logo: "/images/restaurants/burger-hub/logo.jpg",
+    logo: "https://i.ibb.co.com/tpHtwyVq/burger-hub-logo.png",
     banner:
       "https://mir-s3-cdn-cf.behance.net/projects/404/774f65184299217.Y3JvcCwxMDgwLDg0NCwwLDExNw.jpg",
     rating: 4.5,
@@ -336,7 +336,7 @@ export const restaurants = [
     id: "rest_005",
     slug: "thai-treats-uttara",
     name: "Time for Thai",
-    logo: "/images/restaurants/thai-treats/logo.jpg",
+    logo: "https://i.ibb.co.com/Z1LxGTdk/time-for-thai-logo.png",
     banner: "https://www.timeforthai.com.sg/img/timeforthai-mobile.jpg",
     rating: 4.4,
     reviewsCount: 143,
@@ -418,7 +418,7 @@ export const restaurants = [
     id: "rest_006",
     slug: "kebab-korner-bashundhara",
     name: "Kebab Korner",
-    logo: "/images/restaurants/kebab-korner/logo.jpg",
+    logo: "https://i.ibb.co.com/m5Dyyhr1/kebab-korner-logo.png",
     banner:
       "https://grub24s3.s3.eu-west-2.amazonaws.com/upload/1663654013-Bg-stevenage.webp",
     rating: 4.2,
@@ -501,7 +501,7 @@ export const restaurants = [
     id: "rest_007",
     slug: "sushi-senpai-banani",
     name: "Sushi Senpai",
-    logo: "/images/restaurants/sushi-senpai/logo.jpg",
+    logo: "https://i.ibb.co.com/pBsFLPkd/sushi-senpai-logo.png",
     banner:
       "https://static-content.owner.com/funnel/images/f4710469-8ac4-40dc-a1d0-f6982ca651f8?v=6325200261&w=3840&q=80&auto=format",
     rating: 4.7,
@@ -584,7 +584,7 @@ export const restaurants = [
     id: "rest_008",
     slug: "roll-express-mohakhali",
     name: "Roll Express",
-    logo: "/images/restaurants/roll-express/logo.jpg",
+    logo: "https://i.ibb.co.com/PG8Y7wnm/roll-express-logo.png",
     banner:
       "https://content3.jdmagicbox.com/comp/chandigarh/b9/0172px172.x172.180724182728.e3b9/catalogue/roll-express-chandigarh-sector-36d-chandigarh-fast-food-19mf5tu46g.jpg",
     rating: 4.1,
