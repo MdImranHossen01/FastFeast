@@ -49,7 +49,7 @@ export const restaurants = [
           "Traditional slow-cooked mutton biriyani with saffron and spices.",
         price: 250,
         category: "Main",
-        image: "/images/menu/kacchi-biriyani.jpg",
+        image: "https://i.ibb.co.com/BFYbKRr/download-2.jpg",
         massUnit: "plate",
         isAvailable: true,
       },
@@ -59,7 +59,7 @@ export const restaurants = [
         description: "Spiced yogurt drink, perfect with biriyani.",
         price: 60,
         category: "Beverage",
-        image: "/images/menu/borhani.jpg",
+        image: "https://i.ibb.co.com/N23Vq5gc/download-3.jpg",
         massUnit: "cup",
         isAvailable: true,
       },
@@ -128,7 +128,7 @@ export const restaurants = [
     menu: [
       {
         id: "m_pp_01",
-        name: "Cheese Pizza (Medium)",
+        name: "Cheese Pizza",
         description:
           "Classic hand-tossed pizza with mozzarella and special sauce.",
         price: 450,
