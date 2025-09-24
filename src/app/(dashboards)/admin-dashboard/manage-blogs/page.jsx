@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil, Trash2 } from "lucide-react";
-import AddBlogModal from "../modals/AddBlogModal"; // ✅ Import your new modal
+import AddBlogModal from "../modals/AddBlogModal"; 
 
 export default function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
