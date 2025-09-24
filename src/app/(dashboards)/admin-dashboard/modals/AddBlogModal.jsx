@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { v4 as uuidv4 } from "uuid";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription
 } from "@/components/ui/dialog";
 import { uploadToImgBB } from "@/utils/imageUpload";
 
@@ -13,6 +15,7 @@ import { uploadToImgBB } from "@/utils/imageUpload";
 export default function AddBlogModal({ onSave }) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
+    
     slug: "",
     title: "",
     excerpt: "",
@@ -73,9 +76,11 @@ export default function AddBlogModal({ onSave }) {
   const handleSubmit = () => {
     const blogData = {
       ...formData,
+      _id: formData._id || uuidv4(),
       tags: formData.tags.split(",").map((t) => t.trim()),
       visitCount: 0,
     };
+    console.log(blogData)
     onSave(blogData);
     setOpen(false);
   };
@@ -91,9 +96,16 @@ export default function AddBlogModal({ onSave }) {
 
   <Dialog open={open} onOpenChange={setOpen}>
     <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-      <DialogHeader>
-        <DialogTitle>Add New Blog</DialogTitle>
-      </DialogHeader>
+  <DialogHeader>
+    <DialogTitle>Add New Blog</DialogTitle>
+    <DialogDescription>
+      Fill out the details below to create a new blog post.
+    </DialogDescription>
+  </DialogHeader>
+
+ 
+
+
 
       <div className="space-y-3">
         {/* Slug */}
