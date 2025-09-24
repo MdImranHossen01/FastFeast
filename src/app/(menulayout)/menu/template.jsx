@@ -1,8 +1,11 @@
+import Banner from "./components/banner";
 import SidebarComponent from "./components/sidebar";
 
 const MenuLayout = ({children}) => {
     return (
-       <div className="flex flex-12 gap-2">
+    <div>
+        <Banner></Banner>
+  <div className="flex flex-12 gap-2">
         <div className="col-span-3">
             <SidebarComponent/>
         </div>
@@ -10,6 +13,8 @@ const MenuLayout = ({children}) => {
             {children}
         </div>
        </div>
+    </div>
+     
     );
 };
 
