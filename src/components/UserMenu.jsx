@@ -16,7 +16,7 @@ export default function UserMenu({ session }) {
       {!session ? (
         <Link
           href="/login"
-          className="btn bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl"
+          className="bg-orange-600 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-orange-700 text-lg"
         >
           Login
         </Link>
