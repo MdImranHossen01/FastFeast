@@ -81,8 +81,8 @@ export default function ManageBlogs() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-12">
-      <Card className="shadow-lg rounded-2xl">
+    <main className="container mx-auto">
+      <Card className="shadow-lg">
         <CardContent className="p-6">
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
