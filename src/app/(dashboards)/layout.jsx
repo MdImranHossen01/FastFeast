@@ -31,7 +31,9 @@ export default function DashboardLayout({ children }) {
       <div className="flex-1 flex flex-col">
         {/* Header */}
         <header className="h-16 bg-gradient-to-r from-gray-500 to-gray-400 flex items-center justify-between px-4 text-white shadow-md">
-          <h1 className="text-lg md:text-xl lg:text-2xl font-bold">Dashboard</h1>
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold">
+            Dashboard
+          </h1>
 
           {/* Mobile Menu Button */}
           <button
