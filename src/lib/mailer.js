@@ -12,7 +12,7 @@ export const sendResetEmail = async (to, token) => {
   });
 
   await transporter.sendMail({
-    from: `"My App" <${process.env.EMAIL_USER}>`,
+    from: `"FastFeast" <${process.env.EMAIL_USER}>`,
     to,
     subject: "Reset Your Password",
     html: `
