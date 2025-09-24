@@ -28,7 +28,7 @@ export default function BlogCard({ post }) {
             {post.author} · {post.date}
           </div>
           <Link
-            href={`/blogs/${post.slug}`}
+            href={`/blogs/${post._id}`}
             className="group inline-flex items-center gap-1 px-4 text-orange-500 transition hover:border-b-2 hover:border-orange-500"
           >
             Read More

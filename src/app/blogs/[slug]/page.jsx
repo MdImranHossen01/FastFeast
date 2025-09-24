@@ -8,7 +8,7 @@ import {posts} from "../posts"
 export default function BlogDetails() {
   const { slug } = useParams();
   // find post by slug
-  const post = posts.find((p) => p.slug === slug);
+  const post = posts.find((p) => p._id === slug);
   console.log(post)
 
   if (!post) {

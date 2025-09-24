@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil, Trash2 } from "lucide-react";
-import AddBlogModal from "../modals/AddBlogModal"; 
+import AddBlogModal from "../modals/AddBlogModal";
 
 export default function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
@@ -22,7 +22,12 @@ export default function ManageBlogs() {
         setLoading(false);
       }
     };
+
     fetchBlogs();
+  }, []);
+
+  useEffect(() => {
+    
   }, []);
 
   // ✅ Save Blog (Add or Update)
@@ -36,7 +41,9 @@ export default function ManageBlogs() {
           body: JSON.stringify(formValues),
         });
         setBlogs((prev) =>
-          prev.map((b) => (b._id === formValues._id ? { ...b, ...formValues } : b))
+          prev.map((b) =>
+            b._id === formValues._id ? { ...b, ...formValues } : b
+          )
         );
         Swal.fire("Updated!", "Blog updated successfully", "success");
       } else {
@@ -130,14 +137,16 @@ export default function ManageBlogs() {
                       </td>
                       <td className="p-3">{blog.category}</td>
                       <td className="p-3">{blog.author}</td>
-                      <td className="p-3 text-center">{blog.visitCount || 0}</td>
+                      <td className="p-3 text-center">
+                        {blog.visitCount || 0}
+                      </td>
                       <td className="p-3 flex justify-center gap-3">
                         <Button
                           size="sm"
                           variant="outline"
                           className="flex items-center gap-1"
-                          onClick={() =>
-                            handleSave({ ...blog, _id: blog._id }) // reuse modal save
+                          onClick={
+                            () => handleSave({ ...blog, _id: blog._id }) // reuse modal save
                           }
                         >
                           <Pencil className="w-4 h-4" /> Edit
