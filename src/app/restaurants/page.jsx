@@ -6,13 +6,14 @@ import { restaurants } from "./restaurants";
 export default function RestaurantsListing() {
   const [search, setSearch] = useState("");
   const [selectCuisine, setSelectCuisine] = useState("");
+  const [deliveryPrice, setDeliveryPrice] = useState("");
 
   // all cuisine
   const allCuisine = [
     ...new Set(restaurants.flatMap((restaurant) => restaurant.cuisines)),
   ];
 
-  const filteredRestaurants = restaurants.filter((restaurant) => {
+  let filteredRestaurants = restaurants.filter((restaurant) => {
     const matchesSearch = restaurant.name
       .toLocaleLowerCase()
       .includes(search.trim().toLocaleLowerCase());
@@ -21,31 +22,60 @@ export default function RestaurantsListing() {
       selectCuisine === "" || restaurant.cuisines.includes(selectCuisine);
     return matchesSearch && matchesCuisine;
   });
+
+  // sort by delivery price
+  if (deliveryPrice === "Highest") {
+    filteredRestaurants = [...filteredRestaurants].sort(
+      (a, b) => b.deliveryFee - a.deliveryFee
+    );
+  } else if (deliveryPrice === "Lowest") {
+    filteredRestaurants = [...filteredRestaurants].sort(
+      (a, b) => a.deliveryFee - b.deliveryFee
+    );
+  }
+
   return (
     <div className="mt-20 mb-5 container mx-auto px-4">
-      <div className="flex gap-5">
-        {/* search */}
-        <input
-          type="text"
-          placeholder="Search Restaurant"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="  input input-bordered shadow-xs p-2 mb-5 rounded  max-w-md  w-full"
-        />
-        {/*sort cuisine  */}
+      <div className="flex flex-col sm:justify-between sm:flex-row gap-5">
+        <div className="flex gap-5">
+          {/* search */}
+          <input
+            type="text"
+            placeholder="Search Restaurant"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="  input input-bordered shadow-xs p-2 mb-5 rounded  max-w-md   "
+          />
+          {/*sort cuisine  */}
+          <select
+            value={selectCuisine}
+            onChange={(e) => setSelectCuisine(e.target.value)}
+            className="select select-bordered  p-2 mb-5 rounded max-w-md   text-gray-500 shadow-xs"
+          >
+            <option value="">All Cuisines</option>
+            {allCuisine.map((cuisine, i) => (
+              <option key={i} value={cuisine} className="text-gray-700">
+                {cuisine}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* sort by delivery price */}
         <select
-          value={selectCuisine}
-          onChange={(e) => setSelectCuisine(e.target.value)}
-          className="select select-bordered  p-2 mb-5 rounded max-w-md w-full text-gray-500 shadow-xs"
+          value={deliveryPrice}
+          onChange={(e) => setDeliveryPrice(e.target.value)}
+          className="select select-bordered rounded max-w-m  text-gray-500 shadow-xs"
         >
           <option value="" className="text-gray-700">
-            All Cuisines
+            Sort by delivery Fee
           </option>
-          {allCuisine.map((cuisine, i) => (
-            <option key={i} value={cuisine} className="text-gray-700">
-              {cuisine}
-            </option>
-          ))}
+          <option className="text-gray-700" value="Highest">
+            Highest Delivery Fee
+          </option>
+          <option className="text-gray-700" value="Lowest">
+            Lowest Delivery Fee
+          </option>
         </select>
       </div>
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  justify-items-center">
