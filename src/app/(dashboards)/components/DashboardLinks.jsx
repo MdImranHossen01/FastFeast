@@ -51,6 +51,14 @@ export default function DashboardLinks() {
               Manage Restaurants
             </Link>
           </li>
+          <li>
+            <Link
+              href="/admin-dashboard/manage-blogs"
+              className={linkStyle("/admin-dashboard/manage-blogs")}
+            >
+              Manage Blogs
+            </Link>
+          </li>
         </>
       )}
       {/* customer links */}
