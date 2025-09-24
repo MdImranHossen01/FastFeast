@@ -52,6 +52,7 @@ export const restaurants = [
         image: "https://i.ibb.co.com/BFYbKRr/download-2.jpg",
         massUnit: "plate",
         isAvailable: true,
+        discount: 0,
       },
       {
         id: "m_kb_02",
@@ -62,6 +63,7 @@ export const restaurants = [
         image: "https://i.ibb.co.com/N23Vq5gc/download-3.jpg",
         massUnit: "cup",
         isAvailable: true,
+        discount: 5,
       },
       {
         id: "m_kb_03",
@@ -72,6 +74,7 @@ export const restaurants = [
         image: " ",
         massUnit: "plate",
         isAvailable: true,
+        discount: 10,
       },
     ],
     stats: {
@@ -136,6 +139,8 @@ export const restaurants = [
         image: " ",
         massUnit: "medium",
         isAvailable: true,
+        discount: 5,
+        bogo: null,
       },
       {
         id: "m_pp_02",
@@ -146,6 +151,8 @@ export const restaurants = [
         image: " ",
         massUnit: "plate",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
       {
         id: "m_pp_03",
@@ -156,6 +163,8 @@ export const restaurants = [
         image: " ",
         massUnit: "medium",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
     ],
     stats: {
@@ -219,6 +228,8 @@ export const restaurants = [
         image: " ",
         massUnit: "piece",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
       {
         id: "m_bb_02",
@@ -229,6 +240,8 @@ export const restaurants = [
         image: " ",
         massUnit: "cup",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
       {
         id: "m_bb_03",
@@ -239,6 +252,8 @@ export const restaurants = [
         image: " ",
         massUnit: "slice",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
     ],
     stats: {
@@ -301,6 +316,8 @@ export const restaurants = [
         image: " ",
         massUnit: "piece",
         isAvailable: true,
+        discount: 0,
+        bogo: { type: "Buy1Get1", freeQty: 1 },
       },
       {
         id: "m_bh_02",
@@ -311,6 +328,8 @@ export const restaurants = [
         image: " ",
         massUnit: "plate",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
       {
         id: "m_bh_03",
@@ -321,6 +340,8 @@ export const restaurants = [
         image: " ",
         massUnit: "piece",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
     ],
     stats: {
@@ -383,6 +404,8 @@ export const restaurants = [
         image: " ",
         massUnit: "plate",
         isAvailable: true,
+        discount: 10,
+        bogo: null,
       },
       {
         id: "m_tt_02",
@@ -393,6 +416,8 @@ export const restaurants = [
         image: " ",
         massUnit: "bowl",
         isAvailable: true,
+        discount: 0,
+        bogo: { type: "Buy1Get1", freeQty: 1 },
       },
       {
         id: "m_tt_03",
@@ -403,6 +428,8 @@ export const restaurants = [
         image: " ",
         massUnit: "plate",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
     ],
     stats: {
@@ -466,6 +493,8 @@ export const restaurants = [
         image: " ",
         massUnit: "plate",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
       {
         id: "m_kk_02",
@@ -476,6 +505,8 @@ export const restaurants = [
         image: " ",
         massUnit: "roll",
         isAvailable: true,
+        discount: 0,
+        bogo: { type: "Buy1Get1", freeQty: 1 },
       },
       {
         id: "m_kk_03",
@@ -486,6 +517,8 @@ export const restaurants = [
         image: " ",
         massUnit: "plate",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
     ],
     stats: {
@@ -549,6 +582,8 @@ export const restaurants = [
         image: " ",
         massUnit: "8 pcs",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
       {
         id: "m_ss_02",
@@ -559,6 +594,8 @@ export const restaurants = [
         image: " ",
         massUnit: "2 pcs",
         isAvailable: true,
+        discount: 10,
+        bogo: null,
       },
       {
         id: "m_ss_03",
@@ -569,6 +606,8 @@ export const restaurants = [
         image: " ",
         massUnit: "bowl",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
     ],
     stats: {
@@ -632,6 +671,8 @@ export const restaurants = [
         image: " ",
         massUnit: "piece",
         isAvailable: true,
+        discount: 0,
+        bogo: { type: "Buy1Get1", freeQty: 1 },
       },
       {
         id: "m_re_02",
@@ -642,6 +683,8 @@ export const restaurants = [
         image: " ",
         massUnit: "piece",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
       {
         id: "m_re_03",
@@ -652,6 +695,8 @@ export const restaurants = [
         image: " ",
         massUnit: "piece",
         isAvailable: true,
+        discount: 0,
+        bogo: null,
       },
     ],
     stats: {
