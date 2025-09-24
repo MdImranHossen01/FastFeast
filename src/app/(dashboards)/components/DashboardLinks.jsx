@@ -40,7 +40,7 @@ export default function DashboardLinks() {
               href="/admin-dashboard/manage-riders"
               className={linkStyle("/admin-dashboard/manage-riders")}
             >
-              Manage Users
+              Manage Riders
             </Link>
           </li>
           <li>
@@ -61,6 +61,7 @@ export default function DashboardLinks() {
           </li>
         </>
       )}
+
       {/* customer links */}
       {user.role === "customer" && (
         <>
