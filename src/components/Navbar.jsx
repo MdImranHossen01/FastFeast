@@ -17,11 +17,14 @@ export default function Navbar() {
       <li>
         <Link
           href={"/"}
-          className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
+          ${
             pathname === "/"
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
-              : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
-          }`}
+              ? "text-orange-500 after:w-full"
+              : "hover:after:w-full"
+          }
+        `}
         >
           Home
         </Link>
@@ -29,11 +32,14 @@ export default function Navbar() {
       <li>
         <Link
           href={"/blogs"}
-          className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
+          ${
             pathname === "/blogs"
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
-              : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
-          }`}
+              ? "text-orange-500 after:w-full"
+              : "hover:after:w-full"
+          }
+        `}
         >
           Blogs
         </Link>
@@ -41,11 +47,14 @@ export default function Navbar() {
       <li>
         <Link
           href={"/about"}
-          className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
+          ${
             pathname === "/about"
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
-              : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
-          }`}
+              ? "text-orange-500 after:w-full"
+              : "hover:after:w-full"
+          }
+        `}
         >
           About
         </Link>
@@ -53,25 +62,34 @@ export default function Navbar() {
       <li>
         <Link
           href={"/contacts"}
-          className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium ${
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
+          ${
             pathname === "/contacts"
-              ? "text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-md"
-              : "text-gray-700 hover:text-orange-500 hover:bg-gray-50"
-          }`}
+              ? "text-orange-500 after:w-full"
+              : "hover:after:w-full"
+          }
+        `}
         >
           Contact Us
         </Link>
       </li>
       <li>
-        <Link href={"/admin-dashboard"}>Dashboard</Link>
+        <Link
+          href={"/admin-dashboard"}
+          className="relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full"
+        >
+          Dashboard
+        </Link>
       </li>
     </>
   );
 
   if (!pathname.includes("dashboard")) {
     return (
-      <nav className="w-full fixed top-0 z-50 bg-white shadow-lg border-b border-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="w-full fixed top-0 z-50 bg-white shadow-lg border-b border-gray-100 py-1">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
