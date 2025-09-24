@@ -11,7 +11,7 @@ import CustomersReview from "./components/CustomersReview";
 
 export default function Home() {
   return (
-    <>
+    <div className="pt-18">
       <Banner />
       <SpecialOffers />
 
@@ -21,8 +21,8 @@ export default function Home() {
       <PopularBlogs />
       <OurPartner />
       <FAQSection />
-      <CustomersReview/>
+      <CustomersReview />
       <NewsLetter />
-    </>
+    </div>
   );
 }
