@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil, Trash2 } from "lucide-react";
-import AddBlogModal from "../modals/AddBlogModal"; // ✅ Import your new modal
+import AddBlogModal from "../modals/AddBlogModal"; 
 
 export default function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
@@ -81,8 +81,8 @@ export default function ManageBlogs() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-12">
-      <Card className="shadow-lg rounded-2xl">
+    <main className="container mx-auto">
+      <Card className="shadow-lg">
         <CardContent className="p-6">
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">

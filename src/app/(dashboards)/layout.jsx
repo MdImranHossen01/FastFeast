@@ -9,10 +9,10 @@ export default function DashboardLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-900">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`fixed md:static top-0 left-0 h-screen w-64 bg-gradient-to-r from-orange-300 to-orange-200 text-white shadow-lg z-50 
+        className={`fixed md:static top-0 left-0 h-screen w-64 bg-gradient-to-r from-gray-500 to-gray-400 text-white shadow-lg z-50 
         transform transition-transform duration-300 
         ${menuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
@@ -30,8 +30,10 @@ export default function DashboardLayout({ children }) {
       {/* Main Area */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="h-16 bg-gradient-to-r from-orange-500 to-orange-300 flex items-center justify-between px-4 text-white shadow-md">
-          <h1 className="text-lg md:text-xl font-semibold">Dashboard</h1>
+        <header className="h-16 bg-gradient-to-r from-gray-500 to-gray-400 flex items-center justify-between px-4 text-white shadow-md">
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold">
+            Dashboard
+          </h1>
 
           {/* Mobile Menu Button */}
           <button
@@ -47,7 +49,7 @@ export default function DashboardLayout({ children }) {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   );
