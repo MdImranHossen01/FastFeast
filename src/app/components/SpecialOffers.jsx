@@ -92,7 +92,11 @@ export default function SpecialOffers() {
                         stroke="currentColor"
                         className="w-5 h-5"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12l-7.5 7.5M21 12H3" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5L21 12l-7.5 7.5M21 12H3"
+                        />
                       </svg>
                     </button>
                   </div>
