@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-900">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
         className={`fixed md:static top-0 left-0 h-screen w-64 bg-gradient-to-r from-gray-500 to-gray-400 text-white shadow-lg z-50 
@@ -49,7 +49,7 @@ export default function DashboardLayout({ children }) {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   );
