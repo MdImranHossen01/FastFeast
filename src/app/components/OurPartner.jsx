@@ -25,10 +25,10 @@ const OurPartner = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
            Our Partner
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
             We're proud to partner with a diverse range of restaurants and food
             businesses to bring you the best culinary experiences.
           </p>
