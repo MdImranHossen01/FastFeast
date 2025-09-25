@@ -34,7 +34,7 @@ export default function SpecialOffersSlider({ offers }) {
       <Slider {...settings}>
         {offers.map((offer) => (
           <div key={offer.id}>
-            <div className="relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-gray-900 min-h-[400px]">
+            <div className="relative rounded-xl flex flex-col md:flex-row overflow-hidden min-h-[400px] bg-gray-600">
               {/* Image */}
               <div className="relative w-full md:w-1/2 h-64 md:h-auto">
                 <Image

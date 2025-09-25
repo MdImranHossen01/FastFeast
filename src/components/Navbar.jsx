@@ -17,7 +17,7 @@ export default function Navbar() {
       <li>
         <Link
           href={"/"}
-          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-800 transition-all duration-300 hover:text-orange-500
           after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
           ${
             pathname === "/"
@@ -32,7 +32,7 @@ export default function Navbar() {
       <li>
         <Link
           href={"/blogs"}
-          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-800 transition-all duration-300 hover:text-orange-500
           after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
           ${
             pathname === "/blogs"
@@ -47,7 +47,7 @@ export default function Navbar() {
       <li>
         <Link
           href={"/about"}
-          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-800 transition-all duration-300 hover:text-orange-500
           after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
           ${
             pathname === "/about"
@@ -62,7 +62,7 @@ export default function Navbar() {
       <li>
         <Link
           href={"/contacts"}
-          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-800 transition-all duration-300 hover:text-orange-500
           after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
           ${
             pathname === "/contacts"
@@ -77,7 +77,7 @@ export default function Navbar() {
       <li>
         <Link
           href={"/restaurants"}
-          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-800 transition-all duration-300 hover:text-orange-500
           after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
           ${
             pathname === "/restaurants"
@@ -92,7 +92,7 @@ export default function Navbar() {
       <li>
         <Link
           href={"/admin-dashboard"}
-          className="relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          className="relative text-lg font-medium tracking-wide px-3 py-2 text-gray-800 transition-all duration-300 hover:text-orange-500
           after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full"
         >
           Dashboard
@@ -103,8 +103,8 @@ export default function Navbar() {
 
   if (!pathname.includes("dashboard")) {
     return (
-      <nav className="w-full fixed top-0 z-50 bg-white shadow-md py-1">
-        <div className="max-w-[1500px] mx-auto px-4 lg:px-0">
+      <nav className="w-full fixed top-0 z-50 bg-gray-200 shadow-md py-1">
+        <div className="container mx-auto px-4 lg:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">

@@ -66,7 +66,7 @@ export default function PopularBlogs() {
           Discover our most-read blogs, handpicked by our readers. Stay updated
           with the latest trends, guides, and stories from food, lifestyle, and
           beyond.
-        </p>g
+        </p>
       </div>
 
       {/* Blog Cards */}
