@@ -47,13 +47,12 @@ export default function Services() {
         {servicesData.map((service) => (
           <div
             key={service.id}
-            data-aos="fade-up"
-            className="bg-white  rounded-2xl shadow-md hover:shadow-xl transform   transition hover:translate-y-2 duration-300 p-6 flex flex-col items-center text-center border border-gray-100"
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl transform transition hover:translate-y-2 duration-300 p-6 flex flex-col items-center text-center border border-gray-100"
           >
-            <div className="bg-amber-50  rounded-full p-6 mb-4 hover:scale-110 text-orange-500 shadow-sm transition duration-300">
+            <div className="bg-amber-50 rounded-full p-6 mb-4 hover:scale-110 text-orange-500 shadow-sm transition duration-300">
               {service.icon}
             </div>
-            <h2 className="text-xl text-orange-500 font-semibold mb-2">
+            <h2 className="text-xl text-orange-500 font-bold mb-2">
               {service.title}
             </h2>
             <p className="text-gray-700 leading-relaxed max-w-xs">
