@@ -11,10 +11,10 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 
 // Slider images & content
+
 const sliderContent = [
   {
-    image:
-      "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=876&auto=format&fit=crop&ixlib=rb-4.1.0",
+    image: "https://i.ibb.co.com/tTFzQcc0/burger.png",
     title: "Gourmet Burgers",
     description:
       "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
@@ -23,8 +23,7 @@ const sliderContent = [
     cta: "Order Now",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0",
+    image: "https://i.ibb.co.com/dRQ5rSp/pizza.png",
     title: "Artisan Pizzas",
     description:
       "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
@@ -33,8 +32,7 @@ const sliderContent = [
     cta: "Explore Menu",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1512152272829-e3139592d56f?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0",
+    image: "https://i.ibb.co.com/HTRgS6Cv/sushi.png",
     title: "Fresh Sushi",
     description:
       "Expertly crafted rolls with the finest fish, delivered right to your door.",
@@ -95,7 +93,7 @@ const Banner = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.3 }}
-                      className="mb-2 inline-block bg-orange-500/90 px-4 py-1 rounded-full text-sm font-semibold"
+                      className="mb-2 inline-block bg-orange-600/90 px-4 py-1 rounded-full text-sm font-semibold"
                     >
                       Special Offer
                     </motion.div>
@@ -125,7 +123,7 @@ const Banner = () => {
                       className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6"
                     >
                       <div className="flex items-center">
-                        <span className="text-3xl font-bold text-orange-400">
+                        <span className="text-3xl font-bold text-orange-500">
                           {slide.offer}
                         </span>
                         <span className="ml-2 text-white/90">
@@ -140,7 +138,7 @@ const Banner = () => {
                       transition={{ duration: 0.5, delay: 0.9 }}
                       className="flex flex-wrap gap-4"
                     >
-                      <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer">
+                      <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
                         {slide.cta}
                       </button>
                       <button className="border border-white/30 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 backdrop-blur-sm cursor-pointer">

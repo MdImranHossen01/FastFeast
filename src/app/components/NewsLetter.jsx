@@ -61,9 +61,8 @@ export default function NewsletterPage() {
           >
             <FiMail className="text-2xl" />
           </motion.div>
-          <h1 className="text-3xl lg:text-4xl font-bold">
-            Never Miss a <span className="text-orange-500">Delicious</span>{" "}
-            Update
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-4">
+            Never Miss a <span className="text-orange-500">Delicious</span> Update
           </h1>
           <p className="mt-2 text-gray-600">
             Join our foodie community and get exclusive access to new restaurant
@@ -98,7 +97,7 @@ export default function NewsletterPage() {
                       ></div>
                     ))}
                   </div>
-                  <div className="text-xs bg-white text-gray-800 px-2 py-1 rounded-full">
+                  <div className="text-xs bg-white text-gray-700 px-2 py-1 rounded-full">
                     +5k subscribers
                   </div>
                 </div>
