@@ -11,10 +11,10 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 
 // Slider images & content
+
 const sliderContent = [
   {
-    image:
-      "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?q=80&w=876&auto=format&fit=crop&ixlib=rb-4.1.0",
+    image: "https://i.ibb.co.com/tTFzQcc0/burger.png",
     title: "Gourmet Burgers",
     description:
       "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
@@ -23,8 +23,7 @@ const sliderContent = [
     cta: "Order Now",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0",
+    image: "https://i.ibb.co.com/dRQ5rSp/pizza.png",
     title: "Artisan Pizzas",
     description:
       "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
@@ -33,8 +32,7 @@ const sliderContent = [
     cta: "Explore Menu",
   },
   {
-    image:
-      "https://images.unsplash.com/photo-1512152272829-e3139592d56f?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0",
+    image: "/sushi.png",
     title: "Fresh Sushi",
     description:
       "Expertly crafted rolls with the finest fish, delivered right to your door.",
