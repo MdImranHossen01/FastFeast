@@ -86,17 +86,23 @@ export default function Restaurant({ restaurants }) {
             placeholder="Search Restaurant"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="  input input-bordered shadow-xs p-2     rounded   lg:w-[170px]  "
+            className="bg-white  input input-bordered shadow-xs p-2     rounded   lg:w-[170px]  "
           />
           {/*sort cuisine  */}
           <select
             value={selectCuisine}
             onChange={(e) => setSelectCuisine(e.target.value)}
-            className="select select-bordered  p-2    rounded   lg:w-[155px]  text-gray-500 shadow-xs"
+            className="select bg-white select-bordered  p-2    rounded   lg:w-[155px]  text-gray-500 shadow-xs"
           >
-            <option value="">All Cuisines</option>
+            <option className="bg-white" value="">
+              All Cuisines
+            </option>
             {allCuisine.map((cuisine, i) => (
-              <option key={i} value={cuisine} className="text-gray-700">
+              <option
+                key={i}
+                value={cuisine}
+                className="text-gray-700 bg-white"
+              >
                 {cuisine}
               </option>
             ))}
@@ -108,15 +114,15 @@ export default function Restaurant({ restaurants }) {
           <select
             value={deliveryPrice}
             onChange={(e) => setDeliveryPrice(e.target.value)}
-            className="select select-bordered rounded  lg:w-[155px]  text-gray-500 shadow-xs"
+            className="select select-bordered bg-white rounded  lg:w-[155px]  text-gray-500 shadow-xs"
           >
-            <option value="" className="text-gray-700">
+            <option value="" className="text-gray-700 bg-white">
               Delivery Fee
             </option>
-            <option className="text-gray-700" value="Highest">
+            <option className="text-gray-700 bg-white" value="Highest">
               Highest Delivery Fee
             </option>
-            <option className="text-gray-700" value="Lowest">
+            <option className="text-gray-700 bg-white" value="Lowest">
               Lowest Delivery Fee
             </option>
           </select>
@@ -125,15 +131,15 @@ export default function Restaurant({ restaurants }) {
           <select
             value={deliveryTime}
             onChange={(e) => setDeliveryTime(e.target.value)}
-            className="select select-bordered rounded  lg:w-[155px]  text-gray-500 shadow-xs"
+            className="select select-bordered rounded bg-white lg:w-[155px]  text-gray-500 shadow-xs"
           >
-            <option value="" className="text-gray-700">
+            <option value="" className="text-gray-700 bg-white">
               Delivery Time
             </option>
-            <option className="text-gray-700" value="Fastest">
+            <option className="text-gray-700 bg-white" value="Fastest">
               Fastest Delivery
             </option>
-            <option className=" text-gray-700" value="Slowest">
+            <option className=" text-gray-700 bg-white" value="Slowest">
               Slowest Delivery
             </option>
           </select>
@@ -141,18 +147,18 @@ export default function Restaurant({ restaurants }) {
           <select
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
-            className="select select-bordered      rounded  lg:w-[155px]   text-gray-500 shadow-xs"
+            className="select select-bordered  bg-white    rounded  lg:w-[155px]   text-gray-500 shadow-xs"
           >
-            <option className="text-gray-700" value="">
+            <option className="text-gray-700 bg-white" value="">
               Price Range
             </option>
-            <option className="text-gray-700" value="High">
+            <option className="text-gray-700 bg-white" value="High">
               High
             </option>
-            <option className="text-gray-700" value="Medium">
+            <option className="text-gray-700 bg-white" value="Medium">
               Medium
             </option>
-            <option className="text-gray-700" value="Low">
+            <option className="text-gray-700 bg-white" value="Low">
               Low
             </option>
           </select>
