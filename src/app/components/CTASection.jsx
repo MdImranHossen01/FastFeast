@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default function CTASection() {
   return (
-    <section className="py-10">
+    <section className="py-8 lg:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="grid grid-cols-3 gap-5 rounded-2xl p-5 hover:shadow-xl">
           <figure className="">

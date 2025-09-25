@@ -38,8 +38,8 @@ export default function Stats() {
   });
 
   return (
-    <section ref={ref}>
-      <div className="text-center max-w-md mx-auto text-gray-900">
+    <section ref={ref} className="py-8 lg:py-12">
+      <div className="text-center max-w-lg mx-auto text-gray-900 mb-12">
         <h1 className="text-3xl lg:text-4xl font-bold ">Our Stats</h1>
         <p>
           From serving happy customers to expanding our reach, these numbers
