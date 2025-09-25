@@ -48,7 +48,7 @@ export default function Stats() {
         </p>
       </div>
 
-      <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 py-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 py-10 ">
         {cardsData?.map((card) => (
           <div
             key={card.id}
