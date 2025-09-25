@@ -41,8 +41,10 @@ const servicesData = [
 export default function Services() {
   return (
     <section className="py-8 lg:py-12">
-      <div className="text-center max-w-lg mx-auto text-gray-900 mb-12">
-        <h1 className="text-3xl lg:text-4xl font-bold">Our Services</h1>
+      <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
+        <h1 className="text-3xl lg:text-4xl font-bold">
+          Our <span className="text-orange-500">Services</span>
+        </h1>
         <p className="mt-2 text-gray-600">
           We provide fast, reliable, and hassle-free food delivery with a focus
           on quality and customer satisfaction. From easy ordering to quick
@@ -54,9 +56,9 @@ export default function Services() {
         {servicesData.map((service) => (
           <div
             key={service.id}
-            className="  rounded-2xl shadow-lg hover:shadow-xl transform   transition hover:translate-y-2 duration-300 p-6 flex flex-col items-center text-center"
+            className="bg-gray-100 rounded-2xl shadow-lg hover:shadow-xl transform transition hover:translate-y-2 duration-300 p-6 flex flex-col items-center text-center"
           >
-            <div className="  rounded-full p-5 mb-5 hover:scale-110  shadow-sm transition duration-300">
+            <div className="rounded-full p-5 mb-5 hover:scale-110 shadow-sm transition duration-300">
               {service.icon}
             </div>
             <h2 className="text-xl font-semibold mb-3">{service.title}</h2>

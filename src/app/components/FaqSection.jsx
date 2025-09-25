@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Lottie from "lottie-react";
-import faqAnimation from "../../assets/faq-animation.json"; 
+import faqAnimation from "../../assets/faq-animation.json";
 
 const faqs = [
   {
@@ -40,14 +40,15 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-16 md:py-24 transition-colors">
+    <section className="py-8 lg:py-12 transition-all">
       <div className="mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
+          <h1 className="text-3xl lg:text-4xl font-bold">
             Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Have questions about our food delivery service? We've got answers. 
+          </h1>
+          <p className="mt-2 text-gray-600">
+            Have questions about our food delivery service? We've got answers.
             Here are some of the most common queries from our customers.
           </p>
         </div>
@@ -71,7 +72,9 @@ export default function FAQSection() {
                 </button>
                 <div
                   className={`px-5 pb-5 text-gray-700 transition-all duration-300 ${
-                    openIndex === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    openIndex === index
+                      ? "max-h-96 opacity-100"
+                      : "max-h-0 opacity-0"
                   }`}
                 >
                   <p>{faq.answer}</p>

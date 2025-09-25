@@ -33,7 +33,9 @@ export default function NewsletterPage() {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      setMessage("Subscribed successfully! You'll receive our food updates soon.");
+      setMessage(
+        "Subscribed successfully! You'll receive our food updates soon."
+      );
       setEmail("");
     } catch (error) {
       setMessage("Subscription failed. Please try again.");
@@ -43,15 +45,14 @@ export default function NewsletterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-amber-100 py-16">
+    <div className="min-h-screen flex items-center justify-center py-8 lg:py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
-        {/* Header */}
-        <div className="text-center mb-10">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -60,12 +61,13 @@ export default function NewsletterPage() {
           >
             <FiMail className="text-2xl" />
           </motion.div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Never Miss a <span className="text-orange-500">Delicious</span> Update
+          <h1 className="text-3xl lg:text-4xl font-bold">
+            Never Miss a <span className="text-orange-500">Delicious</span>{" "}
+            Update
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Join our foodie community and get exclusive access to new restaurant openings,
-            special discounts, and culinary insights.
+          <p className="mt-2 text-gray-600">
+            Join our foodie community and get exclusive access to new restaurant
+            openings, special discounts, and culinary insights.
           </p>
         </div>
 
@@ -109,8 +111,8 @@ export default function NewsletterPage() {
                 Subscribe to Our Newsletter
               </h2>
               <p className="text-gray-600 mb-6">
-                Get the latest food delivery updates, exclusive offers, and tasty blogs
-                straight to your inbox!
+                Get the latest food delivery updates, exclusive offers, and
+                tasty blogs straight to your inbox!
               </p>
 
               {/* Benefits list */}
@@ -213,8 +215,8 @@ export default function NewsletterPage() {
               {/* Privacy Note */}
               <div className="border-t pt-6">
                 <p className="text-xs text-gray-500 text-center">
-                  We respect your privacy. Unsubscribe at any time. By subscribing, you
-                  agree to our{" "}
+                  We respect your privacy. Unsubscribe at any time. By
+                  subscribing, you agree to our{" "}
                   <a href="#" className="text-orange-500 hover:underline">
                     Terms
                   </a>{" "}
