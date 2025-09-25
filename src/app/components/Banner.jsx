@@ -140,10 +140,10 @@ const Banner = () => {
                       transition={{ duration: 0.5, delay: 0.9 }}
                       className="flex flex-wrap gap-4"
                     >
-                      <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                      <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer">
                         {slide.cta}
                       </button>
-                      <button className="border border-white/30 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 backdrop-blur-sm">
+                      <button className="border border-white/30 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 backdrop-blur-sm cursor-pointer">
                         Learn More
                       </button>
                     </motion.div>

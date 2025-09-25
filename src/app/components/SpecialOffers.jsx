@@ -7,7 +7,7 @@ export default async function SpecialOffers() {
   return (
     <section className="py-14 bg-slate-50">
       <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
           Special Offers
         </h2>
         <p className="text-gray-600 mt-2">

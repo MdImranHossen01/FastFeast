@@ -35,16 +35,24 @@ export default function Stats() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.5,
-  })
-  // console.log(inView);
-  //bg-gradient-to-r from-orange-600 to-orange-400
+  });
+
   return (
-    <section ref={ref} className="bg-base-200 px-4">
-      <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 container mx-auto py-10 ">
+    <section ref={ref}>
+      <div className="text-center max-w-md mx-auto text-gray-900">
+        <h1 className="text-3xl lg:text-4xl font-bold ">Our Stats</h1>
+        <p>
+          From serving happy customers to expanding our reach, these numbers
+          reflect the milestones that define our journey. Every stat is a story
+          of trust, growth, and dedication.
+        </p>
+      </div>
+
+      <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 py-10 ">
         {cardsData?.map((card) => (
           <div
             key={card.id}
-            className="bg-white flex flex-col items-center p-5 rounded-xl hover:shadow-2xl shadow-lg"
+            className="bg-white flex flex-col items-center p-5 rounded-xl hover:shadow-2xl shadow-lg transition-all duration-200"
           >
             <figure className="flex-1">
               <img src={card?.image} alt="" className="max-w-[150px] " />
