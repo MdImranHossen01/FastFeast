@@ -58,7 +58,7 @@ export default function PopularBlogs() {
   return (
     <section className="py-8 lg:py-12">
       {/* Header */}
-      <div className="text-center max-w-lg mx-auto text-gray-900 mb-12">
+      <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
         <h1 className="text-3xl lg:text-4xl font-bold">
           Popular <span className="text-orange-500">Blogs</span>
         </h1>
@@ -91,22 +91,14 @@ export default function PopularBlogs() {
       </div>
 
       {/* Show All button */}
-      <motion.div
-        className="flex justify-center mt-12"
-        initial={{ y: 50, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <div>
-          <Link
-            href="/blogs"
-            className="flex items-center gap-2 px-6 py-3 hover:bg-orange-500 hover:text-white text-orange-600 rounded-lg bg-none transition"
-          >
-            Show All <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </motion.div>
+      <div className="flex items-center justify-center pt-12">
+        <Link
+          href="/blogs"
+          className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-lg bg-none hover:shadow-2xl transition-all duration-200 hover:font-semibold"
+        >
+          Show All <ArrowRight className="w-5 h-5" />
+        </Link>
+      </div>
     </section>
   );
 }

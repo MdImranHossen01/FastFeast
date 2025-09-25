@@ -46,7 +46,7 @@ export default function SpecialOffersSlider({ offers }) {
               </div>
 
               {/* Content */}
-              <div className="flex flex-col justify-center p-8 md:p-12 w-full md:w-1/2 text-white relative">
+              <div className="bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 flex flex-col justify-center p-8 md:p-12 w-full md:w-1/2 text-white relative">
                 {offer.badge && (
                   <span className="self-start bg-orange-500 text-white font-semibold px-3 py-1 rounded-md text-xs mb-4">
                     {offer.badge}
@@ -70,7 +70,7 @@ export default function SpecialOffersSlider({ offers }) {
                     )}
                   </div>
 
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2 cursor-pointer">
                     Order Now
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

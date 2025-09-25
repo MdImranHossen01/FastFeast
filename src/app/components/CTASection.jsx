@@ -5,7 +5,7 @@ export default function CTASection() {
   return (
     <section className="py-8 lg:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="grid grid-cols-3 gap-5 rounded-2xl p-5 hover:shadow-xl">
+        <div className="bg-gray-100 grid grid-cols-3 gap-5 rounded-2xl p-5 hover:shadow-xl">
           <figure className="">
             <img
               src="delivary_boy_taking_food.webp"
@@ -32,7 +32,7 @@ export default function CTASection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-5 rounded-2xl p-5 hover:shadow-xl">
+        <div className="bg-gray-100 grid grid-cols-3 gap-5 rounded-2xl p-5 hover:shadow-xl">
           <figure className="">
             <img
               src="rider_man.webp"

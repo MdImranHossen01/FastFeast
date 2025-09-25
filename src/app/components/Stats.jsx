@@ -39,8 +39,10 @@ export default function Stats() {
 
   return (
     <section ref={ref} className="py-8 lg:py-12">
-      <div className="text-center max-w-lg mx-auto text-gray-900 mb-12">
-        <h1 className="text-3xl lg:text-4xl font-bold ">Our Stats</h1>
+      <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
+        <h1 className="text-3xl lg:text-4xl font-bold ">
+          Our <span className="text-orange-500">Stats</span>
+        </h1>
         <p>
           From serving happy customers to expanding our reach, these numbers
           reflect the milestones that define our journey. Every stat is a story
@@ -52,7 +54,7 @@ export default function Stats() {
         {cardsData?.map((card) => (
           <div
             key={card.id}
-            className="bg-white flex flex-col items-center p-5 rounded-xl hover:shadow-2xl shadow-lg transition-all duration-200"
+            className="bg-gray-100 flex flex-col items-center p-5 rounded-xl hover:shadow-2xl shadow-lg transition-all duration-200"
           >
             <figure className="flex-1">
               <img src={card?.image} alt="" className="max-w-[150px] " />
