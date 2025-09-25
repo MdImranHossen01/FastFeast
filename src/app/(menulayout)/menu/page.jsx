@@ -1,7 +1,9 @@
+
+
 const ManeuPage = () => {
     return (
         <div>
-            <h1>This is manue page</h1>
+         <h1>imran</h1>
         </div>
     );
 };
