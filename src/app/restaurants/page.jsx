@@ -8,6 +8,7 @@ export default function RestaurantsListing() {
   const [selectCuisine, setSelectCuisine] = useState("");
   const [deliveryPrice, setDeliveryPrice] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
+  const [priceRange, setPriceRange] = useState("");
 
   // convert min to number
   const foodDelivery = (timeStr) => {
@@ -56,23 +57,44 @@ export default function RestaurantsListing() {
     );
   }
 
+  // sort by price range
+
+  // calculate average price
+  const averagePrice = (menu) => {
+    if (!menu || menu.length === 0) return 0;
+    const total = menu.reduce((sum, item) => sum + item.price, 0);
+    return total / menu.length;
+  };
+
+  const priceRangeCategory = (price) => {
+    if (price > 500) return "High";
+    if (price > 300) return "Medium";
+    return "Low";
+  };
+  if (priceRange) {
+    filteredRestaurants = filteredRestaurants.filter((restaurant) => {
+      const avgPrice = averagePrice(restaurant.menu);
+      return priceRangeCategory(avgPrice) === priceRange;
+    });
+  }
+
   return (
     <div className="mt-20 mb-5 container mx-auto px-4">
       <div className="flex flex-col sm:justify-between sm:flex-row gap-5">
-        <div className="flex gap-5">
+        <div className="flex  gap-5">
           {/* search */}
           <input
             type="text"
             placeholder="Search Restaurant"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="  input input-bordered shadow-xs p-2 mb-0 sm:mb-5 rounded  max-w-md   "
+            className="flex-1  input input-bordered shadow-xs p-2     rounded  max-w-md   "
           />
           {/*sort cuisine  */}
           <select
             value={selectCuisine}
             onChange={(e) => setSelectCuisine(e.target.value)}
-            className="select select-bordered  p-2 mb-0 sm:mb-5  rounded max-w-md   text-gray-500 shadow-xs"
+            className="select flex-1 select-bordered  p-2    rounded max-w-md   text-gray-500 shadow-xs"
           >
             <option value="">All Cuisines</option>
             {allCuisine.map((cuisine, i) => (
@@ -91,7 +113,7 @@ export default function RestaurantsListing() {
             className="select select-bordered rounded max-w-m  text-gray-500 shadow-xs"
           >
             <option value="" className="text-gray-700">
-              Sort by delivery Fee
+              Delivery Fee
             </option>
             <option className="text-gray-700" value="Highest">
               Highest Delivery Fee
@@ -108,7 +130,7 @@ export default function RestaurantsListing() {
             className="select select-bordered rounded max-w-m  text-gray-500 shadow-xs"
           >
             <option value="" className="text-gray-700">
-              Sort by delivery Time
+              Delivery Time
             </option>
             <option className="text-gray-700" value="Fastest">
               Fastest Delivery
@@ -117,8 +139,20 @@ export default function RestaurantsListing() {
               Slowest Delivery
             </option>
           </select>
+          {/* sort by price range */}
+          <select
+            value={priceRange}
+            onChange={(e) => setPriceRange(e.target.value)}
+            className="select select-bordered      rounded max-w-md   text-gray-500 shadow-xs"
+          >
+            <option value="">Price Range</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
         </div>
       </div>
+      {/* restaurants card */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  justify-items-center">
         {filteredRestaurants.length === 0 ? (
           <div className="text-gray-500">No posts found.</div>
