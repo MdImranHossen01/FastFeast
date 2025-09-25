@@ -30,7 +30,7 @@ export default function RestaurantsCard({ restaurant }) {
     return stars;
   };
   return (
-    <div className="card bg-base-100 shadow-md hover:shadow-lg hover:-translate-y-1   transition-transform  transition-shadow duration-300 cursor-pointer">
+    <div className="card bg-white shadow-md hover:shadow-lg hover:-translate-y-1   transition-transform  transition-shadow duration-300 cursor-pointer">
       {/* banner */}
       <figure>
         <img
@@ -70,7 +70,10 @@ export default function RestaurantsCard({ restaurant }) {
           {/* cuisine */}
           <div>
             {restaurant.cuisines.map((cuisine, i) => (
-              <div key={i} className="badge px-2 mr-2  border border-gray-300 ">
+              <div
+                key={i}
+                className="badge bg-white text-gray-700 px-2 mr-2  border border-gray-300 "
+              >
                 {cuisine}
               </div>
             ))}
