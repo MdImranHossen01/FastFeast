@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import RestaurantsCard from "./components/restaurantsCard";
 import { restaurants } from "./restaurants";

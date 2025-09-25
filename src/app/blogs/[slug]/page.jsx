@@ -3,7 +3,7 @@ import { FaHome, FaUser, FaCalendar, FaTags } from "react-icons/fa";
 import getBlogs from "@/app/actions/blogs/getBlogs";
 
 export default async function BlogDetails({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const blogs = await getBlogs();
 
   // find post by slug (assuming slug matches _id)
@@ -21,9 +21,9 @@ export default async function BlogDetails({ params }) {
   }
 
   return (
-    <main className="max-w-[1500px] mx-auto pt-18">
+    <main className="max-w-[1500px] mx-auto py-18">
       {/* Cover Image */}
-      <div className="w-full h-72 md:h-[500px] overflow-hidden rounded-xl shadow-lg mb-8">
+      <div className="w-full md:h-[500px] overflow-hidden rounded-xl shadow-lg mb-8">
         <img
           src={post.coverImage || post.image}
           alt={post.title}

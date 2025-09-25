@@ -8,7 +8,7 @@ export default function BlogCard({ blog }) {
   const { _id, coverImage, title, excerpt, tags, author, date } = blog;
 
   return (
-    <article className="lg:min-h-[420px] flex flex-col h-full bg-base-200 hover:bg-white shadow-md border border-slate-100 p-2">
+    <article className="lg:min-h-[420px] flex flex-col h-full bg-base-200 hover:bg-white shadow-md border border-slate-100 p-2 transition-all duration-200">
       <figure className="h-60 overflow-hidden">
         <img
           src={coverImage}
