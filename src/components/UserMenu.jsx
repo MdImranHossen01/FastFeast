@@ -16,7 +16,7 @@ export default function UserMenu({ session }) {
       {!session ? (
         <Link
           href="/login"
-          className="text-orange-600 text-lg border-2 border-orange-600 py-2 px-4 font-semibold hover:bg-orange-600 hover:text-gray-100 transition-all duration-300 rounded-sm"
+          className="text-orange-600 font-semibold border-2 border-orange-600 py-2 px-4 hover:bg-orange-600 hover:text-gray-100 transition-all duration-300 rounded-sm"
         >
           Log In
         </Link>

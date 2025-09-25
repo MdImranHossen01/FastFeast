@@ -103,7 +103,7 @@ export default function Navbar() {
 
   if (!pathname.includes("dashboard")) {
     return (
-      <nav className="w-full fixed top-0 z-50 bg-gray-200 shadow-md py-1">
+      <nav className="w-full fixed top-0 z-50 bg-white shadow-md py-1">
         <div className="container mx-auto px-4 lg:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
