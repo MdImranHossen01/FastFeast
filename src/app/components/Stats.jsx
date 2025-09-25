@@ -45,12 +45,12 @@ export default function Stats() {
   });
 
   return (
-    <section ref={ref} className="bg-amber-50 pt-12 px-4">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-800 mb-4">
-          Our <span className="text-orange-500">Stats</span> 
+    <section ref={ref} className="py-8 lg:py-12">
+      <div className="max-w-3xl mx-auto text-center mb-12">
+        <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
+          Our <span className="text-orange-500">Stats</span>
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="mt-3 text-lg text-gray-600">
           Don't just take our word for it. Hear from some of our satisfied
           customers.
         </p>

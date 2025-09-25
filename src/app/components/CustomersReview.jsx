@@ -33,7 +33,9 @@ const CustomersReview = () => {
       {[...Array(5)].map((_, i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i < rating ? "text-yellow-400" : "text-gray-300"}`}
+          className={`w-4 h-4 ${
+            i < rating ? "text-yellow-400" : "text-gray-300"
+          }`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -47,7 +49,12 @@ const CustomersReview = () => {
     <div className="hover:bg-white bg-amber-50 rounded-xl shadow-lg p-6 mx-4 w-80 flex-shrink-0 transform hover:scale-105 transition-transform duration-300 border border-gray-100">
       <div className="flex items-center mb-6">
         <div className="relative w-20 h-20 rounded-full overflow-hidden mr-4">
-          <Image src={review.photo} alt={review.name} fill className="object-cover" />
+          <Image
+            src={review.photo}
+            alt={review.name}
+            fill
+            className="object-cover"
+          />
         </div>
         <div>
           <h3 className="font-semibold text-gray-800">{review.name}</h3>
@@ -58,20 +65,22 @@ const CustomersReview = () => {
         "{review.review}"
       </p>
       <div className="text-xs text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
-        Ordered: <span className="font-medium text-gray-700">{review.order}</span>
+        Ordered:{" "}
+        <span className="font-medium text-gray-700">{review.order}</span>
       </div>
     </div>
   );
 
   return (
-    <section className="py-16">
+    <section className="py-8 lg:py-12">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
             What <span className="text-orange-500">Our</span> Customers Say
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Don't just take our word for it. Hear from some of our satisfied customers.
+          <p className="mt-3 text-lg text-gray-600">
+            Don't just take our word for it. Hear from some of our satisfied
+            customers.
           </p>
         </div>
 

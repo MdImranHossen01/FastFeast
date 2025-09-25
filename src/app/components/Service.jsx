@@ -41,25 +41,34 @@ const servicesData = [
 export default function Services() {
   return (
     <section className="py-8 lg:py-12">
-      <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
-        <h1 className="text-3xl lg:text-4xl font-bold">
+      {/* Section Heading */}
+      <div className="max-w-3xl mx-auto text-center mb-12">
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
           Feast <span className="text-orange-500">Features</span>
         </h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-3 text-lg text-gray-600">
           We provide fast, reliable, and hassle-free food delivery with a focus
           on quality and customer satisfaction. From easy ordering to quick
           delivery, our services are designed to make every meal enjoyable.
         </p>
       </div>
 
+      {/* Service Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {servicesData.map((service) => (
           <div
             key={service.id}
             data-aos="fade-up"
-            className="bg-white  rounded-2xl shadow-md hover:shadow-xl transform   transition hover:translate-y-2 duration-300 p-6 flex flex-col items-center text-center border border-gray-100"
+            className="group bg-white rounded-2xl border border-orange-100 
+                       shadow-md p-6 flex flex-col items-center text-center
+                       transition-all duration-300 ease-in-out
+                       hover:-translate-y-2 hover:shadow-lg hover:shadow-orange-200/60"
           >
-            <div className="bg-amber-50  rounded-full p-6 mb-4 hover:scale-110 text-orange-500 shadow-sm transition duration-300">
+            <div
+              className="bg-amber-50 rounded-full p-6 mb-4 text-orange-500 shadow-sm 
+                         transition-transform duration-300 ease-in-out
+                         group-hover:scale-110"
+            >
               {service.icon}
             </div>
             <h2 className="text-xl text-orange-500 font-semibold mb-2">
