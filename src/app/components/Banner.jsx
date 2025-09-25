@@ -32,7 +32,7 @@ const sliderContent = [
     cta: "Explore Menu",
   },
   {
-    image: "/sushi.png",
+    image: "https://i.ibb.co.com/HTRgS6Cv/sushi.png",
     title: "Fresh Sushi",
     description:
       "Expertly crafted rolls with the finest fish, delivered right to your door.",
