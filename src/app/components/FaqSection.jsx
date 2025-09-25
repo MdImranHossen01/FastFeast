@@ -62,7 +62,7 @@ export default function FAQSection() {
                 className="border border-base-300 rounded-xl overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md"
               >
                 <button
-                  className="w-full flex justify-between items-center p-5 text-lg font-medium text-gray-800 hover:text-orange-600 transition-colors"
+                  className="w-full flex justify-between items-center p-5 text-lg font-medium text-gray-700 hover:text-orange-800 transition-colors"
                   onClick={() => toggleFAQ(index)}
                 >
                   <span>{faq.question}</span>
