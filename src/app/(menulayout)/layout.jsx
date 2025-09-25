@@ -1,6 +1,5 @@
-import Banner from "./components/banner";
-import SidebarComponent from "./components/sidebar";
-
+import Banner from "./menu/components/banner";
+import SidebarComponent from "./menu/components/sidebar";
 const MenuLayout = ({ children }) => {
   return (
     <div>
