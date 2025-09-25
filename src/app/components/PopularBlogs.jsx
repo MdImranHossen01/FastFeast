@@ -94,7 +94,9 @@ export default function PopularBlogs() {
       <div className="flex items-center justify-center pt-12">
         <Link
           href="/blogs"
-          className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-lg bg-none hover:shadow-2xl transition-all duration-200 hover:font-semibold"
+          className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-lg 
+               transition-all duration-300 ease-in-out
+               hover:bg-orange-600 hover:shadow-lg"
         >
           Show All <ArrowRight className="w-5 h-5" />
         </Link>

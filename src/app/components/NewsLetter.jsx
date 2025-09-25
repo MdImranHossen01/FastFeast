@@ -52,7 +52,7 @@ export default function NewsletterPage() {
         transition={{ duration: 0.5 }}
       >
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -61,10 +61,11 @@ export default function NewsletterPage() {
           >
             <FiMail className="text-2xl" />
           </motion.div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-700 mb-4">
-            Never Miss a <span className="text-orange-500">Delicious</span> Update
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
+            Never Miss a <span className="text-orange-500">Delicious</span>{" "}
+            Update
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-3 text-lg text-gray-600">
             Join our foodie community and get exclusive access to new restaurant
             openings, special discounts, and culinary insights.
           </p>
