@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function BlogsPage() {
-  const posts = await getBlogs();
+  const blogs = await getBlogs();
 
   return (
     <div className="max-w-[1500px] mx-auto pt-18">
@@ -33,7 +33,7 @@ export default async function BlogsPage() {
         </Link>
       </header>
 
-      <BlogContent posts={posts} />
+      <BlogContent blogs={blogs} />
     </div>
   );
 }

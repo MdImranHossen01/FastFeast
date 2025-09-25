@@ -4,13 +4,13 @@ import { useState } from "react";
 import BlogCard from "./BlogCard";
 import SearchBar from "./SearchBar";
 
-export default function BlogContent({ posts }) {
+export default function BlogContent({ blogs }) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState("All");
 
-  const allTags = ["All", ...new Set(posts.flatMap((p) => p.tags || []))];
+  const allTags = ["All", ...new Set(blogs.flatMap((p) => p.tags || []))];
 
-  const filtered = posts.filter((p) => {
+  const filtered = blogs.filter((p) => {
     const matchTag = tag === "All" ? true : p.tags?.includes(tag);
     const matchQuery =
       query.trim() === ""
@@ -36,7 +36,7 @@ export default function BlogContent({ posts }) {
         {filtered.length === 0 ? (
           <div className="text-gray-500">No posts found.</div>
         ) : (
-          filtered.map((p) => <BlogCard key={p._id} post={p} />)
+          filtered.map((blog) => <BlogCard key={blog._id} blog={blog} />)
         )}
       </section>
     </main>

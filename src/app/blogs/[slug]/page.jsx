@@ -1,15 +1,13 @@
-"use client";
-
-import { useParams } from "next/navigation";
 import Link from "next/link";
 import { FaHome, FaUser, FaCalendar, FaTags } from "react-icons/fa";
-import {posts} from "../posts"
+import getBlogs from "@/app/actions/blogs/getBlogs";
 
-export default function BlogDetails() {
-  const { slug } = useParams();
-  // find post by slug
-  const post = posts.find((p) => p._id === slug);
-  console.log(post)
+export default async function BlogDetails({ params }) {
+  const { slug } = params;
+  const blogs = await getBlogs();
+
+  // find post by slug (assuming slug matches _id)
+  const post = blogs.find((p) => p._id === slug);
 
   if (!post) {
     return (
@@ -23,7 +21,7 @@ export default function BlogDetails() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-12">
+    <main className="max-w-[1500px] mx-auto pt-18">
       {/* Cover Image */}
       <div className="w-full h-72 md:h-[500px] overflow-hidden rounded-xl shadow-lg mb-8">
         <img
@@ -89,4 +87,3 @@ export default function BlogDetails() {
     </main>
   );
 }
-
