@@ -95,7 +95,7 @@ const Banner = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.3 }}
-                      className="mb-2 inline-block bg-orange-500/90 px-4 py-1 rounded-full text-sm font-semibold"
+                      className="mb-2 inline-block bg-orange-600/90 px-4 py-1 rounded-full text-sm font-semibold"
                     >
                       Special Offer
                     </motion.div>
@@ -125,7 +125,7 @@ const Banner = () => {
                       className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6"
                     >
                       <div className="flex items-center">
-                        <span className="text-3xl font-bold text-orange-400">
+                        <span className="text-3xl font-bold text-orange-500">
                           {slide.offer}
                         </span>
                         <span className="ml-2 text-white/90">
