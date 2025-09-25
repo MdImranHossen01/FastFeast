@@ -25,7 +25,7 @@ export default function SpecialOffersSlider({ offers }) {
       </div>
     ),
     customPaging: () => (
-      <div className="w-3 h-3 rounded-full bg-gray-300 hover:bg-orange-500 transition"></div>
+      <div className="w-3 h-3 rounded-full bg-gray-300 hover:bg-orange-400 transition"></div>
     ),
   };
 
@@ -34,7 +34,7 @@ export default function SpecialOffersSlider({ offers }) {
       <Slider {...settings}>
         {offers.map((offer) => (
           <div key={offer.id}>
-            <div className="relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-gray-900 md:min-h-[300px]">
+            <div className="relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-gray-700 md:min-h-[300px]">
               {/* Image */}
               <div className="relative w-full md:w-1/2 h-64 md:h-auto">
                 <Image
