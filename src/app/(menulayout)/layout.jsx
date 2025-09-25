@@ -1,14 +1,15 @@
-import Banner from "./menu/components/banner";
-import SidebarComponent from "./menu/components/sidebar";
+import Banner from "./menu/components/Banner";
+import SidebarComponent from "./menu/components/SidebarComponent";
 const MenuLayout = ({ children }) => {
   return (
     <div>
       <Banner />
-      <div className="flex flex-12 gap-2">
-        <div className="col-span-4">
+      <div className="grid grid-cols-12 gap-2">
+
+        <div className="col-span-2">
           <SidebarComponent />
         </div>
-        <div className="col-span-8">{children}</div>
+        <div className="col-span-10">{children}</div>
       </div>
     </div>
   );
