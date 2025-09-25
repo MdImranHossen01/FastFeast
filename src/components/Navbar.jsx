@@ -76,6 +76,21 @@ export default function Navbar() {
       </li>
       <li>
         <Link
+          href={"/restaurants"}
+          className={`relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
+          after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300
+          ${
+            pathname === "/restaurants"
+              ? "text-orange-500 after:w-full"
+              : "hover:after:w-full"
+          }
+        `}
+        >
+          Restaurants
+        </Link>
+      </li>
+      <li>
+        <Link
           href={"/admin-dashboard"}
           className="relative text-lg font-medium tracking-wide px-3 py-2 text-gray-700 transition-all duration-300 hover:text-orange-500
           after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-orange-500 after:transition-all after:duration-300 hover:after:w-full"
@@ -88,8 +103,8 @@ export default function Navbar() {
 
   if (!pathname.includes("dashboard")) {
     return (
-      <nav className="w-full fixed top-0 z-50 bg-white shadow-lg border-b border-gray-100 py-1">
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="w-full fixed top-0 z-50 bg-white shadow-md py-1">
+        <div className="max-w-[1500px] mx-auto px-4 lg:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
@@ -103,7 +118,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* User Menu / Auth Buttons */}
+            {/* User Menu & Auth Buttons */}
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
                 <UserMenu session={session} signOut={signOut} />
@@ -146,7 +161,7 @@ export default function Navbar() {
           {isMenuOpen && (
             <div className="md:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 rounded-lg mt-2 shadow-lg">
-                <ul className="flex flex-col space-y-2">{navLinks()}</ul>
+                <ul className="flex flex-col space-y-4">{navLinks()}</ul>
                 <div className="pt-4 pb-3 border-t border-gray-200">
                   {session ? (
                     <div className="flex items-center px-2">

@@ -20,7 +20,7 @@ export const authOptions = {
         skipOtp: { label: "Skip OTP", type: "boolean" },
       },
       async authorize(credentials) {
-        const usersCollection = await dbConnect(collectionsName.usersCollection);
+        const usersCollection = dbConnect(collectionsName.usersCollection);
         const user = await usersCollection.findOne({ email: credentials.email });
 
         if (!user) throw new Error("Invalid email or password");
