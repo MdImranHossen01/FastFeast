@@ -89,7 +89,7 @@ export default function Navbar() {
   if (!pathname.includes("dashboard")) {
     return (
       <nav className="w-full fixed top-0 z-50 bg-white shadow-lg border-b border-gray-100 py-1">
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1500px] mx-auto px-4 lg:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">

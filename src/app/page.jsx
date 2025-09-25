@@ -11,7 +11,7 @@ import CustomersReview from "./components/CustomersReview";
 
 export default function Home() {
   return (
-    <div className="pt-18">
+    <div className="max-w-[1500px] mx-auto pt-18">
       <Banner />
       <SpecialOffers />
 
