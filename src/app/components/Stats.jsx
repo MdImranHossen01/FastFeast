@@ -54,7 +54,7 @@ export default function Stats() {
         {cardsData?.map((card) => (
           <div
             key={card.id}
-            className="bg-gray-100 flex flex-col items-center p-5 rounded-xl hover:shadow-2xl shadow-lg transition-all duration-200"
+            className="bg-white flex flex-col items-center p-5 rounded-xl hover:shadow-2xl shadow-lg transition-all duration-200"
           >
             <figure className="flex-1">
               <img src={card?.image} alt="" className="max-w-[150px] " />

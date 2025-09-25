@@ -13,7 +13,7 @@ export default async function BlogsPage() {
   const blogs = await getBlogs();
 
   return (
-    <div className="max-w-[1500px] mx-auto pt-18">
+    <div className="container mx-auto pt-18">
       {/* Header  */}
       <header className="mb-6 flex justify-between items-center space-y-6">
         <div>
