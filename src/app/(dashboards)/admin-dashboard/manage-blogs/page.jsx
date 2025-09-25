@@ -26,10 +26,6 @@ export default function ManageBlogs() {
     fetchBlogs();
   }, []);
 
-  useEffect(() => {
-    
-  }, []);
-
   // ✅ Save Blog (Add or Update)
   const handleSave = async (formValues) => {
     try {
@@ -45,7 +41,7 @@ export default function ManageBlogs() {
             b._id === formValues._id ? { ...b, ...formValues } : b
           )
         );
-        Swal.fire("Updated!", "Blog updated successfully", "success");
+        Swal.fire("Added!", "Blog Added successfully", "success");
       } else {
         // Create new blog
         const res = await fetch("/api/blogs", {

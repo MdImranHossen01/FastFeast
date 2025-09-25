@@ -8,10 +8,10 @@ export default function SearchBar({ query, setQuery, tag, setTag, allTags }) {
         placeholder="Search articles..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="input input-bordered w-full max-w-md"
+        className="input input-bordered w-full max-w-md bg-gray-100"
       />
       <select
-        className="select select-bordered"
+        className="select select-bordered bg-gray-100"
         value={tag}
         onChange={(e) => setTag(e.target.value)}
       >

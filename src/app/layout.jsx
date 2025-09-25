@@ -24,14 +24,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
           <AOSProvider>
             <header>
               <Navbar />
             </header>
-            <main className="flex-grow">{children}</main>
+            <main>{children}</main>
             <footer>
               <Footer />
             </footer>
