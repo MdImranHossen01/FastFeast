@@ -10,7 +10,7 @@ const Footer = () => {
 
   if (!pathname.includes("dashboard")) {
     return (
-      <footer className="bg-gray-200 border-t-4 border-orange-500">
+      <footer className="bg-white border-t-4 border-orange-500 mt-8">
         <div className="container mx-auto px-4 lg:px-0">
           <div className="flex flex-col lg:flex-row justify-between py-16 space-y-8 lg:space-y-0">
             {/* Logo */}
