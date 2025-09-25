@@ -56,17 +56,17 @@ export default function PopularBlogs() {
   ];
 
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section className="py-8 lg:py-12">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-6xl md:text-4xl font-bold text-gray-900">
+      <div className="text-center max-w-lg mx-auto text-gray-900 mb-12">
+        <h1 className="text-3xl lg:text-4xl font-bold">
           Popular <span className="text-orange-500">Blogs</span>
-        </h2>
-        <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
+        </h1>
+        <p className="mt-2 text-gray-600">
           Discover our most-read blogs, handpicked by our readers. Stay updated
           with the latest trends, guides, and stories from food, lifestyle, and
           beyond.
-        </p>
+        </p>g
       </div>
 
       {/* Blog Cards */}

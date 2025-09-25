@@ -40,8 +40,15 @@ const servicesData = [
 
 export default function Services() {
   return (
-    <section className="container mx-auto py-16 px-4">
-      <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+    <section className="py-8 lg:py-12">
+      <div className="text-center max-w-lg mx-auto text-gray-900 mb-12">
+        <h1 className="text-3xl lg:text-4xl font-bold">Our Services</h1>
+        <p className="mt-2 text-gray-600">
+          We provide fast, reliable, and hassle-free food delivery with a focus
+          on quality and customer satisfaction. From easy ordering to quick
+          delivery, our services are designed to make every meal enjoyable.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {servicesData.map((service) => (
