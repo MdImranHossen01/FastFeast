@@ -27,14 +27,14 @@ export default function UserMenu({ session }) {
             onClick={() => setOpen(!open)}
             className="flex items-center gap-2 focus:outline-none"
           >
-            {session.user?.image && (
+            {session?.user?.image && (
               <img
-                src={session.user.image}
+                src={session?.user?.image}
                 className="w-10 h-10 rounded-full border"
                 alt="User"
               />
             )}
-            <span>{session.user?.name?.split(" ")[0] || "User"}</span>
+            <span>{session?.user?.name?.split(" ")[0] || "User"}</span>
             <svg
               className={`w-4 h-4 transform transition-transform ${
                 open ? "rotate-180" : ""

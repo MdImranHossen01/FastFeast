@@ -10,14 +10,21 @@ const Footer = () => {
 
   if (!pathname.includes("dashboard")) {
     return (
-      <footer className="px-4 w-full border-t-4 border-orange-500 text-gray-800 bg-gradient-to-b from-orange-50 to-white">
-        <div className="flex flex-col justify-between py-12 mx-auto space-y-8 lg:flex-row lg:space-y-0">
-          <div className="lg:w-1/3">
-            <div className="flex gap-2 flex-row justify-center items-center">
+      <footer className="bg-white border-t-4 border-orange-500 text-gray-800">
+        <div className="max-w-[1500px] mx-auto px-4 lg:px-0">
+          <div className="flex flex-col lg:flex-row justify-between py-16 space-y-8 lg:space-y-0">
+            {/* Logo */}
+            <div className="max-w-sm">
               <Logo />
+              <br />
+              <p>
+                At FastFeast, we’re all about speed and taste. From local bites
+                to global flavors, enjoy hassle-free delivery, anytime,
+                anywhere.
+              </p>
             </div>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 text-sm w-full md:w-2/3 mx-auto">
+
+            {/* Products */}
             <div className="space-y-3">
               <h3 className="tracking-wide uppercase text-gray-900 font-semibold">
                 Product
@@ -35,6 +42,8 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
+
+            {/* Company */}
             <div className="space-y-3">
               <h3 className="tracking-wide uppercase text-gray-900 font-semibold">
                 Company
@@ -52,6 +61,8 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
+
+            {/* Developer Resources */}
             <div className="space-y-3">
               <h3 className="uppercase text-gray-900 font-semibold">
                 Developer Resources
@@ -69,6 +80,8 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
+
+            {/*  Social media */}
             <div className="space-y-3">
               <div className="uppercase text-gray-900 font-semibold">
                 Social media
@@ -101,6 +114,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
         {/* Bottom Text */}
         <div className="py-6 text-sm text-center text-gray-600 border-t border-orange-100">
           © 2025{" "}
