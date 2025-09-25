@@ -43,7 +43,7 @@ export default function Services() {
     <section className="py-8 lg:py-12">
       <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
         <h1 className="text-3xl lg:text-4xl font-bold">
-          Our <span className="text-orange-500">Services</span>
+          Feast <span className="text-orange-500">Features</span>
         </h1>
         <p className="mt-2 text-gray-600">
           We provide fast, reliable, and hassle-free food delivery with a focus
