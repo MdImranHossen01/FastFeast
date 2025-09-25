@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function PopularBlogs() {
-  const [posts, setPosts] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,10 +28,10 @@ export default function PopularBlogs() {
           console.warn("Unexpected blogs API shape:", data);
         }
 
-        setPosts(arr);
+        setBlogs(arr);
       } catch (err) {
         console.error("Failed to fetch posts:", err);
-        setPosts([]); // fallback to empty array
+        setBlogs([]); // fallback to empty array
       } finally {
         setLoading(false);
       }
@@ -41,16 +41,18 @@ export default function PopularBlogs() {
   }, []);
 
   // Sort by visit count safely
-  const topPosts = Array.isArray(posts)
-    ? [...posts].sort((a, b) => (b.visitCount || 0) - (a.visitCount || 0)).slice(0, 4)
+  const topPosts = Array.isArray(blogs)
+    ? [...blogs]
+        .sort((a, b) => (b.visitCount || 0) - (a.visitCount || 0))
+        .slice(0, 4)
     : [];
 
   // Animation directions
   const directions = [
     { x: -80, y: 0 }, // left
-    { x: 80, y: 0 },  // right
+    { x: 80, y: 0 }, // right
     { x: 0, y: -80 }, // top
-    { x: 0, y: 80 },  // bottom
+    { x: 0, y: 80 }, // bottom
   ];
 
   return (
@@ -61,9 +63,9 @@ export default function PopularBlogs() {
           Popular <span className="text-orange-500">Blogs</span>
         </h2>
         <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-          Discover our most-read blogs, handpicked by our readers.
-          Stay updated with the latest trends, guides, and stories
-          from food, lifestyle, and beyond.
+          Discover our most-read blogs, handpicked by our readers. Stay updated
+          with the latest trends, guides, and stories from food, lifestyle, and
+          beyond.
         </p>
       </div>
 
@@ -74,15 +76,15 @@ export default function PopularBlogs() {
         ) : topPosts.length === 0 ? (
           <div className="text-gray-500">No blogs found.</div>
         ) : (
-          topPosts.map((post, i) => (
+          topPosts.map((blog, i) => (
             <motion.div
-              key={post._id || i}
+              key={blog._id || i}
               initial={{ ...directions[i % 4], opacity: 0 }}
               whileInView={{ x: 0, y: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: i * 0.2, ease: "easeOut" }}
             >
-              <BlogCard post={post} />
+              <BlogCard blog={blog} />
             </motion.div>
           ))
         )}
