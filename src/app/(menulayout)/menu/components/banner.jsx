@@ -56,7 +56,7 @@ const Banner = () => {
     <div className="relative h-[200px] w-full">
       <Image src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1170" alt="Food banner" fill className="object-cover" />
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 px-4">
-        <div className="flex w-full max-w-3xl items-center rounded-lg bg-white p-3 shadow-lg">
+        <div className="flex w-full max-w-3xl items-center rounded-lg bg-orange-500/50 p-3 shadow-lg">
           
           {/* --- MODIFIED: Location Input Section is now a relative container --- */}
           <div className="relative w-2/5" ref={locationDropdownRef}>
@@ -99,7 +99,7 @@ const Banner = () => {
               placeholder="Search for restaurant, cuisine or a dish"
               value={searchQuery}
               onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-              className="w-full bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-500"
+              className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white"
             />
           </div>
         </div>
