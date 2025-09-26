@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
 
@@ -190,10 +191,21 @@ export default function RegisterForm() {
         {/* Google Sign In */}
         <button
           onClick={() => signIn("google", { callbackUrl: "/" })}
-          className="w-full flex items-center justify-center gap-2 py-2 px-4 border rounded-md mt-4"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+                 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
+                 transition-colors shadow-sm font-medium"
         >
-          <FcGoogle size={22} /> Continue with Google
+          <FcGoogle className="text-xl" /> Continue with Google
         </button>
+        <button
+      onClick={() => signIn("github", { callbackUrl: "/" })}
+      className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+                 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
+                 transition-colors shadow-sm font-medium"
+    >
+      <FaGithub className="text-xl" />
+      <span>Continue with GitHub</span>
+    </button>
 
         <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-2">
           Already have an account?{" "}
