@@ -19,14 +19,23 @@ const partnerLogos = [
   { src: "https://i.ibb.co/j9cR6QFK/7.png", alt: "Partner Logo 7" },
 ];
 
+ // <div className="mb-12 text-center">
+    //       <h2 className="mb-4 text-4xl font-bold text-gray-800">
+    //         Still Have <span className="text-orange-500">Questions?</span> 
+    //       </h2>
+    //       <p className="mx-auto max-w-2xl text-lg text-gray-600">
+    //         Find answers to common questions about orders, payments, and our services. We're here to make your experience seamless.
+    //       </p>
+    //     </div>
+
 const OurPartner = () => {
   return (
-    <section className="bg-slate-50 py-16 sm:py-20">
+    <section className="bg-orange-50 py-16 sm:py-20">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
-           Our Partner
+          <h2 className="mb-4 text-4xl font-bold text-gray-800">
+           Our <span className="text-orange-500">Partners</span>
           </h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
             We're proud to partner with a diverse range of restaurants and food
