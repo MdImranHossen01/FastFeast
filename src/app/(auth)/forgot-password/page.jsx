@@ -42,8 +42,8 @@ export default function ForgotPasswordPage() {
         onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition duration-300 hover:scale-[1.02]"
       >
-        <h2 className="text-3xl font-extrabold mb-6 text-gray-900 dark:text-white text-center">
-          Forgot Password
+        <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white text-center">
+          Forgot Password ??
         </h2>
         <p className="text-center text-gray-500 dark:text-gray-400 mb-6 text-sm">
           Enter your email and we’ll send you a reset link.
