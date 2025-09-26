@@ -56,7 +56,7 @@ export default function PopularBlogs() {
   ];
 
   return (
-    <section className="container mx-auto px-4 lg:px-0 py-8 lg:py-12">
+    <section className="py-8 container mx-auto px-4 lg:px-0 lg:py-12">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
         <h1 className="text-3xl lg:text-4xl font-bold">

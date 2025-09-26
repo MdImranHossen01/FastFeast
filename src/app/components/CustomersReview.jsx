@@ -89,8 +89,8 @@ const CustomersReview = () => {
   }
 
   return (
-    <section className="py-8 lg:py-12">
-      <div className="container mx-auto">
+    <section className="py-16">
+      <div className="container px-4 mx-auto">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-4xl font-bold text-gray-800">
             What <span className="text-orange-500">Our</span> Customers Say
