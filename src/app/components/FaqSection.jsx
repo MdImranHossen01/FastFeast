@@ -43,7 +43,7 @@ export default function FAQSection() {
   return (
     // ✅ Changed background color here
     <section className="bg-orange-50 py-16 md:py-24">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:px-0">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-4xl font-bold text-gray-800">
             Still Have <span className="text-orange-500">Questions?</span> 

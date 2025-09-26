@@ -6,7 +6,7 @@ export default async function SpecialOffers() {
 
   return (
     <section className="py-14 bg-orange-50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:px-0">
         <div className="text-center mb-12">
           <h2 className="mb-4 text-4xl font-bold text-gray-800">
             Special <span className="text-orange-500">Offers</span>
