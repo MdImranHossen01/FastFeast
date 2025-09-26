@@ -15,8 +15,7 @@ export default async function BlogsPage() {
   const blogs = await getBlogs();
 
   return (
-    <div className="max-w-[1500px] mx-auto pt-16">
-      {/* Header */}
+    <div className="container mx-auto pt-18">
       <header className="mb-6 relative bg-cover bg-center bg-no-repeat min-h-80 h-80 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
@@ -28,7 +27,7 @@ export default async function BlogsPage() {
             priority
           />
         </div>
-        
+
         {/* Overlay for readability */}
         <div className="absolute inset-0 bg-black/50"></div>
 
