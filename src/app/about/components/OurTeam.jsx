@@ -4,7 +4,7 @@ import React from 'react'
 import { FaGithub, FaLinkedin, FaUserCircle } from 'react-icons/fa'
 import { IoIosMail } from "react-icons/io";
 
-export default function OurTeam() {
+export const OurTeam = () => {
     const teamData = [
         {
             id: 1,
