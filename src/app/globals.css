@@ -117,10 +117,13 @@
 }
 
 @layer base {
-  * {
+  /* * {
     @apply border-border outline-ring/50;
-  }
+  } */
+
   body {
-    @apply bg-background text-foreground;
+    background-color: #fffbeb;
+    color-scheme: light;
+    color: #000000;
   }
 }

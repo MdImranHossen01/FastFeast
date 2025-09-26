@@ -44,7 +44,7 @@ const sliderContent = [
 
 const Banner = () => {
   return (
-    <section className="relative h-[70vh] md:h-[85vh] w-full overflow-hidden">
+    <section className="relative h-[60vh] lg:h-[85vh] w-full overflow-hidden">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -138,10 +138,10 @@ const Banner = () => {
                       transition={{ duration: 0.5, delay: 0.9 }}
                       className="flex flex-wrap gap-4"
                     >
-                      <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+                      <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer">
                         {slide.cta}
                       </button>
-                      <button className="border border-white/30 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 backdrop-blur-sm">
+                      <button className="border border-white/30 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 backdrop-blur-sm cursor-pointer">
                         Learn More
                       </button>
                     </motion.div>
