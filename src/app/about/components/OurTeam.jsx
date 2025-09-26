@@ -89,7 +89,7 @@ export const OurTeam = () => {
                 <div className="flex flex-wrap gap-5 justify-center">
                     {
                         teamData.map(developer =>
-                            <div key={developer.id} className='rounded-xl min-w-2xs max-w-xs bg-base-100 shadow-xl p-5 text-center group hover:scale-105 transition-all duration-300'>
+                            <div key={developer.id} className='rounded-xl min-w-2xs max-w-xs bg-white shadow-xl p-5 text-center group  transition-all duration-300'>
                                 <figure>
                                     {/* Profile image */}
                                     <img
@@ -106,11 +106,11 @@ export const OurTeam = () => {
                                     </p>
 
                                     {/* Social links */}
-                                    <div className="flex gap-4 mt-5 text-2xl justify-center *:hover:scale-110">
+                                    <div className="flex gap-4 mt-5 text-2xl justify-center *:hover:scale-110 *:hover:text-orange-500">
                                         <a
                                             href={developer.linkedInLink}
                                             title={developer.linkedInLink}
-                                            target='_blank'><FaLinkedin />
+                                            target='_blank'><FaLinkedin color=''/>
                                         </a>
 
                                         <a href={developer.gitHubLink}
