@@ -2,132 +2,116 @@
 
 import React from "react";
 import Logo from "./logo";
-import { FaFacebook, FaGithub, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaYoutube, FaTwitter } from "react-icons/fa";
+import { IoLocationSharp, IoCall, IoMail } from "react-icons/io5";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+
+// --- Reusable Footer Column Component ---
+const FooterColumn = ({ title, links }) => (
+  <div>
+    <h3 className="mb-4 text-sm font-semibold uppercase text-gray-100">{title}</h3>
+    <ul className="space-y-3">
+      {links.map((link) => (
+        <li key={link.name}>
+          <Link href={link.href} className="text-gray-400 transition-colors hover:text-orange-400">
+            {link.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+// --- Smarter Footer Data Structure (Consolidated Links) ---
+const footerData = [
+  {
+    title: "About FastFeast",
+    links: [
+      { name: "About Us", href: "/about" },
+      { name: "Blogs", href: "/blogs" },
+      { name: "Careers", href: "/careers" },
+      { name: "Contact", href: "/contacts" },
+    ],
+  },
+  {
+    // ✅ Combined partner links for a cleaner look
+    title: "Our Partners",
+    links: [
+      { name: "For Restaurants", href: "/signup/restaurant" },
+      { name: "For Riders", href: "/signup/rider" },
+      { name: "Partner Hub", href: "/partner-hub" },
+    ],
+  },
+];
+
 
 const Footer = () => {
   const pathname = usePathname();
 
-  if (!pathname.includes("dashboard")) {
-    return (
-      <footer className="bg-white mt-8">
-        <div className="h-[4px] lg:h-[6px] bg-gradient-to-r from-orange-100 via-orange-300 lg:via-orange-500 to-orange-100"></div>
+  if (pathname.includes("/dashboard")) {
+    return null;
+  }
 
-        <div className="container mx-auto px-4 lg:px-0">
-          <div className="flex flex-col lg:flex-row justify-between py-6 lg:py-16 space-y-8 lg:space-y-0">
-            {/* Logo */}
-            <div className="max-w-sm">
-              <Logo />
-              <br />
-              <p>
-                At FastFeast, we’re all about speed and taste. From local bites
-                to global flavors, enjoy hassle-free delivery, anytime,
-                anywhere.
-              </p>
+  return (
+    <footer className="bg-slate-900 text-gray-300">
+      <div className="container mx-auto px-4 py-16">
+        {/* ✅ Simplified to a single, balanced 4-column grid */}
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Column 1: Logo & Socials */}
+          <div>
+            <Logo />
+            <p className="mt-4 max-w-sm text-gray-400">
+              Your favorite meals from local restaurants, delivered fast to your door.
+            </p>
+            <div className="mt-6 flex space-x-4">
+              <a href="#" className="text-gray-400 transition-colors hover:text-orange-400"><FaFacebook size={24} /></a>
+              <a href="#" className="text-gray-400 transition-colors hover:text-orange-400"><FaTwitter size={24} /></a>
+              <a href="#" className="text-gray-400 transition-colors hover:text-orange-400"><FaYoutube size={24} /></a>
+              <a href="#" className="text-gray-400 transition-colors hover:text-orange-400"><FaGithub size={24} /></a>
             </div>
+          </div>
+          
+          {/* Columns 2 & 3: Mapped Link Columns */}
+          {footerData.map((column) => (
+            <FooterColumn key={column.title} title={column.title} links={column.links} />
+          ))}
 
-            {/* Products */}
-            <div className="space-y-3">
-              <h3 className="tracking-wide uppercase text-gray-900 font-semibold">
-                Product
-              </h3>
-              <ul className="space-y-1">
-                {["Features", "Integrations", "Pricing", "FAQ"].map((item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="hover:text-orange-500 transition-colors duration-300"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div className="space-y-3">
-              <h3 className="tracking-wide uppercase text-gray-900 font-semibold">
-                Company
-              </h3>
-              <ul className="space-y-1">
-                {["Privacy", "Terms of Service"].map((item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="hover:text-orange-500 transition-colors duration-300"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Developer Resources */}
-            <div className="space-y-3">
-              <h3 className="uppercase text-gray-900 font-semibold">
-                Developer Resources
-              </h3>
-              <ul className="space-y-1">
-                {["Public API", "Documentation", "Guides"].map((item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="hover:text-orange-500 transition-colors duration-300"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/*  Social media */}
-            <div className="space-y-3">
-              <div className="uppercase text-gray-900 font-semibold">
-                Social media
+          {/* Column 4: "Get In Touch" */}
+          <div>
+            <h3 className="mb-4 text-sm font-semibold uppercase text-gray-100">Get In Touch</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <IoLocationSharp size={20} className="mt-1 flex-shrink-0 text-orange-400" />
+                <p className="text-gray-400">123 Gulshan Avenue, Dhaka 1212, Bangladesh</p>
               </div>
-              <div className="flex justify-start space-x-3">
-                <div className="flex justify-start space-x-3 ">
-                  <a
-                    href="https://github.com/"
-                    target="_blank"
-                    className="transform transition hover:scale-110"
-                  >
-                    <FaGithub size={25} color="#ea580c" />
-                  </a>
-                  <a
-                    href="https://www.facebook.com/"
-                    target="_blank"
-                    className="transform transition hover:scale-110 duration-300"
-                  >
-                    <FaFacebook size={25} color="#ea580c" />
-                  </a>
-                  <a
-                    href="https://www.youtube.com/"
-                    target="_blank"
-                    className="transform transition hover:scale-110 duration-300"
-                  >
-                    <FaYoutube size={27} color="#ea580c" />
-                  </a>
-                </div>
+              <div className="flex items-center gap-3">
+                <IoCall size={20} className="flex-shrink-0 text-orange-400" />
+                <a href="tel:+8801712345678" className="text-gray-400 transition-colors hover:text-orange-400">
+                  +880 171 234 5678
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <IoMail size={20} className="flex-shrink-0 text-orange-400" />
+                 <a href="mailto:support@fastfeast.com" className="text-gray-400 transition-colors hover:text-orange-400">
+                  support@fastfeast.com
+                </a>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Bottom Text */}
-        <div className="py-6 text-sm text-center text-gray-600 border-t border-orange-100">
-          © 2025{" "}
-          <span className="font-semibold text-orange-500">FastFeast</span>. All
+      </div>
+      
+      {/* Bottom Copyright Section */}
+      <div className="border-t border-slate-800 bg-slate-900 py-6">
+        <div className="container mx-auto px-4 text-center text-sm text-gray-500">
+          © {new Date().getFullYear()} {" "}
+          <span className="font-semibold text-orange-400">FastFeast</span>. All
           rights reserved.
         </div>
-      </footer>
-    );
-  } else {
-    return <></>;
-  }
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;
