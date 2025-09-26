@@ -30,11 +30,11 @@ export default function SpecialOffersSlider({ offers }) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       <Slider {...settings}>
         {offers.map((offer) => (
           <div key={offer.id}>
-            <div className="relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-gray-700 md:min-h-[300px]">
+            <div className="relative rounded-xl flex flex-col md:flex-row overflow-hidden min-h-[400px]">
               {/* Image */}
               <div className="relative w-full md:w-1/2 h-64 md:h-auto">
                 <Image
@@ -46,7 +46,7 @@ export default function SpecialOffersSlider({ offers }) {
               </div>
 
               {/* Content */}
-              <div className="flex flex-col justify-center p-8 md:p-12 w-full md:w-1/2 text-white relative">
+              <div className="flex flex-col justify-center p-8 md:p-12 w-full md:w-1/2 relative">
                 {offer.badge && (
                   <span className="self-start bg-orange-500 text-white font-semibold px-3 py-1 rounded-md text-xs mb-4">
                     {offer.badge}
@@ -56,7 +56,7 @@ export default function SpecialOffersSlider({ offers }) {
                 <h3 className="text-2xl md:text-3xl font-bold mb-3">
                   {offer.title}
                 </h3>
-                <p className="text-gray-300 mb-6">{offer.subtitle}</p>
+                <p className="text-gray-600 mb-6">{offer.subtitle}</p>
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-baseline gap-3">
@@ -70,7 +70,7 @@ export default function SpecialOffersSlider({ offers }) {
                     )}
                   </div>
 
-                  <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2">
+                  <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2 cursor-pointer">
                     Order Now
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
