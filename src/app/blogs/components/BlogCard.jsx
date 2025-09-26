@@ -8,41 +8,50 @@ export default function BlogCard({ blog }) {
   const { _id, coverImage, title, excerpt, tags, author, date } = blog;
 
   return (
-    <article className="lg:min-h-[420px] flex flex-col h-full bg-gray-100 hover:bg-gray-50 shadow-md border border-slate-100 p-2 transition-all duration-200 rounded-lg">
-      <figure className="h-60 overflow-hidden">
+    <Link
+      href={`/blogs/${_id}`}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/30 bg-white/60 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/80 hover:shadow-xl"
+    >
+      <figure className="relative h-52 overflow-hidden">
         <img
           src={coverImage}
           alt={title}
-          className="w-full h-full object-cover hover:scale-120 transition-transform"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </figure>
 
-      <div className="flex flex-col flex-grow card-body">
-        <h3 className="card-title text-lg">{title}</h3>
-        <p className="text-sm text-gray-700">{excerpt}</p>
-
-        <div className="flex flex-wrap gap-2 mt-2">
-          {tags?.map((tag, index) => (
-            <span key={index} className="badge badge-outline">
+      <div className="flex flex-1 flex-col p-5">
+        <div className="mb-3 flex flex-wrap gap-2">
+          {tags?.slice(0, 1).map((tag, index) => (
+            <span key={index} className="inline-block rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white">
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Footer pinned at bottom */}
-        <div className="mt-auto flex justify-between items-center pt-4">
-          <div className="text-xs text-gray-500">
-            {author} · {date}
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-gray-900 transition-colors duration-300 group-hover:text-orange-600">
+            {title}
+          </h3>
+          <p className="mt-2 text-sm text-gray-700">
+            {excerpt}
+          </p>
+        </div>
+
+        <div className="mt-6 flex items-center justify-between border-t border-white/50 pt-4">
+          <div className="text-xs text-gray-700">
+            {author} · {new Date(date).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' })}
           </div>
-          <Link
-            href={`/blogs/${_id}`}
-            className="group inline-flex items-center gap-1 px-4 text-orange-500 transition hover:border-b-2 hover:border-orange-500"
-          >
-            Read More
-            <ArrowRight className="w-4 h-4 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 text-orange-500" />
-          </Link>
+          
+          <div className="flex items-center gap-1">
+            <span className="text-sm font-semibold transition-opacity duration-300 text-gray-500 group-hover:text-orange-500">
+              Read More
+            </span>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </div>
         </div>
       </div>
-    </article>
+    
+    </Link>
   );
 }

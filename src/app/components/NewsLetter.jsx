@@ -85,7 +85,7 @@ const SubscriptionForm = () => {
 export default function NewsletterSection() {
   return (
     <section className="bg-white py-12 md:py-16">
-      <div className="container mx-auto px-4 lg:px-0">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

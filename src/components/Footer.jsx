@@ -58,8 +58,8 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-slate-900 text-gray-300 py-16">
-      <div className="container mx-auto px-4 lg:px-0">
+    <footer className="bg-slate-900 text-gray-300 pt-16">
+      <div className="container mx-auto px-4">
         {/* ✅ Simplified to a single, balanced 4-column grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Logo & Socials */}
