@@ -68,7 +68,7 @@ export default function Services() {
     // ✅ REMOVED px-4 from here
     <section className="bg-orange-50/50 py-16">
       {/* ✅ ADDED px-4 here for perfect alignment */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:px-0">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
           How <span className="text-orange-500">FastFeast</span> Works
         </h2>
