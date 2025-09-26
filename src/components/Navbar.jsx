@@ -81,7 +81,7 @@ export default function Navbar() {
         isScrolled ? "bg-white shadow-md backdrop-blur-sm" : "bg-white"
       }`}
     >
-      <div className="container mx-auto flex h-20 items-center justify-between px-4">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 lg:px-0">
         <Logo />
 
         <motion.ul className="relative hidden items-center gap-4 lg:flex">
@@ -96,7 +96,10 @@ export default function Navbar() {
           {session ? (
             <div className="relative" ref={userMenuRef}>
               <Image
-                src={session.user?.image || `https://avatar.vercel.sh/${session.user?.email}`}
+                src={
+                  session.user?.image ||
+                  `https://avatar.vercel.sh/${session.user?.email}`
+                }
                 alt={session.user?.name || "User"}
                 width={40}
                 height={40}
