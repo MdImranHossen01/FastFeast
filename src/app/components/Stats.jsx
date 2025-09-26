@@ -40,7 +40,7 @@ const cardsData = [
 
 export default function Stats() {
   const { ref, inView } = useInView({
-    // Removed `triggerOnce: true` to allow animation on every scroll
+    
     threshold: 0.5,
   });
 
