@@ -69,7 +69,7 @@ export default function Navbar() {
         isScrolled ? "bg-white shadow-md backdrop-blur-sm" : "bg-white"
       }`}
     >
-      <div className="container mx-auto flex h-20 items-center justify-between px-4">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 lg:px-0">
         <Logo />
 
         <motion.ul className="relative hidden items-center gap-4 lg:flex">
@@ -84,7 +84,10 @@ export default function Navbar() {
           {session ? (
             <div className="relative">
               <Image
-                src={session.user?.image || `https://avatar.vercel.sh/${session.user?.email}`}
+                src={
+                  session.user?.image ||
+                  `https://avatar.vercel.sh/${session.user?.email}`
+                }
                 alt={session.user?.name || "User"}
                 width={40}
                 height={40}
@@ -93,8 +96,10 @@ export default function Navbar() {
               />
             </div>
           ) : (
-        
-            <Link href="/login" className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-orange-600">
+            <Link
+              href="/login"
+              className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-orange-600"
+            >
               <FiLogIn /> Login
             </Link>
           )}
@@ -132,33 +137,38 @@ export default function Navbar() {
             <div className="border-t border-gray-100 p-4">
               {session ? (
                 <div className="flex items-center gap-4">
-                    <Image
-                        src={session.user?.image || `https://avatar.vercel.sh/${session.user?.email}`}
-                        alt={session.user?.name || "User"}
-                        width={48}
-                        height={48}
-                        className="rounded-full"
-                    />
-                    <div>
-                        <p className="font-semibold">{session.user?.name}</p>
-                        <button onClick={() => signOut()} className="text-sm text-red-500">
-                            Sign Out
-                        </button>
-                    </div>
+                  <Image
+                    src={
+                      session.user?.image ||
+                      `https://avatar.vercel.sh/${session.user?.email}`
+                    }
+                    alt={session.user?.name || "User"}
+                    width={48}
+                    height={48}
+                    className="rounded-full"
+                  />
+                  <div>
+                    <p className="font-semibold">{session.user?.name}</p>
+                    <button
+                      onClick={() => signOut()}
+                      className="text-sm text-red-500"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
                 </div>
               ) : (
-               <div className="flex flex-col gap-3">
-   <div className="flex flex-col gap-3">
-    <Link 
-        href="/login" 
-   
-        className="rounded-lg text-sm bg-orange-500 px-3 py-1.5 text-center font-semibold text-white transition-colors hover:bg-orange-600" 
-        onClick={() => setIsMenuOpen(false)}
-    >
-        Login
-    </Link>
-</div>
-</div>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-3">
+                    <Link
+                      href="/login"
+                      className="rounded-lg text-sm bg-orange-500 px-3 py-1.5 text-center font-semibold text-white transition-colors hover:bg-orange-600"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                  </div>
+                </div>
               )}
             </div>
           </motion.div>
