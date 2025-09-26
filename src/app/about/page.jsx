@@ -1,3 +1,4 @@
+import { Rakkas } from "next/font/google";
 import React from "react";
 import Logo from "@/components/logo";
 import food from "../../assets/aboutPage/foods.png";
@@ -5,32 +6,40 @@ import Image from "next/image";
 import { OurTeam } from "./components/OurTeam";
 import getBlogs from "../actions/blogs/getBlogs";
 
+
+
+
+const rakkas = Rakkas({
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
 const AboutPage = async () => {
   const blogs = await getBlogs();
   console.log(blogs);
-  
+
   return (
-    <div className="bg-base-200">
+    <div className="">
       <section className="">
         {/* Banner section */}
         <div
           style={{
             backgroundImage: `linear-gradient(to bottom, #00000099 , #000000), url(/coffee_and_assorted.webp)`,
           }}
-          className="bg-center bg-cover bg-no-repeat py-10  px-2"
+          className="bg-center bg-cover bg-no-repeat py-10 pt-32 px-2 bg-fixed"
         >
-          <div className="container mx-auto justify-between flex flex-col lg:flex-row items-center">
-            <h1 className="font-bold text-5xl md:text-5xl lg:text-7xl text-white my-14 ">
+          <div className="container mx-auto justify-between ">
+            <h1 className={`font-bold text-5xl md:text-5xl lg:text-7xl bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent my-14 text-center ${rakkas.className}`}>
               About FastFest
             </h1>
-            <figure className="relative">
+            {/* <figure className="relative">
               <Image
                 alt="Image of Burgers, Pizzas, Pasta, and Fried Chicken"
                 src={food}
                 width={600}
                 height={200}
               />
-            </figure>
+            </figure> */}
           </div>
         </div>
         {/* blogs blow the banner */}
