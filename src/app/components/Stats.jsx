@@ -43,8 +43,8 @@ export default function Stats() {
 
   return (
     <section ref={ref} className="bg-amber-50 pb-16">
-      {/* ✅ SINGLE container for perfect alignment */}
-      <div className="container mx-auto px-4 lg:px-0">
+   
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="mb-4 text-4xl font-bold text-gray-800">
             FastFeast <span className="text-orange-500">Milestones</span>

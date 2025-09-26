@@ -36,7 +36,7 @@ export default function CTASection() {
       </div>
 
       {/* ✅ ADDED px-4 here for perfect alignment */}
-      <div className="container mx-auto px-4 lg:px-0 grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div className="container mx-auto px-4 grid grid-cols-1 gap-8 md:grid-cols-2">
         {ctaData.map((card) => (
           <div
             key={card.id}

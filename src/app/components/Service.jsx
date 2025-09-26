@@ -65,10 +65,10 @@ const cardVariants = {
 
 export default function Services() {
   return (
-    // ✅ REMOVED px-4 from here
+    
     <section className="bg-orange-50/50 py-16">
-      {/* ✅ ADDED px-4 here for perfect alignment */}
-      <div className="container mx-auto px-4 lg:px-0">
+
+      <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
           How <span className="text-orange-500">FastFeast</span> Works
         </h2>
@@ -86,9 +86,6 @@ export default function Services() {
               className="group relative overflow-hidden rounded-2xl bg-white p-6 text-center shadow-lg transition-shadow duration-300 hover:shadow-2xl"
               variants={cardVariants}
             >
-              <div className="absolute -top-2 -right-2 text-9xl font-extrabold text-gray-100 opacity-80 transition-transform duration-300 group-hover:scale-110">
-                {service.id}
-              </div>
               <div className="relative z-10 mx-auto mb-6 inline-block rounded-full bg-orange-100 p-5 text-orange-500 transition-colors duration-300 group-hover:bg-orange-500 group-hover:text-white">
                 <service.icon className="h-10 w-10" />
               </div>
