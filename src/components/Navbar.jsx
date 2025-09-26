@@ -4,8 +4,8 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import Logo from "./logo";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { FiX, FiMenu, FiLogIn } from "react-icons/fi";
+import { useState, useEffect, useRef } from "react";
+import { FiX, FiMenu, FiLogIn, FiUser, FiGrid, FiLogOut } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
@@ -39,14 +39,26 @@ export default function Navbar() {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const userMenuRef = useRef(null);
 
+  // Effect for scroll handling
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Effect for closing user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const navItems = [
@@ -56,7 +68,7 @@ export default function Navbar() {
     { href: "/blogs", label: "Blogs" },
     { href: "/about", label: "About" },
     { href: "/contacts", label: "Contact Us" },
-    ...(session ? [{ href: "/dashboard", label: "Dashboard" }] : []),
+    // ...(session ? [{ href: "/dashboard", label: "Dashboard" }] : []),
   ];
 
   if (pathname.includes("/dashboard")) {
@@ -82,18 +94,45 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-4 lg:flex">
           {session ? (
-            <div className="relative">
+            <div className="relative" ref={userMenuRef}>
               <Image
                 src={session.user?.image || `https://avatar.vercel.sh/${session.user?.email}`}
                 alt={session.user?.name || "User"}
                 width={40}
                 height={40}
                 className="cursor-pointer rounded-full"
-                onClick={() => alert("User menu clicked!")}
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
               />
+              <AnimatePresence>
+                {isUserMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute right-0 mt-2 w-64 origin-top-right rounded-lg border bg-white shadow-lg"
+                  >
+                    <div className="border-b p-4 text-center">
+                      <p className="font-semibold">{session.user?.name}</p>
+                      <p className="text-sm text-gray-500">{session.user?.email}</p>
+                    </div>
+                    <ul className="p-2">
+                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100">
+                        <FiUser /> <Link href="/profile" onClick={() => setIsUserMenuOpen(false)}>My Profile</Link>
+                      </li>
+                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100">
+                        <FiGrid /> <Link href="/dashboard" onClick={() => setIsUserMenuOpen(false)}>Dashboard</Link>
+                      </li>
+                      <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50">
+                        <FiLogOut />
+                        <button onClick={() => { setIsUserMenuOpen(false); signOut(); }}>Logout</button>
+                      </li>
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ) : (
-        
             <Link href="/login" className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-orange-600">
               <FiLogIn /> Login
             </Link>
@@ -108,6 +147,7 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* ✅ FULLY IMPLEMENTED MOBILE MENU */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -141,24 +181,17 @@ export default function Navbar() {
                     />
                     <div>
                         <p className="font-semibold">{session.user?.name}</p>
-                        <button onClick={() => signOut()} className="text-sm text-red-500">
+                        <button onClick={() => { setIsMenuOpen(false); signOut(); }} className="text-sm text-red-500">
                             Sign Out
                         </button>
                     </div>
                 </div>
               ) : (
-               <div className="flex flex-col gap-3">
-   <div className="flex flex-col gap-3">
-    <Link 
-        href="/login" 
-   
-        className="rounded-lg text-sm bg-orange-500 px-3 py-1.5 text-center font-semibold text-white transition-colors hover:bg-orange-600" 
-        onClick={() => setIsMenuOpen(false)}
-    >
-        Login
-    </Link>
-</div>
-</div>
+                <div className="flex flex-col gap-3">
+                  <Link href="/login" className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white transition-colors hover:bg-orange-600" onClick={() => setIsMenuOpen(false)}>
+                    Login
+                  </Link>
+                </div>
               )}
             </div>
           </motion.div>

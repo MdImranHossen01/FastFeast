@@ -18,7 +18,7 @@ const ctaData = [
     description: "Enjoy flexible working hours and competitive earnings. Join our rider fleet today and earn up to ৳25,000 a month delivering happiness.",
     buttonText: "Become a Rider",
     link: "/signup/rider",
-    backgroundImage: "https://images.unsplash.com/photo-1621683222352-a1b6c5b95a2a?q=80&w=1170",
+    backgroundImage: "/food-delivery-riderorange.jpg",
   },
 ];
 
