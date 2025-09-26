@@ -19,16 +19,17 @@ const partnerLogos = [
   { src: "https://i.ibb.co/j9cR6QFK/7.png", alt: "Partner Logo 7" },
 ];
 
+
 const OurPartner = () => {
   return (
-    <section className="bg-slate-50 py-16 sm:py-20">
+    <section className="bg-orange-50 py-16 sm:py-20">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-           Our Partner
+          <h2 className="mb-4 text-4xl font-bold text-gray-800">
+           Our <span className="text-orange-500">Partners</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 text-lg text-gray-600">
             We're proud to partner with a diverse range of restaurants and food
             businesses to bring you the best culinary experiences.
           </p>
@@ -52,11 +53,11 @@ const OurPartner = () => {
         >
           {partnerLogos.map((logo, index) => (
             <SwiperSlide key={index} className="cursor-pointer">
-              <div className="flex items-center justify-center h-24">
+              <div className="flex items-center justify-center h-40 lg:h-60">
                 <img
                   src={logo.src}
                   alt={logo.alt}
-                  className="max-h-40 w-auto object-contain filter hover:grayscale-0 transition-all duration-300 hover:scale-110"
+                  className="max-h-60 w-auto object-contain filter hover:grayscale-0 transition-all duration-300 hover:scale-110"
                 />
               </div>
             </SwiperSlide>

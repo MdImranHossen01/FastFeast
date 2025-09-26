@@ -1,16 +1,21 @@
 import Banner from "./menu/components/banner";
-import SidebarComponent from "./menu/components/sidebar";
+import SidebarComponent from "./menu/components/SidebarComponent";
+import StoreProvider from "@/lib/StoreProvider";
 const MenuLayout = ({ children }) => {
   return (
-    <div>
-      <Banner />
-      <div className="flex flex-12 gap-2">
-        <div className="col-span-4">
-          <SidebarComponent />
+   
+    <StoreProvider>
+      <div>
+        <div className="container mx-auto grid grid-cols-12 gap-4 pt-18">
+          <div className="col-span-12 md:col-span-3">
+            <SidebarComponent />
+          </div>
+          <div className="col-span-12 md:col-span-9">
+            <Banner />
+            {children}</div>
         </div>
-        <div className="col-span-8">{children}</div>
       </div>
-    </div>
+    </StoreProvider>
   );
 };
 

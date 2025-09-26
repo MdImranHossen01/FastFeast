@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { v4 as uuidv4 } from "uuid";
@@ -7,16 +8,14 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { uploadToImgBB } from "@/utils/imageUpload";
-
 
 export default function AddBlogModal({ onSave }) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    
-    slug: "",
+    // slug: "",
     title: "",
     excerpt: "",
     details: "",
@@ -46,8 +45,6 @@ export default function AddBlogModal({ onSave }) {
     }
   };
 
-
-
   // ✅ Handle multiple image uploads (gallery)
   const handleGallery = async (e) => {
     const files = Array.from(e.target.files);
@@ -70,8 +67,6 @@ export default function AddBlogModal({ onSave }) {
     }
   };
 
-
-
   // ✅ Submit
   const handleSubmit = () => {
     const blogData = {
@@ -80,139 +75,134 @@ export default function AddBlogModal({ onSave }) {
       tags: formData.tags.split(",").map((t) => t.trim()),
       visitCount: 0,
     };
-    console.log(blogData)
+    console.log(blogData);
     onSave(blogData);
     setOpen(false);
   };
 
   return (
-  <>
-  <Button
-    onClick={() => setOpen(true)}
-    className="bg-orange-500 text-white"
-  >
-    Add Blog
-  </Button>
+    <>
+      <Button
+        onClick={() => setOpen(true)}
+        className="bg-orange-500 text-white"
+      >
+        Add Blog
+      </Button>
 
-  <Dialog open={open} onOpenChange={setOpen}>
-    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-  <DialogHeader>
-    <DialogTitle>Add New Blog</DialogTitle>
-    <DialogDescription>
-      Fill out the details below to create a new blog post.
-    </DialogDescription>
-  </DialogHeader>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Add New Blog</DialogTitle>
+            <DialogDescription>
+              Fill out the details below to create a new blog post.
+            </DialogDescription>
+          </DialogHeader>
 
- 
+          <div className="space-y-3">
+            {/* Slug */}
+            {/* <input
+              name="slug"
+              placeholder="Slug"
+              className="input input-bordered w-full"
+              onChange={handleChange}
+            /> */}
 
-
-
-      <div className="space-y-3">
-        {/* Slug */}
-        <input
-          name="slug"
-          placeholder="Slug"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-        />
-
-        {/* Title */}
-        <input
-          name="title"
-          placeholder="Title"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-        />
-
-        {/* Excerpt */}
-        <input
-          name="excerpt"
-          placeholder="Excerpt"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-        />
-
-        {/* Details */}
-        <textarea
-          name="details"
-          placeholder="Details"
-          className="textarea textarea-bordered w-full"
-          onChange={handleChange}
-        />
-
-        {/* ✅ Single Image Upload */}
-        <div>
-          <label className="block mb-1 font-medium">Cover Image</label>
-          <input type="file" accept="image/*" onChange={handleCoverImage} />
-          {formData.coverImage && (
-            <img
-              src={formData.coverImage}
-              alt="Preview"
-              className="mt-2 w-32 h-32 object-cover rounded"
+            {/* Title */}
+            <input
+              name="title"
+              placeholder="Title"
+              className="input input-bordered w-full"
+              onChange={handleChange}
             />
-          )}
-        </div>
 
-        {/* ✅ Multiple Image Upload */}
-        <div>
-          <label className="block mb-1 font-medium">Gallery Images</label>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleGallery}
-          />
-          <div className="flex gap-2 mt-2 flex-wrap">
-            {formData.gallery.map((img, idx) => (
-              <img
-                key={idx}
-                src={img}
-                alt={`Preview ${idx}`}
-                className="w-20 h-20 object-cover rounded"
+            {/* Excerpt */}
+            <input
+              name="excerpt"
+              placeholder="Excerpt"
+              className="input input-bordered w-full"
+              onChange={handleChange}
+            />
+
+            {/* Details */}
+            <textarea
+              name="details"
+              placeholder="Details"
+              className="textarea textarea-bordered w-full"
+              onChange={handleChange}
+            />
+
+            {/* ✅ Single Image Upload */}
+            <div>
+              <label className="block mb-1 font-medium">Cover Image</label>
+              <input type="file" accept="image/*" onChange={handleCoverImage} />
+              {formData.coverImage && (
+                <img
+                  src={formData.coverImage}
+                  alt="Preview"
+                  className="mt-2 w-32 h-32 object-cover rounded"
+                />
+              )}
+            </div>
+
+            {/* ✅ Multiple Image Upload */}
+            <div>
+              <label className="block mb-1 font-medium">Gallery Images</label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleGallery}
               />
-            ))}
+              <div className="flex gap-2 mt-2 flex-wrap">
+                {formData.gallery.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`Preview ${idx}`}
+                    className="w-20 h-20 object-cover rounded"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Other Fields */}
+            <input
+              name="author"
+              placeholder="Author"
+              className="input input-bordered w-full"
+              onChange={handleChange}
+            />
+            <input
+              name="publishDate"
+              type="date"
+              className="input input-bordered w-full"
+              onChange={handleChange}
+            />
+            <input
+              name="category"
+              placeholder="Category"
+              className="input input-bordered w-full"
+              onChange={handleChange}
+            />
+            <input
+              name="tags"
+              placeholder="Tags (comma separated)"
+              className="input input-bordered w-full"
+              onChange={handleChange}
+            />
           </div>
-        </div>
 
-        {/* Other Fields */}
-        <input
-          name="author"
-          placeholder="Author"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-        />
-        <input
-          name="publishDate"
-          type="date"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-        />
-        <input
-          name="category"
-          placeholder="Category"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-        />
-        <input
-          name="tags"
-          placeholder="Tags (comma separated)"
-          className="input input-bordered w-full"
-          onChange={handleChange}
-        />
-      </div>
-
-      {/* Footer Buttons */}
-      <div className="flex justify-end gap-3 mt-4">
-        <Button variant="outline" onClick={() => setOpen(false)}>
-          Cancel
-        </Button>
-        <Button onClick={handleSubmit} className="bg-orange-500 text-white">
-          Save
-        </Button>
-      </div>
-    </DialogContent>
-  </Dialog>
-</>
-
+          {/* Footer Buttons */}
+          <div className="flex justify-end gap-3 mt-4">
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleSubmit} className="bg-orange-500 text-white">
+              Save
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
