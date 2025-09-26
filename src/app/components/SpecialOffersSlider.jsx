@@ -34,14 +34,16 @@ export default function SpecialOffersSlider({ offers }) {
       <Slider {...settings}>
         {offers.map((offer) => (
           <div key={offer.id}>
-            <div className="relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-white md:min-h-[300px]">
-              {/* Image */}
-              <div className="relative w-full md:w-1/2 h-64 md:h-auto">
+            {/* Card with hover shadow */}
+            <div className="group relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-white md:min-h-[300px] shadow-md transition-shadow duration-300 hover:shadow-2xl">
+              
+              {/* Image with hover zoom + shadow */}
+              <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
                 <Image
                   src={offer.img}
                   alt={offer.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transform transition-transform duration-500 group-hover:scale-105 group-hover:shadow-lg"
                 />
               </div>
 
@@ -70,7 +72,7 @@ export default function SpecialOffersSlider({ offers }) {
                     )}
                   </div>
 
-                  <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2 cursor-pointer">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2 cursor-pointer">
                     Order Now
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

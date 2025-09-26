@@ -81,7 +81,7 @@ export default function Navbar() {
         isScrolled ? "bg-white shadow-md backdrop-blur-sm" : "bg-white"
       }`}
     >
-      <div className="container mx-auto flex h-20 items-center justify-between px-4 lg:px-0">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4">
         <Logo />
 
         <motion.ul className="relative hidden items-center gap-4 lg:flex">
