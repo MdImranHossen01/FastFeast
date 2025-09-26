@@ -1,71 +1,58 @@
-import React from "react";
-import { FaArrowRight } from "react-icons/fa";
+import React from 'react';
+import Image from 'next/image';
+import { FaArrowRight } from 'react-icons/fa';
+import Link from 'next/link';
+
+const ctaData = [
+  {
+    id: 1,
+    title: "List Your Restaurant on FastFeast",
+    description: "Want millions of new customers to enjoy your delicious food? Join our network to grow your business and reach more hungry people than ever before.",
+    buttonText: "Become a Partner",
+    link: "/signup/restaurant",
+    backgroundImage: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1074",
+  },
+  {
+    id: 2,
+    title: "Become a FastFeast Rider",
+    description: "Enjoy flexible working hours and competitive earnings. Join our rider fleet today and earn up to ৳25,000 a month delivering happiness.",
+    buttonText: "Become a Rider",
+    link: "/signup/rider",
+    backgroundImage: "https://images.unsplash.com/photo-1621683222352-a1b6c5b95a2a?q=80&w=1170",
+  },
+];
 
 export default function CTASection() {
   return (
-    <section className="py-8 lg:py-12">
-      {/* Section Heading */}
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
-          Become a <span className="text-orange-500">Partner with</span>{" "}
-          FastFeast
-        </h2>
-        <p className="mt-3 text-lg text-gray-600">
-          Join us today — whether you’re a restaurant owner or a rider, let’s
-          grow together and deliver happiness to thousands of customers.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Restaurant Card - Subtle Border */}
-        <div className="bg-white border border-orange-200 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden">
-          <figure className="h-64">
-            <img
-              src="delivary_boy_taking_food.webp"
-              alt="Restaurant Partner"
-              className="w-full h-full object-cover"
+    // ✅ REMOVED px-4 from here
+    <section className="bg-orange-50 py-16">
+      {/* ✅ ADDED px-4 here for perfect alignment */}
+      <div className="container mx-auto px-4 grid grid-cols-1 gap-8 md:grid-cols-2">
+        {ctaData.map((card) => (
+          <div key={card.id} className="group relative h-80 overflow-hidden rounded-2xl shadow-lg">
+            <Image
+              src={card.backgroundImage}
+              alt={card.title}
+              fill
+              className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
             />
-          </figure>
-          <div className="flex flex-col justify-between flex-1 p-6">
-            <div className="space-y-3">
-              <h3 className="font-bold text-2xl">
-                List Your Restaurant on FastFeast
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+              <h3 className="mb-2 text-3xl font-bold">
+                {card.title}
               </h3>
-              <p className="text-lg text-gray-700">
-                Would you like millions of new customers to enjoy your amazing
-                food and groceries? Let’s start our partnership today and grow
-                together!
+              <p className="mb-4 text-gray-200">
+                {card.description}
               </p>
+              <Link href={card.link}>
+                <button className="flex w-fit items-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 font-semibold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300">
+                  {card.buttonText}
+                  <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+                </button>
+              </Link>
             </div>
-            <button className="mt-6 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-orange-400 text-white font-semibold text-lg rounded-xl py-3 px-6 hover:brightness-110 transition-all cursor-pointer">
-              Become a Partner <FaArrowRight />
-            </button>
           </div>
-        </div>
-
-        {/* Rider Card - Subtle Background Tint */}
-        <div className="bg-orange-50 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden">
-          <figure className="h-64">
-            <img
-              src="rider_man.webp"
-              alt="Rider Partner"
-              className="w-full h-full object-cover"
-            />
-          </figure>
-          <div className="flex flex-col justify-between flex-1 p-6">
-            <div className="space-y-3">
-              <h3 className="font-bold text-2xl">Become a FastFeast Hero</h3>
-              <p className="text-lg text-gray-700">
-                Are you a man of speed and a master of navigation? Become a
-                Foodi Hero and earn up to 25,000 TK each month while spreading
-                joy to doorsteps.
-              </p>
-            </div>
-            <button className="mt-6 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-600 to-orange-400 text-white font-semibold text-lg rounded-xl py-3 px-6 hover:brightness-110 transition-all cursor-pointer">
-              Become a Rider <FaArrowRight />
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

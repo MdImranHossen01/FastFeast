@@ -40,20 +40,17 @@ const cardsData = [
 
 export default function Stats() {
   const { ref, inView } = useInView({
-    // Removed `triggerOnce: true` to allow animation on every scroll
+    
     threshold: 0.5,
   });
 
-  return (
-    <section ref={ref} className="py-8 lg:py-12">
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
-          Our <span className="text-orange-500">Stats</span>
+     return (
+    <section ref={ref} className="bg-amber-50 pt-12 px-4">
+      <div className="text-center mb-12">
+         <h2 className="mb-4 text-4xl font-bold text-gray-800">
+           FastFeast <span className="text-orange-500">Milestones</span> 
         </h2>
-        <p className="mt-3 text-lg text-gray-600">
-          Don't just take our word for it. Hear from some of our satisfied
-          customers.
-        </p>
+        
       </div>
       <div className="container mx-auto grid grid-cols-1 gap-6 pb-16 sm:grid-cols-2 md:grid-cols-4">
         {cardsData.map((card) => (

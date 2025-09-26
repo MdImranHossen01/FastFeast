@@ -1,236 +1,126 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import { FiMail, FiCheck, FiAlertCircle, FiArrowRight } from "react-icons/fi";
-import newsletterimage from "../../../public/newsLetter.jpg";
+import { useState } from "react";
+import { FiMail, FiCheck, FiArrowRight } from "react-icons/fi";
+import Image from "next/image";
+import newsletterImage from "../../../public/newsLetter.jpg";
 
-export default function NewsletterPage() {
+// --- Sub-component for Benefits ---
+const BenefitItem = ({ children }) => (
+  <div className="flex items-center gap-2">
+    <FiCheck className="h-4 w-4 flex-shrink-0 text-green-500" />
+    <span className="text-sm text-gray-600">{children}</span>
+  </div>
+);
+
+// --- Sub-component for the Form ---
+const SubscriptionForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [bgImageLoaded, setBgImageLoaded] = useState(false);
-
-  useEffect(() => {
-    setBgImageLoaded(true);
-  }, []);
+  const [status, setStatus] = useState("idle"); // 'idle', 'loading', 'success', 'error'
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    if (!email) {
-      setMessage("Please enter an email address");
-      setIsSubmitting(false);
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      setMessage("Please enter a valid email.");
+      setStatus("error");
       return;
     }
 
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setMessage("Please enter a valid email address");
-      setIsSubmitting(false);
-      return;
-    }
+    setStatus("loading");
+    setMessage("");
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setMessage(
-        "Subscribed successfully! You'll receive our food updates soon."
-      );
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
+      setMessage("Success! Welcome to the club.");
+      setStatus("success");
       setEmail("");
     } catch (error) {
-      setMessage("Subscription failed. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+      setMessage("Something went wrong. Please try again.");
+      setStatus("error");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-8 lg:py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 1.5 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-500 text-white mb-4"
-          >
-            <FiMail className="text-2xl" />
-          </motion.div>
-          <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
-            Never Miss a <span className="text-orange-500">Delicious</span>{" "}
-            Update
-          </h1>
-          <p className="mt-3 text-lg text-gray-600">
-            Join our foodie community and get exclusive access to new restaurant
-            openings, special discounts, and culinary insights.
-          </p>
-        </div>
+    <>
+      <form onSubmit={handleSubmit} className="flex items-center gap-2 rounded-lg bg-white p-2 shadow-md">
+        <FiMail className="h-5 w-5 text-gray-400 ml-2" />
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full bg-transparent p-2 text-gray-700 outline-none placeholder:text-gray-400"
+          disabled={status === "loading"}
+        />
+        <motion.button
+          type="submit"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-2 rounded-md bg-orange-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-orange-300"
+          disabled={status === "loading"}
+        >
+          {status === "loading" ? "Joining..." : "Join"}
+          <FiArrowRight />
+        </motion.button>
+      </form>
+      {message && (
+        <p className={`mt-2 text-sm ${status === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+          {message}
+        </p>
+      )}
+    </>
+  );
+};
 
-        {/* Main content */}
-        <div className="bg-white rounded-2xl shadow-md overflow-hidden w-full">
-          <div className="md:flex">
-            {/* Visual Section */}
-            <div className="md:w-3/5 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-amber-600/10 z-10"></div>
-              {bgImageLoaded && (
-                <img
-                  src={newsletterimage.src}
-                  alt="Delicious food selection"
-                  className="w-full h-64 md:h-full object-cover"
-                />
-              )}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-20 bg-gradient-to-t from-black/70 to-transparent">
-                <h2 className="text-2xl font-bold mb-2">Foodie Community</h2>
-                <p className="text-sm opacity-90">
-                  Join thousands of food lovers who get exclusive offers
-                </p>
-                <div className="flex mt-4">
-                  <div className="flex -space-x-2 mr-2">
-                    {[1, 2, 3, 4].map((item) => (
-                      <div
-                        key={item}
-                        className="w-8 h-8 rounded-full bg-white border-2 border-white"
-                      ></div>
-                    ))}
-                  </div>
-                  <div className="text-xs bg-white text-gray-700 px-2 py-1 rounded-full">
-                    +5k subscribers
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Form Section */}
-            <div className="md:w-3/5 p-8 md:p-10">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Subscribe to Our Newsletter
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Get the latest food delivery updates, exclusive offers, and
-                tasty blogs straight to your inbox!
-              </p>
-
-              {/* Benefits list */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
-                {[
-                  "Exclusive discounts",
-                  "New restaurant alerts",
-                  "Weekly food guides",
-                  "Priority delivery slots",
-                ].map((benefit, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-2">
-                      <FiCheck className="text-green-500 text-sm" />
-                    </div>
-                    <span className="text-sm text-gray-600">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Form */}
-              <form onSubmit={handleSubmit} className="mb-6">
-                <div className="flex flex-col md:flex-row gap-3">
-                  <div className="flex-1">
-                    <label htmlFor="email" className="sr-only">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="your.email@example.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition text-base"
-                      disabled={isSubmitting}
-                      autoComplete="off"
-                      data-gramm="false"
-                      suppressHydrationWarning
-                    />
-                  </div>
-                  <motion.button
-                    type="submit"
-                    disabled={isSubmitting}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <svg
-                          className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          ></circle>
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          ></path>
-                        </svg>
-                        Processing
-                      </>
-                    ) : (
-                      <>
-                        Subscribe <FiArrowRight className="ml-2" />
-                      </>
-                    )}
-                  </motion.button>
-                </div>
-              </form>
-
-              {/* Message */}
-              {message && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`p-3 rounded-lg mb-6 flex items-start ${
-                    message.includes("successfully")
-                      ? "bg-green-50 text-green-700"
-                      : "bg-red-50 text-red-700"
-                  }`}
-                >
-                  {message.includes("successfully") ? (
-                    <FiCheck className="mt-0.5 mr-2 flex-shrink-0" />
-                  ) : (
-                    <FiAlertCircle className="mt-0.5 mr-2 flex-shrink-0" />
-                  )}
-                  <span className="text-sm">{message}</span>
-                </motion.div>
-              )}
-
-              {/* Privacy Note */}
-              <div className="border-t pt-6">
-                <p className="text-xs text-gray-500 text-center">
-                  We respect your privacy. Unsubscribe at any time. By
-                  subscribing, you agree to our{" "}
-                  <a href="#" className="text-orange-500 hover:underline">
-                    Terms
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="text-orange-500 hover:underline">
-                    Privacy Policy
-                  </a>
-                  .
-                </p>
-              </div>
-            </div>
+// --- Main Newsletter Component ---
+export default function NewsletterSection() {
+  return (
+  
+    <section className="bg-white py-12 md:py-16">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-1 items-center gap-8 overflow-hidden rounded-2xl bg-orange-50 shadow-xl md:grid-cols-2"
+        >
+          
+          <div className="relative h-64 w-full md:h-full">
+            <Image
+              src={newsletterImage}
+              alt="A delicious assortment of food"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            {/* Gradient is now right-facing */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:bg-gradient-to-r"></div>
           </div>
-        </div>
-      </motion.div>
-    </div>
+
+          {/* Content Section (now on the right) */}
+          <div className="p-8 md:p-12">
+            <h2 className="text-3xl font-bold text-gray-800 md:text-4xl">
+              Don't Miss a <span className="text-orange-500">Delicious</span> Bite!
+            </h2>
+            <p className="mt-4 text-gray-600">
+              Join our foodie community for exclusive deals, new restaurant alerts, and weekly culinary inspiration delivered straight to your inbox.
+            </p>
+            <div className="my-8 grid grid-cols-2 gap-4">
+              <BenefitItem>Exclusive Discounts</BenefitItem>
+              <BenefitItem>New Restaurant Alerts</BenefitItem>
+              <BenefitItem>Weekly Food Guides</BenefitItem>
+              <BenefitItem>Insider Foodie News</BenefitItem>
+            </div>
+            <SubscriptionForm />
+             <p className="mt-4 text-xs text-gray-500">
+              We respect your privacy. Unsubscribe anytime.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
