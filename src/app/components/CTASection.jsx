@@ -27,7 +27,7 @@ export default function CTASection() {
     // ✅ REMOVED px-4 from here
     <section className="bg-orange-50 py-16">
       {/* ✅ ADDED px-4 here for perfect alignment */}
-      <div className="container mx-auto px-4 grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div className="container mx-auto px-4 lg:px-0 grid grid-cols-1 gap-8 md:grid-cols-2">
         {ctaData.map((card) => (
           <div key={card.id} className="group relative h-80 overflow-hidden rounded-2xl shadow-lg">
             <Image
