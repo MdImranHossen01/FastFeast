@@ -66,7 +66,7 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "bg-white/80 shadow-md backdrop-blur-sm" : "bg-white"
+        isScrolled ? "bg-white shadow-md backdrop-blur-sm" : "bg-white"
       }`}
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4">
@@ -93,7 +93,7 @@ export default function Navbar() {
               />
             </div>
           ) : (
-            // ✅ Updated Login button with solid color
+        
             <Link href="/login" className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-orange-600">
               <FiLogIn /> Login
             </Link>
@@ -151,7 +151,7 @@ export default function Navbar() {
    <div className="flex flex-col gap-3">
     <Link 
         href="/login" 
-        // ✅ UPDATED: Using smaller classes for an "extra small" button
+   
         className="rounded-lg text-sm bg-orange-500 px-3 py-1.5 text-center font-semibold text-white transition-colors hover:bg-orange-600" 
         onClick={() => setIsMenuOpen(false)}
     >
