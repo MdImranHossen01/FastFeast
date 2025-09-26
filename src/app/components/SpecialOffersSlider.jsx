@@ -30,7 +30,7 @@ export default function SpecialOffersSlider({ offers }) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       <Slider {...settings}>
         {offers.map((offer) => (
           <div key={offer.id}>
@@ -70,7 +70,7 @@ export default function SpecialOffersSlider({ offers }) {
                     )}
                   </div>
 
-                  <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2">
+                  <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition transform hover:scale-105 flex items-center gap-2 cursor-pointer">
                     Order Now
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
