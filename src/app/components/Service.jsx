@@ -1,5 +1,7 @@
 "use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 import {
   FaMapMarkerAlt,
   FaMobileAlt,
@@ -10,54 +12,97 @@ import {
 const servicesData = [
   {
     id: "01",
-    icon: <FaMapMarkerAlt className="w-8 h-8  " />,
+    icon: FaMapMarkerAlt,
     title: "Real-Time Order Tracking",
     description:
-      "Track your food order live with real-time GPS from kitchen to doorstep, see every movement instantly, follow accurate delivery timelines, and stay fully updated with safe and reliable status alerts.",
+      "Track your order live with GPS and get instant status updates from kitchen to doorstep.",
   },
   {
     id: "02",
-    icon: <FaMotorcycle className="w-8 h-8  " />,
+    icon: FaMotorcycle,
     title: "Fast Delivery by Riders",
     description:
-      "Receive your meals quickly and safely from our trained delivery riders, enjoy smooth and timely drop-offs, get accurate arrival estimates, and experience fast and reliable food delivery every time.",
+      "Enjoy quick and reliable delivery from trained riders with accurate arrival estimates.",
   },
   {
     id: "03",
-    icon: <FaMobileAlt className="w-8 h-8  " />,
+    icon: FaMobileAlt,
     title: "Online Food Ordering",
     description:
-      "Browse restaurants and order your favorite meals with a simple online system, explore detailed menus easily, place orders within seconds, and enjoy a smooth and reliable ordering experience always.",
+      "Browse restaurants, explore menus, and place orders instantly with ease and reliability.",
   },
   {
     id: "04",
-    icon: <FaStore className="w-8 h-8  " />,
+    icon: FaStore,
     title: "Restaurant Partnership",
     description:
-      "Join our platform and grow your restaurant with seamless online tools, add and manage your menus easily, handle orders with full control, and build a trusted and reliable food business network.",
+      "Grow your restaurant online, manage menus effortlessly, and connect with a trusted food network.",
   },
 ];
 
+// Animation variants for Framer Motion
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
 export default function Services() {
   return (
-    <section className="container mx-auto py-16 px-4">
-      <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+    // ✅ REMOVED px-4 from here
+    <section className="bg-orange-50/50 py-16">
+      {/* ✅ ADDED px-4 here for perfect alignment */}
+      <div className="container mx-auto px-4 lg:px-0">
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
+          How <span className="text-orange-500">FastFeast</span> Works
+        </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {servicesData.map((service) => (
-          <div
-            key={service.id}
-            className="  rounded-2xl shadow-lg hover:shadow-xl transform   transition hover:translate-y-2 duration-300 p-6 flex flex-col items-center text-center"
-          >
-            <div className="  rounded-full p-5 mb-5 hover:scale-110  shadow-sm transition duration-300">
-              {service.icon}
-            </div>
-            <h2 className="text-xl font-semibold mb-3">{service.title}</h2>
-            <p className="text-base leading-relaxed max-w-xs">
-              {service.description}
-            </p>
-          </div>
-        ))}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          {servicesData.map((service) => (
+            <motion.div
+              key={service.id}
+              className="group relative overflow-hidden rounded-2xl bg-white p-6 text-center shadow-lg transition-shadow duration-300 hover:shadow-2xl"
+              variants={cardVariants}
+            >
+              <div className="absolute -top-2 -right-2 text-9xl font-extrabold text-gray-100 opacity-80 transition-transform duration-300 group-hover:scale-110">
+                {service.id}
+              </div>
+              <div className="relative z-10 mx-auto mb-6 inline-block rounded-full bg-orange-100 p-5 text-orange-500 transition-colors duration-300 group-hover:bg-orange-500 group-hover:text-white">
+                <service.icon className="h-10 w-10" />
+              </div>
+              <div className="relative z-10">
+                <h3 className="mb-2 text-xl font-bold text-gray-800 transition-colors duration-300 group-hover:text-orange-500">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

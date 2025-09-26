@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function PopularBlogs() {
-  const [posts, setPosts] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,10 +28,10 @@ export default function PopularBlogs() {
           console.warn("Unexpected blogs API shape:", data);
         }
 
-        setPosts(arr);
+        setBlogs(arr);
       } catch (err) {
         console.error("Failed to fetch posts:", err);
-        setPosts([]); // fallback to empty array
+        setBlogs([]); // fallback to empty array
       } finally {
         setLoading(false);
       }
@@ -41,29 +41,31 @@ export default function PopularBlogs() {
   }, []);
 
   // Sort by visit count safely
-  const topPosts = Array.isArray(posts)
-    ? [...posts].sort((a, b) => (b.visitCount || 0) - (a.visitCount || 0)).slice(0, 4)
+  const topPosts = Array.isArray(blogs)
+    ? [...blogs]
+        .sort((a, b) => (b.visitCount || 0) - (a.visitCount || 0))
+        .slice(0, 4)
     : [];
 
   // Animation directions
   const directions = [
     { x: -80, y: 0 }, // left
-    { x: 80, y: 0 },  // right
+    { x: 80, y: 0 }, // right
     { x: 0, y: -80 }, // top
-    { x: 0, y: 80 },  // bottom
+    { x: 0, y: 80 }, // bottom
   ];
 
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section className="py-8 container mx-auto px-4 lg:px-0 lg:py-12">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-6xl md:text-4xl font-bold text-gray-900">
+      <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
+        <h1 className="text-3xl lg:text-4xl font-bold">
           Popular <span className="text-orange-500">Blogs</span>
-        </h2>
-        <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-          Discover our most-read blogs, handpicked by our readers.
-          Stay updated with the latest trends, guides, and stories
-          from food, lifestyle, and beyond.
+        </h1>
+        <p className="mt-2 text-gray-600">
+          Discover our most-read blogs, handpicked by our readers. Stay updated
+          with the latest trends, guides, and stories from food, lifestyle, and
+          beyond.
         </p>
       </div>
 
@@ -74,37 +76,31 @@ export default function PopularBlogs() {
         ) : topPosts.length === 0 ? (
           <div className="text-gray-500">No blogs found.</div>
         ) : (
-          topPosts.map((post, i) => (
+          topPosts.map((blog, i) => (
             <motion.div
-              key={post._id || i}
+              key={blog._id || i}
               initial={{ ...directions[i % 4], opacity: 0 }}
               whileInView={{ x: 0, y: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: i * 0.2, ease: "easeOut" }}
             >
-              <BlogCard post={post} />
+              <BlogCard blog={blog} />
             </motion.div>
           ))
         )}
       </div>
 
       {/* Show All button */}
-      <motion.div
-        className="flex justify-center mt-12"
-        initial={{ y: 50, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <div>
-          <Link
-            href="/blogs"
-            className="flex items-center gap-2 px-6 py-3 hover:bg-orange-500 hover:text-white text-orange-600 rounded-lg bg-none transition"
-          >
-            Show All <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </motion.div>
+      <div className="flex items-center justify-center pt-12">
+        <Link
+          href="/blogs"
+          className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-lg 
+               transition-all duration-300 ease-in-out
+               hover:bg-orange-600 hover:shadow-lg"
+        >
+          Show All <ArrowRight className="w-5 h-5" />
+        </Link>
+      </div>
     </section>
   );
 }

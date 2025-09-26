@@ -4,57 +4,77 @@ import React from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 
+import { FaMotorcycle } from "react-icons/fa";
+import { IoRestaurant } from "react-icons/io5";
+import { IoFastFood } from "react-icons/io5";
+import { HiUsers } from "react-icons/hi";
+
 const cardsData = [
   {
     id: 1,
-    image: "/about/rider.png",
-    number: "3000",
-    title: "Rider",
+    icon: FaMotorcycle,
+    number: 3000,
+    title: "Riders",
   },
   {
     id: 2,
-    image: "/about/restaurant.png",
-    number: "500",
+    icon: IoRestaurant,
+    number: 500,
     title: "Restaurants",
   },
   {
     id: 3,
-    image: "/about/foods.png",
-    number: "600",
+    icon: IoFastFood,
+    number: 600,
     title: "Foods",
   },
   {
     id: 4,
-    image: "/about/team.png",
-    number: "50",
+    icon: HiUsers,
+    number: 50,
     title: "Team Members",
   },
 ];
 
 export default function Stats() {
   const { ref, inView } = useInView({
-    triggerOnce: true,
     threshold: 0.5,
-  })
-  // console.log(inView);
-  //bg-gradient-to-r from-orange-600 to-orange-400
+  });
+
   return (
-    <section ref={ref} className="bg-base-200 px-4">
-      <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 container mx-auto py-10 ">
-        {cardsData?.map((card) => (
-          <div
-            key={card.id}
-            className="bg-white flex flex-col items-center p-5 rounded-xl hover:shadow-2xl shadow-lg"
-          >
-            <figure className="flex-1">
-              <img src={card?.image} alt="" className="max-w-[150px] " />
-            </figure>
-            <h3 className="text-3xl font-black">
-              {inView ? <CountUp start={0} end={card?.number} /> : 0}+
-            </h3>
-            <span className="font-bold">{card?.title}</span>
-          </div>
-        ))}
+    <section ref={ref} className="bg-amber-50 pb-16">
+      {/* ✅ SINGLE container for perfect alignment */}
+      <div className="container mx-auto px-4 lg:px-0">
+        <div className="text-center mb-12">
+          <h2 className="mb-4 text-4xl font-bold text-gray-800">
+            FastFeast <span className="text-orange-500">Milestones</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+          {cardsData.map((card) => (
+            <div
+              key={card.id}
+              className="flex flex-col items-center gap-4 rounded-xl bg-white p-6 shadow-lg transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl"
+            >
+              <div className="rounded-full bg-orange-100 p-4 text-orange-500">
+                <card.icon className="h-10 w-10" />
+              </div>
+
+              <div className="text-center">
+                <h3 className="text-4xl font-extrabold text-gray-800">
+                  {inView ? (
+                    <CountUp start={0} end={card.number} duration={2.5} />
+                  ) : (
+                    "0"
+                  )}
+                  +
+                </h3>
+                <span className="font-semibold text-gray-500">{card.title}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

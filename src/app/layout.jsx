@@ -5,7 +5,6 @@ import AOSProvider from "@/providers/AOSProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,16 +24,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
           <AOSProvider>
             <header>
               <Navbar />
             </header>
-            <main className="flex-grow">{children}</main>
+            <main>{children}</main>
             <footer>
-              <Footer/>
+              <Footer />
             </footer>
           </AOSProvider>
         </SessionWrapper>

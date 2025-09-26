@@ -5,16 +5,17 @@
     "subtitle": "With fries & drink",
     "price": "৳199",
     "oldPrice": "৳299",
-    "img": "https://i.ibb.co.com/QFmnkYXX/burger.png",
+    "img": "https://i.ibb.co.com/Rk9dfXsy/burger.png",
     "badge": "25% OFF"
   },
+
   {
     "id": 2,
     "title": "Family Pizza Deal",
     "subtitle": "Large + 2 sides",
     "price": "৳499",
     "oldPrice": "৳699",
-    "img": "https://i.ibb.co.com/23t66ksn/pizza.png",
+    "img": "https://i.ibb.co.com/v4t21F7g/pizza.png",
     "badge": "30% OFF"
   },
 
@@ -27,13 +28,14 @@
     "img": "https://i.ibb.co.com/QFTLxZ6n/shusi.png",
     "badge": "20% OFF"
   },
+
   {
     "id": 4,
     "title": "Healthy Salad Box",
     "subtitle": "Fresh & crunchy",
     "price": "৳149",
     "oldPrice": "৳199",
-    "img": "https://i.ibb.co.com/YT34SyLS/salad.png",
+    "img": "https://i.ibb.co.com/SgpYS60/salad.png",
     "badge": "25% OFF"
   },
   {
@@ -42,16 +44,17 @@
     "subtitle": "Eggs, toast & coffee",
     "price": "৳159",
     "oldPrice": "৳219",
-    "img": "https://i.ibb.co.com/FbyTYJkh/brak.png",
+    "img": " https://i.ibb.co.com/twmcPJxC/breakfast.png",
     "badge": "28% OFF"
   },
+
   {
     "id": 6,
     "title": "Tea Time Sweets",
     "subtitle": "2 pastries + tea",
     "price": "৳89",
     "oldPrice": "৳129",
-    "img": "https://i.ibb.co.com/67qjdq3w/tea.png",
+    "img": "https://i.ibb.co.com/HTp9STVs/tea.png",
     "badge": "31% OFF"
   }
 ]

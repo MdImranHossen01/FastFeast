@@ -1,51 +1,67 @@
-import React from 'react'
-import { FaArrowRight } from 'react-icons/fa'
+import React from "react";
+import Image from "next/image";
+import { FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
+
+const ctaData = [
+  {
+    id: 1,
+    title: "List Your Restaurant on FastFeast",
+    description:
+      "Want millions of new customers to enjoy your delicious food? Join our network to grow your business and reach more hungry people than ever before.",
+    buttonText: "Become a Partner",
+    link: "/signup/restaurant",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1074",
+  },
+  {
+    id: 2,
+    title: "Become a FastFeast Rider",
+    description:
+      "Enjoy flexible working hours and competitive earnings. Join our rider fleet today and earn up to ৳25,000 a month delivering happiness.",
+    buttonText: "Become a Rider",
+    link: "/signup/rider",
+    backgroundImage: "/food-delivery-riderorange.jpg",
+  },
+];
 
 export default function CTASection() {
-    return (
-        <section className="py-10 bg-base-200 px-4">
-            <div className="mx-auto container grid grid-cols-1 lg:grid-cols-2 gap-5">
-                <div className="grid grid-cols-3 gap-5 bg-base-100 rounded-2xl p-5 hover:shadow-xl">
-                    <figure className=''>
-                        <img src="delivary_boy_taking_food.webp" alt="" className="rounded-xl h-full object-cover" />
-                    </figure>
-                    <div className="col-span-2 flex flex-col justify-center">
-                        <div className=" space-y-2">
-                            <h3 className="font-bold text-2xl">
-                                List Your Restaurant on FastFeast
-                            </h3>
-                            <p className="text-lg">
-                                Are you a man of speed and a master of navigation? Become a Foodi Hero and earn up to 25,000 TK each month while spreading joy to the doorsteps.
-                                Would you like millions of new customers to enjoy your amazing food and groceries? Let's start our partnership today!
-                            </p>
-                            <button className="btn bg-gradient-to-r from-orange-600 to-orange-400 rounded-lg text-gray-700 text-xl p-7 mt-5">
-                                Become a Partner <FaArrowRight />
-                            </button>
-                        </div>
-                    </div>
+  return (
+    // ✅ REMOVED px-4 from here
+    <section className="bg-orange-50 py-16">
+      <div className="mb-12 text-center">
+        <h2 className="mb-4 text-4xl font-bold text-gray-800">
+          Join with <span className="text-orange-500">FastFeast</span>
+        </h2>
+      </div>
 
-                </div>
-
-                <div className="grid grid-cols-3 gap-5 bg-base-100 rounded-2xl p-5 hover:shadow-xl">
-                    <figure className=''>
-                        <img src="rider_man.webp" alt="" className="rounded-xl h-full object-cover" />
-                    </figure>
-                    <div className="col-span-2 flex flex-col justify-center">
-                        <div className=" space-y-2">
-                            <h3 className="font-bold text-2xl">
-                                Become a FastFeast Hero
-                            </h3>
-                            <p className="text-lg ">
-                                Would you like millions of new customers to enjoy your amazing food and groceries? Let's start our partnership today!
-                            </p>
-                            <button className="btn bg-gradient-to-r from-orange-600 to-orange-400 rounded-lg text-gray-700 text-xl p-7 mt-5">
-                                Become a Rider <FaArrowRight />
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
+      {/* ✅ ADDED px-4 here for perfect alignment */}
+      <div className="container mx-auto px-4 lg:px-0 grid grid-cols-1 gap-8 md:grid-cols-2">
+        {ctaData.map((card) => (
+          <div
+            key={card.id}
+            className="group relative h-80 overflow-hidden rounded-2xl shadow-lg"
+          >
+            <Image
+              src={card.backgroundImage}
+              alt={card.title}
+              fill
+              className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+            <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+              <h3 className="mb-2 text-3xl font-bold">{card.title}</h3>
+              <p className="mb-4 text-gray-200">{card.description}</p>
+              <Link href={card.link}>
+                <button className="flex w-fit items-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 font-semibold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300">
+                  {card.buttonText}
+                  <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+                </button>
+              </Link>
             </div>
-        </section>
-    )
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }

@@ -16,9 +16,9 @@ export default function UserMenu({ session }) {
       {!session ? (
         <Link
           href="/login"
-          className="bg-orange-600 text-white py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-orange-700 text-lg"
+          className="text-orange-600 font-semibold border-2 border-orange-600 py-2 px-4 hover:bg-orange-600 hover:text-gray-100 transition-all duration-500 rounded-sm"
         >
-          Login
+          Log In
         </Link>
       ) : (
         <div className="relative">
@@ -27,14 +27,14 @@ export default function UserMenu({ session }) {
             onClick={() => setOpen(!open)}
             className="flex items-center gap-2 focus:outline-none"
           >
-            {session.user?.image && (
+            {session?.user?.image && (
               <img
-                src={session.user.image}
+                src={session?.user?.image}
                 className="w-10 h-10 rounded-full border"
                 alt="User"
               />
             )}
-            <span>{session.user?.name?.split(" ")[0] || "User"}</span>
+            <span>{session?.user?.name?.split(" ")[0] || "User"}</span>
             <svg
               className={`w-4 h-4 transform transition-transform ${
                 open ? "rotate-180" : ""

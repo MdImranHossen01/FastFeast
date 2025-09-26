@@ -1,16 +1,22 @@
 import React from "react";
 
-const Loading = () => {
+export default function Loading() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="relative w-16 h-16">
-        {/* Outer ring */}
-        <div className="absolute inset-0 rounded-full border-4 border-purple-200 border-t-purple-600 animate-spin"></div>
-        {/* Inner dot */}
-        <div className="absolute inset-4 rounded-full border-4 border-purple-300 border-t-transparent animate-spin-slow"></div>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
+      {/* Spinner */}
+      <div className="w-16 h-16 border-4 border-t-orange-500 border-gray-200 rounded-full animate-spin mb-6"></div>
+
+      {/* Bounce dots */}
+      <div className="flex space-x-2">
+        <div className="w-3 h-3 bg-orange-500 rounded-full animate-bounce delay-75"></div>
+        <div className="w-3 h-3 bg-orange-500 rounded-full animate-bounce delay-150"></div>
+        <div className="w-3 h-3 bg-orange-500 rounded-full animate-bounce delay-300"></div>
       </div>
+
+      {/* Loading text */}
+      <p className="mt-4 text-orange-500 font-semibold text-lg animate-pulse">
+        Loading...
+      </p>
     </div>
   );
-};
-
-export default Loading;
+}
