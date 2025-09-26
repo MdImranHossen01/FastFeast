@@ -26,6 +26,12 @@ export default function CTASection() {
   return (
     // ✅ REMOVED px-4 from here
     <section className="bg-orange-50 py-16">
+       <div className="mb-12 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-800">
+            Join with <span className="text-orange-500">FastFeast</span> 
+          </h2>
+                  </div>
+       
       {/* ✅ ADDED px-4 here for perfect alignment */}
       <div className="container mx-auto px-4 grid grid-cols-1 gap-8 md:grid-cols-2">
         {ctaData.map((card) => (
