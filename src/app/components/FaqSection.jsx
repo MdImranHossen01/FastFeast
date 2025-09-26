@@ -52,14 +52,7 @@ export default function FAQSection() {
             Find answers to common questions about orders, payments, and our services. We're here to make your experience seamless.
           </p>
         </div>
-        {/* <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            Still Have Questions?
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Find answers to common questions about orders, payments, and our services. We're here to make your experience seamless.
-          </p>
-        </div> */}
+       
 
         {/* ✅ Swapped the order of the two columns */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

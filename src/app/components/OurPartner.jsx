@@ -19,14 +19,6 @@ const partnerLogos = [
   { src: "https://i.ibb.co/j9cR6QFK/7.png", alt: "Partner Logo 7" },
 ];
 
- // <div className="mb-12 text-center">
-    //       <h2 className="mb-4 text-4xl font-bold text-gray-800">
-    //         Still Have <span className="text-orange-500">Questions?</span> 
-    //       </h2>
-    //       <p className="mx-auto max-w-2xl text-lg text-gray-600">
-    //         Find answers to common questions about orders, payments, and our services. We're here to make your experience seamless.
-    //       </p>
-    //     </div>
 
 const OurPartner = () => {
   return (

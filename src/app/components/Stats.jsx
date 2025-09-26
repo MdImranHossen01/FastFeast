@@ -40,7 +40,7 @@ const cardsData = [
 
 export default function Stats() {
   const { ref, inView } = useInView({
-    // Removed `triggerOnce: true` to allow animation on every scroll
+    
     threshold: 0.5,
   });
 
@@ -48,7 +48,7 @@ export default function Stats() {
     <section ref={ref} className="bg-amber-50 pt-12 px-4">
       <div className="text-center mb-12">
          <h2 className="mb-4 text-4xl font-bold text-gray-800">
-           Feast <span className="text-orange-500">Milestones</span> 
+           FastFeast <span className="text-orange-500">Milestones</span> 
         </h2>
         
       </div>
