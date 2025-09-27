@@ -3,6 +3,14 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import RestaurantCard from "./components/RestaurantCard";
 import RestaurantCardSkeleton from "./components/RestaurantCardSkeleton";
+import ThaiFood from "./components/ThaiFood";
+import ChineseFood from "./components/ChineseFood";
+import IndianFood from "./components/IndianFood";
+import ItalianFood from "./components/ItalianFood";
+import JapaneseFood from "./components/JapaneseFood";
+import KoreanFood from "./components/KoreanFood";
+import TurkishFood from "./components/TurkishFood";
+import FavouriteFood from "./components/FavouriteFood";
 
 // --- DEMO DATA ---
 const demoRestaurants = [
@@ -21,6 +29,7 @@ const MenuPage = () => {
   // Memoize the filtered results to avoid re-calculating on every render
   const filteredRestaurants = useMemo(() => {
     return demoRestaurants.filter((restaurant) => {
+      
       // Search Query Filter
       if (filters.searchQuery && !restaurant.name.toLowerCase().includes(filters.searchQuery.toLowerCase())) {
         return false;
@@ -49,6 +58,14 @@ const MenuPage = () => {
 
   return (
     <div className="py-4">
+      <FavouriteFood/>
+      <ThaiFood/>
+      <ChineseFood/>
+      <IndianFood/>
+      <ItalianFood/>
+      <JapaneseFood/>
+      <KoreanFood/>
+      <TurkishFood/>
       <h2 className="mb-4 text-2xl font-bold text-gray-800">
         {filteredRestaurants.length} Restaurants Found
       </h2>
