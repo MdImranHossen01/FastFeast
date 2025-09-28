@@ -21,7 +21,7 @@ const SidebarComponent = () => {
   const filters = useSelector((state) => state.filters);
 
   // Dummy data for filter options
-  const cuisines = ["Thai", "Italian", "Indian", "Chinese", "Japanese", "Biryani"];
+  const cuisines = ["Thai", "Italian", "Indian", "Chinese", "Japanese", "Korean", "Turkish"];
   const prices = ["$", "$$", "$$$", "$$$$"]; 
   const deliveryTimes = ["Under 30 min", "Under 45 min", "Any"];
 
