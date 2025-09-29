@@ -10,7 +10,6 @@ import ItalianFood from "./components/ItalianFood";
 import JapaneseFood from "./components/JapaneseFood";
 import KoreanFood from "./components/KoreanFood";
 import TurkishFood from "./components/TurkishFood";
-import FavouriteFood from "./components/FavouriteFood";
 
 // --- DEMO DATA ---
 const demoRestaurants = [
@@ -58,7 +57,7 @@ const MenuPage = () => {
 
   return (
     <div className="py-4">
-      <FavouriteFood/>
+    
       <ThaiFood/>
       <ChineseFood/>
       <IndianFood/>
