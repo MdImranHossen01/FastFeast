@@ -124,7 +124,7 @@ export default function Navbar() {
                         <FiUser /> <Link href="/profile" onClick={() => setIsUserMenuOpen(false)}>My Profile</Link>
                       </li>
                       <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
-                        <FiGrid /> <Link href="/dashboard" onClick={() => setIsUserMenuOpen(false)}>Dashboard</Link>
+                        <FiGrid /> <Link href="/admin-dashboard" onClick={() => setIsUserMenuOpen(false)}>Dashboard</Link>
                       </li>
                       <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50 transition-transform duration-300 hover:scale-105">
                         <FiLogOut />
@@ -191,7 +191,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  <Link href="/login" className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white transition-colors hover:bg-orange-600 transition-all duration-300 transform hover:scale-105" onClick={() => setIsMenuOpen(false)}>
+                  <Link href="/login" className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white  hover:bg-orange-600 transition-all duration-300 transform hover:scale-105" onClick={() => setIsMenuOpen(false)}>
                     Login
                   </Link>
                 </div>

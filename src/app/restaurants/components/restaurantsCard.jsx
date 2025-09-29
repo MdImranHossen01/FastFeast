@@ -30,11 +30,11 @@ export default function RestaurantsCard({ restaurant }) {
     return stars;
   };
   return (
-    <div className="card bg-white shadow-md hover:shadow-lg hover:-translate-y-1   transition-transform  transition-shadow duration-300 cursor-pointer">
+    <div className="card  group bg-white shadow-md hover:shadow-lg hover:-translate-y-1   transition-transform  transition-shadow duration-300 cursor-pointer">
       {/* banner */}
       <figure>
         <img
-          className="h-60 w-full object-cover hover:scale-110 transition-transform duration-300"
+          className="h-60 w-[400px] object-cover hover:scale-110 transition-transform duration-300"
           src={restaurant.banner}
           alt="restaurant"
         />
@@ -48,7 +48,9 @@ export default function RestaurantsCard({ restaurant }) {
               src={restaurant.logo}
               alt=""
             />
-            <h2 className="card-title text-gray-700">{restaurant.name}</h2>
+            <h2 className="card-title group-hover:text-orange-500 text-gray-700">
+              {restaurant.name}
+            </h2>
           </div>
 
           {/* rating+reviews */}
@@ -99,7 +101,7 @@ export default function RestaurantsCard({ restaurant }) {
         <div className="flex justify-between ">
           {/* menu */}
           <div className="  text-gray-700">
-            {restaurant.menu.slice(0, 2).map((item, i) => (
+            {/* {restaurant.menu.slice(0, 2).map((item, i) => (
               <div key={item.id} className="flex   gap-1 items-center py-0.5">
                 <img
                   src={item.image}
@@ -115,7 +117,7 @@ export default function RestaurantsCard({ restaurant }) {
                   <span className="font-bold">...</span>
                 )}
               </div>
-            ))}
+            ))} */}
           </div>
           {/* view menu button */}
           <div className="card-actions   items-end">
