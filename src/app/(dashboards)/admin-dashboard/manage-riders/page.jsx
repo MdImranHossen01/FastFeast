@@ -81,7 +81,7 @@ export default function ManageRiders() {
                     <button className="btn btn-sm btn-outline btn-neutral">
                       <FaTrash /> Delete
                     </button>
-                    <button className="btn btn-sm btn-outline hover:text-red-600">
+                    <button className="btn btn-sm btn-outline hover:text-red-400">
                       <FaBan /> Block
                     </button>
                   </td>

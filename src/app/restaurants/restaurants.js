@@ -5,7 +5,7 @@ export const restaurants = [
     name: "Kacchi Bhai",
     logo: "https://i.ibb.co.com/1YFN5k3C/kacchi-bhai-2-logo.png",
     banner:
-      "https://bestlistbd.com/wp-content/uploads/classified-listing/2021/09/177534213_311121510627014_6362311441237242299_n.jpg",
+      "https://i.ibb.co.com/mCVYhy44/177534213-311121510627014-6362311441237242299-n.jpg",
     rating: 4.6,
     reviewsCount: 128,
     cuisines: ["Bengali", "Biriyani"],
@@ -16,6 +16,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_01",
+    ownerEmail: "xyz@gmail.com",
     location: {
       address: "House 12/A, Road 5, Dhanmondi",
       area: "Dhanmondi",
@@ -36,11 +37,7 @@ export const restaurants = [
       sat: "10:00-00:00",
       sun: "10:00-22:00",
     },
-    menuPreview: [
-      { id: "m_kb_01", name: "Kacchi Biriyani", price: 250 },
-      { id: "m_kb_02", name: "Borhani", price: 60 },
-      { id: "m_kb_03", name: "Mixed Kabab Platter", price: 320 },
-    ],
+
     menu: [
       {
         id: "m_kb_01",
@@ -49,7 +46,7 @@ export const restaurants = [
           "Traditional slow-cooked mutton biriyani with saffron and spices.",
         price: 250,
         category: "Main",
-        image: "https://i.ibb.co.com/BFYbKRr/download-2.jpg",
+        image: "https://i.ibb.co.com/hJzDK3Xr/kacchi-biriyani.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 0,
@@ -60,7 +57,7 @@ export const restaurants = [
         description: "Spiced yogurt drink, perfect with biriyani.",
         price: 60,
         category: "Beverage",
-        image: "https://i.ibb.co.com/N23Vq5gc/download-3.jpg",
+        image: "https://i.ibb.co.com/JR1NPWXN/borhani.png",
         massUnit: "cup",
         isAvailable: true,
         discount: 5,
@@ -71,7 +68,7 @@ export const restaurants = [
         description: "Chicken & beef kababs served with naan and chutney.",
         price: 320,
         category: "Share",
-        image: " ",
+        image: "https://i.ibb.co.com/F4rbd86T/mixed-kebab.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 10,
@@ -92,7 +89,7 @@ export const restaurants = [
     name: "Pizza Point",
     logo: "https://i.ibb.co.com/WWxNbFgt/pizza-point-3.png",
     banner:
-      "https://www.fbgcdn.com/pictures/ba4249fb-fde9-4acf-8352-b158850379f9.jpg",
+      "https://i.ibb.co.com/Ps520SVK/ba4249fb-fde9-4acf-8352-b158850379f9.jpg",
     rating: 4.3,
     reviewsCount: 89,
     cuisines: ["Italian", "Fast Food"],
@@ -103,6 +100,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_02",
+    ownerEmail: "afroza@gmail.com",
     location: {
       address: "House 5, Road 11, Gulshan-2",
       area: "Gulshan",
@@ -123,11 +121,7 @@ export const restaurants = [
       sat: "11:00-00:30",
       sun: "11:00-23:00",
     },
-    menuPreview: [
-      { id: "m_pp_01", name: "Cheese Pizza (Medium)", price: 450 },
-      { id: "m_pp_02", name: "Garlic Bread", price: 150 },
-      { id: "m_pp_03", name: "Pepperoni Pizza", price: 520 },
-    ],
+
     menu: [
       {
         id: "m_pp_01",
@@ -136,7 +130,7 @@ export const restaurants = [
           "Classic hand-tossed pizza with mozzarella and special sauce.",
         price: 450,
         category: "Pizza",
-        image: " ",
+        image: "https://i.ibb.co.com/Q3M7jPLZ/cheese-pizza.png",
         massUnit: "medium",
         isAvailable: true,
         discount: 5,
@@ -148,7 +142,7 @@ export const restaurants = [
         description: "Buttery garlic bread, perfect side for pizzas.",
         price: 150,
         category: "Sides",
-        image: " ",
+        image: "https://i.ibb.co.com/VYs41fsX/garlic-bread.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 0,
@@ -160,7 +154,7 @@ export const restaurants = [
         description: "Loaded with pepperoni and cheese.",
         price: 520,
         category: "Pizza",
-        image: " ",
+        image: "https://i.ibb.co.com/mMkzX5Q/pepperoni-pizza.png",
         massUnit: "medium",
         isAvailable: true,
         discount: 0,
@@ -182,7 +176,7 @@ export const restaurants = [
     name: "Banani Bites",
     logo: "https://i.ibb.co.com/7t409KqN/banani-bites-logo.png",
     banner:
-      "https://mybayutcdn.bayut.com/mybayut/wp-content/uploads/Rolla-Sharjah-restaurants-021120.jpg",
+      "https://i.ibb.co.com/0RcNNC9q/Rolla-Sharjah-restaurants-021120.jpg",
     rating: 4.8,
     reviewsCount: 204,
     cuisines: ["Dessert", "Cafe"],
@@ -193,6 +187,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_03",
+    ownerEmail: "nipa@gmail.com",
     location: {
       address: "Road 2, Banani",
       area: "Banani",
@@ -213,11 +208,7 @@ export const restaurants = [
       sat: "09:00-23:00",
       sun: "10:00-21:00",
     },
-    menuPreview: [
-      { id: "m_bb_01", name: "Chocolate Lava Cake", price: 180 },
-      { id: "m_bb_02", name: "Cappuccino", price: 120 },
-      { id: "m_bb_03", name: "Blueberry Cheesecake", price: 220 },
-    ],
+
     menu: [
       {
         id: "m_bb_01",
@@ -225,7 +216,7 @@ export const restaurants = [
         description: "Warm molten chocolate with vanilla ice cream.",
         price: 180,
         category: "Dessert",
-        image: " ",
+        image: "https://i.ibb.co.com/tMC0zhRw/chocolate-cake.png",
         massUnit: "piece",
         isAvailable: true,
         discount: 0,
@@ -237,7 +228,7 @@ export const restaurants = [
         description: "Classic espresso-based drink with steamed milk.",
         price: 120,
         category: "Beverage",
-        image: " ",
+        image: "https://i.ibb.co.com/v49NG7xq/cappuccino.png",
         massUnit: "cup",
         isAvailable: true,
         discount: 0,
@@ -249,7 +240,7 @@ export const restaurants = [
         description: "Rich cheesecake topped with blueberry compote.",
         price: 220,
         category: "Dessert",
-        image: " ",
+        image: "https://i.ibb.co.com/CsTKM5hr/blueberry-cheesecake.png",
         massUnit: "slice",
         isAvailable: true,
         discount: 0,
@@ -270,7 +261,7 @@ export const restaurants = [
     name: "Burger Hub",
     logo: "https://i.ibb.co.com/tpHtwyVq/burger-hub-logo.png",
     banner:
-      "https://mir-s3-cdn-cf.behance.net/projects/404/774f65184299217.Y3JvcCwxMDgwLDg0NCwwLDExNw.jpg",
+      "https://i.ibb.co.com/wZsXm631/774f65184299217-Y3-Jvc-Cwx-MDgw-LDg0-NCww-LDEx-Nw.jpg",
     rating: 4.5,
     reviewsCount: 175,
     cuisines: ["Fast Food", "Burgers"],
@@ -281,6 +272,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_04",
+    ownerEmail: "julkarnain@gmail.com",
     location: {
       address: "Block B, Section 11, Mirpur",
       area: "Mirpur",
@@ -301,11 +293,7 @@ export const restaurants = [
       sat: "11:00-00:00",
       sun: "12:00-22:00",
     },
-    menuPreview: [
-      { id: "m_bh_01", name: "Classic Beef Burger", price: 220 },
-      { id: "m_bh_02", name: "Cheese Fries", price: 120 },
-      { id: "m_bh_03", name: "Chicken Zinger", price: 200 },
-    ],
+
     menu: [
       {
         id: "m_bh_01",
@@ -313,7 +301,7 @@ export const restaurants = [
         description: "Juicy beef patty with lettuce, tomato & sauce.",
         price: 220,
         category: "Burger",
-        image: " ",
+        image: "https://i.ibb.co.com/yF1tgSqd/classic-beef-burger.png",
         massUnit: "piece",
         isAvailable: true,
         discount: 0,
@@ -325,7 +313,7 @@ export const restaurants = [
         description: "Crispy fries topped with melted cheese.",
         price: 120,
         category: "Sides",
-        image: " ",
+        image: "https://i.ibb.co.com/gMH24tVV/cheese-fries.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 0,
@@ -337,7 +325,7 @@ export const restaurants = [
         description: "Crispy chicken fillet burger with mayo.",
         price: 200,
         category: "Burger",
-        image: " ",
+        image: "https://i.ibb.co.com/B5jb1s2T/chicken-zinger.png",
         massUnit: "piece",
         isAvailable: true,
         discount: 0,
@@ -358,7 +346,7 @@ export const restaurants = [
     slug: "thai-treats-uttara",
     name: "Time for Thai",
     logo: "https://i.ibb.co.com/Z1LxGTdk/time-for-thai-logo.png",
-    banner: "https://www.timeforthai.com.sg/img/timeforthai-mobile.jpg",
+    banner: "https://i.ibb.co.com/mF5BspK7/timeforthai-mobile.jpg",
     rating: 4.4,
     reviewsCount: 143,
     cuisines: ["Thai", "Asian"],
@@ -369,6 +357,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_05",
+    ownerEmail: "jerin@gmail.com",
     location: {
       address: "Sector 9, Uttara",
       area: "Uttara",
@@ -389,11 +378,7 @@ export const restaurants = [
       sat: "13:00-00:00",
       sun: "12:00-22:30",
     },
-    menuPreview: [
-      { id: "m_tt_01", name: "Pad Thai", price: 480 },
-      { id: "m_tt_02", name: "Tom Yum Soup", price: 350 },
-      { id: "m_tt_03", name: "Thai Green Curry", price: 520 },
-    ],
+
     menu: [
       {
         id: "m_tt_01",
@@ -401,7 +386,7 @@ export const restaurants = [
         description: "Stir-fried rice noodles with shrimp and peanuts.",
         price: 480,
         category: "Main",
-        image: " ",
+        image: "https://i.ibb.co.com/gZqtqMrK/pad-thai.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 10,
@@ -413,7 +398,7 @@ export const restaurants = [
         description: "Spicy-sour soup with shrimp & herbs.",
         price: 350,
         category: "Soup",
-        image: " ",
+        image: "https://i.ibb.co.com/Zpc7nmcc/chicken-tom-yum-soup.png",
         massUnit: "bowl",
         isAvailable: true,
         discount: 0,
@@ -425,7 +410,7 @@ export const restaurants = [
         description: "Coconut milk curry with chicken and vegetables.",
         price: 520,
         category: "Main",
-        image: " ",
+        image: "https://i.ibb.co.com/4wQ2SHS3/green-curry.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 0,
@@ -446,8 +431,7 @@ export const restaurants = [
     slug: "kebab-korner-bashundhara",
     name: "Kebab Korner",
     logo: "https://i.ibb.co.com/m5Dyyhr1/kebab-korner-logo.png",
-    banner:
-      "https://grub24s3.s3.eu-west-2.amazonaws.com/upload/1663654013-Bg-stevenage.webp",
+    banner: "https://i.ibb.co.com/GwK6xFc/1663654013-Bg-stevenage.webp",
     rating: 4.2,
     reviewsCount: 97,
     cuisines: ["Middle Eastern", "Grill"],
@@ -458,6 +442,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_06",
+    ownerEmail: "imran@gmail.com",
     location: {
       address: "Block C, Bashundhara R/A",
       area: "Bashundhara",
@@ -478,11 +463,7 @@ export const restaurants = [
       sat: "12:00-23:30",
       sun: "12:00-22:30",
     },
-    menuPreview: [
-      { id: "m_kk_01", name: "Beef Seekh Kebab", price: 300 },
-      { id: "m_kk_02", name: "Chicken Shawarma", price: 200 },
-      { id: "m_kk_03", name: "Falafel Plate", price: 180 },
-    ],
+
     menu: [
       {
         id: "m_kk_01",
@@ -490,7 +471,7 @@ export const restaurants = [
         description: "Grilled minced beef skewers with spices.",
         price: 300,
         category: "Grill",
-        image: " ",
+        image: "https://i.ibb.co.com/6JFGDpzr/beef-sheek-kebab.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 0,
@@ -502,7 +483,7 @@ export const restaurants = [
         description: "Tender chicken wrap with garlic sauce.",
         price: 200,
         category: "Wrap",
-        image: " ",
+        image: "https://i.ibb.co.com/2Y1LDN5g/chicken-shwrma.png",
         massUnit: "roll",
         isAvailable: true,
         discount: 0,
@@ -514,7 +495,7 @@ export const restaurants = [
         description: "Crispy falafels served with hummus.",
         price: 180,
         category: "Veg",
-        image: " ",
+        image: "https://i.ibb.co.com/9HDLqK08/falafel-plate.png",
         massUnit: "plate",
         isAvailable: true,
         discount: 0,
@@ -536,7 +517,7 @@ export const restaurants = [
     name: "Sushi Senpai",
     logo: "https://i.ibb.co.com/pBsFLPkd/sushi-senpai-logo.png",
     banner:
-      "https://static-content.owner.com/funnel/images/f4710469-8ac4-40dc-a1d0-f6982ca651f8?v=6325200261&w=3840&q=80&auto=format",
+      "https://i.ibb.co.com/HLyBLcxY/f4710469-8ac4-40dc-a1d0-f6982ca651f8-1.webp",
     rating: 4.7,
     reviewsCount: 155,
     cuisines: ["Japanese", "Sushi"],
@@ -547,6 +528,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_07",
+    ownerEmail: "kanak@gmail.com",
     location: {
       address: "House 20, Road 12, Banani",
       area: "Banani",
@@ -567,11 +549,7 @@ export const restaurants = [
       sat: "13:00-23:00",
       sun: "12:00-21:30",
     },
-    menuPreview: [
-      { id: "m_ss_01", name: "California Roll", price: 650 },
-      { id: "m_ss_02", name: "Salmon Nigiri", price: 550 },
-      { id: "m_ss_03", name: "Tempura Udon", price: 700 },
-    ],
+
     menu: [
       {
         id: "m_ss_01",
@@ -579,7 +557,7 @@ export const restaurants = [
         description: "Crab, avocado, cucumber sushi rolls.",
         price: 650,
         category: "Sushi",
-        image: " ",
+        image: "https://i.ibb.co.com/0dt2HFM/california-roll.png",
         massUnit: "8 pcs",
         isAvailable: true,
         discount: 0,
@@ -591,7 +569,7 @@ export const restaurants = [
         description: "Fresh salmon on vinegared rice.",
         price: 550,
         category: "Sushi",
-        image: " ",
+        image: "https://i.ibb.co.com/rKct9KyW/salmon-nigiri.png",
         massUnit: "2 pcs",
         isAvailable: true,
         discount: 10,
@@ -603,7 +581,7 @@ export const restaurants = [
         description: "Thick wheat noodles with tempura prawns.",
         price: 700,
         category: "Noodles",
-        image: " ",
+        image: "https://i.ibb.co.com/r2v3k6B7/shrimp-tempura-udon.png",
         massUnit: "bowl",
         isAvailable: true,
         discount: 0,
@@ -625,7 +603,7 @@ export const restaurants = [
     name: "Roll Express",
     logo: "https://i.ibb.co.com/PG8Y7wnm/roll-express-logo.png",
     banner:
-      "https://content3.jdmagicbox.com/comp/chandigarh/b9/0172px172.x172.180724182728.e3b9/catalogue/roll-express-chandigarh-sector-36d-chandigarh-fast-food-19mf5tu46g.jpg",
+      "https://i.ibb.co.com/7JFR57nd/roll-express-chandigarh-sector-36d-chandigarh-fast-food-19mf5tu46g.jpg",
     rating: 4.1,
     reviewsCount: 110,
     cuisines: ["Street Food", "Rolls"],
@@ -636,6 +614,7 @@ export const restaurants = [
     isActive: true,
     approved: true,
     ownerId: "user_rest_08",
+    ownerEmail: "mustakim@gmail.com",
     location: {
       address: "Mohakhali DOHS Gate",
       area: "Mohakhali",
@@ -656,11 +635,7 @@ export const restaurants = [
       sat: "10:00-23:00",
       sun: "11:00-21:30",
     },
-    menuPreview: [
-      { id: "m_re_01", name: "Beef Roll", price: 90 },
-      { id: "m_re_02", name: "Chicken Roll", price: 80 },
-      { id: "m_re_03", name: "Veg Roll", price: 60 },
-    ],
+
     menu: [
       {
         id: "m_re_01",
@@ -668,7 +643,7 @@ export const restaurants = [
         description: "Paratha roll stuffed with spicy beef.",
         price: 90,
         category: "Roll",
-        image: " ",
+        image: "https://i.ibb.co.com/s97vBWfy/chicken-roll.png",
         massUnit: "piece",
         isAvailable: true,
         discount: 0,
@@ -680,7 +655,7 @@ export const restaurants = [
         description: "Crispy chicken wrapped in paratha.",
         price: 80,
         category: "Roll",
-        image: " ",
+        image: "https://i.ibb.co.com/s97vBWfy/chicken-roll.png",
         massUnit: "piece",
         isAvailable: true,
         discount: 0,
@@ -692,7 +667,7 @@ export const restaurants = [
         description: "Healthy roll with veggies & spices.",
         price: 60,
         category: "Roll",
-        image: " ",
+        image: "https://i.ibb.co.com/s97vBWfy/chicken-roll.png",
         massUnit: "piece",
         isAvailable: true,
         discount: 0,
