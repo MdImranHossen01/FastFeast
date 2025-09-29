@@ -49,7 +49,6 @@ export default function ManageRiders() {
               <th>Email</th>
               <th>Phone</th>
               <th>Status</th>
-              <th>Joined</th>
               <th className="text-center">Actions</th>
             </tr>
           </thead>
@@ -71,7 +70,6 @@ export default function ManageRiders() {
                       {rider.status}
                     </span>
                   </td>
-                  <td>{rider.joined}</td>
                   <td className="flex gap-2 justify-center">
                     <label
                       htmlFor="view-rider-modal"
@@ -91,7 +89,7 @@ export default function ManageRiders() {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="text-center py-4 text-gray-500">
+                <td colSpan="6" className="text-center py-4 text-gray-500">
                   No riders found
                 </td>
               </tr>
