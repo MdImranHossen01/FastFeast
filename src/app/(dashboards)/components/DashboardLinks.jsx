@@ -59,6 +59,14 @@ export default function DashboardLinks() {
               Manage Blogs
             </Link>
           </li>
+          <li>
+            <Link
+              href="/admin-dashboard/manage-reviews"
+              className={linkStyle("/admin-dashboard/manage-blogs")}
+            >
+              Manage Reviews
+            </Link>
+          </li>
         </>
       )}
 

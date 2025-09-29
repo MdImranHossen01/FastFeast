@@ -124,7 +124,7 @@ export default function Navbar() {
                         <FiUser /> <Link href="/profile" onClick={() => setIsUserMenuOpen(false)}>My Profile</Link>
                       </li>
                       <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100">
-                        <FiGrid /> <Link href="/dashboard" onClick={() => setIsUserMenuOpen(false)}>Dashboard</Link>
+                        <FiGrid /> <Link href="/admin-dashboard" onClick={() => setIsUserMenuOpen(false)}>Dashboard</Link>
                       </li>
                       <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50">
                         <FiLogOut />
