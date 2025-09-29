@@ -18,7 +18,7 @@ const NavLink = ({ href, children }) => {
     <li>
       <Link
         href={href}
-        className={`relative block px-3 py-2 text-base font-medium transition-colors duration-300 ${
+        className={`relative block px-3 py-2 text-base font-medium transition-all duration-300 transform hover:scale-105 ${
           isActive ? "text-orange-500" : "text-gray-700 hover:text-orange-500"
         }`}
       >
@@ -103,7 +103,7 @@ export default function Navbar() {
                 alt={session.user?.name || "User"}
                 width={40}
                 height={40}
-                className="cursor-pointer rounded-full"
+                className="cursor-pointer rounded-full transition-transform duration-300 hover:scale-110"
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
               />
               <AnimatePresence>
@@ -120,13 +120,13 @@ export default function Navbar() {
                       <p className="text-sm text-gray-500">{session.user?.email}</p>
                     </div>
                     <ul className="p-2">
-                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100">
+                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
                         <FiUser /> <Link href="/profile" onClick={() => setIsUserMenuOpen(false)}>My Profile</Link>
                       </li>
-                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100">
+                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
                         <FiGrid /> <Link href="/dashboard" onClick={() => setIsUserMenuOpen(false)}>Dashboard</Link>
                       </li>
-                      <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50">
+                      <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50 transition-transform duration-300 hover:scale-105">
                         <FiLogOut />
                         <button onClick={() => { setIsUserMenuOpen(false); signOut(); }}>Logout</button>
                       </li>
@@ -136,7 +136,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
           ) : (
-            <Link href="/login" className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition-colors hover:bg-orange-600">
+            <Link href="/login" className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition-all duration-300 hover:bg-orange-600 transform hover:scale-105">
               <FiLogIn /> Login
             </Link>
           )}
@@ -144,7 +144,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 text-gray-700 transition-colors hover:text-orange-500 lg:hidden"
+          className="p-2 text-gray-700 transition-all duration-300 hover:text-orange-500 lg:hidden transform hover:scale-110"
         >
           {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
@@ -164,7 +164,7 @@ export default function Navbar() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block rounded-lg px-4 py-3 text-lg font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-500"
+                    className="block rounded-lg px-4 py-3 text-lg font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-500 transition-all duration-300 transform hover:scale-105"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
@@ -180,18 +180,18 @@ export default function Navbar() {
                         alt={session.user?.name || "User"}
                         width={48}
                         height={48}
-                        className="rounded-full"
+                        className="rounded-full transition-transform duration-300 hover:scale-110"
                     />
                     <div>
                         <p className="font-semibold">{session.user?.name}</p>
-                        <button onClick={() => { setIsMenuOpen(false); signOut(); }} className="text-sm text-red-500">
+                        <button onClick={() => { setIsMenuOpen(false); signOut(); }} className="text-sm text-red-500 transition-all duration-300 transform hover:scale-105">
                             Sign Out
                         </button>
                     </div>
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  <Link href="/login" className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white transition-colors hover:bg-orange-600" onClick={() => setIsMenuOpen(false)}>
+                  <Link href="/login" className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white transition-colors hover:bg-orange-600 transition-all duration-300 transform hover:scale-105" onClick={() => setIsMenuOpen(false)}>
                     Login
                   </Link>
                 </div>

@@ -35,7 +35,7 @@ export default function SpecialOffersSlider({ offers }) {
         {offers.map((offer) => (
           <div key={offer.id}>
             {/* Card with hover shadow */}
-            <div className="group relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-white md:min-h-[300px] shadow-md transition-shadow duration-300 hover:shadow-2xl">
+            <div className="group relative rounded-xl flex flex-col md:flex-row overflow-hidden bg-white min-h-[400px] shadow-md transition-shadow duration-300 hover:shadow-2xl">
               
               {/* Image with hover zoom + shadow */}
               <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
