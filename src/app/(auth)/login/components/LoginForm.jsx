@@ -25,34 +25,33 @@ export default function LoginForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-    });
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: formData.email,
+        password: formData.password,
+      });
 
-    if (res?.error === "OTP_REQUIRED") {
-      Swal.fire("OTP Sent", "Check your email for the code", "info");
-      setEmailForOtp(formData.email);
-      setShowOtp(true);
-    } else if (res?.ok) {
-      Swal.fire("Success", "Logged in successfully", "success");
-      router.push("/");
-    } else {
-      Swal.fire("Error", res?.error || "Login failed", "error");
+      if (res?.error === "OTP_REQUIRED") {
+        Swal.fire("OTP Sent", "Check your email for the code", "info");
+        setEmailForOtp(formData.email);
+        setShowOtp(true);
+      } else if (res?.ok) {
+        Swal.fire("Success", "Logged in successfully", "success");
+        router.push("/");
+      } else {
+        Swal.fire("Error", res?.error || "Login failed", "error");
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Server error", "error");
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error(err);
-    Swal.fire("Error", "Server error", "error");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <>
@@ -141,23 +140,23 @@ export default function LoginForm() {
             <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
           </div>
 
-         <button
-          onClick={() => signIn("google", { callbackUrl: "/" })}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
                  transition-colors shadow-sm font-medium"
-        >
-          <FcGoogle className="text-xl" /> Continue with Google
-        </button>
-        <button
-      onClick={() => signIn("github", { callbackUrl: "/" })}
-      className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+          >
+            <FcGoogle className="text-xl" /> Continue with Google
+          </button>
+          <button
+            onClick={() => signIn("github", { callbackUrl: "/" })}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
                  transition-colors shadow-sm font-medium"
-    >
-      <FaGithub className="text-xl" />
-      <span>Continue with GitHub</span>
-    </button>
+          >
+            <FaGithub className="text-xl" />
+            <span>Continue with GitHub</span>
+          </button>
 
           <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
             Don't have an account?{" "}
