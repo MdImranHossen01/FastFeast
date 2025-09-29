@@ -226,7 +226,7 @@ export default function Navbar() {
                 <div className="flex flex-col gap-3">
                   <Link
                     href="/login"
-                    className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white hover:bg-orange-600 transition-all duration-300 transform hover:scale-105"
+                    className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white  hover:bg-orange-600 transition-all duration-300 transform hover:scale-105"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Login

@@ -95,12 +95,14 @@ export const authOptions = {
         ).findOne({ email: user.email });
 
         if (!existingUser) {
-          await dbConnect(collectionsName.usersCollection).insertOne({
+          await dbConnect(
+            collectionsName.dbConnect(collectionsName.usersCollection)
+          ).insertOne({
             name: user.name || profile?.login,
             email: user.email,
             photoUrl: user.image,
             provider: account.provider,
-            createdAt: new Date(),gi
+            createdAt: new Date(),
           });
         }
       }
