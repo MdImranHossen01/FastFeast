@@ -37,18 +37,18 @@ export default function DashboardLinks() {
           </li>
           <li>
             <Link
-              href="/admin-dashboard/manage-riders"
-              className={linkStyle("/admin-dashboard/manage-riders")}
-            >
-              Manage Riders
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/admin-dashboard/manage-restaurants"
               className={linkStyle("/admin-dashboard/manage-restaurants")}
             >
               Manage Restaurants
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin-dashboard/manage-riders"
+              className={linkStyle("/admin-dashboard/manage-riders")}
+            >
+              Manage Riders
             </Link>
           </li>
           <li>

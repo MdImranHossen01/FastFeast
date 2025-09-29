@@ -100,7 +100,7 @@ export const authOptions = {
             email: user.email,
             photoUrl: user.image,
             provider: account.provider,
-            createdAt: new Date(),
+            createdAt: new Date(),gi
           });
         }
       }
