@@ -92,7 +92,7 @@ export default function Restaurant({ restaurants }) {
           <select
             value={selectCuisine}
             onChange={(e) => setSelectCuisine(e.target.value)}
-            className="select bg-white select-bordered  p-2    rounded   lg:w-[155px]  text-gray-500 shadow-xs"
+            className="select bg-white select-bordered  p-2    rounded   lg:w-[155px]  text-gray-500 shadow-xs cursor-pointer"
           >
             <option className="bg-white" value="">
               All Cuisines
@@ -114,7 +114,7 @@ export default function Restaurant({ restaurants }) {
           <select
             value={deliveryPrice}
             onChange={(e) => setDeliveryPrice(e.target.value)}
-            className="select select-bordered bg-white rounded  lg:w-[155px]  text-gray-500 shadow-xs"
+            className="select select-bordered bg-white rounded cursor-pointer  lg:w-[155px]  text-gray-500 shadow-xs"
           >
             <option value="" className="text-gray-700 bg-white">
               Delivery Fee
@@ -131,7 +131,7 @@ export default function Restaurant({ restaurants }) {
           <select
             value={deliveryTime}
             onChange={(e) => setDeliveryTime(e.target.value)}
-            className="select select-bordered rounded bg-white lg:w-[155px]  text-gray-500 shadow-xs"
+            className="select select-bordered rounded bg-white lg:w-[155px] cursor-pointer  text-gray-500 shadow-xs"
           >
             <option value="" className="text-gray-700 bg-white">
               Delivery Time
@@ -147,7 +147,7 @@ export default function Restaurant({ restaurants }) {
           <select
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
-            className="select select-bordered  bg-white    rounded  lg:w-[155px]   text-gray-500 shadow-xs"
+            className="select select-bordered  bg-white    rounded  lg:w-[155px] cursor-pointer  text-gray-500 shadow-xs"
           >
             <option className="text-gray-700 bg-white" value="">
               Price Range
