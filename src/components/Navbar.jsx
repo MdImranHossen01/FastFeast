@@ -134,7 +134,7 @@ export default function Navbar() {
                       <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
                         <FiGrid />{" "}
                         <Link
-                          href="/dashboard"
+                          href="/admin-dashboard"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           Dashboard

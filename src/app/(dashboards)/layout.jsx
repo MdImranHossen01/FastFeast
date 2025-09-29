@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }) {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`fixed md:static top-0 left-0 h-screen w-64 bg-gradient-to-r from-gray-500 to-gray-400 text-white shadow-lg z-50 
+        className={`fixed top-0 left-0 h-screen w-64 bg-gradient-to-r from-gray-500 to-gray-400 text-white shadow-lg z-50 
         transform transition-transform duration-300 
         ${menuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
@@ -28,9 +28,9 @@ export default function DashboardLayout({ children }) {
       </aside>
 
       {/* Main Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col md:ml-64">
         {/* Header */}
-        <header className="h-16 bg-gradient-to-r from-gray-500 to-gray-400 flex items-center justify-between px-4 text-white shadow-md">
+        <header className="sticky top-0 z-40 h-16 bg-gradient-to-r from-gray-500 to-gray-400 flex items-center justify-between px-4 text-white shadow-md">
           <h1 className="text-lg md:text-xl lg:text-2xl font-bold">
             Dashboard
           </h1>
