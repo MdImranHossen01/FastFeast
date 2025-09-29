@@ -5,6 +5,7 @@ import food from "../../assets/aboutPage/foods.png";
 import Image from "next/image";
 import { OurTeam } from "./components/OurTeam";
 import getBlogs from "../actions/blogs/getBlogs";
+import HowWeWork from "./components/HowWeWork";
 
 
 
@@ -26,12 +27,17 @@ const AboutPage = async () => {
           style={{
             backgroundImage: `linear-gradient(to bottom, #00000099 , #000000), url(/coffee_and_assorted.webp)`,
           }}
-          className="bg-center bg-cover bg-no-repeat py-10 pt-32 px-2 bg-fixed"
+          className="bg-center bg-cover bg-no-repeat py-10 pt-32 px-2 min-h-[600px] bg-fixed"
         >
           <div className="container mx-auto justify-between ">
             <h1 className={`font-bold text-5xl md:text-5xl lg:text-7xl bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent my-14 text-center ${rakkas.className}`}>
               About FastFest
             </h1>
+            <p className="max-w-5xl mx-auto mt-8 px-2 text-gray-300 text-lg text-center mb-14">
+              Tired of waiting for your food to arrive cold? <br />
+              We are a modern food delivery platform that connects you with the best local restaurants. Our mission is to make ordering delicious food simple, fast, and reliable. With our dedicated delivery team, we ensure your food arrives hot and fresh, so you can enjoy every meal as if you were at the restaurant.
+
+            </p>
             {/* <figure className="relative">
               <Image
                 alt="Image of Burgers, Pizzas, Pasta, and Fried Chicken"
@@ -42,49 +48,9 @@ const AboutPage = async () => {
             </figure> */}
           </div>
         </div>
-        {/* blogs blow the banner */}
-        <p className="container mx-auto mt-8 px-2">
-          Tired of waiting for your food to arrive cold or delayed? Our platform
-          is the definitive solution. We've built a vast network of both popular
-          eateries and hidden culinary gems across Bangladesh, all connected by
-          a dedicated fleet of professional delivery partners. We are not just a
-          service; we are a commitment to quality and punctuality. Our advanced
-          logistics and professional team are dedicated to getting your food to
-          you quickly, reliably, and in perfect condition, every time. With us,
-          you get exactly what you want, when you want it.
-          <br />
-          <br />
-          Our platform is built to bring your favorite flavors right to your
-          doorstep, no matter where you are in the city. We meticulously partner
-          with a wide selection of top chefs, renowned restaurants, and local
-          food shops to offer an expansive menu that caters to every craving.
-          From placing your order to watching its journey with our real-time
-          tracking, we handle every detail with care. Our seamless and enjoyable
-          ordering experience ensures that all you have to do is sit back,
-          relax, and get ready to savor your food.
-        </p>
       </section>
 
-      <section data-aos="fade-left" className="container mx-auto my-10 px-2">
-        <div className="container">
-          <Logo />
-          <h4 className="text-2xl font-bold my-4">
-            Order food from the best restaurants and shops near by you with
-            FastFeast.
-          </h4>
-          <p className="">
-            We are more than just a food delivery service; we are a modern
-            platform connecting you directly with the best local restaurants and
-            kitchens right here in Bangladesh. Our mission is built on a simple
-            promise: to make ordering delicious food simple, fast, and reliable.
-            We understand that food is best when it's hot and fresh, which is
-            why we've assembled a dedicated team of delivery professionals who
-            know the local areas. They work tirelessly to ensure your meal
-            arrives quickly and in perfect condition, so you can enjoy every
-            bite as if you were at the restaurant.
-          </p>
-        </div>
-      </section>
+      <HowWeWork  />
       <OurTeam />
     </div>
   );
