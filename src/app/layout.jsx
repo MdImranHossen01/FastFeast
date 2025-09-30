@@ -4,6 +4,7 @@ import SessionWrapper from "@/providers/SessionWrapper";
 import AOSProvider from "@/providers/AOSProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NextThemeProvider from "@/providers/NextThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,15 +28,17 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionWrapper>
-          <AOSProvider>
-            <header>
-              <Navbar />
-            </header>
-            <main>{children}</main>
-            <footer>
-              <Footer />
-            </footer>
-          </AOSProvider>
+          <NextThemeProvider>
+            <AOSProvider>
+              <header>
+                <Navbar />
+              </header>
+              <main>{children}</main>
+              <footer>
+                <Footer />
+              </footer>
+            </AOSProvider>
+          </NextThemeProvider>
         </SessionWrapper>
       </body>
     </html>

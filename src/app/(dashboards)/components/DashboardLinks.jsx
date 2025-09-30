@@ -8,23 +8,21 @@ import React from "react";
 export default function DashboardLinks() {
   const pathname = usePathname();
   const { data: session } = useSession();
-  // const user = session?.user;
 
   const user = {
     role: "admin",
   };
 
   const linkStyle = (href) =>
-    `block w-full px-4 py-2 rounded-md font-medium transition 
+    `block w-full px-4 py-2 rounded-md font-medium transition
      ${
        pathname === href
-         ? "bg-white text-orange-600 shadow-md"
-         : "text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-600 hover:text-white"
+         ? "bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-orange-400 shadow-md"
+         : "text-gray-800 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
      }`;
 
   return (
     <ul className="space-y-2 p-2">
-      {/* admin links */}
       {user.role === "admin" && (
         <>
           <li>
@@ -37,18 +35,18 @@ export default function DashboardLinks() {
           </li>
           <li>
             <Link
-              href="/admin-dashboard/manage-riders"
-              className={linkStyle("/admin-dashboard/manage-riders")}
-            >
-              Manage Riders
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/admin-dashboard/manage-restaurants"
               className={linkStyle("/admin-dashboard/manage-restaurants")}
             >
               Manage Restaurants
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin-dashboard/manage-riders"
+              className={linkStyle("/admin-dashboard/manage-riders")}
+            >
+              Manage Riders
             </Link>
           </li>
           <li>
@@ -59,10 +57,17 @@ export default function DashboardLinks() {
               Manage Blogs
             </Link>
           </li>
+          <li>
+            <Link
+              href="/admin-dashboard/manage-reviews"
+              className={linkStyle("/admin-dashboard/manage-blogs")}
+            >
+              Manage Reviews
+            </Link>
+          </li>
         </>
       )}
 
-      {/* customer links */}
       {user.role === "customer" && (
         <>
           <li>

@@ -53,7 +53,7 @@ const footerData = [
 const Footer = () => {
   const pathname = usePathname();
 
-  if (pathname.includes("/dashboard")) {
+  if (pathname.includes("dashboard")) {
     return null;
   }
 
