@@ -97,34 +97,12 @@ export default function RestaurantsCard({ restaurant }) {
           </div>
         </div>
 
-        {/* menu preview */}
-        <div className="flex justify-between ">
-          {/* menu */}
-          <div className="  text-gray-700">
-            {/* {restaurant.menu.slice(0, 2).map((item, i) => (
-              <div key={item.id} className="flex   gap-1 items-center py-0.5">
-                <img
-                  src={item.image}
-                  className="w-10  h-10 rounded-xl"
-                  alt=""
-                />
-                <span>{item.name}-</span>
-                <span className="flex items-center">
-                  {item.price}
-                  <TbCurrencyTaka />
-                </span>
-                {i === 1 && restaurant.menu.length > 1 && (
-                  <span className="font-bold">...</span>
-                )}
-              </div>
-            ))} */}
-          </div>
-          {/* view menu button */}
-          <div className="card-actions   items-end">
-            <button className="flex  text-orange-500 items-center gap-2 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5 duration-300  ">
-              View Menu <FaArrowRight className="" />
-            </button>
-          </div>
+        {/* view menu button */}
+        <div className="card-actions justify-end">
+          <button className="flex transition-transform duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
+            View Menu{" "}
+            <FaArrowRight className="transition-transform duration-300  group-hover:translate-x-0.5" />
+          </button>
         </div>
       </div>
     </div>
