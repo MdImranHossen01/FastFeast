@@ -24,7 +24,7 @@ const SnacksPage = async () => {
       ) : (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">
-            No Thai dishes available at the moment.
+            No dishes available at the moment.
           </p>
         </div>
       )}
