@@ -3,7 +3,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 export default function ManageReviewHeader() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('All-reviews');
   const router = useRouter();
   const pathname = usePathname();
   // console.log();
