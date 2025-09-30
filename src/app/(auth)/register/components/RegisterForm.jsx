@@ -15,7 +15,7 @@ export default function RegisterForm() {
     name: "",
     email: "",
     password: "",
-    image: null, 
+    image: null,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -51,13 +51,12 @@ export default function RegisterForm() {
         }
       }
 
-           const result = await registerUser({
-           name: formData.name,
-           email: formData.email,
-           password: formData.password,
-           photoUrl, 
-         });
-
+      const result = await registerUser({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        photoUrl,
+      });
 
       if (result.success) {
         Swal.fire({
@@ -68,8 +67,7 @@ export default function RegisterForm() {
         });
         setFormData({ name: "", email: "", password: "", image: null });
         router.push("/login");
-      } 
-      else {
+      } else {
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -77,8 +75,7 @@ export default function RegisterForm() {
           confirmButtonColor: "#dc2626",
         });
       }
-    } 
-    catch (error) {
+    } catch (error) {
       console.error("Register error:", error);
       Swal.fire({
         icon: "error",
@@ -86,8 +83,7 @@ export default function RegisterForm() {
         text: "Something went wrong. Please try again later.",
         confirmButtonColor: "#dc2626",
       });
-    } 
-    finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -187,7 +183,6 @@ export default function RegisterForm() {
           <div className="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
         </div>
 
-
         {/* Google Sign In */}
         <button
           onClick={() => signIn("google", { callbackUrl: "/" })}
@@ -198,14 +193,14 @@ export default function RegisterForm() {
           <FcGoogle className="text-xl" /> Continue with Google
         </button>
         <button
-      onClick={() => signIn("github", { callbackUrl: "/" })}
-      className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+          onClick={() => signIn("github", { callbackUrl: "/" })}
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
                  transition-colors shadow-sm font-medium"
-    >
-      <FaGithub className="text-xl" />
-      <span>Continue with GitHub</span>
-    </button>
+        >
+          <FaGithub className="text-xl" />
+          <span>Continue with GitHub</span>
+        </button>
 
         <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-2">
           Already have an account?{" "}

@@ -46,16 +46,16 @@ export default function FAQSection() {
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-4xl font-bold text-gray-800">
-            Still Have <span className="text-orange-500">Questions?</span> 
+            Still Have <span className="text-orange-500">Questions?</span>
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Find answers to common questions about orders, payments, and our services. We're here to make your experience seamless.
+            Find answers to common questions about orders, payments, and our
+            services. We're here to make your experience seamless.
           </p>
         </div>
-       
 
         {/* ✅ Swapped the order of the two columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Accordion Section */}
           <div className="space-y-4">
             {faqs.map((faq, index) => (
@@ -67,7 +67,11 @@ export default function FAQSection() {
                   className="w-full flex justify-between items-center p-5 text-left font-medium text-gray-800"
                   onClick={() => toggleFAQ(index)}
                 >
-                  <span className={`text-lg ${openIndex === index ? 'text-orange-500' : ''}`}>
+                  <span
+                    className={`text-lg ${
+                      openIndex === index ? "text-orange-500" : ""
+                    }`}
+                  >
                     {faq.question}
                   </span>
                   <IoChevronForward

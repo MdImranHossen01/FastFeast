@@ -19,6 +19,7 @@ export const registerUser = async (payload) => {
   const result = await usersCollection.insertOne({
     name,
     email,
+    role: "customer", // default
     password: hashedPassword,
     photoUrl: photoUrl || null, // optional
     createdAt: new Date(),

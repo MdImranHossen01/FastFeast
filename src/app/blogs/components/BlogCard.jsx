@@ -30,10 +30,10 @@ export default function BlogCard({ blog }) {
         </div>
 
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-gray-900 transition-colors duration-300 group-hover:text-orange-600">
+          <h3 className="h-20 text-lg font-bold text-gray-900 transition-colors duration-300 group-hover:text-orange-600">
             {title}
           </h3>
-          <p className="mt-2 text-sm text-gray-700">
+          <p className=" mt-2 text-sm text-gray-700">
             {excerpt}
           </p>
         </div>
