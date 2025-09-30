@@ -1,4 +1,5 @@
 import Banner from "./menu/components/banner";
+import FavouriteFood from "./menu/components/FavouriteFood";
 import SidebarComponent from "./menu/components/SidebarComponent";
 import StoreProvider from "@/lib/StoreProvider";
 const MenuLayout = ({ children }) => {
@@ -12,7 +13,9 @@ const MenuLayout = ({ children }) => {
           </div>
           <div className="col-span-12 md:col-span-9">
             <Banner />
-            {children}</div>
+            <FavouriteFood/>
+            {children}
+            </div>
         </div>
       </div>
     </StoreProvider>

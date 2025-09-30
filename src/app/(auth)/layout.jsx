@@ -6,7 +6,10 @@ import Lottie from "lottie-react";
 
 export default function AuthLayout({ children }) {
   return (
-    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-70 min-h-screen">
+    <div
+      className="max-w-7xl mx-auto pt-10
+     grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-70 min-h-screen"
+    >
       <div className="hidden lg:flex">
         <Lottie animationData={login_animation} loop={true} />
       </div>
