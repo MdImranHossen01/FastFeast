@@ -1,9 +1,9 @@
 import React from "react";
 import MenuCard from "../menu/components/MenuCard";
+import getMenu from "@/app/actions/menu/getMenu";
 
 const ThaiFoodPage = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/menu`);
-  const menus = await res.json();
+  const menus = await getMenu();
 
   // Filter menus to only show Thai cuisine
   const thaiMenus = menus.filter((menu) => menu.cuisine === "Thai");
