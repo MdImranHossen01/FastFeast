@@ -16,7 +16,7 @@ import { uploadToImgBB } from "@/utils/imageUpload";
 export default function AddBlogModal({ onSave }) {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    // slug: "",
+    slug: "",
     title: "",
     excerpt: "",
     details: "",
