@@ -8,7 +8,6 @@ import React from "react";
 export default function DashboardLinks() {
   const pathname = usePathname();
   const { data: session } = useSession();
-  // const user = session?.user;
 
   const user = {
     role: "admin",
@@ -18,13 +17,12 @@ export default function DashboardLinks() {
     `block w-full px-4 py-2 rounded-md font-medium transition
      ${
        pathname === href
-         ? "bg-gray-600 text-gray-100 dark:bg-gray-800 dark:text-orange-400 shadow-md"
-         : "text-white dark:text-gray-300 hover:bg-gray-500 hover:text-white"
+         ? "bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-orange-400 shadow-md"
+         : "text-gray-800 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
      }`;
 
   return (
     <ul className="space-y-2 p-2">
-      {/* admin links */}
       {user.role === "admin" && (
         <>
           <li>
@@ -62,7 +60,6 @@ export default function DashboardLinks() {
         </>
       )}
 
-      {/* customer links */}
       {user.role === "customer" && (
         <>
           <li>
