@@ -95,9 +95,7 @@ export const authOptions = {
         ).findOne({ email: user.email });
 
         if (!existingUser) {
-          await dbConnect(
-            collectionsName.dbConnect(collectionsName.usersCollection)
-          ).insertOne({
+          await dbConnect(collectionsName.usersCollection).insertOne({
             name: user.name || profile?.login,
             email: user.email,
             photoUrl: user.image,

@@ -5,9 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil, Trash2 } from "lucide-react";
 import AddBlogModal from "../modals/AddBlogModal";
+import EditBlogModal from "../modals/EditBlogModal";
 
 export default function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [editBlog, setEditBlog] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,36 +29,31 @@ export default function ManageBlogs() {
     fetchBlogs();
   }, []);
 
-  // ✅ Save Blog (Add or Update)
+
+const handleUpdate = (id) => {
+  const blog = blogs.find((b) => b._id === id);  // find the blog user clicked
+  setEditBlog(blog);                             // put it in state
+  setOpenModal(true);                            // open the modal
+};
+
+
+  // ✅ Save Blog (Update only)
   const handleSave = async (formValues) => {
     try {
-      // If updating blog (formValues contains _id)
-      if (formValues._id) {
-        await fetch(`/api/blogs/${formValues._id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formValues),
-        });
-        setBlogs((prev) =>
-          prev.map((b) =>
-            b._id === formValues._id ? { ...b, ...formValues } : b
-          )
-        );
-        Swal.fire("Added!", "Blog Added successfully", "success");
-      } else {
-        // Create new blog
-        const res = await fetch("/api/blogs", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formValues),
-        });
-        const newBlog = await res.json();
-        setBlogs((prev) => [...prev, newBlog]);
-        Swal.fire("Success!", "Blog added successfully", "success");
-      }
+      await fetch(`/api/blogs/${formValues._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formValues),
+      });
+
+      setBlogs((prev) =>
+        prev.map((b) => (b._id === formValues._id ? { ...b, ...formValues } : b))
+      );
+
+      Swal.fire("Updated!", "Blog edited successfully!", "success");
     } catch (err) {
-      console.error("Failed to save blog:", err);
-      Swal.fire("Error", "Failed to save blog", "error");
+      console.error("Failed to update blog:", err);
+      Swal.fire("Error", "Failed to update blog", "error");
     }
   };
 
@@ -122,9 +120,9 @@ export default function ManageBlogs() {
                     </td>
                   </tr>
                 ) : (
-                  blogs.map((blog) => (
+                  blogs.map((blog, index) => (
                     <tr
-                      key={blog._id}
+                      key={blog._id || blog.slug || index}  
                       className="border-t hover:bg-gray-50 transition"
                     >
                       <td className="p-3 font-medium">{blog.title}</td>
@@ -141,9 +139,7 @@ export default function ManageBlogs() {
                           size="sm"
                           variant="outline"
                           className="flex items-center gap-1"
-                          onClick={
-                            () => handleSave({ ...blog, _id: blog._id }) // reuse modal save
-                          }
+                           onClick={() => handleUpdate(blog._id)}
                         >
                           <Pencil className="w-4 h-4" /> Edit
                         </Button>
@@ -164,6 +160,14 @@ export default function ManageBlogs() {
           </div>
         </CardContent>
       </Card>
+
+      {/* 🔥 Blog Form Modal */}
+      <EditBlogModal
+        open={openModal}
+        setOpen={setOpenModal}
+        onSave={handleSave}
+        initialData={editBlog}
+      />
     </main>
   );
 }
