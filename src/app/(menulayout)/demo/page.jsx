@@ -5,7 +5,7 @@ import React from "react";
 // This looks like a Next.js 13+ Server Component due to 'async'
 const DemoFoodPage = async () => {
   // Fetch data
-  const res = await fetch("http://localhost:3000/api/menu");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/menu`);
   
   // Always check if the response is OK before parsing JSON
   if (!res.ok) {

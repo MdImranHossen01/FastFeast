@@ -2,7 +2,7 @@ import React from "react";
 import MenuCard from "../../menu/components/MenuCard";
 
 const BurgersPage = async () => {
-  const res = await fetch("http://localhost:3000/api/menu");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/menu`);
   const menus = await res.json();
 
   // Filter menus to only show Thai cuisine
