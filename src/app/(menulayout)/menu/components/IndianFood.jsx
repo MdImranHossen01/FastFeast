@@ -93,7 +93,7 @@ const IndianFood = () => {
                 </button>
             </div>
 
-            {/* Horizontally Scrollable Container - No scrollbar */}
+           
             <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
                 {indianDishes.map((dish) => (
                     // Individual Food Card
