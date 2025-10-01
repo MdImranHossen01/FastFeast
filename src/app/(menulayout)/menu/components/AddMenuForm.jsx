@@ -1,12 +1,67 @@
-// G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\app\(menulayout)\menu\components\AddMenuForm.jsx
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Form from "next/form";
 import { createMenu } from "@/app/actions/menu/createMenu";
 
 const AddMenuForm = () => {
+  const [ingredients, setIngredients] = useState("");
+  const [dietaryTags, setDietaryTags] = useState("");
+  const [availability, setAvailability] = useState("true");
+  const [isCombo, setIsCombo] = useState("false");
+
+  // Options for cuisine dropdown
+  const cuisineOptions = [
+    "Thai", "Italian", "Indian", "Chinese", "Japanese", "Korean", "Turkish", "Others"
+  ];
+
+  // Options for category dropdown
+  const categoryOptions = [
+    "Kebab", "Khichuri", "Shawarma", "Burgers", "Cakes", "Biryani", 
+    "Pizza", "Soups", "Sushi", "Fried Chicken", "Noodles", "Snacks", "Pasta", "Others"
+  ];
+
+  const handleIngredientsChange = (e) => {
+    setIngredients(e.target.value);
+  };
+
+  const handleDietaryTagsChange = (e) => {
+    setDietaryTags(e.target.value);
+  };
+
+  const handleAvailabilityChange = (e) => {
+    setAvailability(e.target.value);
+  };
+
+  const handleIsComboChange = (e) => {
+    setIsCombo(e.target.value);
+  };
+
+  const handleSubmit = (formData) => {
+    // Process ingredients and dietary tags from comma-separated strings to arrays
+    const ingredientsArray = ingredients
+      .split(",")
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+    
+    const dietaryTagsArray = dietaryTags
+      .split(",")
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+    
+    // Add processed arrays to form data
+    formData.append("ingredients", JSON.stringify(ingredientsArray));
+    formData.append("dietaryTags", JSON.stringify(dietaryTagsArray));
+    formData.append("availability", availability === "true");
+    formData.append("isCombo", isCombo === "true");
+    
+    // Call the createMenu action
+    return createMenu(formData);
+  };
+
   return (
     <Form
-      action={createMenu}
+      action={handleSubmit}
       className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-lg"
     >
       <h1 className="text-2xl font-semibold text-center mb-6 text-orange-500">
@@ -74,80 +129,118 @@ const AddMenuForm = () => {
         />
       </div>
 
-      {/* Is Combo */}
-      <div className="flex items-center mb-4">
-        <input
-          type="checkbox"
-          id="isCombo"
-          name="isCombo"
-          className="h-5 w-5 text-orange-500 focus:ring-orange-500"
-        />
-        <label className="ml-3 text-gray-700" htmlFor="isCombo">
-          Is Combo?
-        </label>
-      </div>
-
-      {/* Special Offer */}
-      <div className="flex items-center mb-4">
-        <input
-          type="checkbox"
-          id="specialOffer"
-          name="specialOffer"
-          className="h-5 w-5 text-orange-500 focus:ring-orange-500"
-        />
-        <label className="ml-3 text-gray-700" htmlFor="specialOffer">
-          Special Offer?
-        </label>
-      </div>
-
-      {/* Offer Price */}
+      {/* Is Combo - Radio Buttons */}
       <div className="mb-4">
-        <label className="block text-gray-700 mb-2" htmlFor="offerPrice">
-          Offer Price
-        </label>
-        <input
-          type="number"
-          id="offerPrice"
-          name="offerPrice"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-          placeholder="Enter offer price"
-          min="0"
-          step="0.01"
-        />
+        <label className="block text-gray-700 mb-2">Is Combo?</label>
+        <div className="flex space-x-4">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="comboYes"
+              name="isCombo"
+              value="true"
+              checked={isCombo === "true"}
+              onChange={handleIsComboChange}
+              className="h-4 w-4 text-orange-500 focus:ring-orange-500"
+            />
+            <label htmlFor="comboYes" className="ml-2 text-gray-700">
+              Yes
+            </label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="comboNo"
+              name="isCombo"
+              value="false"
+              checked={isCombo === "false"}
+              onChange={handleIsComboChange}
+              className="h-4 w-4 text-orange-500 focus:ring-orange-500"
+            />
+            <label htmlFor="comboNo" className="ml-2 text-gray-700">
+              No
+            </label>
+          </div>
+        </div>
       </div>
 
-      {/* Cuisine */}
+      {/* Availability - Radio Buttons */}
+      <div className="mb-4">
+        <label className="block text-gray-700 mb-2">Available?</label>
+        <div className="flex space-x-4">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="availableYes"
+              name="availability"
+              value="true"
+              checked={availability === "true"}
+              onChange={handleAvailabilityChange}
+              className="h-4 w-4 text-orange-500 focus:ring-orange-500"
+            />
+            <label htmlFor="availableYes" className="ml-2 text-gray-700">
+              Yes
+            </label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="availableNo"
+              name="availability"
+              value="false"
+              checked={availability === "false"}
+              onChange={handleAvailabilityChange}
+              className="h-4 w-4 text-orange-500 focus:ring-orange-500"
+            />
+            <label htmlFor="availableNo" className="ml-2 text-gray-700">
+              No
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Cuisine Dropdown */}
       <div className="mb-4">
         <label className="block text-gray-700 mb-2" htmlFor="cuisine">
           Cuisine
         </label>
-        <input
-          type="text"
+        <select
           id="cuisine"
           name="cuisine"
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-          placeholder="Enter cuisine"
           required
-        />
+        >
+          <option value="">Select a cuisine</option>
+          {cuisineOptions.map((cuisine) => (
+            <option key={cuisine} value={cuisine}>
+              {cuisine}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Category */}
+      {/* Category Dropdown */}
       <div className="mb-4">
         <label className="block text-gray-700 mb-2" htmlFor="category">
           Category
         </label>
-        <input
-          type="text"
+        <select
           id="category"
           name="category"
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-          placeholder="Enter category"
           required
-        />
+        >
+          <option value="">Select a category</option>
+          {categoryOptions.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Rating */}
-      <div className="mb-6">
+      <div className="mb-4">
         <label className="block text-gray-700 mb-2" htmlFor="rating">
           Rating
         </label>
@@ -164,120 +257,51 @@ const AddMenuForm = () => {
         />
       </div>
 
-      {/* Restaurant Information */}
+      {/* Ingredients */}
+      <div className="mb-4">
+        <label className="block text-gray-700 mb-2" htmlFor="ingredients">
+          Ingredients (comma separated)
+        </label>
+        <input
+          type="text"
+          id="ingredients"
+          name="ingredients"
+          value={ingredients}
+          onChange={handleIngredientsChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="e.g. Shrimp, Mushrooms, Lemongrass"
+        />
+      </div>
+
+      {/* Dietary Tags */}
+      <div className="mb-4">
+        <label className="block text-gray-700 mb-2" htmlFor="dietaryTags">
+          Dietary Tags (comma separated)
+        </label>
+        <input
+          type="text"
+          id="dietaryTags"
+          name="dietaryTags"
+          value={dietaryTags}
+          onChange={handleDietaryTagsChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="e.g. Gluten-Free, Pescatarian"
+        />
+      </div>
+
+      {/* Restaurant ID */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
-          Restaurant Information
-        </h2>
-
-        {/* Restaurant Logo URL */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="restaurant.logoUrl">
-            Restaurant Logo URL
-          </label>
-          <input
-            type="text"
-            id="restaurant.logoUrl"
-            name="restaurant.logoUrl"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter restaurant logo URL"
-            required
-          />
-        </div>
-
-        {/* Restaurant Name */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="restaurant.name">
-            Restaurant Name
-          </label>
-          <input
-            type="text"
-            id="restaurant.name"
-            name="restaurant.name"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter restaurant name"
-            required
-          />
-        </div>
-
-        {/* Restaurant Address */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="restaurant.address">
-            Restaurant Address
-          </label>
-          <input
-            type="text"
-            id="restaurant.address"
-            name="restaurant.address"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter restaurant address"
-            required
-          />
-        </div>
-
-        {/* Restaurant Mobile */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="restaurant.mobile">
-            Restaurant Mobile
-          </label>
-          <input
-            type="tel"
-            id="restaurant.mobile"
-            name="restaurant.mobile"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter restaurant mobile number"
-            required
-          />
-        </div>
-
-        {/* Restaurant Ratings */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="restaurant.ratings">
-            Restaurant Ratings
-          </label>
-          <input
-            type="number"
-            id="restaurant.ratings"
-            name="restaurant.ratings"
-            step="0.1"
-            max="5"
-            min="0"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter restaurant ratings"
-            required
-          />
-        </div>
-
-        {/* Restaurant Location */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="restaurant.location">
-            Restaurant Location
-          </label>
-          <input
-            type="text"
-            id="restaurant.location"
-            name="restaurant.location"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter restaurant location"
-            required
-          />
-        </div>
-
-        {/* Restaurant Delivery Time */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="restaurant.deliveryTime">
-            Delivery Time (mins)
-          </label>
-          <input
-            type="number"
-            id="restaurant.deliveryTime"
-            name="restaurant.deliveryTime"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter delivery time"
-            min="0"
-            required
-          />
-        </div>
+        <label className="block text-gray-700 mb-2" htmlFor="restaurantId">
+          Restaurant ID
+        </label>
+        <input
+          type="text"
+          id="restaurantId"
+          name="restaurantId"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Enter restaurant ID"
+          required
+        />
       </div>
 
       <button

@@ -8,22 +8,15 @@ export const createMenu = async (formData) => {
   const description = formData.get('description');
   const price = formData.get('price');
   const isCombo = formData.get('isCombo') === 'on';
-  const specialOffer = formData.get('specialOffer') === 'on';
-  const offerPrice = formData.get('offerPrice');
+  const availability = formData.get('availability') === 'true';
   const cuisine = formData.get('cuisine');
   const category = formData.get('category');
   const rating = formData.get('rating');
+  const restaurantId = formData.get('restaurantId');
   
-  // Extract restaurant data
-  const restaurant = {
-    logoUrl: formData.get('restaurant.logoUrl'),
-    name: formData.get('restaurant.name'),
-    address: formData.get('restaurant.address'),
-    mobile: formData.get('restaurant.mobile'),
-    ratings: formData.get('restaurant.ratings'),
-    location: formData.get('restaurant.location'),
-    deliveryTime: formData.get('restaurant.deliveryTime')
-  };
+  // Parse ingredients and dietary tags from JSON strings
+  const ingredients = JSON.parse(formData.get('ingredients') || '[]');
+  const dietaryTags = JSON.parse(formData.get('dietaryTags') || '[]');
   
   // Create the menu data object
   const menuData = {
@@ -32,17 +25,19 @@ export const createMenu = async (formData) => {
     description,
     price: parseFloat(price),
     isCombo,
-    specialOffer,
-    offerPrice: offerPrice ? parseFloat(offerPrice) : null,
     cuisine,
     category,
     rating: parseFloat(rating),
-    restaurant
+    ingredients,
+    dietaryTags,
+    availability,
+    restaurantId,
+    createdAt: new Date().toISOString()
   };
   
   console.log('Menu data:', menuData);
   
   // Here you would typically save to your database
   // For now, we'll just return a success message
-  return { success: true, message: 'Menu item created successfully' };
+  return { success: true, message: 'Menu item created successfully', data: menuData };
 };
