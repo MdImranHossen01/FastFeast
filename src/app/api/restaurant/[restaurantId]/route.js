@@ -1,4 +1,4 @@
-// G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\app\api\menu\[menuId]\route.js
+// G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\app\api\restaurant\[restaurantId]\route.js
 import { MongoClient } from 'mongodb';
 import { NextResponse } from "next/server";
 
@@ -7,25 +7,25 @@ const client = new MongoClient(process.env.MONGODB_URI);
 
 export async function GET(request, { params }) {
   try {
-    // Get the menu ID from the params
-    const { menuId } = params;
+    // Get the restaurant ID from the params
+    const { restaurantId } = params;
     
     // Connect to MongoDB
     await client.connect();
     
     // Get the database and collection
     const db = client.db(process.env.DB_NAME);
-    const collection = db.collection('menu');
+    const collection = db.collection('restaurants');
     
-    // Find the menu item by ID
-    const menuItem = await collection.findOne({ _id: new MongoClient.ObjectId(menuId) });
+    // Find the restaurant by ID
+    const restaurant = await collection.findOne({ _id: new MongoClient.ObjectId(restaurantId) });
     
-    if (!menuItem) {
-      return new NextResponse('Menu item not found', { status: 404 });
+    if (!restaurant) {
+      return new NextResponse('Restaurant not found', { status: 404 });
     }
     
-    // Return the menu item data
-    return new NextResponse(JSON.stringify(menuItem), {
+    // Return the restaurant data
+    return new NextResponse(JSON.stringify(restaurant), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -33,14 +33,14 @@ export async function GET(request, { params }) {
     });
   } catch (error) {
     console.error(error);
-    return new NextResponse('Error fetching menu item data', { status: 500 });
+    return new NextResponse('Error fetching restaurant data', { status: 500 });
   }
 }
 
 export const PUT = async (request, { params }) => {
   try {
-    // Get the menu ID from the params
-    const { menuId } = params;
+    // Get the restaurant ID from the params
+    const { restaurantId } = params;
     
     // Parse the incoming data
     const updatedData = await request.json();
@@ -50,22 +50,22 @@ export const PUT = async (request, { params }) => {
     
     // Get the database and collection
     const db = client.db(process.env.DB_NAME);
-    const collection = db.collection('menu');
+    const collection = db.collection('restaurants');
     
-    // Update the menu item
+    // Update the restaurant
     const result = await collection.updateOne(
-      { _id: new MongoClient.ObjectId(menuId) },
+      { _id: new MongoClient.ObjectId(restaurantId) },
       { $set: updatedData }
     );
     
     if (result.matchedCount === 0) {
-      return new NextResponse('Menu item not found', { status: 404 });
+      return new NextResponse('Restaurant not found', { status: 404 });
     }
     
     // Return success response
     return new NextResponse(JSON.stringify({
-      message: 'Menu item updated successfully',
-      menuId: menuId
+      message: 'Restaurant updated successfully',
+      restaurantId: restaurantId
     }), {
       status: 200,
       headers: {
@@ -74,33 +74,33 @@ export const PUT = async (request, { params }) => {
     });
   } catch (error) {
     console.error(error);
-    return new NextResponse('Error updating menu item data', { status: 500 });
+    return new NextResponse('Error updating restaurant data', { status: 500 });
   }
 }
 
 export const DELETE = async (request, { params }) => {
   try {
-    // Get the menu ID from the params
-    const { menuId } = params;
+    // Get the restaurant ID from the params
+    const { restaurantId } = params;
     
     // Connect to MongoDB
     await client.connect();
     
     // Get the database and collection
     const db = client.db(process.env.DB_NAME);
-    const collection = db.collection('menu');
+    const collection = db.collection('restaurants');
     
-    // Delete the menu item
-    const result = await collection.deleteOne({ _id: new MongoClient.ObjectId(menuId) });
+    // Delete the restaurant
+    const result = await collection.deleteOne({ _id: new MongoClient.ObjectId(restaurantId) });
     
     if (result.deletedCount === 0) {
-      return new NextResponse('Menu item not found', { status: 404 });
+      return new NextResponse('Restaurant not found', { status: 404 });
     }
     
     // Return success response
     return new NextResponse(JSON.stringify({
-      message: 'Menu item deleted successfully',
-      menuId: menuId
+      message: 'Restaurant deleted successfully',
+      restaurantId: restaurantId
     }), {
       status: 200,
       headers: {
@@ -109,6 +109,6 @@ export const DELETE = async (request, { params }) => {
     });
   } catch (error) {
     console.error(error);
-    return new NextResponse('Error deleting menu item data', { status: 500 });
+    return new NextResponse('Error deleting restaurant data', { status: 500 });
   }
 }
