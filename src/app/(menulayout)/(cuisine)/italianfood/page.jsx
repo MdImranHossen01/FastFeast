@@ -1,25 +1,27 @@
 import React from "react";
-import MenuCard from "../menu/components/MenuCard";
+import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
 
-const ThaiFoodPage = async () => {
+
+
+const ItalianFoodPage = async () => {
   const menus = await getMenu();
 
-  // Filter menus to only show Thai cuisine
-  const thaiMenus = menus.filter((menu) => menu.cuisine === "Thai");
-  console.log("Thai menus:", thaiMenus);
+  // Filter menus to only show Italian cuisine
+  const ItalianMenus = menus.filter((menu) => menu.cuisine === "Italian");
+  console.log("Italian menus:", ItalianMenus);
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-gray-900">
-          Taste of Thailand 🇹🇭
+          Taste of Italian Food
         </h2>
       </div>
 
-      {thaiMenus.length > 0 ? (
+      {ItalianMenus.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {thaiMenus.map((menu) => (
+          {ItalianMenus.map((menu) => (
             <MenuCard key={menu?._id} menu={menu} />
           ))}
         </div>
@@ -34,4 +36,4 @@ const ThaiFoodPage = async () => {
   );
 };
 
-export default ThaiFoodPage;
+export default ItalianFoodPage;
