@@ -3,7 +3,7 @@
 export default async function getMenu() {
   try {
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurants`);
+    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant`);
 
     if (!res.ok) {
       return [];
