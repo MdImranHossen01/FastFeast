@@ -5,7 +5,7 @@ export default async function SpecialOffers() {
   const offers = await getOffers();
 
   return (
-    <section className="py-14 bg-orange-50">
+    <section id="offer-section" className="py-14 bg-orange-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="mb-4 text-4xl font-bold text-gray-800">
