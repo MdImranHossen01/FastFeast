@@ -23,6 +23,7 @@ export default function DashboardLinks() {
 
   return (
     <ul className="space-y-2 p-2">
+      {/* admin links */}
       {user.role === "admin" && (
         <>
           <li>
@@ -60,7 +61,7 @@ export default function DashboardLinks() {
           <li>
             <Link
               href="/admin-dashboard/manage-reviews"
-              className={linkStyle("/admin-dashboard/manage-blogs")}
+              className={linkStyle("/admin-dashboard/manage-reviews")}
             >
               Manage Reviews
             </Link>
@@ -68,6 +69,7 @@ export default function DashboardLinks() {
         </>
       )}
 
+      {/* customer links */}
       {user.role === "customer" && (
         <>
           <li>
