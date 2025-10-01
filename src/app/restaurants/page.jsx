@@ -5,14 +5,21 @@ import Restaurant from "./components/restaurant";
 
 export default async function RestaurantsListing() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant`,
+    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?status=approved`,
     {
       next: {
         revalidate: 10,
       },
     }
   );
+  if (!res.ok) {
+    return [];
+  }
   const restaurants = await res.json();
+  // approved restaurants
+  // const restaurants = allRestaurants.filter(
+  //   (restaurant) => restaurant.status === "approved"
+  // );
   return (
     <div className=" ">
       <div className="mt-18 mb-5 container mx-auto px-4  ">
