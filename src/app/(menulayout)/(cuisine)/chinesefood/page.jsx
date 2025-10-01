@@ -2,20 +2,26 @@ import React from "react";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
 
-const BiryaniPage = async () => {
+
+
+const ChineseFoodPage = async () => {
   const menus = await getMenu();
 
-  // Filter menus to only show Thai cuisine
-  const Menus = menus.filter((menu) => menu.category === "Biryani");
-  console.log("Thai menus:", Menus);
+  // Filter menus to only show Chinese cuisine
+  const ChineseMenus = menus.filter((menu) => menu.cuisine === "Chinese");
+  console.log("Chinese menus:", ChineseMenus);
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-4"></div>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-bold text-gray-900">
+          Taste of Chinese Food
+        </h2>
+      </div>
 
-      {Menus.length > 0 ? (
+      {ChineseMenus.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {Menus.map((menu) => (
+          {ChineseMenus.map((menu) => (
             <MenuCard key={menu?._id} menu={menu} />
           ))}
         </div>
@@ -30,4 +36,4 @@ const BiryaniPage = async () => {
   );
 };
 
-export default BiryaniPage;
+export default ChineseFoodPage;

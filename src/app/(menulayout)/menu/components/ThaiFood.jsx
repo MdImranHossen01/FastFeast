@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const ThaiFood = () => {
   const [thaiMenus, setThaiMenus] = useState([]);
@@ -72,7 +73,8 @@ const ThaiFood = () => {
         <h2 className="text-xl font-bold text-gray-900">
           Taste of Thailand 🇹🇭
         </h2>
-        <button className="text-orange-500 font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
+       <Link href={"/thaifood"}>
+        <button className="text-orange-500 cursor-pointer font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
           See More
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -89,6 +91,7 @@ const ThaiFood = () => {
             />
           </svg>
         </button>
+       </Link>
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">

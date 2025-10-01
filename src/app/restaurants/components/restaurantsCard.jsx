@@ -99,7 +99,7 @@ export default function RestaurantsCard({ restaurant }) {
 
         {/* view menu button */}
         <div className="card-actions justify-end">
-          <button className="flex transition-transform duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
+          <button className="flex transition-all duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
             View Menu{" "}
             <FaArrowRight className="transition-transform duration-300  group-hover:translate-x-0.5" />
           </button>
