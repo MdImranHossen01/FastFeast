@@ -1,9 +1,10 @@
 import React from 'react';
-import AddRestaurantForm from '../menu/components/AddRestarurantForm';
+import AddRestaurantForm from '../(menulayout)/menu/components/AddRestarurantForm';
+
 
 const AddRestaurantPage = () => {
     return (
-        <div>
+        <div className='pt-18'>
            <AddRestaurantForm/>
         </div>
     );

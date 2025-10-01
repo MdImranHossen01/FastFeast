@@ -10,7 +10,7 @@ const ctaData = [
     description:
       "Want millions of new customers to enjoy your delicious food? Join our network to grow your business and reach more hungry people than ever before.",
     buttonText: "Become a Partner",
-    link: "/signup/restaurant",
+    link: "register-restaurant",
     backgroundImage:
       "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1074",
   },
@@ -20,7 +20,7 @@ const ctaData = [
     description:
       "Enjoy flexible working hours and competitive earnings. Join our rider fleet today and earn up to ৳25,000 a month delivering happiness.",
     buttonText: "Become a Rider",
-    link: "/signup/rider",
+    link: "/register-rider",
     backgroundImage: "/food-delivery-riderorange.jpg",
   },
 ];
