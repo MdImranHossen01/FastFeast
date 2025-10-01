@@ -1,6 +1,8 @@
 import React from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
+import PendingRestaurants from "./components/pendingRestaurants";
+import ApprovedRestaurants from "./components/approvedRestaurants";
 
 export const restaurants = [
   {
@@ -88,10 +90,10 @@ export const restaurants = [
     priceRange: "৳",
     estimatedDeliveryTime: "15-25 min",
     deliveryFee: 0,
-    status: "approved",
+    status: "rejected",
     isFeatured: true,
     isActive: true,
-    approved: true,
+    approved: false,
     ownerId: "user_rest_03",
     ownerEmail: "nipa@gmail.com",
     location: {
@@ -193,10 +195,10 @@ export const restaurants = [
     priceRange: "৳৳",
     estimatedDeliveryTime: "25-35 min",
     deliveryFee: 30,
-    status: "approved",
+    status: "pending",
     isFeatured: false,
     isActive: true,
-    approved: true,
+    approved: false,
     ownerId: "user_rest_06",
     ownerEmail: "imran@gmail.com",
     location: {
@@ -232,7 +234,7 @@ export const restaurants = [
     status: "rejected",
     isFeatured: true,
     isActive: true,
-    approved: true,
+    approved: false,
     ownerId: "user_rest_07",
     ownerEmail: "kanak@gmail.com",
     location: {
@@ -268,7 +270,7 @@ export const restaurants = [
     status: "pending",
     isFeatured: false,
     isActive: false,
-    approved: true,
+    approved: false,
     ownerId: "user_rest_08",
     ownerEmail: "mustakim@gmail.com",
     location: {
@@ -291,265 +293,32 @@ export const restaurants = [
 
 export default function ManageRestaurants() {
   return (
-    <div className="container mx-auto text-gray-700 dark:text-gray-300">
+    <div className="container mx-auto text-gray-700 dark:text-gray-300 pb-5">
       {/* heading */}
-      <div>
-        <h2 className="text-2xl sm:text-3xl font-bold   dark:text-white py-3">
+      <div className="flex flex-col md:flex-row  justify-between items-center">
+        <h2 className="text-2xl sm:text-3xl font-bold   dark:text-white py-1 pt-4 text-left">
           Manage Restaurants
         </h2>
+        <input
+          type="text"
+          placeholder="search restaurant..."
+          className="input input-bordered"
+        />
       </div>{" "}
       {/* Pending Restaurant Requests */}
       <h2 className="text-2xl  text-center font-bold   dark:text-white py-5">
         Pending Restaurant Requests
       </h2>
-      {restaurants.length > 0 ? (
-        <div className=" overflow-x-auto rounded-xl shadow-md py-2 ">
-          <table className="table  ">
-            {/* head */}
-            <thead className="hidden md:table-header-group bg-gray-100 dark:bg-gray-800  ">
-              <tr
-                className="text-sm block md:table-row text-gray-700 dark:text-gray-300
-            text-left "
-              >
-                <th className="px-4">#</th>
-                <th className="px-4">Restaurant Logo</th>
-                <th className="px-4">Restaurant Name</th>
-                <th className="px-4">Owner Email</th>
-                <th className="px-4">Status</th>
-                <th className="px-4">Active</th>
-                <th className="px-4 text-center w-[150px]">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-
-              {restaurants.map((restaurant, index) => (
-                <tr
-                  key={restaurant.id}
-                  className="block md:table-row border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-950"
-                >
-                  <td className="block md:table-cell py-1">
-                    <span className="md:hidden font-semibold">#</span>
-                    {index + 1}
-                  </td>
-                  <td className="block md:hidden py-1">
-                    <div className="flex items-center gap-2">
-                      <img
-                        className="w-12 h-12 rounded-full object-cover"
-                        src={restaurant.logo}
-                        alt="logo"
-                      />
-                      <span className="font-bold">{restaurant.name}</span>
-                    </div>
-                  </td>
-                  <th className="px-4 hidden md:table-cell">
-                    <img
-                      className="w-12 h-12 rounded-full object-cover"
-                      src={restaurant.logo}
-                      alt="logo"
-                    />
-                  </th>
-
-                  <td className="px-4 font-medium hidden md:table-cell">
-                    {restaurant.name}
-                  </td>
-                  <td className="px-4 block md:table-cell py-1">
-                    <span className="md:hidden font-semibold">
-                      Owner Email ID :
-                    </span>
-                    {restaurant.ownerEmail}
-                  </td>
-
-                  <td className="px-4 block md:table-cell py-1">
-                    <span className="md:hidden font-semibold">Status :</span>{" "}
-                    {restaurant.status === "approved" ? (
-                      <span className="text-green-500 border dark:border-none bg-green-50 py-0.5 px-2 rounded-full">
-                        Approved
-                      </span>
-                    ) : restaurant.status === "rejected" ? (
-                      <span className="text-red-500 border dark:border-none    bg-red-50 py-0.5 px-2 rounded-full">
-                        Rejected
-                      </span>
-                    ) : (
-                      <span className="text-yellow-500  border  dark:border-none   bg-yellow-50 py-0.5 px-2 rounded-full">
-                        Pending
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-4 block md:table-cell py-1">
-                    <span className="md:hidden font-semibold">Active : </span>
-                    {restaurant.isActive === true ? (
-                      <span className="text-green-400 font-medium">Active</span>
-                    ) : (
-                      <span className="text-red-400 font-medium">Inactive</span>
-                    )}
-                  </td>
-                  <td className="px-4 block md:table-cell py-1">
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-2 ">
-                      <div className=" flex gap-2">
-                        <button
-                          className="btn btn-xs 
-                    md:btn-sm rounded-full border dark:border-none border-orange-500 flex items-center gap-1 bg-orange-50   text-orange-500 hover:text-white hover:bg-orange-400"
-                        >
-                          <AiOutlineEye size={16} /> View
-                        </button>
-                        <button
-                          className="btn btn-xs 
-                    md:btn-sm rounded-full border dark:border-none border-green-500 text-green-500 hover:bg-green-400 hover:text-white  flex items-center gap-1"
-                        >
-                          <AiOutlineCheck size={16} /> Approve
-                        </button>
-                      </div>
-                      <div className=" flex gap-2">
-                        {" "}
-                        <button
-                          className="btn btn-xs 
-                    md:btn-sm rounded-full bg-red-50 border dark:border-none border-red-500 text-red-500 hover:bg-red-400 hover:text-white flex items-center gap-1"
-                        >
-                          <AiOutlineClose size={16} /> Reject
-                        </button>
-                        <button
-                          className="btn btn-xs 
-                    md:btn-sm rounded-full flex items-center gap-1 bg-gray-100
-  border dark:border-none border-gray-500 text-gray-500 hover:bg-gray-500 hover:text-white   "
-                        >
-                          <MdDeleteOutline size={16} /> Delete
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div>No more restaurants</div>
-      )}
+      <div>
+        <PendingRestaurants restaurants={restaurants} />
+      </div>
       {/* Approved restaurants */}
       <h2 className="text-2xl  text-center font-bold   dark:text-white py-5">
         Approved Restaurants
       </h2>
-      {restaurants.filter((restaurant) => restaurant.status === "approved")
-        .length > 0 ? (
-        <div className="py-2 overflow-x-auto rounded-xl shadow-md  ">
-          <table className="table  ">
-            {/* head */}
-            <thead className="hidden md:table-header-group bg-gray-100 dark:bg-gray-800  ">
-              <tr
-                className="text-sm block md:table-row text-gray-700 dark:text-gray-300
-            text-left "
-              >
-                <th className="px-4">#</th>
-                <th className="px-4">Restaurant Logo</th>
-                <th className="px-4">Restaurant Name</th>
-                <th className="px-4">Owner Email</th>
-                <th className="px-4">Status</th>
-                <th className="px-4">Active</th>
-                <th className="px-4 text-center w-[150px]">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-
-              {restaurants
-                .filter((restaurant) => restaurant.status === "approved")
-                .map((restaurant, index) => (
-                  <tr
-                    key={restaurant.id}
-                    className="block md:table-row border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-950"
-                  >
-                    <td className="block md:table-cell">
-                      <span className="md:hidden font-semibold">#</span>
-                      {index + 1}
-                    </td>
-                    <td className="block md:hidden">
-                      <div className="flex items-center gap-2">
-                        <img
-                          className="w-12 h-12 rounded-full object-cover"
-                          src={restaurant.logo}
-                          alt="logo"
-                        />
-                        <span className="font-bold">{restaurant.name}</span>
-                      </div>
-                    </td>
-                    <th className="px-4 hidden md:table-cell">
-                      <img
-                        className="w-12 h-12 rounded-full object-cover"
-                        src={restaurant.logo}
-                        alt="logo"
-                      />
-                    </th>
-
-                    <td className="px-4 font-medium hidden md:table-cell">
-                      {restaurant.name}
-                    </td>
-                    <td className="px-4 block md:table-cell">
-                      <span className="md:hidden font-semibold">
-                        Owner Email ID :
-                      </span>
-                      {restaurant.ownerEmail}
-                    </td>
-
-                    <td className="px-4 block md:table-cell">
-                      <span className="md:hidden font-semibold">Status :</span>{" "}
-                      {restaurant.status === "approved" ? (
-                        <span className="text-green-500 border dark:border-none bg-green-50 py-0.5 px-2 rounded-full">
-                          Approved
-                        </span>
-                      ) : (
-                        <span className="text-yellow-500  border  dark:border-none   bg-yellow-50 py-0.5 px-2 rounded-full hidden">
-                          Pending
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 block md:table-cell">
-                      <span className="md:hidden font-semibold">Active : </span>
-                      {restaurant.isActive === true ? (
-                        <span className="text-green-400 font-medium">
-                          Active
-                        </span>
-                      ) : (
-                        <span className="text-red-400 font-medium">
-                          Inactive
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 block md:table-cell">
-                      <div className="flex flex-col md:flex-row items-start md:items-center gap-2 ">
-                        <div className=" flex gap-2">
-                          <button
-                            className="btn  
-                    btn-sm rounded-full border dark:border-none border-orange-500 flex items-center gap-1 bg-orange-50   text-orange-500 hover:text-white hover:bg-orange-400"
-                          >
-                            <AiOutlineEye size={16} /> View
-                          </button>
-                          <button className="btn btn-sm rounded-full border dark:border-none border-green-500 text-green-500 hover:bg-green-400 hover:text-white  flex items-center gap-1">
-                            <AiOutlineCheck size={16} /> Approve
-                          </button>
-                        </div>
-                        <div className=" flex gap-2">
-                          {" "}
-                          <button className="btn btn-sm rounded-full bg-red-50 border dark:border-none border-red-500 text-red-500 hover:bg-red-400 hover:text-white flex items-center gap-1">
-                            <AiOutlineClose size={16} /> Reject
-                          </button>
-                          <button
-                            className="btn btn-sm rounded-full flex items-center gap-1 bg-gray-100
-  border dark:border-none border-gray-500 text-gray-500 hover:bg-gray-500 hover:text-white   "
-                          >
-                            <MdDeleteOutline size={16} /> Delete
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div>No more restaurants</div>
-      )}
+      <div>
+        <ApprovedRestaurants restaurants={restaurants} />
+      </div>
     </div>
   );
 }
