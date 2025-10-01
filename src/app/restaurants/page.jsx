@@ -1,9 +1,18 @@
 import React from "react";
 
-import { restaurants } from "./restaurants";
+// import { restaurants } from "./restaurants";
 import Restaurant from "./components/restaurant";
 
-export default function RestaurantsListing() {
+export default async function RestaurantsListing() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant`,
+    {
+      next: {
+        revalidate: 10,
+      },
+    }
+  );
+  const restaurants = await res.json();
   return (
     <div className=" ">
       <div className="mt-18 mb-5 container mx-auto px-4  ">
