@@ -10,11 +10,10 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 
-// Slider images & content
-
+// Slider videos & content
 const sliderContent = [
   {
-    image: "https://i.ibb.co.com/tTFzQcc0/burger.png",
+    video: "/video1.mp4",
     title: "Gourmet Burgers",
     description:
       "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
@@ -23,7 +22,7 @@ const sliderContent = [
     cta: "Order Now",
   },
   {
-    image: "https://i.ibb.co.com/dRQ5rSp/pizza.png",
+    video: "/video2.mp4",
     title: "Artisan Pizzas",
     description:
       "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
@@ -32,7 +31,7 @@ const sliderContent = [
     cta: "Explore Menu",
   },
   {
-    image: "https://i.ibb.co.com/HTRgS6Cv/sushi.png",
+    video: "/video3.mp4",
     title: "Fresh Sushi",
     description:
       "Expertly crafted rolls with the finest fish, delivered right to your door.",
@@ -71,13 +70,15 @@ const Banner = () => {
       >
         {sliderContent.map((slide, index) => (
           <SwiperSlide key={index} className="relative">
-            {/* Background image with zoom effect */}
+            {/* Background video with zoom effect */}
             <div className="absolute inset-0 overflow-hidden">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="slide-image w-full h-full object-cover"
-                loading="eager"
+              <video
+                src={slide.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="slide-video w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/20"></div>
@@ -232,12 +233,12 @@ const Banner = () => {
         }
 
         /* Fix zoom effect every slide */
-        .slide-image {
+        .slide-video {
           transform: scale(1);
           transition: none;
         }
 
-        .swiper-slide-active .slide-image {
+        .swiper-slide-active .slide-video {
           transform: scale(1.1);
           transition: transform 10s ease-out;
         }
