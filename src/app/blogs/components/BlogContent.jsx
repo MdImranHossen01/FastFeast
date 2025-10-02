@@ -21,15 +21,15 @@ export default function BlogContent({ blogs }) {
   });
 
   return (
-    <main className="pb-8 space-y-6">
+    <main className="pb-8 lg:mx-14 md:mx-8 mx-4 space-y-6">
       {/* Search + Filter */}
-      <SearchBar
+      {/* <SearchBar
         query={query}
         setQuery={setQuery}
         tag={tag}
         setTag={setTag}
         allTags={allTags}
-      />
+      /> */}
 
       {/* Blog List */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
