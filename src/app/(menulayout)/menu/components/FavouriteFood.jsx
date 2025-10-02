@@ -85,7 +85,7 @@ const favoriteFoodCategories = [
   {
     id: "fav03",
     name: "Cakes",
-    imageUrl: "https://i.ibb.co.com/GQc0p6qx/Cakes.jpg", // Fixed: Removed "1000" from URL
+    imageUrl: "https://i.ibb.co.com/GQc0p6qx/Cakes.jpg",
   },
   {
     id: "fav04",
