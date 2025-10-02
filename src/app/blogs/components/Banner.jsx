@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import SearchBar from './SearchBar';
-import bannerImage from "../../../assets/blog-page-banner.jpg";
+import bannerImage from "../../../assets/blog-page-banner.png";
 import Link from 'next/link';
 import { FaHome } from 'react-icons/fa';
 import Image from 'next/image';
