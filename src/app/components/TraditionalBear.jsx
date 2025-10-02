@@ -4,38 +4,25 @@ import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-// Array of beer data
-const beers = [
-  { name: 'Taste of Thailand', id: 'thaifood' },
-  { name: 'Savor the Flavors of China', id: 'chinesefood' },
-  { name: 'Experience the Tastes of India ', id: 'indianfood' },
-  { name: 'Taste the Tradition of Italy', id: 'italianfood' },
-  { name: "Discover the Art of Japan", id: 'japanesefood' },
-  { name: 'Spice Up Your Day with Korea', id: 'koreanfood' },
-  
+// Array of dish data
+const dishes = [
+  { name: 'Taste of Thailand', id: 'thaifood', imageUrl: 'https://i.ibb.co.com/0VMxp86C/Taste-of-Thailand.jpg' },
+  { name: 'Savor the Flavors of China', id: 'chinesefood', imageUrl: 'https://i.ibb.co.com/JR4kWwCt/Savor-the-Flavors-of-China.jpg' },
+  { name: 'Experience the Tastes of India', id: 'indianfood', imageUrl: 'https://i.ibb.co.com/cKB5Hrqc/Experience-the-Tastes-of-India.jpg' },
+  { name: 'Taste the Tradition of Italy', id: 'italianfood', imageUrl: 'https://i.ibb.co.com/wZzrmtzC/Taste-the-Tradition-of-Italy.jpg' },
+  { name: "Discover the Art of Japan", id: 'japanesefood', imageUrl: 'https://i.ibb.co.com/TqJjR9BY/Taste-the-Tradition-of-japanese-food.jpg' },
+  { name: 'Spice Up Your Day with Korea', id: 'koreanfood', imageUrl: 'https://i.ibb.co.com/j9G1K683/Spice-Up-Your-Day-with-Korean-food.jpg' },
 ];
-
-// Array of random image URLs
-const images = [
-  'https://i.ibb.co.com/dwsf56Wd/Chicken-Drums.jpg',
-  'https://i.ibb.co.com/jZBvwWF7/Crispy-Chicken-Sandwich.jpg',
-  'https://i.ibb.co.com/hRPM5mts/Korean-Fried-Chicken-1.jpg',
-  'https://i.ibb.co.com/5gW2CT6C/Honey-Garlic-Chicken.jpg',
-  'https://i.ibb.co.com/qYj6sWzL/Chicken-Nuggets.jpg',
-  'https://i.ibb.co.com/yFh1d3Ss/Popcorn-Chicken.jpg',
-];
-
-const getRandomImage = () => images[Math.floor(Math.random() * images.length)];
 
 const TraditionalBear = () => {
-  const [currentImage, setCurrentImage] = useState(getRandomImage());
+  const [currentImage, setCurrentImage] = useState(dishes[0].imageUrl);
 
   const handleMouseEnter = (index) => {
-    setCurrentImage(images[index % images.length]);
+    setCurrentImage(dishes[index].imageUrl);
   };
 
   const handleMouseLeave = () => {
-    setCurrentImage(getRandomImage());
+    setCurrentImage(dishes[0].imageUrl); // Reset to first image on mouse leave
   };
 
   return (
@@ -55,19 +42,19 @@ const TraditionalBear = () => {
             </p>
           </div>
 
-          {/* Beer List - Compact spacing */}
+          {/* Dish List - Compact spacing */}
           <div className="mt-4 md:mt-6 divide-y divide-gray-300 flex-grow">
-            {beers.map((beer, index) => (
+            {dishes.map((dish, index) => (
               <Link
-                key={beer.id}
-                href={`${beer.id}`}
+                key={dish.id}
+                href={`${dish.id}`}
                 className="group flex items-center justify-between py-2 md:py-3 cursor-pointer transition-all duration-300 ease-in-out"
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
               >
-                {/* Beer Name - Responsive text size */}
+                {/* Dish Name - Responsive text size */}
                 <span className="text-base md:text-lg font-semibold text-gray-800 transition-all duration-300 ease-in-out transform hover:text-orange-600 group-hover:scale-[1.02] group-hover:translate-x-1">
-                  {beer.name}
+                  {dish.name}
                 </span>
 
                 {/* Arrow Icon */}
@@ -79,12 +66,12 @@ const TraditionalBear = () => {
             ))}
           </div>
 
-          {/* All Our Beers Button - Fixed at bottom */}
-         <Link href={"/menu"}>
-          <button className="mt-4 md:mt-6 px-4 w-full py-2 md:px-5 md:py-2.5 border border-gray-800 text-gray-800 font-medium uppercase text-xs md:text-sm hover:bg-orange-600 hover:text-white transition-colors duration-300">
-            See All
-          </button>
-         </Link>
+          {/* All Our Dishes Button - Fixed at bottom */}
+          <Link href={"/menu"}>
+            <button className="mt-4 md:mt-6 px-4 w-full py-2 md:px-5 md:py-2.5 border border-gray-800 text-gray-800 font-medium uppercase text-xs md:text-sm hover:bg-orange-600 hover:text-white transition-colors duration-300">
+              See All
+            </button>
+          </Link>
         </div>
 
         {/* Right Side: Image - Fills remaining space */}
@@ -92,7 +79,7 @@ const TraditionalBear = () => {
           {/* Image - Full bleed, transition, and zoom on hover effect */}
           <img
             src={currentImage}
-            alt="Traditional beer or food pairing"
+            alt="Traditional dish or food"
             className="w-full h-full items-center justify-center object-cover transition-transform duration-500 ease-in-out hover:scale-[1.05]"
           />
         </div>
