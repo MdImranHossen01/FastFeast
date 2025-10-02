@@ -49,7 +49,7 @@ export default function RestaurantsCard({ restaurant }) {
               alt=""
             />
             <h2 className="card-title group-hover:text-orange-500 text-gray-700">
-              {restaurant.name}
+              {restaurant.name}{" "}
             </h2>
           </div>
 
@@ -99,7 +99,7 @@ export default function RestaurantsCard({ restaurant }) {
 
         {/* view menu button */}
         <div className="card-actions justify-end">
-          <button className="flex transition-transform duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
+          <button className="flex transition-all duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
             View Menu{" "}
             <FaArrowRight className="transition-transform duration-300  group-hover:translate-x-0.5" />
           </button>

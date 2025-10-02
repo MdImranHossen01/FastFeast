@@ -16,10 +16,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export default async function AdminHomePage() {
   const session = await getServerSession(authOptions);
 
-  // console.log(session);
-
   return (
-    <div className="p-6 space-y-8">
+    <div className="px-6 space-y-8">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">
         Admin Dashboard Overview
       </h1>

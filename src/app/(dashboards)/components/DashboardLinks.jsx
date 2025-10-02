@@ -8,6 +8,7 @@ import React from "react";
 export default function DashboardLinks() {
   const pathname = usePathname();
   const { data: session } = useSession();
+  // const user = session?.user;
 
   const user = {
     role: "admin",
@@ -23,6 +24,7 @@ export default function DashboardLinks() {
 
   return (
     <ul className="space-y-2 p-2">
+      {/* admin links */}
       {user.role === "admin" && (
         <>
           <li>
@@ -60,7 +62,7 @@ export default function DashboardLinks() {
           <li>
             <Link
               href="/admin-dashboard/manage-reviews"
-              className={linkStyle("/admin-dashboard/manage-blogs")}
+              className={linkStyle("/admin-dashboard/manage-reviews")}
             >
               Manage Reviews
             </Link>
@@ -68,20 +70,21 @@ export default function DashboardLinks() {
         </>
       )}
 
-      {user.role === "customer" && (
+      {/* user links */}
+      {user.role === "user" && (
         <>
           <li>
             <Link
-              href="/customer-dashboard"
-              className={linkStyle("/customer-dashboard")}
+              href="/user-dashboard"
+              className={linkStyle("/user-dashboard")}
             >
               Home
             </Link>
           </li>
           <li>
             <Link
-              href="/customer-dashboard/orders-history"
-              className={linkStyle("/customer-dashboard/orders-history")}
+              href="/user-dashboard/orders-history"
+              className={linkStyle("/user-dashboard/orders-history")}
             >
               Orders History
             </Link>
