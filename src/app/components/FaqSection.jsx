@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Lottie from "lottie-react";
-import faqAnimation from "../../assets/faq-animation.json";
 import { IoChevronForward } from "react-icons/io5";
+import Image from "next/image";
 
 const faqs = [
   {
@@ -41,62 +40,55 @@ export default function FAQSection() {
   };
 
   return (
-    // ✅ Changed background color here
-    <section className="bg-orange-50 pb-24">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-800">
-            Still Have <span className="text-orange-500">Questions?</span>
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Find answers to common questions about orders, payments, and our
-            services. We're here to make your experience seamless.
-          </p>
-        </div>
-
-        {/* ✅ Swapped the order of the two columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Accordion Section */}
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md"
+    <section className="h-screen w-full bg-orange-600 overflow-hidden">
+      {/* Removed container to avoid right-side spacing */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-full w-full">
+        
+        {/* Accordion Section (Left Column) */}
+        <div className="p-6 lg:p-10 space-y-2">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="transition-all duration-300 hover:shadow-md"
+            >
+              <button
+                className="w-full flex justify-between items-center p-5 text-left font-medium text-white"
+                onClick={() => toggleFAQ(index)}
               >
-                <button
-                  className="w-full flex justify-between items-center p-5 text-left font-medium text-gray-800"
-                  onClick={() => toggleFAQ(index)}
-                >
-                  <span
-                    className={`text-lg ${
-                      openIndex === index ? "text-orange-500" : ""
-                    }`}
-                  >
-                    {faq.question}
-                  </span>
-                  <IoChevronForward
-                    className={`h-5 w-5 text-gray-500 transition-transform duration-300 ${
-                      openIndex === index ? "rotate-90" : ""
-                    }`}
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
-                    openIndex === index ? "max-h-96" : "max-h-0"
+                <span
+                  className={`text-lg ${
+                    openIndex === index ? "text-white" : ""
                   }`}
                 >
-                  <div className="px-5 pb-5 text-gray-600">
-                    <p>{faq.answer}</p>
-                  </div>
+                  {faq.question}
+                </span>
+                <IoChevronForward
+                  className={`h-5 w-5 text-white transition-transform duration-300 ${
+                    openIndex === index ? "rotate-90" : ""
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
+                  openIndex === index ? "max-h-96" : "max-h-0"
+                }`}
+              >
+                <div className="px-5 pb-5 text-white">
+                  <p>{faq.answer}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-          {/* Lottie Animation Section (now on the right) */}
-          <div className="hidden lg:block">
-            <Lottie animationData={faqAnimation} loop={true} />
-          </div>
+        {/* Right: Full Background Image */}
+        <div className="hidden lg:block relative h-full w-full">
+          <Image
+            src="https://i.ibb.co.com/jZ5HNJ7s/FAQ-in-orange-for-food-quary-in-a-website-faq-section-1.jpg"
+            alt="FAQ Illustration"
+            fill
+            className="object-cover"
+          />
         </div>
       </div>
     </section>

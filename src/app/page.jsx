@@ -8,20 +8,25 @@ import PopularBlogs from "./components/PopularBlogs";
 import OurPartner from "./components/OurPartner";
 import SpecialOffers from "./components/SpecialOffers";
 import CustomersReview from "./components/CustomersReview";
+import TraditionalBeersSection from "./components/TraditionalBear";
+import CategorySection from "./components/Category";
 
 export default function Home() {
   return (
-    <div className="pt-18">
+    <div>
       <Banner />
-      <SpecialOffers />
+      {/* <SpecialOffers /> */}
+      <TraditionalBeersSection></TraditionalBeersSection>
+      <CategorySection/>
       <CTASection />
       <Services />
       <PopularBlogs />
       <OurPartner />
-      <FAQSection />
       <Stats />
+      <FAQSection />
+      
       <CustomersReview />
-      <NewsLetter />
+      {/* <NewsLetter /> */}
     </div>
   );
 }

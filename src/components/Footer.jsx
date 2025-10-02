@@ -2,7 +2,13 @@
 
 import React from "react";
 import Logo from "./logo";
-import { FaFacebook, FaGithub, FaYoutube, FaTwitter } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaGithub,
+  FaYoutube,
+  FaTwitter,
+  FaRegPaperPlane,
+} from "react-icons/fa";
 import { IoLocationSharp, IoCall, IoMail } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -58,17 +64,41 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-slate-900 text-gray-300 pt-16">
-      <div className="container mx-auto px-4">
+    <footer className="bg-slate-900 text-gray-300 py-6">
+      <div className="container mx-auto py-6 px-4">
         {/* ✅ Simplified to a single, balanced 4-column grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Logo & Socials */}
           <div>
             <Logo />
-            <p className="mt-4 max-w-sm text-gray-400">
-              Your favorite meals from local restaurants, delivered fast to your
-              door.
-            </p>
+            <div className="space-y-2 mt-4 text-sm">
+              <div className="flex items-start gap-2">
+                <IoLocationSharp
+                  size={20}
+                  className="mt-1 flex-shrink-0 text-orange-400"
+                />
+                <p className="text-gray-400">123 Gulshan Avenue, Dhaka </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <IoCall size={20} className="flex-shrink-0 text-orange-400" />
+                <a
+                  href="tel:+8801712345678"
+                  className="text-gray-400 transition-colors hover:text-orange-400"
+                >
+                  +880 171 234 5678
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <IoMail size={20} className="flex-shrink-0 text-orange-400" />
+                <a
+                  href="mailto:support@fastfeast.com"
+                  className="text-gray-400 transition-colors hover:text-orange-400"
+                >
+                  support@fastfeast.com
+                </a>
+              </div>
+            </div>
+
             <div className="mt-6 flex space-x-4">
               <a
                 href="#"
@@ -109,43 +139,35 @@ const Footer = () => {
           {/* Column 4: "Get In Touch" */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase text-gray-100">
-              Get In Touch
+              Newsletter
             </h3>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <IoLocationSharp
-                  size={20}
-                  className="mt-1 flex-shrink-0 text-orange-400"
+            <div>
+              <p className="text-sm leading-relaxed mb-4">
+                Get exclusive updates, offers, and content directly to your
+                inbox.
+              </p>
+              <form className="flex" onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="email"
+                  placeholder="your email address"
+                  className="w-full bg-gray-700 text-white px-4 py-3 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  suppressHydrationWarning
                 />
-                <p className="text-gray-400">
-                  123 Gulshan Avenue, Dhaka 1212, Bangladesh
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <IoCall size={20} className="flex-shrink-0 text-orange-400" />
-                <a
-                  href="tel:+8801712345678"
-                  className="text-gray-400 transition-colors hover:text-orange-400"
+                <button
+                  type="submit"
+                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-3 rounded-r-md transition-colors"
+                  aria-label="Subscribe"
                 >
-                  +880 171 234 5678
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <IoMail size={20} className="flex-shrink-0 text-orange-400" />
-                <a
-                  href="mailto:support@fastfeast.com"
-                  className="text-gray-400 transition-colors hover:text-orange-400"
-                >
-                  support@fastfeast.com
-                </a>
-              </div>
+                  <FaRegPaperPlane />
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Copyright Section */}
-      <div className="border-t border-slate-800 bg-slate-900 py-6">
+      <div className="border-t border-slate-800 bg-slate-900 pt-6">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
           © {new Date().getFullYear()}{" "}
           <span className="font-semibold text-orange-400">FastFeast</span>. All
