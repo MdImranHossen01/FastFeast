@@ -18,9 +18,10 @@ export default function Home() {
       {/* <SpecialOffers /> */}
       <TraditionalBeersSection></TraditionalBeersSection>
       <CategorySection/>
+      <PopularBlogs />
       <CTASection />
       <Services />
-      <PopularBlogs />
+      
       <OurPartner />
       <Stats />
       <FAQSection />
