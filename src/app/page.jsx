@@ -10,6 +10,7 @@ import SpecialOffers from "./components/SpecialOffers";
 import CustomersReview from "./components/CustomersReview";
 import TraditionalBeersSection from "./components/TraditionalBear";
 import CategorySection from "./components/Category";
+import HowWeWork from "./components/HowWeWork";
 
 export default function Home() {
   return (
@@ -17,16 +18,17 @@ export default function Home() {
       <Banner />
       <SpecialOffers />
       <TraditionalBeersSection></TraditionalBeersSection>
-      <CategorySection/>
+      <CategorySection />
       <PopularBlogs />
       <CTASection />
-      <Services />
-      
-      <OurPartner />
       <Stats />
+      <HowWeWork />
       <FAQSection />
-      
+      <Services />
+
+      <OurPartner />
       <CustomersReview />
+
       {/* <NewsLetter /> */}
     </div>
   );
