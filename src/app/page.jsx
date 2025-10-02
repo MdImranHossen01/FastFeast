@@ -12,6 +12,8 @@ import TraditionalBeersSection from "./components/TraditionalBear";
 import CategorySection from "./components/Category";
 import HowWeWork from "./components/HowWeWork";
 
+import RestaurantSection from "./components/RestaurantSection";
+
 export default function Home() {
   return (
     <div>
@@ -20,6 +22,7 @@ export default function Home() {
       <TraditionalBeersSection></TraditionalBeersSection>
       <CategorySection />
       <PopularBlogs />
+      <RestaurantSection/>
       <CTASection />
       <Stats />
       <HowWeWork />
