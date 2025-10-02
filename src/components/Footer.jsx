@@ -167,7 +167,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright Section */}
-      <div className="border-t border-slate-800 bg-slate-900 py-6">
+      <div className="border-t border-slate-800 bg-slate-900 pt-6">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
           © {new Date().getFullYear()}{" "}
           <span className="font-semibold text-orange-400">FastFeast</span>. All
