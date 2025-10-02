@@ -5,6 +5,16 @@ import { NextResponse } from "next/server";
 // Connect to MongoDB
 const client = new MongoClient(process.env.MONGODB_URI);
 
+// helper function to handle mixed _id
+function parseId(id) {
+  // 24-character hex string --objectId
+  if (/^[0-9a-fA-F]{24}$/.test(id)) {
+    return new ObjectId(id);
+  }
+  // otherwise keep as string
+  return id;
+}
+
 export const POST = async (request) => {
   try {
     // Connect to MongoDB
@@ -95,9 +105,12 @@ export const PUT = async (request) => {
       return new NextResponse("Missing restaurant ID", { status: 400 });
     }
 
+    // parse_id to handle mixed type
+    const parsedId = parseId(id);
+
     // Update the restaurant in the MongoDB collection
     const result = await collection.updateOne(
-      { _id: new MongoClient.ObjectId(id) },
+      { _id: parsedId },
       { $set: updatedRestaurant }
     );
 
@@ -137,7 +150,14 @@ export const PATCH = async (request) => {
     if (!id) {
       return new NextResponse("Missing restaurant ID", { status: 400 });
     }
-    const result = await collection.updateOne({ _id: id }, { $set: body });
+
+    // parse_id
+    const parsedId = parseId(id);
+
+    const result = await collection.updateOne(
+      { _id: parsedId },
+      { $set: body }
+    );
     if (result.matchedCount === 0) {
       return new NextResponse("Restaurant not found", { status: 404 });
     }
@@ -169,9 +189,12 @@ export const DELETE = async (request) => {
       return new NextResponse("Missing restaurant ID", { status: 400 });
     }
 
+    // ✅ Parse _id
+    const parsedId = parseId(id);
+
     // Delete the restaurant from the MongoDB collection
     const result = await collection.deleteOne({
-      _id: new MongoClient.ObjectId(id),
+      _id: parsedId,
     });
 
     if (result.deletedCount === 0) {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaHome, FaUser, FaCalendar, FaTags } from "react-icons/fa";
 import getBlogs from "@/app/actions/blogs/getBlogs";
+import ReactMarkdown from "react-markdown";
 
 export default async function BlogDetails({ params }) {
   const { slug } = await params;
@@ -21,7 +22,7 @@ export default async function BlogDetails({ params }) {
   }
 
   return (
-    <main className="max-w-[1500px] mx-auto py-18">
+    <main className="max-w-[1500px] mx-auto px-14 py-18">
       {/* Cover Image */}
       <div className="w-full md:h-[500px] overflow-hidden rounded-xl shadow-lg mb-8">
         <img
@@ -36,17 +37,31 @@ export default async function BlogDetails({ params }) {
         <h1 className="text-4xl font-extrabold mb-4">{post.title}</h1>
         <div className="flex items-center gap-6 text-gray-600 text-sm">
           <span className="flex items-center gap-2">
-            <FaUser /> {post.author}
+            <img
+              src={post.authorPhoto || "/default-avatar.png"}
+              alt={post.author}
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <div className="flex flex-col">
+              <span className="font-medium">{post.author}</span>
+              <span className="text-gray-500">{post.authorEmail}</span>
+            </div>
           </span>
           <span className="flex items-center gap-2">
-            <FaCalendar /> {post.publishDate}
+            <FaCalendar />{" "}
+            {new Date(post.publishDate).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
           </span>
         </div>
       </header>
 
+
       {/* Details */}
       <article className="prose max-w-none mb-10">
-        <p>{post.details}</p>
+        <ReactMarkdown>{post.details}</ReactMarkdown>
       </article>
 
       {/* Gallery */}

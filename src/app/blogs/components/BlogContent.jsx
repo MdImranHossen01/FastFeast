@@ -1,15 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import BlogCard from "./BlogCard";
-import SearchBar from "./SearchBar";
 
-export default function BlogContent({ blogs }) {
-  const [query, setQuery] = useState("");
-  const [tag, setTag] = useState("All");
-
-  const allTags = ["All", ...new Set(blogs.flatMap((p) => p.tags || []))];
-
+export default function BlogContent({ blogs, query, tag }) {
   const filtered = blogs.filter((p) => {
     const matchTag = tag === "All" ? true : p.tags?.includes(tag);
     const matchQuery =
@@ -21,17 +14,7 @@ export default function BlogContent({ blogs }) {
   });
 
   return (
-    <main className="pb-8 space-y-6">
-      {/* Search + Filter */}
-      <SearchBar
-        query={query}
-        setQuery={setQuery}
-        tag={tag}
-        setTag={setTag}
-        allTags={allTags}
-      />
-
-      {/* Blog List */}
+    <main className="pb-8 lg:mx-14 md:mx-8 mx-4 space-y-6">
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filtered.length === 0 ? (
           <div className="text-gray-500">No posts found.</div>
