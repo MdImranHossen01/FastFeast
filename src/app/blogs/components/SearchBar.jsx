@@ -13,12 +13,12 @@ export default function SearchBar({ query, setQuery, tag, setTag, allTags }) {
       placeholder="Search articles..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
-      className="w-full md:flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-sm text-white placeholder:text-white/70 outline-none focus:ring-2 focus:ring-orange-300 transition-all duration-200"
+      className="w-full md:flex-1 bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-lg text-white placeholder:text-white/70 outline-none focus:ring-2 focus:ring-orange-400 transition-all duration-200"
     />
 
     {/* Tag Select */}
     <select
-      className="px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-sm text-white outline-none focus:ring-2 focus:ring-orange-300 hover:bg-orange-600/60 transition-all duration-200 cursor-pointer"
+      className="px-2 py-2 bg-white/10 border border-white/20 rounded-xl text-lg text-white outline-none focus:ring-2 focus:ring-orange-300 hover:bg-orange-600/60 transition-all duration-200 cursor-pointer"
       value={tag}
       onChange={(e) => setTag(e.target.value)}
     >
