@@ -1,5 +1,5 @@
 // G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\app\api\restaurant\route.js
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 // Connect to MongoDB
@@ -121,6 +121,33 @@ export const PUT = async (request) => {
   } catch (error) {
     console.error(error);
     return new NextResponse("Error updating restaurant data", { status: 500 });
+  }
+};
+
+// PATCH method
+export const PATCH = async (request) => {
+  try {
+    await client.connect();
+    const db = client.db(process.env.DB_NAME);
+    const collection = db.collection("restaurants");
+    const body = await request.json();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return new NextResponse("Missing restaurant ID", { status: 400 });
+    }
+    const result = await collection.updateOne({ _id: id }, { $set: body });
+    if (result.matchedCount === 0) {
+      return new NextResponse("Restaurant not found", { status: 404 });
+    }
+    return new NextResponse(JSON.stringify({ message: "Updated", id }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error(error);
+    return new NextResponse("Error deleting restaurant data", { status: 500 });
   }
 };
 

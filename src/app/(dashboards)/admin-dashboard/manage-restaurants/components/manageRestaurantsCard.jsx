@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import PendingRestaurants from "./pendingRestaurants";
 import ApprovedRestaurants from "./approvedRestaurants";
 
 export default function ManageRestaurantsCard({ restaurants }) {
+  const [allRestaurants, setAllRestaurants] = useState(restaurants);
   return (
     <div>
       {/* Header */}
@@ -27,7 +29,10 @@ export default function ManageRestaurantsCard({ restaurants }) {
         Pending Restaurant Requests
       </h2>
       <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-1">
-        <PendingRestaurants restaurants={restaurants} />
+        <PendingRestaurants
+          restaurants={allRestaurants}
+          setRestaurants={setAllRestaurants}
+        />
       </div>
 
       {/* Approved Restaurants */}
@@ -35,7 +40,10 @@ export default function ManageRestaurantsCard({ restaurants }) {
         Approved Restaurants
       </h2>
       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-        <ApprovedRestaurants restaurants={restaurants} />
+        <ApprovedRestaurants
+          restaurants={allRestaurants}
+          setRestaurants={setAllRestaurants}
+        />
       </div>
     </div>
   );
