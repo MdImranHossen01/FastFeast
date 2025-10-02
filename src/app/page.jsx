@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div>
       <Banner />
-      {/* <SpecialOffers /> */}
+      <SpecialOffers />
       <TraditionalBeersSection></TraditionalBeersSection>
       <CategorySection/>
       <PopularBlogs />
