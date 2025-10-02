@@ -49,7 +49,7 @@ export default function RestaurantsCard({ restaurant }) {
               alt=""
             />
             <h2 className="card-title group-hover:text-orange-500 text-gray-700">
-              {restaurant.name}
+              {restaurant.name}{" "}
             </h2>
           </div>
 

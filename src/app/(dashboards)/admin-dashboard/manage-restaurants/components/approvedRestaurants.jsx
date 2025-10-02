@@ -14,7 +14,7 @@ export default function ApprovedRestaurants({ restaurants }) {
           <table className="table w-full">
             {/* Table Header */}
             <thead className="hidden md:table-header-group bg-gray-100 dark:bg-gray-800">
-              <tr className="text-sm block md:table-row text-gray-700 dark:text-gray-300 text-left">
+              <tr className="text-sm block md:table-row  text-gray-700 dark:text-gray-300 text-left">
                 <th className="px-4">#</th>
                 <th className="px-4">Restaurant Logo</th>
                 <th className="px-4">Restaurant Name</th>
@@ -28,7 +28,7 @@ export default function ApprovedRestaurants({ restaurants }) {
             <tbody>
               {approvedList.map((restaurant, index) => (
                 <tr
-                  key={restaurant.id}
+                  key={restaurant._id}
                   className="block md:table-row border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200"
                 >
                   <td className="block md:table-cell py-1 px-4">
@@ -91,19 +91,19 @@ export default function ApprovedRestaurants({ restaurants }) {
                   <td className="px-4 block md:table-cell py-1">
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
                       <div className="flex gap-2">
-                        <button className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white">
+                        <button className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white shadow-none">
                           <AiOutlineEye size={16} /> View
                         </button>
-                        <button className="btn btn-xs md:btn-sm rounded-full border border-green-500 dark:border-none text-green-500 bg-green-50 dark:bg-green-900/30 hover:bg-green-400 hover:text-white">
+                        <button className="btn btn-xs md:btn-sm rounded-full border border-green-500 dark:border-none text-green-500 bg-green-50 dark:bg-green-900/30 shadow-none hover:bg-green-400 hover:text-white">
                           <AiOutlineCheck size={16} /> Approve
                         </button>
                       </div>
 
                       <div className="flex gap-2">
-                        <button className="btn btn-xs md:btn-sm rounded-full bg-red-50 dark:bg-red-900/30 border border-red-500 dark:border-none text-red-500 hover:bg-red-400 hover:text-white">
+                        <button className="btn btn-xs md:btn-sm rounded-full bg-red-50 dark:bg-red-900/30 border border-red-500 dark:border-none text-red-500 hover:bg-red-400 hover:text-white shadow-none">
                           <AiOutlineClose size={16} /> Reject
                         </button>
-                        <button className="btn btn-xs md:btn-sm rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-500 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-500 hover:text-white">
+                        <button className="btn btn-xs md:btn-sm rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-500 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-500 shadow-none hover:text-white">
                           <MdDeleteOutline size={16} /> Delete
                         </button>
                       </div>

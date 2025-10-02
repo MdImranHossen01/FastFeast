@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CustomerPage() {
+export default function UserHomePage() {
   return (
     <div>CustomerPage</div>
   )

@@ -165,7 +165,8 @@ const Banner = () => {
   };
 
   return (
-    <section className="relative h-[60vh] lg:h-[85vh] w-full overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden">
+     
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

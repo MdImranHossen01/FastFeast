@@ -1,6 +1,7 @@
 import React from "react";
 import PendingRestaurants from "./components/pendingRestaurants";
 import ApprovedRestaurants from "./components/approvedRestaurants";
+import ManageRestaurantsCard from "./components/manageRestaurantsCard";
 
 export const restaurants = [
   {
@@ -289,41 +290,19 @@ export const restaurants = [
   },
 ];
 
-export default function ManageRestaurants() {
+export default async function ManageRestaurants() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant`,
+    {
+      next: {
+        revalidate: 10,
+      },
+    }
+  );
+  const restaurants = await res.json();
   return (
     <div className="pb-5 text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 min-h-screen px-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-center">
-        <h2 className="text-2xl sm:text-3xl font-bold dark:text-white py-1 pt-4 text-left">
-          Manage Restaurants
-        </h2>
-        <input
-          type="text"
-          placeholder="search restaurant..."
-          className="
-            input input-bordered 
-            bg-gray-100 text-gray-800 
-            dark:bg-gray-800 dark:text-gray-200 
-            border-gray-300 dark:border-gray-600
-          "
-        />
-      </div>
-
-      {/* Pending Restaurant Requests */}
-      <h2 className="text-2xl text-center font-bold dark:text-white py-5">
-        Pending Restaurant Requests
-      </h2>
-      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-        <PendingRestaurants restaurants={restaurants} />
-      </div>
-
-      {/* Approved Restaurants */}
-      <h2 className="text-2xl text-center font-bold dark:text-white py-5">
-        Approved Restaurants
-      </h2>
-      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-        <ApprovedRestaurants restaurants={restaurants} />
-      </div>
+      <ManageRestaurantsCard restaurants={restaurants} />
     </div>
   );
 }
