@@ -20,6 +20,7 @@ export default function Restaurant({ restaurants }) {
     ...new Set(restaurants.flatMap((restaurant) => restaurant.cuisines)),
   ];
 
+  // search
   let filteredRestaurants = restaurants.filter((restaurant) => {
     const matchesSearch = restaurant.name
       .toLocaleLowerCase()
