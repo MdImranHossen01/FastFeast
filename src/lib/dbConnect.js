@@ -6,6 +6,7 @@ export const collectionsName = {
   blogsCollection: "blogs",
   foodsCollection: "foods",
   restaurantsCollection: "restaurants",
+  reviewsCollection: "reviews",
 };
 
 export const dbConnect = (collectionName) => {
