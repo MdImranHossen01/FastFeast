@@ -18,11 +18,13 @@ const TraditionalBear = () => {
   const [currentImage, setCurrentImage] = useState(dishes[0].imageUrl);
 
   const handleMouseEnter = (index) => {
+    console.log('Hovering over index:', index, 'Image URL:', dishes[index].imageUrl);
     setCurrentImage(dishes[index].imageUrl);
   };
 
   const handleMouseLeave = () => {
-    setCurrentImage(dishes[0].imageUrl); // Reset to first image on mouse leave
+    console.log('Mouse left, resetting to first image');
+    setCurrentImage(dishes[0].imageUrl);
   };
 
   return (
@@ -85,6 +87,10 @@ const TraditionalBear = () => {
             src={currentImage}
             alt="Traditional dish or food"
             className="w-full h-full items-center justify-center object-cover transition-all duration-500 ease-in-out"
+            onError={(e) => {
+              console.log('Image failed to load:', currentImage);
+              e.target.style.backgroundColor = '#f3f4f6';
+            }}
           />
         </div>
       </div>
