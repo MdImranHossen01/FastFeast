@@ -75,7 +75,7 @@ const SpecialOffers = () => {
           </div>
 
           {/* --- Right Section: Product Grid (Scrollable) --- */}
-          <div className="w-full lg:w-1/2 lg:max-h-screen rounded-xl lg:overflow-y-scroll scrollbar-hide right-section">
+          <div className="w-full lg:w-1/2 max-h-screen  rounded-xl overflow-y-scroll scrollbar-hide right-section">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-4">
               {offerProducts.map((product) => (
                 <ProductCard 
