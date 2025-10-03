@@ -5,8 +5,8 @@ import ReviewCards from "./components/ReviewCards";
 
 export default async function ManageReviews({ searchParams }) {
   const { search } = await searchParams;
-  // console.log(reviews)
-  // console.log(new Date().toISOString())
+  const r = await reviews.toLocaleString();
+  console.log(r)
   const data = reviews.filter((d) =>
     search === "All-reviews" ? true : d.targetType === search
   );
