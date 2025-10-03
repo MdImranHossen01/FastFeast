@@ -32,7 +32,7 @@ export default function Banner({ blogs, query, setQuery, tag, setTag }) {
             tasty tips for foodies across the nation.
           </p>
 
-          {/* ✅ props থেকে query & tag আসছে */}
+          {/* Search bar */}
           <SearchBar
             query={query}
             setQuery={setQuery}

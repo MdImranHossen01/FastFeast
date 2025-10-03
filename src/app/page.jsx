@@ -13,12 +13,14 @@ import CategorySection from "./components/Category";
 import HowWeWork from "./components/HowWeWork";
 
 import RestaurantSection from "./components/RestaurantSection";
+import FoodCompare from "./components/FoodCompare";
 
 export default function Home() {
   return (
     <div>
       <Banner />
       <SpecialOffers />
+      <FoodCompare/>
       <TraditionalBeersSection></TraditionalBeersSection>
       <CategorySection />
       <PopularBlogs />
