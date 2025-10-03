@@ -10,7 +10,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
 
-
 // --- Reusable NavLink Component ---
 const NavLink = ({ href, children, onClick }) => {
   const pathname = usePathname();
@@ -98,83 +97,80 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Profile/Login Icon - Right Side, Hidden when scrolled */}
-          {!isScrolled && (
-            <div className="flex items-center">
-              {session ? (
-                <div className="relative" ref={userMenuRef}>
-                  <Image
-                    src={
-                      session.user?.image ||
-                      `https://avatar.vercel.sh/${session.user?.email}`
-                    }
-                    alt={session.user?.name || "User"}
-                    width={40}
-                    height={40}
-                    className="cursor-pointer rounded-full transition-transform duration-300 hover:scale-110"
-                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  />
-                  <AnimatePresence>
-                    {isUserMenuOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute right-0 mt-2 w-64 origin-top-right rounded-lg border bg-white shadow-lg"
-                      >
-                        <div className="border-b p-4 text-center">
-                          <p className="font-semibold">{session.user?.name}</p>
-                          <p className="text-sm text-gray-500">
-                            {session.user?.email}
-                          </p>
-                        </div>
-                        <ul className="p-2">
-                          <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
-                            <FiUser />{" "}
-                            <Link
-                              href="/profile"
-                              onClick={() => setIsUserMenuOpen(false)}
-                            >
-                              My Profile
-                            </Link>
-                          </li>
-                          <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
-                            <FiGrid />{" "}
-                            <Link
-                              href="/admin-dashboard"
-                              onClick={() => setIsUserMenuOpen(false)}
-                            >
-                              Dashboard
-                            </Link>
-                          </li>
-                          <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50 transition-transform duration-300 hover:scale-105">
-                            <FiLogOut />
-                            <button
-                              onClick={() => {
-                                setIsUserMenuOpen(false);
-                                signOut();
-                              }}
-                            >
-                              Logout
-                            </button>
-                          </li>
-                        </ul>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="flex items-center gap-2 rounded-full  font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
-                >
-                  <CgProfile size={30} />
-
-                </Link>
-              )}
-            </div>
-          )}
+          {/* Profile/Login Icon - Always on the Right */}
+          <div className="flex items-center">
+            {session ? (
+              <div className="relative" ref={userMenuRef}>
+                <Image
+                  src={
+                    session.user?.image ||
+                    `https://avatar.vercel.sh/${session.user?.email}`
+                  }
+                  alt={session.user?.name || "User"}
+                  width={40}
+                  height={40}
+                  className="cursor-pointer rounded-full transition-transform duration-300 hover:scale-110"
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                />
+                <AnimatePresence>
+                  {isUserMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute right-0 mt-2 w-64 origin-top-right rounded-lg border bg-white shadow-lg"
+                    >
+                      <div className="border-b p-4 text-center">
+                        <p className="font-semibold">{session.user?.name}</p>
+                        <p className="text-sm text-gray-500">
+                          {session.user?.email}
+                        </p>
+                      </div>
+                      <ul className="p-2">
+                        <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
+                          <FiUser />{" "}
+                          <Link
+                            href="/profile"
+                            onClick={() => setIsUserMenuOpen(false)}
+                          >
+                            My Profile
+                          </Link>
+                        </li>
+                        <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
+                          <FiGrid />{" "}
+                          <Link
+                            href="/admin-dashboard"
+                            onClick={() => setIsUserMenuOpen(false)}
+                          >
+                            Dashboard
+                          </Link>
+                        </li>
+                        <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50 transition-transform duration-300 hover:scale-105">
+                          <FiLogOut />
+                          <button
+                            onClick={() => {
+                              setIsUserMenuOpen(false);
+                              signOut();
+                            }}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="flex items-center gap-2 rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
+              >
+                <CgProfile size={30} />
+              </Link>
+            )}
+          </div>
         </div>
       </nav>
 
