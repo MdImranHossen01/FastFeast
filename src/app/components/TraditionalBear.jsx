@@ -18,11 +18,13 @@ const TraditionalBear = () => {
   const [currentImage, setCurrentImage] = useState(dishes[0].imageUrl);
 
   const handleMouseEnter = (index) => {
+    console.log('Hovering over index:', index, 'Image URL:', dishes[index].imageUrl);
     setCurrentImage(dishes[index].imageUrl);
   };
 
   const handleMouseLeave = () => {
-    setCurrentImage(dishes[0].imageUrl); // Reset to first image on mouse leave
+    console.log('Mouse left, resetting to first image');
+    setCurrentImage(dishes[0].imageUrl);
   };
 
   return (
@@ -45,24 +47,28 @@ const TraditionalBear = () => {
           {/* Dish List - Compact spacing */}
           <div className="mt-4 md:mt-6 divide-y divide-gray-300 flex-grow">
             {dishes.map((dish, index) => (
-              <Link
+              <div
                 key={dish.id}
-                href={`${dish.id}`}
                 className="group flex items-center justify-between py-2 md:py-3 cursor-pointer transition-all duration-300 ease-in-out"
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={handleMouseLeave}
               >
                 {/* Dish Name - Responsive text size */}
-                <span className="text-base md:text-lg font-semibold text-gray-800 transition-all duration-300 ease-in-out transform hover:text-orange-600 group-hover:scale-[1.02] group-hover:translate-x-1">
+                <Link
+                  href={`/${dish.id}`}
+                  className="text-base md:text-lg font-semibold text-gray-800 transition-all duration-300 ease-in-out transform hover:text-orange-600 group-hover:scale-[1.02] group-hover:translate-x-1"
+                >
                   {dish.name}
-                </span>
+                </Link>
 
                 {/* Arrow Icon */}
-                <ArrowRight
-                  size={16}
-                  className="text-gray-500 transition-transform duration-300 ease-in-out group-hover:translate-x-1 group-hover:text-amber-700"
-                />
-              </Link>
+                <Link href={`/${dish.id}`}>
+                  <ArrowRight
+                    size={16}
+                    className="text-gray-500 transition-transform duration-300 ease-in-out group-hover:translate-x-1 group-hover:text-amber-700"
+                  />
+                </Link>
+              </div>
             ))}
           </div>
 
@@ -80,7 +86,11 @@ const TraditionalBear = () => {
           <img
             src={currentImage}
             alt="Traditional dish or food"
-            className="w-full h-full items-center justify-center object-cover transition-transform duration-500 ease-in-out hover:scale-[1.05]"
+            className="w-full h-full items-center justify-center object-cover transition-all duration-500 ease-in-out"
+            onError={(e) => {
+              console.log('Image failed to load:', currentImage);
+              e.target.style.backgroundColor = '#f3f4f6';
+            }}
           />
         </div>
       </div>
