@@ -1,10 +1,82 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
+import Swal from "sweetalert2";
 
-export default function ApprovedRestaurants({ restaurants }) {
+export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
+  // for approve and reject button
+  const handleStatusChange = async (id, action) => {
+    try {
+      let body = {};
+      if (action === "approved") {
+        body = { approved: true, status: "approved" };
+      } else if (action === "rejected") {
+        body = { approved: false, status: "rejected" };
+      }
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?id=${id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+      if (!res.ok) throw new Error("Failed to update");
+      // update state
+      setRestaurants((prev) =>
+        prev.map((restaurant) =>
+          restaurant._id === id ? { ...restaurant, ...body } : restaurant
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // delete
+  const handleDelete = async (id) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+    const result = await swalWithBootstrapButtons.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    });
+    if (result.isConfirmed) {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?id=${id}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (!res.ok) {
+          throw new Error("Failed to delete restaurant");
+        }
+
+        // remove delete restaurant
+        setRestaurants((prev) =>
+          prev.filter((restaurant) => restaurant._id !== id)
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   const approvedList = restaurants.filter(
-    (restaurant) => restaurant.status === "approved"
+    (restaurant) => restaurant.approved === true
   );
 
   return (
@@ -94,16 +166,21 @@ export default function ApprovedRestaurants({ restaurants }) {
                         <button className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white shadow-none">
                           <AiOutlineEye size={16} /> View
                         </button>
-                        <button className="btn btn-xs md:btn-sm rounded-full border border-green-500 dark:border-none text-green-500 bg-green-50 dark:bg-green-900/30 shadow-none hover:bg-green-400 hover:text-white">
-                          <AiOutlineCheck size={16} /> Approve
-                        </button>
                       </div>
 
                       <div className="flex gap-2">
-                        <button className="btn btn-xs md:btn-sm rounded-full bg-red-50 dark:bg-red-900/30 border border-red-500 dark:border-none text-red-500 hover:bg-red-400 hover:text-white shadow-none">
+                        <button
+                          onClick={() =>
+                            handleStatusChange(restaurant._id, "rejected")
+                          }
+                          className="btn btn-xs md:btn-sm rounded-full bg-red-50 dark:bg-red-900/30 border border-red-500 dark:border-none text-red-500 hover:bg-red-400 hover:text-white shadow-none"
+                        >
                           <AiOutlineClose size={16} /> Reject
                         </button>
-                        <button className="btn btn-xs md:btn-sm rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-500 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-500 shadow-none hover:text-white">
+                        <button
+                          onClick={() => handleDelete(restaurant._id)}
+                          className="btn btn-xs md:btn-sm rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-500 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-500 shadow-none hover:text-white"
+                        >
                           <MdDeleteOutline size={16} /> Delete
                         </button>
                       </div>

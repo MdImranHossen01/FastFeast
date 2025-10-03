@@ -54,7 +54,7 @@ export default function AddBlogModal({ onSave }) {
     try {
       // Upload all images in parallel
       const uploadedUrls = await Promise.all(
-        files.map((file) => uploadToImgBB(file)) 
+        files.map((file) => uploadToImgBB(file))
       );
 
       // Save uploaded URLs into formData.gallery
@@ -69,51 +69,57 @@ export default function AddBlogModal({ onSave }) {
   };
 
 
-// ✅ Submit
-const handleSubmit = async () => {
-  const blogData = {
-    ...formData,
-    slug: formData.title.toLowerCase().replace(/\s+/g, "-"), // auto slug
-    tags: formData.tags.split(",").map((t) => t.trim()),
-    visitCount: 0,
+  // ✅ Submit
+  const handleSubmit = async () => {
+    const blogData = {
+      ...formData,
+      slug: formData.title.toLowerCase().replace(/\s+/g, "-"), // auto slug
+      tags: formData.tags.split(",").map((t) => t.trim()),
+      publishDate: formData.publishDate
+        ? new Date(formData.publishDate).toISOString() // ✅ ISO format save
+        : null,
+      visitCount: 0,
+      author: currentUser?.displayName || "Anonymous",
+    authorEmail: currentUser?.email || "",
+    authorPhoto: currentUser?.photoURL || "/default-avatar.png",
+    };
+
+    try {
+      const res = await fetch("/api/blogs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(blogData),
+      });
+
+      if (!res.ok) throw new Error("Failed to save blog");
+
+      const result = await res.json();
+      console.log("✅ Blog saved:", result);
+
+      // ✅ SweetAlert success
+      Swal.fire({
+        icon: "success",
+        title: "Blog Added!",
+        text: "Your blog has been saved successfully 🎉",
+        confirmButtonColor: "#f97316", // orange
+      });
+
+      // Optional: refresh parent state
+      if (onSave) onSave(blogData);
+
+      setOpen(false);
+    } catch (error) {
+      console.error("❌ Error saving blog:", error);
+
+      // ❌ SweetAlert error
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to save blog. Please try again!",
+        confirmButtonColor: "#ef4444", // red
+      });
+    }
   };
-
-  try {
-    const res = await fetch("/api/blogs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(blogData),
-    });
-
-    if (!res.ok) throw new Error("Failed to save blog");
-
-    const result = await res.json();
-    console.log("✅ Blog saved:", result);
-
-    // ✅ SweetAlert success
-    Swal.fire({
-      icon: "success",
-      title: "Blog Added!",
-      text: "Your blog has been saved successfully 🎉",
-      confirmButtonColor: "#f97316", // orange
-    });
-
-    // Optional: refresh parent state
-    if (onSave) onSave(blogData);
-
-    setOpen(false);
-  } catch (error) {
-    console.error("❌ Error saving blog:", error);
-
-    // ❌ SweetAlert error
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Failed to save blog. Please try again!",
-      confirmButtonColor: "#ef4444", // red
-    });
-  }
-};
 
 
   return (

@@ -1,9 +1,19 @@
 // G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\app\api\restaurant\route.js
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 // Connect to MongoDB
 const client = new MongoClient(process.env.MONGODB_URI);
+
+// helper function to handle mixed _id
+function parseId(id) {
+  // 24-character hex string --objectId
+  if (/^[0-9a-fA-F]{24}$/.test(id)) {
+    return new ObjectId(id);
+  }
+  // otherwise keep as string
+  return id;
+}
 
 export const POST = async (request) => {
   try {
@@ -95,9 +105,12 @@ export const PUT = async (request) => {
       return new NextResponse("Missing restaurant ID", { status: 400 });
     }
 
+    // parse_id to handle mixed type
+    const parsedId = parseId(id);
+
     // Update the restaurant in the MongoDB collection
     const result = await collection.updateOne(
-      { _id: new MongoClient.ObjectId(id) },
+      { _id: parsedId },
       { $set: updatedRestaurant }
     );
 
@@ -124,6 +137,40 @@ export const PUT = async (request) => {
   }
 };
 
+// PATCH method
+export const PATCH = async (request) => {
+  try {
+    await client.connect();
+    const db = client.db(process.env.DB_NAME);
+    const collection = db.collection("restaurants");
+    const body = await request.json();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return new NextResponse("Missing restaurant ID", { status: 400 });
+    }
+
+    // parse_id
+    const parsedId = parseId(id);
+
+    const result = await collection.updateOne(
+      { _id: parsedId },
+      { $set: body }
+    );
+    if (result.matchedCount === 0) {
+      return new NextResponse("Restaurant not found", { status: 404 });
+    }
+    return new NextResponse(JSON.stringify({ message: "Updated", id }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error(error);
+    return new NextResponse("Error deleting restaurant data", { status: 500 });
+  }
+};
+
 // DELETE method to remove a restaurant
 export const DELETE = async (request) => {
   try {
@@ -142,9 +189,12 @@ export const DELETE = async (request) => {
       return new NextResponse("Missing restaurant ID", { status: 400 });
     }
 
+    // ✅ Parse _id
+    const parsedId = parseId(id);
+
     // Delete the restaurant from the MongoDB collection
     const result = await collection.deleteOne({
-      _id: new MongoClient.ObjectId(id),
+      _id: parsedId,
     });
 
     if (result.deletedCount === 0) {
