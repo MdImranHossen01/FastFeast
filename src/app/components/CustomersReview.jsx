@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,6 +9,7 @@ const textList = [
   "Why Customers Love Us?",
   "Trusted by Thousands!",
 ];
+
 const testimonials = [
   {
     id: 1,
@@ -64,32 +64,43 @@ const testimonials = [
 ];
 
 const CustomersReview = () => {
-  const [index, setIndex] = useState(0);
+  
+  const [headingIndex, setHeadingIndex] = useState(0);
+  const [reviewIndex, setReviewIndex] = useState(0);
 
-  const next = () => setIndex((prev) => (prev + 1) % testimonials.length);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeadingIndex((prev) => (prev + 1) % textList.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // ডান দিকের কার্ড শুধু arrow button এ চলবে
+  const next = () =>
+    setReviewIndex((prev) => (prev + 1) % testimonials.length);
   const prev = () =>
-    setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setReviewIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
     <section className="py-16 bg-amber-50">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           {/* Left Banner Text */}
-          <div
-            data-aos="fade-right">
+          <div>
             <AnimatePresence mode="wait">
               <motion.h2
-                key={index}
-                initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                exit={{ opacity: 0, filter: "blur(10px)", y: -20 }}
+                key={headingIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6 }}
                 className="text-5xl font-bold text-gray-800 leading-tight mb-4"
               >
                 <span className="text-orange-500">
-                  {textList[index].split(" ")[0]}
+                  {textList[headingIndex].split(" ")[0]}
                 </span>{" "}
-                {textList[index].split(" ").slice(1).join(" ")}
+                {textList[headingIndex].split(" ").slice(1).join(" ")}
               </motion.h2>
             </AnimatePresence>
             <p className="text-lg text-gray-600 max-w-md">
@@ -102,16 +113,16 @@ const CustomersReview = () => {
           <div className="w-full flex flex-col items-center justify-center bg-white py-12 rounded-xl shadow-lg">
             <AnimatePresence mode="wait">
               <motion.div
-                key={index}
-                initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                exit={{ opacity: 0, filter: "blur(10px)", y: -20 }}
+                key={reviewIndex}
+                initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -40 }}
                 transition={{ duration: 0.6 }}
                 className="w-[320px] h-[280px] md:w-[400px] md:h-[300px] bg-gray-50 rounded-2xl p-6 flex flex-col items-center text-center"
               >
                 <img
-                  src={testimonials[index].photo}
-                  alt={testimonials[index].name}
+                  src={testimonials[reviewIndex].photo}
+                  alt={testimonials[reviewIndex].name}
                   className="w-16 h-16 rounded-full mb-4 object-cover"
                 />
 
@@ -120,28 +131,29 @@ const CustomersReview = () => {
                   {Array.from({ length: 5 }, (_, i) => (
                     <FaStar
                       key={i}
-                      className={`${i < testimonials[index].rating
+                      className={`${
+                        i < testimonials[reviewIndex].rating
                           ? "text-yellow-500"
                           : "text-gray-300"
-                        }`}
+                      }`}
                     />
                   ))}
                 </div>
 
                 <p className="text-gray-700 text-sm md:text-base mb-3 line-clamp-3">
-                  "{testimonials[index].review}"
+                  "{testimonials[reviewIndex].review}"
                 </p>
 
                 <h4 className="font-semibold text-gray-900">
-                  {testimonials[index].name}
+                  {testimonials[reviewIndex].name}
                 </h4>
                 <span className="text-gray-500 text-xs md:text-sm">
-                  Ordered: {testimonials[index].order}
+                  Ordered: {testimonials[reviewIndex].order}
                 </span>
               </motion.div>
             </AnimatePresence>
 
-            {/* Arrows at bottom-left */}
+            {/* Arrows */}
             <div className="w-full max-w-[400px] flex justify-start mt-6 gap-4">
               <button
                 onClick={prev}
@@ -159,9 +171,9 @@ const CustomersReview = () => {
           </div>
         </div>
       </div>
+      
     </section>
   );
 };
 
 export default CustomersReview;
-
