@@ -3,29 +3,25 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // Array of dish data
 const dishes = [
-  { name: 'Taste of Thailand', id: 'thaifood', imageUrl: 'https://i.ibb.co.com/0VMxp86C/Taste-of-Thailand.jpg' },
-  { name: 'Savor the Flavors of China', id: 'chinesefood', imageUrl: 'https://i.ibb.co.com/JR4kWwCt/Savor-the-Flavors-of-China.jpg' },
-  { name: 'Experience the Tastes of India', id: 'indianfood', imageUrl: 'https://i.ibb.co.com/cKB5Hrqc/Experience-the-Tastes-of-India.jpg' },
-  { name: 'Taste the Tradition of Italy', id: 'italianfood', imageUrl: 'https://i.ibb.co.com/wZzrmtzC/Taste-the-Tradition-of-Italy.jpg' },
-  { name: "Discover the Art of Japan", id: 'japanesefood', imageUrl: 'https://i.ibb.co.com/TqJjR9BY/Taste-the-Tradition-of-japanese-food.jpg' },
-  { name: 'Spice Up Your Day with Korea', id: 'koreanfood', imageUrl: 'https://i.ibb.co.com/j9G1K683/Spice-Up-Your-Day-with-Korean-food.jpg' },
+  { name: 'Taste of Thailand', id: 'thaifood', imageUrl: '/Taste-of-Thailand .jpg' },
+  { name: 'Savor the Flavors of China', id: 'chinesefood', imageUrl: '/Savor-the-Flavors-of-China__.jpg' },
+  { name: 'Experience the Tastes of India', id: 'indianfood', imageUrl: '/Experience-the-Tastes-of-India__.jpg' },
+  { name: 'Taste the Tradition of Italy', id: 'italianfood', imageUrl: '/Taste-the-Tradition-of-Italy__.jpg' },
+  { name: "Discover the Art of Japan", id: 'japanesefood', imageUrl: '/Taste-the-Tradition-of-japanese food.jpg' },
+  { name: 'Spice Up Your Day with Korea', id: 'koreanfood', imageUrl: '/Spice-Up-Your-Day-with-Korean-food.jpg' },
 ];
 
 const TraditionalBear = () => {
   const [currentImage, setCurrentImage] = useState(dishes[0].imageUrl);
 
   const handleMouseEnter = (index) => {
-    console.log('Hovering over index:', index, 'Image URL:', dishes[index].imageUrl);
     setCurrentImage(dishes[index].imageUrl);
   };
 
-  const handleMouseLeave = () => {
-    console.log('Mouse left, resetting to first image');
-    setCurrentImage(dishes[0].imageUrl);
-  };
 
   return (
     // Full viewport height section with no scrolling
@@ -51,7 +47,7 @@ const TraditionalBear = () => {
                 key={dish.id}
                 className="group flex items-center justify-between py-2 md:py-3 cursor-pointer transition-all duration-300 ease-in-out"
                 onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={handleMouseLeave}
+                // onMouseLeave removed for smoother image transitions
               >
                 {/* Dish Name - Responsive text size */}
                 <Link
@@ -81,12 +77,16 @@ const TraditionalBear = () => {
         </div>
 
         {/* Right Side: Image - Fills remaining space */}
-        <div className="hidden mx-20 lg:flex relative overflow-hidden rounded-lg shadow-xl">
+        {/* The 'relative' class is crucial for 'fill' to work */}
+        <div className="hidden mx-20 lg:flex relative overflow-hidden rounded-lg shadow-xl"> 
           {/* Image - Full bleed, transition, and zoom on hover effect */}
-          <img
+          <Image
             src={currentImage}
             alt="Traditional dish or food"
-            className="w-full h-full items-center justify-center object-cover transition-all duration-500 ease-in-out"
+            fill
+            priority // 👈 Added: Recommended for LCP element / above-the-fold content
+            sizes="(max-width: 1024px) 100vw, 50vw" // 👈 Added: Specifies size for fill prop on large screens
+            className="items-center justify-center object-cover transition-all duration-500 ease-in-out hover:scale-[1.05]" 
             onError={(e) => {
               console.log('Image failed to load:', currentImage);
               e.target.style.backgroundColor = '#f3f4f6';
