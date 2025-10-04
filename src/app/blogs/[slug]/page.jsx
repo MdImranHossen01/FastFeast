@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { FaHome, FaUser, FaCalendar, FaTags } from "react-icons/fa";
+import { FaHome, FaCalendar, FaTags } from "react-icons/fa";
 import getBlogs from "@/app/actions/blogs/getBlogs";
 import ReactMarkdown from "react-markdown";
+import RelatedBlogSidebar from "../components/RelatedBlogSlider"; // Retaining user's import path
+import SocialIcons from "../components/SocialIcons";
+
 
 export default async function BlogDetails({ params }) {
   const { slug } = await params;
@@ -20,6 +23,9 @@ export default async function BlogDetails({ params }) {
       </div>
     );
   }
+
+  // Filter out the current post for the sidebar
+  const relatedBlogs = blogs.filter((blog) => blog._id !== slug);
 
   return (
     <main className="max-w-[1500px] mx-auto px-14 py-18">
@@ -58,47 +64,72 @@ export default async function BlogDetails({ params }) {
         </div>
       </header>
 
+      {/* Main Content Area: Details, Gallery, Tags, and Related Sidebar */}
+      <div className="grid grid-cols-12 gap-8">
+        {/* Main Content - col-span-12 on mobile, col-span-9 on md and up */}
+        <div className="col-span-12 md:col-span-9">
+          {/* Details */}
+          <article className="prose max-w-none mb-10">
+            <ReactMarkdown>{post.details}</ReactMarkdown>
+          </article>
 
-      {/* Details */}
-      <article className="prose max-w-none mb-10">
-        <ReactMarkdown>{post.details}</ReactMarkdown>
-      </article>
-
-      {/* Gallery */}
-      {post.gallery && post.gallery.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold mb-4">Gallery</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {post.gallery.map((img, index) => (
-              <div key={index} className="overflow-hidden rounded-lg shadow">
-                <img
-                  src={img}
-                  alt={`Gallery ${index}`}
-                  className="w-full h-78 object-cover hover:scale-110 transition-transform"
-                />
+          {/* Gallery */}
+          {post.gallery && post.gallery.length > 0 && (
+            <section className="mb-10">
+              <h2 className="text-2xl font-bold mb-4">Gallery</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {post.gallery.map((img, index) => (
+                  <div key={index} className="overflow-hidden rounded-lg shadow">
+                    <img
+                      src={img}
+                      alt={`Gallery ${index}`}
+                      className="w-full h-78 object-cover hover:scale-110 transition-transform"
+                    />
+                  </div>
+                ))}
               </div>
+            </section>
+          )}
+
+          {/* Tags */}
+          <div className="flex items-center gap-2 flex-wrap mb-10">
+            <FaTags className="text-gray-500" />
+            {post.tags?.map((tag, idx) => (
+              <span key={idx} className="badge badge-outline">
+                {tag}
+              </span>
             ))}
           </div>
-        </section>
-      )}
+        </div>
 
-      {/* Tags */}
-      <div className="flex items-center gap-2 flex-wrap mb-10">
-        <FaTags className="text-gray-500" />
-        {post.tags?.map((tag, idx) => (
-          <span key={idx} className="badge badge-outline">
-            {tag}
-          </span>
-        ))}
+        {/* Related Blog Sidebar (Now Sticky on medium screens and up)
+          - sticky: Enables the sticky positioning.
+          - top-8: Sets the sticky element 2rem (32px) from the top of the viewport.
+          - self-start: Ensures the sticky element doesn't stretch vertically in the grid container.
+        */}
+        <aside className="col-span-12 md:col-span-3 md:sticky md:top-8 md:self-start">
+          <h2 className="text-xl font-bold mb-4">More Posts</h2>
+          {/* Pass the related blogs to the client component for cycling */}
+          {relatedBlogs.length > 0 ? (
+            <RelatedBlogSidebar blogs={relatedBlogs} />
+          ) : (
+            <div className="text-gray-500">No other posts found.</div>
+          )}
+
+          <SocialIcons/>
+        </aside>
+        
       </div>
 
       {/* Back Button */}
-      <Link
-        href="/blogs"
-        className="btn btn-outline text-orange-500 hover:bg-orange-600 hover:text-white"
-      >
-        <FaHome className="mr-2" /> Back to Blogs
-      </Link>
+      <div className="mt-8">
+        <Link
+          href="/blogs"
+          className="btn btn-outline text-orange-500 hover:bg-orange-600 hover:text-white"
+        >
+          <FaHome className="mr-2" /> Back to Blogs
+        </Link>
+      </div>
     </main>
   );
 }
