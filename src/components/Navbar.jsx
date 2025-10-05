@@ -102,7 +102,7 @@ export default function Navbar() {
           )}
 
           {/* Profile/Login Icon - Always on the Right */}
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-2 items-center">
             {/* Cart Icon - Always visible */}
             <Link
               href="/cart"
