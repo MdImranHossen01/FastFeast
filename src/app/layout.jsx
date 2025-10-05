@@ -1,3 +1,4 @@
+// src/app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/providers/SessionWrapper";
@@ -5,6 +6,7 @@ import AOSProvider from "@/providers/AOSProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NextThemeProvider from "@/providers/NextThemeProvider";
+import { CartProvider } from "@/lib/cartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,17 +28,20 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning  
       >
         <SessionWrapper>
           <NextThemeProvider>
             <AOSProvider>
-              <header>
-                <Navbar />
-              </header>
-              <main>{children}</main>
-              <footer>
-                <Footer />
-              </footer>
+              <CartProvider>
+                <header>
+                  <Navbar />
+                </header>
+                <main>{children}</main>
+                <footer>
+                  <Footer />
+                </footer>
+              </CartProvider>
             </AOSProvider>
           </NextThemeProvider>
         </SessionWrapper>
