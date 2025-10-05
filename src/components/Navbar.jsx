@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 "use client";
 
 import Link from "next/link";
@@ -5,10 +6,12 @@ import { signOut, useSession } from "next-auth/react";
 import Logo from "./logo";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { FiX, FiMenu, FiLogIn, FiUser, FiGrid, FiLogOut } from "react-icons/fi";
+import { FiX, FiMenu, FiUser, FiGrid, FiLogOut } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
+import { MdShoppingCart } from "react-icons/md";
+import { useCart } from "@/lib/cartContext";
 
 // --- Reusable NavLink Component ---
 const NavLink = ({ href, children, onClick }) => {
@@ -44,6 +47,7 @@ export default function Navbar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const userMenuRef = useRef(null);
+  const { cartCount } = useCart();
 
   // Effect for scroll handling
   useEffect(() => {
@@ -98,7 +102,20 @@ export default function Navbar() {
           )}
 
           {/* Profile/Login Icon - Always on the Right */}
-          <div className="flex items-center">
+          <div className="flex gap-2 items-center">
+            {/* Cart Icon - Always visible */}
+            <Link
+              href="/cart"
+              className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 mr-4"
+            >
+              {cartCount > 0 && (
+                <span className="absolute text-white text-xs font-bold">
+                  {cartCount}
+                </span>
+              )}
+              <MdShoppingCart size={25} />
+            </Link>
+
             {session ? (
               <div className="relative" ref={userMenuRef}>
                 <Image
@@ -186,7 +203,7 @@ export default function Navbar() {
               className="fixed inset-0 z-40 bg-black/50"
               onClick={() => setIsMenuOpen(false)}
             />
-            
+
             {/* Drawer */}
             <motion.div
               initial={{ x: "-100%" }}
@@ -204,7 +221,7 @@ export default function Navbar() {
                   <FiX size={24} />
                 </button>
               </div>
-              
+
               <div className="flex flex-col h-full">
                 <ul className="flex flex-col p-4 overflow-y-auto">
                   {navItems.map((item) => (
@@ -219,7 +236,7 @@ export default function Navbar() {
                     </li>
                   ))}
                 </ul>
-                
+
                 <div className="mt-auto border-t border-gray-100 p-4">
                   {session ? (
                     <div className="flex items-center gap-4">
