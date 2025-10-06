@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
+import ViewDetails from "./viewPending";
 
 export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
+  // modal
+  const [isOpen, setIsOpen] = useState(false);
+
   // for approve and reject button
   const handleStatusChange = async (id, action) => {
     try {
@@ -75,6 +79,12 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
     }
   };
 
+  // open modal
+  const handleModal = (_id) => {
+    document.getElementById("my_modal_2").showModal();
+    setIsOpen(_id);
+  };
+
   const approvedList = restaurants.filter(
     (restaurant) => restaurant.approved === true
   );
@@ -82,7 +92,7 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
   return (
     <div>
       {approvedList.length > 0 ? (
-        <div className="py-2 overflow-x-auto rounded-xl shadow-md bg-white dark:bg-gray-900">
+        <div className="py-2 overflow-x-auto rounded-xl shadow-md bg-gray-50 dark:bg-gray-900">
           <table className="table w-full">
             {/* Table Header */}
             <thead className="hidden md:table-header-group bg-gray-100 dark:bg-gray-800">
@@ -163,7 +173,12 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
                   <td className="px-4 block md:table-cell py-1">
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
                       <div className="flex gap-2">
-                        <button className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white shadow-none">
+                        <button
+                          className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white shadow-none"
+                          onClick={() => {
+                            handleModal(restaurant._id);
+                          }}
+                        >
                           <AiOutlineEye size={16} /> View
                         </button>
                       </div>
@@ -196,6 +211,20 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
           No more restaurants
         </div>
       )}
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box   overflow-auto">
+          {isOpen && (
+            <ViewDetails
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              restaurants={restaurants}
+            ></ViewDetails>
+          )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 }
