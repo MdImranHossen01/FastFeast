@@ -15,11 +15,11 @@ export default function DashboardLinks() {
   };
 
   const linkStyle = (href) =>
-    `block w-full px-4 py-2 rounded-md font-medium transition 
+    `block w-full px-4 py-2 rounded-md font-medium transition
      ${
        pathname === href
-         ? "bg-white text-orange-600 shadow-md"
-         : "text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-600 hover:text-white"
+         ? "bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-orange-400 shadow-md"
+         : "text-gray-800 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white"
      }`;
 
   return (
@@ -59,24 +59,32 @@ export default function DashboardLinks() {
               Manage Blogs
             </Link>
           </li>
+          <li>
+            <Link
+              href="/admin-dashboard/manage-reviews"
+              className={linkStyle("/admin-dashboard/manage-reviews")}
+            >
+              Manage Reviews
+            </Link>
+          </li>
         </>
       )}
 
-      {/* customer links */}
-      {user.role === "customer" && (
+      {/* user links */}
+      {user.role === "user" && (
         <>
           <li>
             <Link
-              href="/customer-dashboard"
-              className={linkStyle("/customer-dashboard")}
+              href="/user-dashboard"
+              className={linkStyle("/user-dashboard")}
             >
               Home
             </Link>
           </li>
           <li>
             <Link
-              href="/customer-dashboard/orders-history"
-              className={linkStyle("/customer-dashboard/orders-history")}
+              href="/user-dashboard/orders-history"
+              className={linkStyle("/user-dashboard/orders-history")}
             >
               Orders History
             </Link>

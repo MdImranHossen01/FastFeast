@@ -1,0 +1,41 @@
+"use client";
+import React from "react";
+import ReactCompareImage from "react-compare-image";
+
+export default function FoodCompare() {
+  return (
+    <section className="bg-orange-600 ">
+      <div className=" container mx-auto px-4 py-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        
+        {/* Left Side Content */}
+        <div>
+           <h2 className="text-4xl text-white lg:text-5xl font-extrabold leading-tight mb-6">
+            Nothing But <br />The  Best Ingredients
+          </h2>
+          <p className="text-lg leading-relaxed text-white max-w-xl mb-10">
+           We believe great food starts with great ingredients. That’s why we use only the freshest produce, quality grains, and carefully sourced proteins for every recipe.
+          </p>
+        </div>
+
+        {/* Right Side Compare Slider */}
+        <div className="relative w-full h-full shadow-md rounded-lg overflow-hidden">
+          <ReactCompareImage
+            leftImage="https://i.ibb.co.com/jvm9VWcv/raw-meet-in-bowl-with-some-spices-prepared-for-cook-in-white-background.jpg"
+            rightImage="https://i.ibb.co.com/5hNKqbQc/mutton-curry-in-bowl-in-white-background-upper-view.jpg"
+            sliderLineColor="#ffffff"
+            handleSize={40}
+            sliderPositionPercentage={0.5}
+          />
+
+          {/* Labels */}
+          <span className="absolute top-4 left-4 text-black font-semibold text-sm bg-white/70 px-2 py-1 rounded">
+            Using...
+          </span>
+          <span className="absolute top-4 right-4 text-black font-semibold text-sm bg-white/70 px-2 py-1 rounded">
+            You Feed...
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}

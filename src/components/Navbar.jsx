@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 "use client";
 
 import Link from "next/link";
@@ -5,12 +6,15 @@ import { signOut, useSession } from "next-auth/react";
 import Logo from "./logo";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { FiX, FiMenu, FiLogIn, FiUser, FiGrid, FiLogOut } from "react-icons/fi";
+import { FiX, FiMenu, FiUser, FiGrid, FiLogOut } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { CgProfile } from "react-icons/cg";
+import { MdShoppingCart } from "react-icons/md";
+import { useCart } from "@/lib/cartContext";
 
 // --- Reusable NavLink Component ---
-const NavLink = ({ href, children }) => {
+const NavLink = ({ href, children, onClick }) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
@@ -18,6 +22,7 @@ const NavLink = ({ href, children }) => {
     <li>
       <Link
         href={href}
+        onClick={onClick}
         className={`relative block px-3 py-2 text-base font-medium transition-all duration-300 transform hover:scale-105 ${
           isActive ? "text-orange-500" : "text-gray-700 hover:text-orange-500"
         }`}
@@ -42,10 +47,11 @@ export default function Navbar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const userMenuRef = useRef(null);
+  const { cartCount } = useCart();
 
   // Effect for scroll handling
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -68,7 +74,6 @@ export default function Navbar() {
     { href: "/blogs", label: "Blogs" },
     { href: "/about", label: "About" },
     { href: "/contacts", label: "Contact Us" },
-    // ...(session ? [{ href: "/dashboard", label: "Dashboard" }] : []),
   ];
 
   if (pathname.includes("dashboard")) {
@@ -76,167 +81,205 @@ export default function Navbar() {
   }
 
   return (
-    <nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md backdrop-blur-sm" : "bg-white"
-      }`}
-    >
-      <div className="container mx-auto flex h-20 items-center justify-between px-4">
-        <Logo />
+    <>
+      <nav
+        className={`fixed top-0 z-50 w-full transition-all duration-300 bg-transparent`}
+      >
+        <div className="container mx-auto flex h-20 items-center justify-between px-4">
+          {/* Hamburger Menu Icon - Always on the Left */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110"
+          >
+            {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </button>
 
-        <motion.ul className="relative hidden items-center gap-4 lg:flex">
-          {navItems.map((item) => (
-            <NavLink key={item.href} href={item.href}>
-              {item.label}
-            </NavLink>
-          ))}
-        </motion.ul>
-
-        <div className="hidden items-center gap-4 lg:flex">
-          {session ? (
-            <div className="relative" ref={userMenuRef}>
-              <Image
-                src={
-                  session.user?.image ||
-                  `https://avatar.vercel.sh/${session.user?.email}`
-                }
-                alt={session.user?.name || "User"}
-                width={40}
-                height={40}
-                className="cursor-pointer rounded-full transition-transform duration-300 hover:scale-110"
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              />
-              <AnimatePresence>
-                {isUserMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute right-0 mt-2 w-64 origin-top-right rounded-lg border bg-white shadow-lg"
-                  >
-                    <div className="border-b p-4 text-center">
-                      <p className="font-semibold">{session.user?.name}</p>
-                      <p className="text-sm text-gray-500">
-                        {session.user?.email}
-                      </p>
-                    </div>
-                    <ul className="p-2">
-                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
-                        <FiUser />{" "}
-                        <Link
-                          href="/profile"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          My Profile
-                        </Link>
-                      </li>
-                      <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
-                        <FiGrid />{" "}
-                        <Link
-                          href="/admin-dashboard"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          Dashboard
-                        </Link>
-                      </li>
-                      <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50 transition-transform duration-300 hover:scale-105">
-                        <FiLogOut />
-                        <button
-                          onClick={() => {
-                            setIsUserMenuOpen(false);
-                            signOut();
-                          }}
-                        >
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+          {/* Logo - Centered, Hidden when scrolled */}
+          {!isScrolled && (
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <Logo />
             </div>
-          ) : (
-            <Link
-              href="/login"
-              className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white transition-all duration-300 hover:bg-orange-600 transform hover:scale-105"
-            >
-              <FiLogIn /> Login
-            </Link>
           )}
+
+          {/* Profile/Login Icon - Always on the Right */}
+          <div className="flex gap-2 items-center">
+            {/* Cart Icon - Always visible */}
+            <Link
+              href="/cart"
+              className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 mr-4"
+            >
+              {cartCount > 0 && (
+                <span className="absolute text-white text-xs font-bold">
+                  {cartCount}
+                </span>
+              )}
+              <MdShoppingCart size={25} />
+            </Link>
+
+            {session ? (
+              <div className="relative" ref={userMenuRef}>
+                <Image
+                  src={
+                    session.user?.image ||
+                    `https://avatar.vercel.sh/${session.user?.email}`
+                  }
+                  alt={session.user?.name || "User"}
+                  width={40}
+                  height={40}
+                  className="cursor-pointer rounded-full transition-transform duration-300 hover:scale-110"
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                />
+                <AnimatePresence>
+                  {isUserMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute right-0 mt-2 w-64 origin-top-right rounded-lg border bg-white shadow-lg"
+                    >
+                      <div className="border-b p-4 text-center">
+                        <p className="font-semibold">{session.user?.name}</p>
+                        <p className="text-sm text-gray-500">
+                          {session.user?.email}
+                        </p>
+                      </div>
+                      <ul className="p-2">
+                        <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
+                          <FiUser />{" "}
+                          <Link
+                            href="/profile"
+                            onClick={() => setIsUserMenuOpen(false)}
+                          >
+                            My Profile
+                          </Link>
+                        </li>
+                        <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
+                          <FiGrid />{" "}
+                          <Link
+                            href="/admin-dashboard"
+                            onClick={() => setIsUserMenuOpen(false)}
+                          >
+                            Dashboard
+                          </Link>
+                        </li>
+                        <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50 transition-transform duration-300 hover:scale-105">
+                          <FiLogOut />
+                          <button
+                            onClick={() => {
+                              setIsUserMenuOpen(false);
+                              signOut();
+                            }}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="flex items-center gap-2 rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
+              >
+                <CgProfile size={30} />
+              </Link>
+            )}
+          </div>
         </div>
+      </nav>
 
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 text-gray-700 transition-all duration-300 hover:text-orange-500 lg:hidden transform hover:scale-110"
-        >
-          {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
-      </div>
-
-      {/* ✅ FULLY IMPLEMENTED MOBILE MENU */}
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute left-0 w-full border-t border-gray-200 bg-white shadow-lg lg:hidden"
-          >
-            <ul className="flex flex-col p-4">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="block rounded-lg px-4 py-3 text-lg font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-500 transition-all duration-300 transform hover:scale-105"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="border-t border-gray-100 p-4">
-              {session ? (
-                <div className="flex items-center gap-4">
-                  <Image
-                    src={
-                      session.user?.image ||
-                      `https://avatar.vercel.sh/${session.user?.email}`
-                    }
-                    alt={session.user?.name || "User"}
-                    width={48}
-                    height={48}
-                    className="rounded-full transition-transform duration-300 hover:scale-110"
-                  />
-                  <div>
-                    <p className="font-semibold">{session.user?.name}</p>
-                    <button
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        signOut();
-                      }}
-                      className="text-sm text-red-500 transition-all duration-300 transform hover:scale-105"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 bg-black/50"
+              onClick={() => setIsMenuOpen(false)}
+            />
+
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 left-0 z-50 h-full w-64 bg-white shadow-xl"
+            >
+              <div className="flex h-20 items-center justify-between px-4 border-b">
+                <Logo />
+                <button
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 text-gray-700 transition-all duration-300 hover:text-orange-500"
+                >
+                  <FiX size={24} />
+                </button>
+              </div>
+
+              <div className="flex flex-col h-full">
+                <ul className="flex flex-col p-4 overflow-y-auto">
+                  {navItems.map((item) => (
+                    <li key={item.href} className="mb-2">
+                      <Link
+                        href={item.href}
+                        className="block rounded-lg px-4 py-3 text-lg font-medium text-gray-700 hover:bg-gray-50 hover:text-orange-500 transition-all duration-300"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto border-t border-gray-100 p-4">
+                  {session ? (
+                    <div className="flex items-center gap-4">
+                      <Image
+                        src={
+                          session.user?.image ||
+                          `https://avatar.vercel.sh/${session.user?.email}`
+                        }
+                        alt={session.user?.name || "User"}
+                        width={48}
+                        height={48}
+                        className="rounded-full"
+                      />
+                      <div>
+                        <p className="font-semibold">{session.user?.name}</p>
+                        <button
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            signOut();
+                          }}
+                          className="text-sm text-red-500 transition-all duration-300"
+                        >
+                          Sign Out
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-3">
+                      <Link
+                        href="/login"
+                        className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white hover:bg-orange-600 transition-all duration-300"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Login
+                      </Link>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="flex flex-col gap-3">
-                  <Link
-                    href="/login"
-                    className="rounded-lg bg-orange-500 py-2.5 text-center font-semibold text-white  hover:bg-orange-600 transition-all duration-300 transform hover:scale-105"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Login
-                  </Link>
-                </div>
-              )}
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

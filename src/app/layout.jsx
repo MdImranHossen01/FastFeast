@@ -1,9 +1,13 @@
+// src/app/layout.jsx
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "@/providers/SessionWrapper";
 import AOSProvider from "@/providers/AOSProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NextThemeProvider from "@/providers/NextThemeProvider";
+import { CartProvider } from "@/lib/cartContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,17 +29,23 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <SessionWrapper>
-          <AOSProvider>
-            <header>
-              <Navbar />
-            </header>
-            <main>{children}</main>
-            <footer>
-              <Footer />
-            </footer>
-          </AOSProvider>
+          <NextThemeProvider>
+            <AOSProvider>
+              <CartProvider>
+                <header>
+                  <Navbar />
+                </header>
+                <main>{children}</main>
+                <Toaster position="top-center" />
+                <footer>
+                  <Footer />
+                </footer>
+              </CartProvider>
+            </AOSProvider>
+          </NextThemeProvider>
         </SessionWrapper>
       </body>
     </html>

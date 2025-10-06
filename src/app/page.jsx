@@ -8,20 +8,33 @@ import PopularBlogs from "./components/PopularBlogs";
 import OurPartner from "./components/OurPartner";
 import SpecialOffers from "./components/SpecialOffers";
 import CustomersReview from "./components/CustomersReview";
+import TraditionalBeersSection from "./components/TraditionalBear";
+import CategorySection from "./components/Category";
+import HowWeWork from "./components/HowWeWork";
+
+import RestaurantSection from "./components/RestaurantSection";
+import FoodCompare from "./components/FoodCompare";
 
 export default function Home() {
   return (
-    <div className="pt-18">
+    <div>
       <Banner />
       <SpecialOffers />
-      <CTASection />
-      <Services />
+      <FoodCompare/>
+      <TraditionalBeersSection></TraditionalBeersSection>
+      <CategorySection />
       <PopularBlogs />
-      <OurPartner />
-      <FAQSection />
+      <RestaurantSection/>
+      <CTASection />
       <Stats />
+      <HowWeWork />
+      <FAQSection />
+      <Services />
+
+      <OurPartner />
       <CustomersReview />
-      <NewsLetter />
+
+      {/* <NewsLetter /> */}
     </div>
   );
 }

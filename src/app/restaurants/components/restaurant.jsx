@@ -20,6 +20,7 @@ export default function Restaurant({ restaurants }) {
     ...new Set(restaurants.flatMap((restaurant) => restaurant.cuisines)),
   ];
 
+  // search
   let filteredRestaurants = restaurants.filter((restaurant) => {
     const matchesSearch = restaurant.name
       .toLocaleLowerCase()
@@ -170,7 +171,7 @@ export default function Restaurant({ restaurants }) {
           <div className="text-gray-500">No posts found.</div>
         ) : (
           filteredRestaurants.map((restaurant) => (
-            <RestaurantsCard key={restaurant.id} restaurant={restaurant} />
+            <RestaurantsCard key={restaurant._id} restaurant={restaurant} />
           ))
         )}
       </section>
