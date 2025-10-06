@@ -1,13 +1,15 @@
 // src/app/(menulayout)/menu/components/MenuModal.jsx
 "use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { useCart } from '@/lib/cartContext';
+import React from "react";
+import Image from "next/image";
+import { useCart } from "@/lib/cartContext";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-hot-toast";
 
 const MenuModal = ({ isOpen, onClose, menu }) => {
   const [quantity, setQuantity] = React.useState(1);
-  const [specialInstructions, setSpecialInstructions] = React.useState('');
+  const [specialInstructions, setSpecialInstructions] = React.useState("");
   const { addToCart } = useCart();
 
   const handleBackdropClick = (e) => {
@@ -28,45 +30,74 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
 
   const handleAddToCart = () => {
     addToCart(menu, quantity, specialInstructions);
+    
+    // Show toast notification
+    toast.success(
+      <div className="flex items-center">
+        <span className="font-medium">{menu.title}</span>
+        <span className="mx-2">added to cart!</span>
+      </div>,
+      {
+        duration: 3000,
+        position: "top-center", // Fixed: use lowercase with hyphen
+        style: {
+          background: "#fff",
+          color: "#333",
+          border: "1px solid #e5e7eb",
+          borderRadius: "0.5rem",
+          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        },
+        iconTheme: {
+          primary: "#f97316",
+          secondary: "#fff",
+        },
+      }
+    );
+    
     onClose();
   };
 
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-orange-500/30"
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <div className="relative z-10 w-full max-w-2xl max-h-[90vh] flex flex-col bg-white rounded-xl shadow-xl">
-        {/* Scrollable content area */}
-        <div className="flex-grow overflow-y-auto p-6 bg-orange-50">
+      <div className="bg-white text-gray-800 w-full max-w-md mx-auto rounded-lg shadow-2xl max-h-[90vh] overflow-hidden grid grid-rows-[auto_1fr_auto]" onClick={(e) => e.stopPropagation()}>
           {/* Image */}
-          <div className="relative h-64 mb-4 w-full flex-shrink-0">
-            <Image
-              src={menu.imageUrl}
-              alt={menu.title}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-t-xl"
-            />
-            {/* Close button */}
-            <button 
-              onClick={onClose}
-              className="absolute top-4 right-4 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white text-gray-700 hover:bg-gray-100 shadow-md"
-              aria-label="Close"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+
+        <div className="relative h-48 sm:h-64 overflow-hidden">
+          <Image
+            src={menu.imageUrl}
+            alt={menu.title}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-t-xl"
+            fill
+          />
+          {/* Close button */}
+          <button
+            className="absolute top-3 right-3 p-1.5 bg-white/80 rounded-full shadow-lg hover:bg-white transition"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            <XMarkIcon className="h-6 w-6 text-gray-700" />
+          </button>
+        </div>
+
+        {/* Scrollable content area */}
+        <div className="p-6 overflow-y-auto flex-grow">
           <div className="flex justify-between items-start mb-4">
-            <h2 id="modal-title" className="text-2xl font-bold text-gray-800">{menu.title}</h2>
-            <span className="text-xl font-bold text-orange-500">৳{menu.price}</span>
+            <h2 id="modal-title" className="text-2xl font-bold text-gray-800">
+              {menu.title}
+            </h2>
+            <span className="text-xl font-bold text-orange-500">
+              ৳{menu.price}
+            </span>
           </div>
 
           <p className="text-gray-600 mb-6">{menu.description}</p>
@@ -89,8 +120,12 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Availability</p>
-                <p className={`font-medium ${menu.availability ? 'text-green-600' : 'text-red-600'}`}>
-                  {menu.availability ? 'Available' : 'Not Available'}
+                <p
+                  className={`font-medium ${
+                    menu.availability ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  {menu.availability ? "Available" : "Not Available"}
                 </p>
               </div>
             </div>
@@ -101,7 +136,10 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
             <h3 className="text-lg font-semibold mb-2">Ingredients</h3>
             <div className="flex flex-wrap gap-2">
               {menu.ingredients.map((ingredient, index) => (
-                <span key={index} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-gray-100 rounded-full text-sm"
+                >
                   {ingredient}
                 </span>
               ))}
@@ -113,7 +151,10 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
             <h3 className="text-lg font-semibold mb-2">Dietary Information</h3>
             <div className="flex flex-wrap gap-2">
               {menu.dietaryTags.map((tag, index) => (
-                <span key={index} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm"
+                >
                   {tag}
                 </span>
               ))}
@@ -123,7 +164,7 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
           {/* Special instructions */}
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Special Instructions</h3>
-            <textarea 
+            <textarea
               placeholder="e.g. No mayo, extra spicy"
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               rows={3}
@@ -136,31 +177,53 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
         {/* Sticky Add to cart button with quantity selector */}
         <div className="sticky gap-4 bottom-0 bg-white border-t border-gray-200 p-4 flex items-center justify-between">
           <div className="flex items-center border border-gray-300 rounded-lg">
-            <button 
+            <button
               onClick={decreaseQuantity}
               className="px-4 py-2 text-gray-600 hover:bg-gray-100"
               aria-label="Decrease quantity"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M20 12H4"
+                />
               </svg>
             </button>
             <span className="px-4 py-2">{quantity}</span>
-            <button 
+            <button
               onClick={increaseQuantity}
               className="px-4 py-2 text-gray-600 hover:bg-gray-100"
               aria-label="Increase quantity"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
               </svg>
             </button>
           </div>
-          <button 
+          <button
             onClick={handleAddToCart}
-            className="px-6 py-3 w-full bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors"
+            className="px-6 py-3 w-full bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-colors"
           >
-            Confirm add to Cart
+            Add to Cart
           </button>
         </div>
       </div>
