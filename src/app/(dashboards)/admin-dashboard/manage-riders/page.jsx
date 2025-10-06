@@ -118,7 +118,7 @@ export default function ManageRiders() {
                     <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900 transition text-sm">
                       <FaTrash /> Delete
                     </button>
-                    <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900 transition text-sm">
+                    <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-yellow-700 hover:bg-yellow-50 dark:hover:bg-yellow-900 transition text-sm">
                       <FaBan /> Block
                     </button>
                   </td>
