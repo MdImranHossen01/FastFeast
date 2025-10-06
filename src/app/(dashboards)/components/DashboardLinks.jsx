@@ -67,6 +67,14 @@ export default function DashboardLinks() {
               Manage Reviews
             </Link>
           </li>
+          <li>
+            <Link
+              href="/manage-orders"
+              className={linkStyle("/manage-orders")}
+            >
+              Manage Ordres
+            </Link>
+          </li>
         </>
       )}
 

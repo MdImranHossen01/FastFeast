@@ -11,6 +11,8 @@ const CheckOutPage = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
   const router = useRouter();
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderId, setOrderId] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -29,18 +31,71 @@ const CheckOutPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically submit the order to your backend
-    console.log('Order submitted:', {
-      ...formData,
-      items: cartItems,
-      total: getCartTotal() + 50 + Math.round(getCartTotal() * 0.1)
-    });
+    setIsSubmitting(true);
     
-    // Clear the cart and show success message
-    clearCart();
-    setOrderPlaced(true);
+    try {
+      // Calculate total amount
+      const subtotal = getCartTotal();
+      const deliveryFee = 50;
+      const tax = Math.round(subtotal * 0.1);
+      const total = subtotal + deliveryFee + tax;
+      
+      // Create order object
+      const orderData = {
+        customerInfo: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          postalCode: formData.postalCode,
+        },
+        items: cartItems.map(item => ({
+          id: item.originalId || item.id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          specialInstructions: item.specialInstructions
+        })),
+        paymentMethod: formData.paymentMethod,
+        pricing: {
+          subtotal,
+          deliveryFee,
+          tax,
+          total
+        },
+        status: 'pending', // Initial status
+        orderDate: new Date().toISOString(),
+        estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString() // 45 minutes from now
+      };
+      
+      // Save order to backend
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to place order');
+      }
+      
+      const data = await response.json();
+      setOrderId(data.orderId);
+      
+      // Clear the cart and show success message
+      clearCart();
+      setOrderPlaced(true);
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Failed to place order. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (cartItems.length === 0 && !orderPlaced) {
@@ -71,7 +126,10 @@ const CheckOutPage = () => {
               </svg>
             </div>
             <h1 className="text-3xl font-bold mb-4">Order Placed Successfully!</h1>
-            <p className="text-gray-600 mb-8">Thank you for your order. We'll deliver your food as soon as possible.</p>
+            <p className="text-gray-600 mb-2">Thank you for your order. We'll deliver your food as soon as possible.</p>
+            {orderId && (
+              <p className="text-gray-600 mb-8">Order ID: <span className="font-semibold">{orderId}</span></p>
+            )}
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -276,9 +334,10 @@ const CheckOutPage = () => {
             
             <button
               type="submit"
-              className="w-full py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors"
+              disabled={isSubmitting}
+              className="w-full py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Place Order
+              {isSubmitting ? 'Placing Order...' : 'Place Order'}
             </button>
           </form>
         </div>
