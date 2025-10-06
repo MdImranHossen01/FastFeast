@@ -12,6 +12,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { uploadToImgBB } from "@/utils/imageUpload";
+import { FaPenFancy } from "react-icons/fa";
 
 export default function AddBlogModal({ onSave }) {
   const [open, setOpen] = useState(false);
@@ -80,8 +81,8 @@ export default function AddBlogModal({ onSave }) {
         : null,
       visitCount: 0,
       author: currentUser?.displayName || "Anonymous",
-    authorEmail: currentUser?.email || "",
-    authorPhoto: currentUser?.photoURL || "/default-avatar.png",
+      authorEmail: currentUser?.email || "",
+      authorPhoto: currentUser?.photoURL || "/default-avatar.png",
     };
 
     try {
@@ -126,8 +127,9 @@ export default function AddBlogModal({ onSave }) {
     <>
       <Button
         onClick={() => setOpen(true)}
-        className="bg-orange-500 text-white"
+        className="bg-orange-500 text-white flex items-center gap-2"
       >
+        <FaPenFancy />
         Add Blog
       </Button>
 
