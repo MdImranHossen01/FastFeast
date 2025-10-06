@@ -29,12 +29,13 @@ const ctaData = [
 
 export default function CTASection() {
   return (
+    // Outer section remains h-screen
     <section className="h-screen w-full bg-orange-800 overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 h-full w-full">
         {ctaData.map((card) => (
           <div
             key={card.id}
-            className="group relative h-full w-full overflow-hidden shadow-xl hover:shadow-2xl hover:zoom-in-10"
+            className="container mx-auto px-4   group relative h-full w-full overflow-hidden shadow-xl transition duration-500 hover:shadow-2xl"
           >
             {/* Background */}
             <div className="absolute inset-0">
@@ -42,14 +43,17 @@ export default function CTASection() {
                 src={card.backgroundImage}
                 alt={card.title}
                 fill
-                className="object-cover ease-in-out group-hover:scale-110"
+                className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent"></div>
             </div>
 
             {/* Content */}
-            <div className="relative z-10 h-full w-full flex flex-col justify-end p-6 md:p-8">
-              <div className="container mx-auto px-4">
+            {/* FIX: Changed justify-end to justify-center and added items-center and text-center */}
+            <div className="relative z-10 h-full w-full flex flex-col justify-center items-center text-center p-8 sm:p-12 lg:p-16">
+              
+              {/* Content block must be w-full for the text-center to apply */}
+              <div className="w-full"> 
                 <h3 className="mb-3 text-2xl md:text-3xl font-bold leading-snug drop-shadow-lg text-white">
                   {card.title}
                 </h3>
@@ -57,10 +61,11 @@ export default function CTASection() {
                   {card.description}
                 </p>
 
-                <Link href={card.link}>
-                  <button className="flex w-fit items-center gap-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 px-5 py-2.5 font-semibold text-white shadow-md hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300">
+                <Link href={card.link} className="flex justify-center">
+                  {/* FIX: Added flex justify-center wrapper for the Link to center the button */}
+                  <button className="flex w-fit items-center gap-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 px-5 py-2.5 font-semibold text-white shadow-md transition-transform duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-orange-300">
                     {card.buttonText}
-                    <FaArrowRight className="group-hover:translate-x-1" />
+                    <FaArrowRight className="transition-transform group-hover:translate-x-1" />
                   </button>
                 </Link>
               </div>
