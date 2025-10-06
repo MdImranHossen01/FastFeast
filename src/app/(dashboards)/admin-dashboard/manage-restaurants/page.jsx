@@ -16,17 +16,17 @@ export default function ManageRestaurants() {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant`
         );
-        
+
         if (!res.ok) {
           throw new Error(`Error: ${res.status} ${res.statusText}`);
         }
-        
+
         const data = await res.json();
-        
+
         if (!Array.isArray(data)) {
           throw new Error("Invalid data format received");
         }
-        
+
         setRestaurants(data);
       } catch (err) {
         console.error("Error fetching restaurants:", err);
@@ -53,7 +53,9 @@ export default function ManageRestaurants() {
     return (
       <div className="pb-5 text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 min-h-screen px-6">
         <div className="p-6 bg-red-50 border border-red-200 rounded-lg">
-          <h2 className="text-xl font-semibold text-red-800 mb-2">Error Loading Restaurants</h2>
+          <h2 className="text-xl font-semibold text-red-800 mb-2">
+            Error Loading Restaurants
+          </h2>
           <p className="text-red-600">{error}</p>
         </div>
       </div>
