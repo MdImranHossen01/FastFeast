@@ -5,7 +5,7 @@ import ReactCompareImage from "react-compare-image";
 export default function FoodCompare() {
   return (
     <section className="bg-orange-600 ">
-      <div className=" container mx-auto px-4 py-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <div className=" container mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         
         {/* Left Side Content */}
         <div>
@@ -28,10 +28,10 @@ export default function FoodCompare() {
           />
 
           {/* Labels */}
-          <span className="absolute top-4 left-4 text-black font-semibold text-sm bg-white/70 px-2 py-1 rounded">
+          <span className="absolute top-4 left-4 text-orange-600 font-semibold text-sm bg-white/70 px-2 py-1 rounded">
             Using...
           </span>
-          <span className="absolute top-4 right-4 text-black font-semibold text-sm bg-white/70 px-2 py-1 rounded">
+          <span className="absolute top-4 right-4 text-orange-600 font-semibold text-sm bg-white/70 px-2 py-1 rounded">
             You Feed...
           </span>
         </div>

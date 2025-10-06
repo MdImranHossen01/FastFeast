@@ -106,7 +106,7 @@ export default function Navbar() {
             {/* Cart Icon - Always visible */}
             <Link
               href="/cart"
-              className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 mr-4"
+              className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
             >
               {cartCount > 0 && (
                 <span className="absolute text-white text-xs font-bold">
