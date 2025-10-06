@@ -13,7 +13,7 @@ export async function GET(req, { params }) {
     return Response.json(blog, { status: 200 });
   } catch (error) {
     return Response.json(
-      { sucess: false, message: error.message },
+      { success: false, message: error.message },
       { status: 500 }
     );
   }
@@ -39,7 +39,7 @@ export async function PATCH(req, { params }) {
     return Response.json(updatedRes);
   } catch (error) {
     return Response.json(
-      { sucess: false, message: error.message },
+      { success: false, message: error.message },
       { status: 500 }
     );
   }
@@ -56,7 +56,7 @@ export async function DELETE(req, { params }) {
     return Response.json(deleteRes);
   } catch (error) {
     return Response.json(
-      { sucess: false, message: error.message },
+      { success: false, message: error.message },
       { status: 500 }
     );
   }

@@ -8,6 +8,7 @@ export async function GET() {
 
         return Response.json(reviews, { status: 200 });
     } catch (error) {
+        console.log(error)
         return Response.json(
             { success: false, message: error.message },
             { status: 500 }
