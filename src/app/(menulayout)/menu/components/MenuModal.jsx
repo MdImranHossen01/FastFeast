@@ -5,6 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { useCart } from "@/lib/cartContext";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-hot-toast";
 
 const MenuModal = ({ isOpen, onClose, menu }) => {
   const [quantity, setQuantity] = React.useState(1);
@@ -29,6 +30,30 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
 
   const handleAddToCart = () => {
     addToCart(menu, quantity, specialInstructions);
+    
+    // Show toast notification
+    toast.success(
+      <div className="flex items-center">
+        <span className="font-medium">{menu.title}</span>
+        <span className="mx-2">added to cart!</span>
+      </div>,
+      {
+        duration: 3000,
+        position: "top-center", // Fixed: use lowercase with hyphen
+        style: {
+          background: "#fff",
+          color: "#333",
+          border: "1px solid #e5e7eb",
+          borderRadius: "0.5rem",
+          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        },
+        iconTheme: {
+          primary: "#f97316",
+          secondary: "#fff",
+        },
+      }
+    );
+    
     onClose();
   };
 
