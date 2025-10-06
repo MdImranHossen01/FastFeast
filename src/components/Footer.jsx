@@ -6,9 +6,9 @@ import {
   FaFacebook,
   FaGithub,
   FaYoutube,
-  FaTwitter,
   FaRegPaperPlane,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6"; // Using the newer FaXTwitter icon from react-icons/fa6
 import { IoLocationSharp, IoCall, IoMail } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -110,7 +110,8 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 transition-colors hover:text-orange-400"
               >
-                <FaTwitter size={24} />
+                {/* REPLACED WITH X ICON */}
+                <FaXTwitter size={24} />
               </a>
               <a
                 href="#"
