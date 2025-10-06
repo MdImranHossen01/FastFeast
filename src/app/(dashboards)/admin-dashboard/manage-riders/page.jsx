@@ -82,7 +82,7 @@ export default function ManageRiders() {
               filteredRiders.map((rider, index) => (
                 <tr
                   key={rider.id}
-                  className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition"
+                  className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
                 >
                   <td className="py-3 px-4">{index + 1}</td>
                   <td className="py-3 px-4 font-medium text-gray-800 dark:text-gray-100">
