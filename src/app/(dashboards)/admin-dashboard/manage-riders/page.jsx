@@ -8,7 +8,7 @@ export default function ManageRiders() {
   const [selectedRider, setSelectedRider] = useState(null);
 
   const riders = [
-    { id: 1, name: "Rafiul Islam", email: "rafiul@example.com", phone: "+880 1711-000111", status: "Active", joined: "2025-01-12" },
+    { id: 1, name: "Rafiul Islam", email: "rafiul@example.com", phone: "+880 1711-000113", status: "Active", joined: "2025-01-12" },
     { id: 2, name: "Jerin Akter", email: "jerin@example.com", phone: "+880 1712-000222", status: "Blocked", joined: "2025-02-05" },
     { id: 3, name: "Hasan Mahmud", email: "hasan@example.com", phone: "+880 1713-000333", status: "Active", joined: "2025-03-20" },
   ];
