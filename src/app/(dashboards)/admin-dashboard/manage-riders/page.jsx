@@ -8,11 +8,6 @@ export default function ManageRiders() {
   const [selectedRider, setSelectedRider] = useState(null);
 
   const riders = [
-<<<<<<< HEAD
-    { id: 1, name: "Rafiul Islam", email: "rafiul@example.com", phone: "+880 1711-000113", status: "Active", joined: "2025-01-12" },
-    { id: 2, name: "Jerin Akter", email: "jerin@example.com", phone: "+880 1712-000222", status: "Blocked", joined: "2025-02-05" },
-    { id: 3, name: "Hasan Mahmud", email: "hasan@example.com", phone: "+880 1713-000333", status: "Active", joined: "2025-03-20" },
-=======
     {
       id: 1,
       name: "Rafiul Islam",
@@ -37,7 +32,6 @@ export default function ManageRiders() {
       status: "Active",
       joined: "2025-03-20",
     },
->>>>>>> 6c5596be06ab6a41bbe22cead031765709add6d2
   ];
 
   const filteredRiders = riders.filter(
@@ -69,18 +63,6 @@ export default function ManageRiders() {
       </div>
 
       {/* Table */}
-<<<<<<< HEAD
-      <div className="overflow-x-auto rounded-lg shadow">
-        <table className="table w-full text-black">
-          <thead className="bg-gray-200 text-black">
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Status</th>
-              <th className="text-center">Actions</th>
-=======
       <div className="overflow-x-auto rounded-xl shadow">
         <table className="w-full text-sm">
           <thead className="bg-gray-100 dark:bg-gray-800">
@@ -92,7 +74,6 @@ export default function ManageRiders() {
               <th className="py-3 px-4">Status</th>
               <th className="py-3 px-4">Joined</th>
               <th className="py-3 px-4 text-center">Actions</th>
->>>>>>> 6c5596be06ab6a41bbe22cead031765709add6d2
             </tr>
           </thead>
 
@@ -124,19 +105,12 @@ export default function ManageRiders() {
                       {rider.status}
                     </span>
                   </td>
-<<<<<<< HEAD
-                  <td className="flex gap-2 justify-center">
-                    <label
-                      htmlFor="view-rider-modal"
-                      className="btn btn-sm btn-outline btn-info"
-=======
                   <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
                     {rider.joined}
                   </td>
                   <td className="py-3 px-4 flex gap-2 justify-center">
                     <button
                       className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900 transition text-sm"
->>>>>>> 6c5596be06ab6a41bbe22cead031765709add6d2
                       onClick={() => setSelectedRider(rider)}
                     >
                       <FaEye /> View
@@ -144,11 +118,7 @@ export default function ManageRiders() {
                     <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900 transition text-sm">
                       <FaTrash /> Delete
                     </button>
-<<<<<<< HEAD
-                    <button className="btn btn-sm btn-outline hover:text-red-400">
-=======
                     <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900 transition text-sm">
->>>>>>> 6c5596be06ab6a41bbe22cead031765709add6d2
                       <FaBan /> Block
                     </button>
                   </td>
@@ -156,14 +126,10 @@ export default function ManageRiders() {
               ))
             ) : (
               <tr>
-<<<<<<< HEAD
-                <td colSpan="6" className="text-center py-4 text-gray-500">
-=======
                 <td
                   colSpan={7}
                   className="text-center py-4 text-gray-500 dark:text-gray-400"
                 >
->>>>>>> 6c5596be06ab6a41bbe22cead031765709add6d2
                   No riders found
                 </td>
               </tr>
