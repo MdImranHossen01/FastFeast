@@ -25,23 +25,15 @@ export const authOptions = {
         skipOtp: { label: "Skip OTP", type: "boolean" },
       },
       async authorize(credentials) {
-        const usersCollection = await dbConnect(
-          collectionsName.usersCollection
-        );
-        const user = await usersCollection.findOne({
-          email: credentials.email,
-        });
+        const usersCollection = await dbConnect(collectionsName.usersCollection);
+        const user = await usersCollection.findOne({ email: credentials.email });
 
         if (!user) throw new Error("Invalid email or password");
-        if (!user.password)
-          throw new Error("User registered with Google/GitHub");
+        if (!user.password) throw new Error("User registered with Google/GitHub");
 
         // Password check
         if (!credentials.skipOtp) {
-          const isMatch = await bcrypt.compare(
-            credentials.password,
-            user.password
-          );
+          const isMatch = await bcrypt.compare(credentials.password, user.password);
           if (!isMatch) throw new Error("Invalid email or password");
         }
 
@@ -62,8 +54,7 @@ export const authOptions = {
 
         // OTP verification
         if (credentials.skipOtp && credentials.otp) {
-          if (!user.otp || !user.otpExpires)
-            throw new Error("No OTP found, request again");
+          if (!user.otp || !user.otpExpires) throw new Error("No OTP found, request again");
           if (user.otpExpires < new Date()) throw new Error("OTP expired");
 
           const isOtpValid = await bcrypt.compare(credentials.otp, user.otp);
@@ -80,6 +71,8 @@ export const authOptions = {
           name: user.name,
           email: user.email,
           image: user.photoUrl,
+          location: user.location,
+          phone: user.phone,
         };
       },
     }),
@@ -88,30 +81,46 @@ export const authOptions = {
   session: { strategy: "jwt" },
 
   callbacks: {
+    // When user signs in with Google/GitHub, create user if missing
     async signIn({ user, account, profile }) {
-      if (account?.provider === "google" || account?.provider === "github") {
-        const existingUser = await dbConnect(
-          collectionsName.usersCollection
-        ).findOne({ email: user.email });
+      const usersCollection = await dbConnect(collectionsName.usersCollection);
+      const existingUser = await usersCollection.findOne({ email: user.email });
 
-        if (!existingUser) {
-          await dbConnect(collectionsName.usersCollection).insertOne({
-            name: user.name || profile?.login,
-            email: user.email,
-            photoUrl: user.image,
-            provider: account.provider,
-            createdAt: new Date(),
-          });
-        }
+      if (!existingUser) {
+        await usersCollection.insertOne({
+          name: user.name || profile?.login,
+          email: user.email,
+          photoUrl: user.image,
+          provider: account.provider,
+          createdAt: new Date(),
+        });
       }
       return true;
     },
 
+    // Refresh JWT with latest DB data every time session is accessed
     async jwt({ token, user }) {
-      if (user) token.user = user;
+      const usersCollection = await dbConnect(collectionsName.usersCollection);
+      const dbUser = await usersCollection.findOne({ email: token?.user?.email });
+
+      if (dbUser) {
+        token.user = {
+          id: dbUser._id.toString(),
+          name: dbUser.name,
+          email: dbUser.email,
+          image: dbUser.photoUrl,
+          location: dbUser.location,
+          phone: dbUser.phone,
+        };
+      } else if (user) {
+        // fallback for first login
+        token.user = user;
+      }
+
       return token;
     },
 
+    // serve fresh data in session
     async session({ session, token }) {
       session.user = token.user;
       return session;
