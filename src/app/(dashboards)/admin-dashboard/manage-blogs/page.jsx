@@ -9,10 +9,16 @@ import EditBlogModal from "../modals/EditBlogModal";
 
 export default function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
-  const [editBlog, setEditBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // after clicking add button
+  const handleUpdate = (id) => {
+    const blog = blogs.find((b) => b._id === id);
+    setSelectedBlog(blog);
+    setIsModalOpen(true);
+  };
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -30,18 +36,18 @@ export default function ManageBlogs() {
   }, []);
 
 
-const handleUpdate = (id) => {
-  const blog = blogs.find((b) => b._id === id);  // find the blog user clicked
-  setEditBlog(blog);                             // put it in state
-  setOpenModal(true);                            // open the modal
-};
+  // const handleUpdate = (id) => {
+  //   const blog = blogs.find((b) => b._id === id);
+  //   setEditBlog(blog);
+  //   setOpenModal(true);
+  // };
 
 
   // ✅ Save Blog (Update only)
   const handleSave = async (formValues) => {
     try {
       await fetch(`/api/blogs/${formValues._id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formValues),
       });
@@ -83,91 +89,119 @@ const handleUpdate = (id) => {
 
   return (
     <main className="container mx-auto">
-      <Card className="shadow-lg">
-        <CardContent className="p-6">
+      
+        
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-            <h1 className="text-3xl font-bold text-gray-800">Manage Blogs</h1>
+            <h1 className="text-3xl font-bold text-gray-500">Manage Blogs</h1>
 
             {/* ✅ Add Blog Modal button */}
             <AddBlogModal onSave={handleSave} />
           </div>
 
           {/* Table */}
-          <div className="overflow-hidden">
-            <table className="w-full border border-gray-200 rounded-lg overflow-hidden text-sm">
-              <thead className="bg-gray-100 text-gray-700">
-                <tr>
-                  <th className="p-3 text-left">Title</th>
-                  <th className="p-3 text-left">Excerpt</th>
-                  <th className="p-3 text-left">Category</th>
-                  <th className="p-3 text-left">Author</th>
-                  <th className="p-3 text-center">Visits</th>
-                  <th className="p-3 text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan="6" className="p-4 text-center text-gray-500">
-                      Loading blogs...
-                    </td>
-                  </tr>
-                ) : blogs.length === 0 ? (
-                  <tr>
-                    <td colSpan="6" className="p-4 text-center text-gray-500">
-                      No blogs found.
-                    </td>
-                  </tr>
-                ) : (
-                  blogs.map((blog, index) => (
-                    <tr
-                      key={blog._id || blog.slug || index}  
-                      className="border-t hover:bg-gray-50 transition"
-                    >
-                      <td className="p-3 font-medium">{blog.title}</td>
-                      <td className="p-3 text-gray-600 line-clamp-1">
-                        {blog.excerpt}
-                      </td>
-                      <td className="p-3">{blog.category}</td>
-                      <td className="p-3">{blog.author}</td>
-                      <td className="p-3 text-center">
-                        {blog.visitCount || 0}
-                      </td>
-                      <td className="p-3 flex justify-center gap-3">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="flex items-center gap-1"
-                           onClick={() => handleUpdate(blog._id)}
-                        >
-                          <Pencil className="w-4 h-4" /> Edit
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          className="flex items-center gap-1"
-                          onClick={() => handleDelete(blog._id)}
-                        >
-                          <Trash2 className="w-4 h-4" /> Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
+         <div className="overflow-x-auto rounded-lg shadow-md py-2">
+  <table className="w-full rounded-lg overflow-hidden text-sm table-auto">
+    <thead className="hidden md:table-header-group bg-gray-100 dark:bg-gray-800">
+      <tr className="text-sm block md:table-row text-gray-100 dark:text-gray-100 text-left">
+        
+        <th className="p-3 text-left">#</th>
+        <th className="p-3 text-left">Title</th>
+        <th className="p-3 text-left">Excerpt</th>
+        <th className="p-3 text-left">Category</th>
+        <th className="p-3 text-left">Author</th>
+        <th className="p-3 text-center">Visits</th>
+        <th className="p-3 text-center">Actions</th>
+      </tr>
+    </thead>
 
-      {/* 🔥 Blog Form Modal */}
-      <EditBlogModal
-        open={openModal}
-        setOpen={setOpenModal}
-        onSave={handleSave}
-        initialData={editBlog}
-      />
+    <tbody>
+      {loading ? (
+        <tr>
+          <td
+            colSpan="6"
+            className="p-4 text-center text-gray-500 dark:text-gray-400"
+          >
+            Loading blogs...
+          </td>
+        </tr>
+      ) : blogs.length === 0 ? (
+        <tr>
+          <td
+            colSpan="6"
+            className="p-4 text-center text-gray-500 dark:text-gray-400"
+          >
+            No blogs found.
+          </td>
+        </tr>
+      ) : (
+        blogs.map((blog, index) => (
+          <tr
+            key={blog._id || blog.slug || index}
+            className="transition-all duration-200 align-top border-t border-gray-200"
+          >
+            <td className="p-3 font-medium text-gray-800 dark:text-gray-100">
+              {index}
+            </td>
+            <td className="p-3 font-medium text-gray-800 dark:text-gray-100">
+              {blog.title}
+            </td>
+
+            {/* FIXED CELL */}
+            <td className="p-3 text-gray-600 dark:text-gray-300 relative group">
+              <div className="line-clamp-1 group-hover:line-clamp-none group-hover:absolute group-hover:z-10 group-hover:bg-white dark:group-hover:bg-gray-900 group-hover:p-2 group-hover:shadow-md group-hover:rounded-md group-hover:left-0 group-hover:right-0 transition-all duration-300">
+                {blog.excerpt}
+              </div>
+            </td>
+
+            <td className="p-3 text-gray-700 dark:text-gray-200">
+              {blog.category}
+            </td>
+            <td className="p-3 text-gray-700 dark:text-gray-200">
+              {blog.author}
+            </td>
+            <td className="p-3 text-center text-gray-800 dark:text-gray-100">
+              {blog.visitCount || 0}
+            </td>
+
+            <td className="p-3 flex justify-center gap-3">
+              <Button
+                size="sm"
+                variant="outline"
+                className="flex items-center gap-1"
+                onClick={() => handleUpdate(blog._id)}
+              >
+                <Pencil className="w-4 h-4" /> Edit
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                className="flex items-center gap-1"
+                onClick={() => handleDelete(blog._id)}
+              >
+                <Trash2 className="w-4 h-4" /> Delete
+              </Button>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
+
+
+        
+      
+
+      {/* ✅ Modal এখানে থাকবে */}
+      {selectedBlog && (
+        <EditBlogModal
+          blog={selectedBlog}
+          open={isModalOpen}
+          setOpen={setIsModalOpen}
+          onUpdate={handleUpdate}
+        />
+      )}
     </main>
   );
 }
