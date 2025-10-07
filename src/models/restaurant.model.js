@@ -32,27 +32,89 @@ const openingHoursSchema = new mongoose.Schema({
 // Main Restaurant Schema
 const restaurantSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    logo: { type: String, required: true },
-    banner: { type: String, required: true },
-    rating: { type: Number, required: true },
-    reviewsCount: { type: Number, required: true },
-    cuisines: [{ type: String, required: true }],
-    currency: { type: String, required: true },
-    estimatedDeliveryTime: { type: String, default: "30-40 min" },
-    deliveryFee: { type: Number, required: true },
-    status: { type: String, default: "pending" }, // e.g. approved, pending, rejected
-    isFeatured: { type: Boolean, default: false },
-    isActive: { type: Boolean, default: true },
-    approved: { type: Boolean, default: false },
-    ownerId: { type: String, required: true },
-    ownerEmail: { type: String, required: true },
-    bio: { type: String, required: true },
-    location: { type: locationSchema, required: true },
-    contact: { type: contactSchema, required: true },
-    openingHours: { type: openingHoursSchema, required: true },
-    minOrderValue: { type: Number, required: true },
-    avgCostForTwo: { type: Number, required: true },
+    name: {
+      type: String,
+      required: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    logo: {
+      type: String,
+      required: true,
+    },
+    banner: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+      min: 0,
+      max: 5,
+    },
+    reviewsCount: {
+      type: Number,
+      required: true,
+    },
+    cuisines: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+    currency: {
+      type: String,
+      required: true,
+    },
+    estimatedDeliveryTime: {
+      type: String,
+      default: "30 min",
+    },
+    deliveryFee: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      default: "pending",
+      enum: ["approved", "pending", "rejected"],
+    },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    ownerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    bio: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: locationSchema,
+      required: true,
+    },
+    contact: {
+      type: contactSchema,
+      required: true,
+    },
+    openingHours: {
+      type: openingHoursSchema,
+      required: true,
+    },
+    minOrderValue: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true, versionKey: false } // adds createdAt & updatedAt
 );

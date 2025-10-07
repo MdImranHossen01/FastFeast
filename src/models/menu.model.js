@@ -20,7 +20,6 @@ const menuSchema = mongoose.Schema(
     },
     isCombo: {
       type: Boolean,
-      required: true,
       default: false,
     },
     cuisine: {
@@ -34,6 +33,7 @@ const menuSchema = mongoose.Schema(
     rating: {
       type: Number,
       required: true,
+      default: 0,
       min: 0,
       max: 5,
     },
@@ -41,14 +41,18 @@ const menuSchema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    dietaryTags: {
-      type: [String],
-      default: [],
-    },
-    ingredients: {
-      type: [String],
-      default: [],
-    },
+    dietaryTags: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+    ingredients: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Restaurant",
