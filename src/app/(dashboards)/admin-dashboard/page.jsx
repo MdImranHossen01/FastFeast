@@ -29,13 +29,13 @@ export default async function AdminHomePage() {
         <DeliverySummary />
         <DeliveryStatusSummary />
         <CustomerFeedback />
-        <LiveOrders />
+        {/* <LiveOrders /> */}
         <RecentOrders />
         <RecentActivities />
         <TopRestaurants />
         <TopRiders />
         <TrendingFoods />
-        <PopularDishes />
+        {/* <PopularDishes /> */}
       </div>
     </div>
   );
