@@ -22,12 +22,12 @@ export default function Banner({ blogs, query, setQuery, tag, setTag }) {
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col md:flex-row justify-between items-center h-full p-8">
-        <div className="ml-8">
+      <div className="relative z-10 flex flex-col md:flex-row justify-center md:mt-10 mt-16 items-center h-full p-8">
+        <div className="ml-8 max-w-3xl text-center items-center">
           <h1 className="text-5xl uppercase text-shadow-accent-content font-extrabold py-2 bg-gradient-to-r from-red-700 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
             FastFeast Food Journal – Tradition Meets Delivery
           </h1>
-          <p className="text-gray-100 max-w-2xl mb-4">
+          <p className="text-gray-100 mb-4">
             Read about Bangladeshi cultural foods, modern delivery trends, and
             tasty tips for foodies across the nation.
           </p>
