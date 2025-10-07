@@ -31,11 +31,14 @@ export default function HowWeWork() {
     return (
         <section className="px-4 py-10">
             <div className="container mx-auto">
-                <h3 className="text-center font-bold text-xl text-gray-500">
-                    How We Work
+                <h3 className="text-xl font-bold text-center text-gray-400">
+                    The Work Flow of Us
                 </h3>
-                <h1 className={`text-center font-bold text-3xl`}>
-                    Experience with FastFest
+                <h1 className='text-center text-4xl font-semibold my-5 mb-14'>
+                    <span className="text-orange-600">
+                        EXPERIENCE {" "}
+                    </span>
+                    WITH FASTFEST
                 </h1>
                 <div className="">
                     {

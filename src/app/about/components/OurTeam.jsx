@@ -137,7 +137,10 @@ export const OurTeam = () => {
                     MEET OUR BEST EMPLOYEES
                 </h3>
                 <h1 className='text-center text-4xl font-semibold my-5 mb-14'>
-                    EMPLOYEES OF THE YEAR
+                    <span className="text-orange-600">
+                        EMPLOYEES {" "}
+                    </span>
+                    OF THE YEAR
                 </h1>
                 <div className="flex flex-wrap gap-5 justify-center">
                     {
