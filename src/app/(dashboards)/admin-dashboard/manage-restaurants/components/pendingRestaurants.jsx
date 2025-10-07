@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
+import ViewDetails from "./viewPending";
 
 export default function PendingRestaurants({ restaurants, setRestaurants }) {
+  // modal
+  const [isOpen, setIsOpen] = useState(false);
+
   // approve and reject button
   const handleStatusChange = async (id, action) => {
     try {
@@ -75,6 +79,13 @@ export default function PendingRestaurants({ restaurants, setRestaurants }) {
     }
   };
 
+  // open modal
+  const handleModal = (_id) => {
+    document.getElementById("my_modal_2").showModal();
+
+    setIsOpen(_id);
+  };
+
   const pendingList = restaurants.filter(
     (restaurant) => restaurant.approved === false
   );
@@ -82,7 +93,7 @@ export default function PendingRestaurants({ restaurants, setRestaurants }) {
   return (
     <div>
       {pendingList.length > 0 ? (
-        <div className="overflow-x-auto rounded-lg  shadow-md py-2 bg-white dark:bg-gray-900">
+        <div className="overflow-x-auto rounded-lg  shadow-md py-2 bg-gray-50 dark:bg-gray-900">
           <table className="table w-full">
             {/* head */}
             <thead className="hidden md:table-header-group bg-gray-100 dark:bg-gray-800">
@@ -173,7 +184,12 @@ export default function PendingRestaurants({ restaurants, setRestaurants }) {
                   <td className="px-4 block md:table-cell py-1">
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
                       <div className="flex gap-2">
-                        <button className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white flex items-center gap-1 shadow-none">
+                        <button
+                          className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white flex items-center gap-1 shadow-none"
+                          onClick={() => {
+                            handleModal(restaurant._id);
+                          }}
+                        >
                           <AiOutlineEye size={16} /> View
                         </button>
                         <button
@@ -214,6 +230,20 @@ export default function PendingRestaurants({ restaurants, setRestaurants }) {
           No more restaurants
         </div>
       )}
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box   overflow-auto">
+          {isOpen && (
+            <ViewDetails
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              restaurants={restaurants}
+            ></ViewDetails>
+          )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 }
