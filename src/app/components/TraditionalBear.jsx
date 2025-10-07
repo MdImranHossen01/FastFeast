@@ -25,7 +25,7 @@ const TraditionalBear = () => {
 
   return (
     // Full viewport height section with no scrolling
-    <section className="md:h-screen w-full bg-[#fcf9f0] overflow-hidden">
+    <section className="md:max-h-screen w-full bg-[#fcf9f0] overflow-hidden">
       {/* FIX: Added h-full and items-center to make the grid fill the height and center content. */}
       {/* Reduced vertical padding (py-4) to provide more space for the content */}
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 h-full items-center py-8">
