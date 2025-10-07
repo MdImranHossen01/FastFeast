@@ -1,11 +1,10 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, EffectFade } from "swiper/modules";
+import { Autoplay, EffectFade } from "swiper/modules";
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import Link from "next/link";
 
@@ -104,11 +103,7 @@ const Banner = () => {
           disableOnInteraction: false,
         }}
         speed={1200}
-        navigation={{
-          nextEl: ".custom-next",
-          prevEl: ".custom-prev",
-        }}
-        modules={[Autoplay, Navigation, EffectFade]}
+        modules={[Autoplay, EffectFade]}
         className="h-full w-full"
       >
         {sliderContent.map((slide, index) => (
@@ -213,26 +208,14 @@ const Banner = () => {
             </div>
           </SwiperSlide>
         ))}
-
-        {/* Custom navigation */}
-        <div className="custom-next absolute right-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/30 p-3 backdrop-blur-md hidden md:block">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
-        <div className="custom-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-black/30 p-3 backdrop-blur-md hidden md:block">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </div>
       </Swiper>
 
-      {/* Scroll Down Button */}
+      {/* Scroll Down Button (moved lower) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 1.2 }}
-        className="absolute bottom-12 left-1/2 z-10 -translate-x-1/2 flex animate-bounce cursor-pointer items-center"
+        className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 flex animate-bounce cursor-pointer items-center"
         onClick={handleScrollDown}
       >
         <div className="text-sm text-white xl:text-base 2xl:text-lg flex items-center">
@@ -243,11 +226,6 @@ const Banner = () => {
 
       {/* Global Styles */}
       <style jsx global>{`
-        .custom-next:hover,
-        .custom-prev:hover {
-          background: rgba(255, 120, 70, 0.8) !important;
-        }
-
         .slide-video {
           transform: scale(1);
           transition: none;
