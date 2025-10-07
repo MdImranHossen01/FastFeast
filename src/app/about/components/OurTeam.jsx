@@ -91,7 +91,7 @@ export const OurTeam = () => {
     const teamData = [
         {
             id: 1,
-            image: "https://i.ibb.co.com/mr36pQzQ/compressed-4.webp",
+            image: "https://i.ibb.co.com/4nwy593V/compressed-5.webp",
             name: 'Md Imran Hossen',
             position: 'Full-stack Developer',
             linkedInLink: '',
@@ -101,7 +101,7 @@ export const OurTeam = () => {
         },
         {
             id: 2,
-            image: "https://i.ibb.co.com/rG7Hm5XB/compressed-3.webp",
+            image: "https://i.ibb.co.com/7thh7Lfq/compressed-6.webp",
             name: 'Md Rezwan Hossen',
             position: 'Full-stack Developer',
             linkedInLink: '',
@@ -111,7 +111,7 @@ export const OurTeam = () => {
         },
         {
             id: 3,
-            image: "https://i.ibb.co.com/F49j3q8N/compressed-3.webp",
+            image: "https://i.ibb.co.com/Xr7Hc2gf/compressed-7.webp",
             name: 'Md Jaber Ali',
             position: 'Full-stack Developer',
             linkedInLink: '',
@@ -136,7 +136,7 @@ export const OurTeam = () => {
                 <h3 className="text-xl font-bold text-center text-gray-400">
                     MEET OUR BEST EMPLOYEES
                 </h3>
-                <h1 className='text-center text-4xl font-semibold my-5'>
+                <h1 className='text-center text-4xl font-semibold my-5 mb-14'>
                     EMPLOYEES OF THE YEAR
                 </h1>
                 <div className="flex flex-wrap gap-5 justify-center">
