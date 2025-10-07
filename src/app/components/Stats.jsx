@@ -46,10 +46,10 @@ export default function Stats() {
       ref={ref} 
       // Ensure the section takes up the viewport height on md screens and larger
       // Use min-h-screen for mobile to guarantee content fits
-      className="relative min-h-screen md:h-screen w-full bg-gray-100 overflow-hidden py-4"
+      className="relative flex flex-col md:-h-screen w-full bg-gray-100 overflow-hidden py-4"
     >
       {/* Dark overlay for readability (optional) */}
-      <div className="absolute inset-0"></div>
+      <div className="absolute inset-0 flex-grow-1"></div>
 
       {/* Main Container: Use flex-col and h-full on medium screens to enable vertical spacing */}
       <div className="relative container mx-auto px-4 z-10 h-full flex flex-col">

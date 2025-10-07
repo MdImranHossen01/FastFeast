@@ -29,13 +29,13 @@ const RestaurantSection = () => {
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-white min-h-screen md:h-full items-center">
 
         {/* Left Column: Image Slider */}
-        <div className="relative aspect-square md:aspect-auto md:h-full w-full">
-          {/* FIX: Use aspect-square for mobile to maintain square ratio, then full height on desktop */}
+        <div className="relative w-full h-[300px] md:h-full">
+          {/* FIX: Use object-contain on large screens to avoid cutting off the image */}
           <Image
             src={imageUrls[currentIndex]}
             alt={`Image ${currentIndex + 1}`}
             fill
-            className="object-cover z-0" 
+            className="object-cover md:object-contain z-0"
             priority
           />
         </div>
@@ -53,8 +53,8 @@ const RestaurantSection = () => {
 
           <p className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10">
             Our success is built on collaboration. By partnering with local restaurants,
-            ethical suppliers, and leading food nutritionists, we ensure every dishes
-            meets the highest standards of safety, quality, taste and nutritions. We believe in transparent sourcing
+            ethical suppliers, and leading food nutritionists, we ensure every dish
+            meets the highest standards of safety, quality, taste, and nutrition. We believe in transparent sourcing
             and supporting the communities that help bring the best food to you.
           </p>
 
