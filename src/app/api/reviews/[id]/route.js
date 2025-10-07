@@ -28,7 +28,7 @@ export async function PATCH(req, { params }) {
         const param = await params;
         const updatedData = await req.json();
         // console.log(updatedData)
-        
+
         // Connect reviews collection
         const reviewsCollection = dbConnect(collectionsName.reviewsCollection);
         const result = await reviewsCollection
@@ -51,3 +51,26 @@ export async function PATCH(req, { params }) {
         )
     }
 }
+
+export async function DELETE(req, { params }) {
+    try {
+        const param = await params;
+
+        // Connect reviews collection
+        const reviewsCollection = dbConnect(collectionsName.reviewsCollection);
+        const result = await reviewsCollection
+            .deleteOne(
+                { _id: new ObjectId(param?.id) },
+            );
+
+        // return Response.json(reviews, { status: 200 });
+        return Response.json(result);
+    } catch (error) {
+        return Response.json(
+            { success: false, message: error.message },
+            { status: 500 }
+        )
+    }
+}
+
+
