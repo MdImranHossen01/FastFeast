@@ -58,10 +58,22 @@ const menuSchema = mongoose.Schema(
       ref: "Restaurant",
       required: true,
     },
+    discountRate: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 100,
+    },
+    discountedPrice: {
+      type: Number,
+      default: function () {
+        return this.price - (this.price * this.discountRate) / 100;
+      },
+    },
   },
   {
-    timestamps: true,
-    versionKey: false,
+    timestamps: true, // automatically manage createdAt and updatedAt fields
+    versionKey: false, // disable the __v field
   }
 );
 
