@@ -1,32 +1,32 @@
 import connectMongooseDb from "@/lib/mongoose";
-import Restaurant from "@/models/restaurant.model";
+import Menu from "@/models/menu.model";
 import { NextResponse } from "next/server";
 
-// GET restaurant by ID
+// GET (read) menu by ID
 export async function GET(req, { params }) {
   try {
-    // Extract restaurant ID from params
+    // Extract menu ID from params
     const { id } = await params;
 
     // Ensure DB connection
     await connectMongooseDb();
 
-    // Fetch restaurant by ID
-    const restaurant = await Restaurant.findById(id);
+    // Fetch menu by ID
+    const menu = await Menu.findById(id);
 
-    // Handle case where restaurant is not found
-    if (!restaurant) {
+    // Handle case where menu is not found
+    if (!menu) {
       return NextResponse.json(
-        { success: false, message: "Restaurant not found" },
+        { success: false, message: "Menu not found" },
         { status: 404 }
       );
     }
 
-    // Return the found restaurant
-    return NextResponse.json(restaurant, { status: 200 });
+    // Return the found menu
+    return NextResponse.json(menu, { status: 200 });
   } catch (error) {
     // Log the error for debugging
-    console.error("Error fetching restaurant:", error);
+    console.error("Error fetching menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
@@ -34,10 +34,10 @@ export async function GET(req, { params }) {
   }
 }
 
-// PATCH (update) restaurant by ID
+// PATCH (update) menu by ID
 export async function PATCH(req, { params }) {
   try {
-    // Extract restaurant ID from params
+    // Extract menu ID from params
     const { id } = await params;
 
     // Parse the request body to get update data
@@ -46,26 +46,26 @@ export async function PATCH(req, { params }) {
     // Ensure DB connection
     await connectMongooseDb();
 
-    // Update the restaurant and return the updated document
-    const updatedRestaurant = await Restaurant.findByIdAndUpdate(
+    // Update the menu and return the updated document
+    const updatedMenu = await Menu.findByIdAndUpdate(
       id,
       { $set: updateData },
       { new: true, runValidators: true, context: "query" }
     );
 
-    // Handle case where restaurant is not found
-    if (!updatedRestaurant) {
+    // Handle case where menu is not found
+    if (!updatedMenu) {
       return NextResponse.json(
-        { success: false, message: "Restaurant not found" },
+        { success: false, message: "Menu not found" },
         { status: 404 }
       );
     }
 
-    // Return the updated restaurant
-    return NextResponse.json(updatedRestaurant, { status: 200 });
+    // Return the updated menu
+    return NextResponse.json(updatedMenu, { status: 200 });
   } catch (error) {
     // Log the error for debugging
-    console.error("Error updating restaurant:", error);
+    console.error("Error updating menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
@@ -73,22 +73,22 @@ export async function PATCH(req, { params }) {
   }
 }
 
-// DELETE restaurant by ID
+// DELETE menu by ID
 export async function DELETE(req, { params }) {
   try {
-    // Extract restaurant ID from params
+    // Extract menu ID from params
     const { id } = await params;
 
     // Ensure DB connection
     await connectMongooseDb();
 
-    // Delete the restaurant by ID
-    const deletedRestaurant = await Restaurant.findByIdAndDelete(id);
+    // Delete the menu by ID
+    const deletedMenu = await Menu.findByIdAndDelete(id);
 
-    // Handle case where restaurant is not found
-    if (!deletedRestaurant) {
+    // Handle case where menu is not found
+    if (!deletedMenu) {
       return NextResponse.json(
-        { success: false, message: "Restaurant not found" },
+        { success: false, message: "Menu not found" },
         { status: 404 }
       );
     }
@@ -97,14 +97,14 @@ export async function DELETE(req, { params }) {
     return NextResponse.json(
       {
         success: true,
-        message: "Restaurant deleted successfully",
-        deletedRestaurant,
+        message: "Menu deleted successfully",
+        deletedMenu,
       },
       { status: 200 }
     );
   } catch (error) {
     // Log the error for debugging
-    console.error("Error deleting restaurant:", error);
+    console.error("Error deleting menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
