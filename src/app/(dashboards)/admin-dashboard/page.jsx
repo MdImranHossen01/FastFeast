@@ -12,14 +12,15 @@ import PopularDishes from "./components/PopularDishes";
 import CustomerFeedback from "./components/CustomerFeedback";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 export default async function AdminHomePage() {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className="px-6 space-y-8">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">
-        Admin Dashboard Overview
+    <div className="space-y-8">
+      <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+        <MdAdminPanelSettings size={50} /> Admin Dashboard Overview
       </h1>
 
       <StatsCards />
@@ -28,13 +29,13 @@ export default async function AdminHomePage() {
         <DeliverySummary />
         <DeliveryStatusSummary />
         <CustomerFeedback />
-        <LiveOrders />
+        {/* <LiveOrders /> */}
         <RecentOrders />
         <RecentActivities />
         <TopRestaurants />
         <TopRiders />
         <TrendingFoods />
-        <PopularDishes />
+        {/* <PopularDishes /> */}
       </div>
     </div>
   );
