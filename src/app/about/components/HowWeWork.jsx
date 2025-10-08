@@ -34,7 +34,7 @@ export default function HowWeWork() {
                 <h3 className="text-xl font-bold text-center text-gray-400">
                     The Work Flow of Us
                 </h3>
-                <h1 className='text-center text-4xl font-semibold my-5 mb-14'>
+                <h1 className='text-center text-3xl md:text-4xl font-semibold my-5 mb-14'>
                     <span className="text-orange-600">
                         EXPERIENCE {" "}
                     </span>
