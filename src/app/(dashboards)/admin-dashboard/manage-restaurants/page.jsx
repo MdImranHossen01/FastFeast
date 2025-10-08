@@ -63,7 +63,7 @@ export default function ManageRestaurants() {
   }
 
   return (
-    <div className="pb-5 text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 min-h-screen px-6">
+    <div className="pb-5 text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-900 min-h-screen px-6">
       <ManageRestaurantsCard restaurants={restaurants} />
     </div>
   );
