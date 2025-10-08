@@ -41,7 +41,7 @@ export default function ManageRestaurantsCard({ restaurants }) {
       <h2 className="text-2xl text-center font-bold dark:text-white py-5">
         Pending Restaurant Requests
       </h2>
-      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-1">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
         <PendingRestaurants
           restaurants={filteredRestaurants}
           setRestaurants={setAllRestaurants}
@@ -49,10 +49,10 @@ export default function ManageRestaurantsCard({ restaurants }) {
       </div>
 
       {/* Approved Restaurants */}
-      <h2 className="text-2xl text-center font-bold dark:text-white py-5">
+      <h2 className="text-2xl text-center font-bold dark:text-white py-9">
         Approved Restaurants
       </h2>
-      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-md">
+      <div className="bg-white dark:bg-gray-800    rounded-xl shadow-lg">
         <ApprovedRestaurants
           restaurants={filteredRestaurants}
           setRestaurants={setAllRestaurants}
