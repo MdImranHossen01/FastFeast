@@ -14,33 +14,38 @@ const AddRiderForm = () => {
     thu: true,
     fri: true,
     sat: true,
-    sun: true
+    sun: true,
   });
 
   // Options for vehicle type
   const vehicleTypeOptions = [
     { value: "bicycle", label: "Bicycle" },
     { value: "motorcycle", label: "Motorcycle" },
-    { value: "car", label: "Car" }
+    { value: "car", label: "Car" },
   ];
 
   // Options for area dropdown
   const areaOptions = [
-    "Dhanmondi", "Mirpur", "Uttara", "Banani", "Gulshan", "Others"
+    "Dhanmondi",
+    "Mirpur",
+    "Uttara",
+    "Banani",
+    "Gulshan",
+    "Others",
   ];
 
   // Handle availability change
   const handleAvailabilityChange = (day) => {
-    setAvailability(prev => ({
+    setAvailability((prev) => ({
       ...prev,
-      [day]: !prev[day]
+      [day]: !prev[day],
     }));
   };
 
   const handleSubmit = (formData) => {
     // Add availability to form data
     formData.append("availability", JSON.stringify(availability));
-    
+
     // Call the createRider action
     return createRider(formData);
   };
@@ -53,11 +58,13 @@ const AddRiderForm = () => {
       <h1 className="text-2xl font-semibold text-center mb-6 text-orange-500">
         Become a FastFeast Rider
       </h1>
-      
+
       {/* Personal Information */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Personal Information</h2>
-        
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+          Personal Information
+        </h2>
+
         {/* Full Name */}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="fullName">
@@ -135,8 +142,10 @@ const AddRiderForm = () => {
 
       {/* Address Information */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Address Information</h2>
-        
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+          Address Information
+        </h2>
+
         {/* Present Address */}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="presentAddress">
@@ -175,8 +184,10 @@ const AddRiderForm = () => {
 
       {/* Vehicle Information */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Vehicle Information</h2>
-        
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+          Vehicle Information
+        </h2>
+
         {/* Vehicle Type */}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Vehicle Type</label>
@@ -248,8 +259,10 @@ const AddRiderForm = () => {
 
       {/* Bank Information */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Bank Information</h2>
-        
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+          Bank Information
+        </h2>
+
         {/* Bank Name */}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="bankName">
@@ -282,7 +295,10 @@ const AddRiderForm = () => {
 
         {/* Account Holder Name */}
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="accountHolderName">
+          <label
+            className="block text-gray-700 mb-2"
+            htmlFor="accountHolderName"
+          >
             Account Holder Name
           </label>
           <input
@@ -298,9 +314,13 @@ const AddRiderForm = () => {
 
       {/* Availability */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Availability</h2>
-        <p className="text-gray-600 mb-4">Select the days you are available to work:</p>
-        
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+          Availability
+        </h2>
+        <p className="text-gray-600 mb-4">
+          Select the days you are available to work:
+        </p>
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {Object.entries(availability).map(([day, isAvailable]) => (
             <div key={day} className="flex items-center">
@@ -321,11 +341,16 @@ const AddRiderForm = () => {
 
       {/* Emergency Contact */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Emergency Contact</h2>
-        
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">
+          Emergency Contact
+        </h2>
+
         {/* Emergency Contact Name */}
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="emergencyContactName">
+          <label
+            className="block text-gray-700 mb-2"
+            htmlFor="emergencyContactName"
+          >
             Emergency Contact Name
           </label>
           <input
@@ -340,7 +365,10 @@ const AddRiderForm = () => {
 
         {/* Emergency Contact Phone */}
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2" htmlFor="emergencyContactPhone">
+          <label
+            className="block text-gray-700 mb-2"
+            htmlFor="emergencyContactPhone"
+          >
             Emergency Contact Phone
           </label>
           <input

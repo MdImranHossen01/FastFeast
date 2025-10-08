@@ -1,4 +1,3 @@
-
 const rawProducts = [
   {
     _id: "60c72b2f9f1b2c001f3e4d5e",
