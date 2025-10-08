@@ -1,12 +1,9 @@
 import { Rakkas, Epilogue } from "next/font/google";
 import React from "react";
-import Logo from "@/components/logo";
-import food from "../../assets/aboutPage/foods.png";
-import Image from "next/image";
 import { OurTeam } from "./components/OurTeam";
-import getBlogs from "../actions/blogs/getBlogs";
 import HowWeWork from "./components/HowWeWork";
 import OurImpactInNumbers from "./components/OurImpactInNumbers";
+
 
 
 const epilogue = Epilogue({
@@ -15,17 +12,13 @@ const epilogue = Epilogue({
 });
 
 
-
-
 const rakkas = Rakkas({
   weight: ["400"],
   subsets: ["latin"],
 });
 
 const AboutPage = async () => {
-  const blogs = await getBlogs();
-  console.log(blogs);
-
+  
   return (
     <div className={`${epilogue.className}`}>
       <section className="">
