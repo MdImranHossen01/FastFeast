@@ -92,18 +92,18 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
   return (
     <div>
       {approvedList.length > 0 ? (
-        <div className="py-2 overflow-x-auto rounded-xl shadow-md bg-gray-50 dark:bg-gray-900">
-          <table className="table w-full">
+        <div className="py-2 overflow-x-auto rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-md bg-transparent dark:bg-gray-900">
+          <table className="table w-full   ">
             {/* Table Header */}
-            <thead className="hidden md:table-header-group bg-gray-100 dark:bg-gray-800">
-              <tr className="text-sm block md:table-row  text-gray-700 dark:text-gray-300 text-left">
+            <thead className="hidden md:table-header-group   dark:bg-gray-800">
+              <tr className="text-sm block md:table-row  text-gray-700 dark:text-gray-300 text-left md:border-b-2 md:border-b-gray-200 dark:border-b-gray-700   ">
                 <th className="px-4">#</th>
-                <th className="px-4">Restaurant Logo</th>
-                <th className="px-4">Restaurant Name</th>
-                <th className="px-4">Owner Email</th>
-                <th className="px-4">Status</th>
+                <th className="px-4">RESTAURANT LOGO</th>
+                <th className="px-4">RESTAURANT NAME</th>
+                <th className="px-4">OWNER EMAIL</th>
+                <th className="px-4">STATUS</th>
                 <th className="px-4">Active</th>
-                <th className="px-4 text-center w-[150px]">Actions</th>
+                <th className="px-4 text-center w-[150px]">ACTIONS</th>
               </tr>
             </thead>
 
@@ -120,9 +120,9 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
 
                   {/* Mobile View - Logo & Name */}
                   <td className="block md:hidden py-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-col  items-center gap-2">
                       <img
-                        className="w-12 h-12 rounded-full object-cover"
+                        className="bg-gray-100 dark:bg-gray-500 w-12 h-12 rounded-full object-cover"
                         src={restaurant.logo}
                         alt="logo"
                       />
@@ -133,7 +133,7 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
                   {/* Desktop View Logo */}
                   <td className="px-4 hidden md:table-cell">
                     <img
-                      className="w-12 h-12 rounded-full object-cover"
+                      className="bg-gray-50 dark:bg-gray-500 w-12 h-12 rounded-full object-cover"
                       src={restaurant.logo}
                       alt="logo"
                     />
@@ -152,7 +152,7 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
 
                   <td className="px-4 block md:table-cell py-1">
                     <span className="md:hidden font-semibold">Status: </span>
-                    <span className="text-green-500 dark:text-green-400 border border-green-500 dark:border-none bg-green-50 dark:bg-green-900/30 py-0.5 px-2 rounded-full">
+                    <span className="text-green-500 dark:text-green-400 md:border md:border-green-500 dark:border-none bg-green-50 dark:bg-green-900/30 py-0 md:py-0.5 px-2 rounded-full">
                       Approved
                     </span>
                   </td>
@@ -171,17 +171,15 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
                   </td>
 
                   <td className="px-4 block md:table-cell py-1">
-                    <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                      <div className="flex gap-2">
-                        <button
-                          className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white shadow-none"
-                          onClick={() => {
-                            handleModal(restaurant._id);
-                          }}
-                        >
-                          <AiOutlineEye size={16} /> View
-                        </button>
-                      </div>
+                    <div className="flex md:flex-row items-center justify-center   gap-2 pb-2 md:pb-0">
+                      <button
+                        className="btn btn-xs md:btn-sm rounded-full border border-orange-500 dark:border-none bg-orange-50 dark:bg-orange-900/30 text-orange-500 hover:bg-orange-400 hover:text-white shadow-none"
+                        onClick={() => {
+                          handleModal(restaurant._id);
+                        }}
+                      >
+                        <AiOutlineEye size={16} /> View
+                      </button>
 
                       <div className="flex gap-2">
                         <button

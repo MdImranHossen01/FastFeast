@@ -15,28 +15,28 @@ const servicesData = [
     icon: "https://i.ibb.co.com/4nD9P4ct/Navigation-amico.png",
     title: "Real-Time Order Tracking",
     description:
-      "Track your order live with GPS and get instant status updates from kitchen to doorstep.",
+      "Track your food live with GPS and get real-time updates from kitchen to doorstep, knowing exactly when your meal will arrive.",
   },
   {
     id: "02",
     icon: "https://i.ibb.co.com/gMrpH4ds/Take-Away-pana.png",
     title: "Fast Delivery by Riders",
     description:
-      "Enjoy quick and reliable delivery from trained riders with accurate arrival estimates.",
+      "Experience speedy, reliable delivery handled by trained riders who ensure your food arrives hot, fresh, and right on schedule.",
   },
   {
     id: "03",
     icon: "https://i.ibb.co.com/gZ4RTFpj/Order-food-pana.png",
     title: "Online Food Ordering",
     description:
-      "Browse restaurants, explore menus, and place orders instantly with ease and reliability.",
+      "Easily browse restaurants, explore diverse menus, customize your dishes, and place secure orders within just a few quick taps.",
   },
   {
     id: "04",
     icon: "https://i.ibb.co.com/5g4RzxQC/Business-deal-bro.png",
     title: "Restaurant Partnership",
     description:
-      "Grow your restaurant online, manage menus effortlessly, and connect with a trusted food network.",
+      "Expand your restaurant’s reach, manage orders efficiently, update menus anytime, and grow your sales with our trusted platform.",
   },
 ];
 
@@ -77,7 +77,13 @@ export default function Services() {
 
         {/* perspective-parent */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           {servicesData.map((service) => (
             <motion.div
               key={service.id}
@@ -108,13 +114,16 @@ export default function Services() {
                 </div>
 
                 {/* back side */}
-                <div className="absolute inset-0 flex rounded-xl items-center justify-center px-6 text-center shadow-md bg-white [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                <div className="absolute inset-0 flex flex-col rounded-xl items-center justify-center px-6 text-center shadow-md bg-white [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                  <h3 className="text-xl font-bold text-gray-800 text-center group-hover:text-orange-500 transition-colors duration-300 pb-2">
+                    {service.title}
+                  </h3>
                   <p className="text-gray-700">{service.description}</p>
                 </div>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
