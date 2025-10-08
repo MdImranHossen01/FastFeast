@@ -1,3 +1,4 @@
+// src/lib/dbConnect.js
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 export const collectionsName = {
@@ -7,16 +8,32 @@ export const collectionsName = {
   foodsCollection: "foods",
   restaurantsCollection: "restaurants",
   reviewsCollection: "reviews",
+  ordersCollection: "orders", 
 };
 
-export const dbConnect = (collectionName) => {
-  // get .env variables from .env.local file
+// Cache the database connection
+let cachedClient = null;
+let cachedDb = null;
+
+export const connectToDatabase = async () => {
+  // If we already have a connection, return it
+  if (cachedClient && cachedDb) {
+    return { client: cachedClient, db: cachedDb };
+  }
+
+  // Get environment variables
   const { MONGODB_URI, DB_NAME } = process.env;
 
-  const uri = MONGODB_URI;
+  if (!MONGODB_URI) {
+    throw new Error('Please define the MONGODB_URI environment variable');
+  }
 
-  // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-  const client = new MongoClient(uri, {
+  if (!DB_NAME) {
+    throw new Error('Please define the DB_NAME environment variable');
+  }
+
+  // Create a new MongoClient
+  const client = new MongoClient(MONGODB_URI, {
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
@@ -24,6 +41,27 @@ export const dbConnect = (collectionName) => {
     },
   });
 
-  // return db connect, that take collections name as parameter
-  return client.db(DB_NAME).collection(collectionName);
+  // Connect to the MongoDB cluster
+  await client.connect();
+
+  // Specify the database
+  const db = client.db(DB_NAME);
+
+  // Cache the connection
+  cachedClient = client;
+  cachedDb = db;
+
+  return { client, db };
+};
+
+// Export a function to get a collection
+export const getCollection = async (collectionName) => {
+  const { db } = await connectToDatabase();
+  return db.collection(collectionName);
+};
+
+// Keep your original function for backward compatibility
+export const dbConnect = async (collectionName) => {
+  const { db } = await connectToDatabase();
+  return db.collection(collectionName);
 };
