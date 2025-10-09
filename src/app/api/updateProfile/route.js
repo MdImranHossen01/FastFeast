@@ -6,43 +6,62 @@ export async function PUT(req) {
     console.log("updateProfile payload:", body);
 
     const { email, name, phone, location, image, photoUrl } = body;
+
     if (!email) {
-      return new Response(JSON.stringify({ success: false, message: "Email required" }), { status: 400 });
+      return new Response(
+        JSON.stringify({ success: false, message: "Email is required" }),
+        { status: 400 }
+      );
     }
 
-    // dbConnect returns a collection synchronously per your setup
-    const usersCollection = dbConnect(collectionsName.usersCollection);
+    // await dbConnect because it's async
+    const usersCollection = await dbConnect(collectionsName.usersCollection);
 
-    // Build $set object only for fields provided
-    const set = {};
-    if (typeof name !== "undefined") set.name = name;
-    if (typeof phone !== "undefined") set.phone = phone;
-    if (typeof location !== "undefined") set.location = location;
+    const updateFields = {};
 
-    //  update both image and photoUrl so other parts of your app see it
-    const url = image || photoUrl;
-    if (url) {
-      set.image = url;
-      set.photoUrl = url;
+    if (typeof name !== "undefined") updateFields.name = name;
+    if (typeof phone !== "undefined") updateFields.phone = phone;
+    if (typeof location !== "undefined") updateFields.location = location;
+
+    const finalImageUrl = image || photoUrl;
+    if (finalImageUrl) {
+      updateFields.image = finalImageUrl;
+      updateFields.photoUrl = finalImageUrl;
     }
 
-    if (Object.keys(set).length === 0) {
-      return new Response(JSON.stringify({ success: false, message: "No fields to update" }), { status: 400 });
+    if (Object.keys(updateFields).length === 0) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "No valid fields provided for update",
+        }),
+        { status: 400 }
+      );
     }
 
-    const result = await usersCollection.updateOne({ email }, { $set: set });
-    console.log("mongo update result:", result);
+    const result = await usersCollection.updateOne(
+      { email },
+      { $set: updateFields }
+    );
 
     if (result.matchedCount === 0) {
-      return new Response(JSON.stringify({ success: false, message: "User not found" }), { status: 404 });
+      return new Response(
+        JSON.stringify({ success: false, message: "User not found" }),
+        { status: 404 }
+      );
     }
 
-    // fetch updated doc and return it
     const updatedUser = await usersCollection.findOne({ email });
 
-    return new Response(JSON.stringify({ success: true, updated: updatedUser }), { status: 200 });
-  } catch (err) {
-    console.error("updateProfile error:", err);
-    return new Response(JSON.stringify({ success: false, message: err.message }), { status: 500 });
+    return new Response(
+      JSON.stringify({ success: true, updated: updatedUser }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("updateProfile error:", error);
+    return new Response(
+      JSON.stringify({ success: false, message: error.message }),
+      { status: 500 }
+    );
   }
 }
