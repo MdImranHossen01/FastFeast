@@ -141,7 +141,7 @@ export default function ManageBlogs() {
             className="transition-all duration-200 align-top border-t border-gray-200"
           >
             <td className="p-3 font-medium text-gray-800 dark:text-gray-100">
-              {index}
+              {index + 1}
             </td>
             <td className="p-3 font-medium text-gray-800 dark:text-gray-100">
               {blog.title}

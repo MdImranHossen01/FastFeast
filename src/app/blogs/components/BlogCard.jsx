@@ -1,10 +1,12 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function BlogCard({ blog }) {
+  console.log(blog)
   const {
     _id,
     coverImage,
@@ -24,11 +26,13 @@ export default function BlogCard({ blog }) {
     >
       {/* Cover image */}
       <figure className="relative h-52 overflow-hidden">
-        <img
-          src={coverImage}
-          alt={title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+        {coverImage && (
+          <img
+            src={coverImage}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        )}
       </figure>
 
       {/* Content */}
@@ -48,10 +52,12 @@ export default function BlogCard({ blog }) {
         {/* Author Info + Date */}
         <div className="mb-3 flex items-center justify-between text-xs text-gray-600">
           <div className="flex items-center gap-2">
-            <img
+            <Image
               src={authorPhoto || "/user.png"}
-              alt={author}
-              className="w-8 h-8 rounded-full object-cover"
+              alt={author || "Author"}
+              width={32}
+              height={32}
+              className="rounded-full object-cover border border-gray-200"
             />
             <div className="flex flex-col leading-tight">
               <span className="font-medium text-gray-800">{author || "Unknown"}</span>
