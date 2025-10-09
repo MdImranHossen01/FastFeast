@@ -14,7 +14,6 @@ import { uploadToImgBB } from "@/utils/imageUpload";
 import { FiEdit3 } from "react-icons/fi";
 
 export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
-  
   const [formData, setFormData] = useState({
     title: "",
     excerpt: "",
@@ -27,7 +26,7 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
     tags: "",
   });
 
-  // ✅ Pre-fill data when modal opens
+  // ✅ Pre-fill form when modal opens
   useEffect(() => {
     if (blog) {
       setFormData({
@@ -46,12 +45,12 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
     }
   }, [blog]);
 
-  // ✅ Handle input change
+  // ✅ Handle input
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ Cover image upload
+  // ✅ Upload Cover Image
   const handleCoverImage = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -61,11 +60,11 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
       setFormData((prev) => ({ ...prev, coverImage: url }));
     } catch (error) {
       console.error(error);
-      alert("Cover image upload failed!");
+      Swal.fire("Error", "Cover image upload failed!", "error");
     }
   };
 
-  // ✅ Gallery upload
+  // ✅ Upload Gallery Images
   const handleGallery = async (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
@@ -80,11 +79,11 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
       }));
     } catch (error) {
       console.error(error);
-      alert("Gallery upload failed!");
+      Swal.fire("Error", "Gallery upload failed!", "error");
     }
   };
 
-  // ✅ Submit
+  // ✅ Submit handler
   const handleSubmit = async () => {
     const updatedBlog = {
       ...formData,
@@ -101,17 +100,27 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
         body: JSON.stringify(updatedBlog),
       });
 
+      const data = await res.json();
+
       if (!res.ok) throw new Error("Failed to update blog");
 
-      Swal.fire({
-        icon: "success",
-        title: "Updated!",
-        text: "Blog updated successfully 🎉",
-        confirmButtonColor: "#f97316",
-      });
+      if (data?.modifiedCount > 0 || data?.acknowledged) {
+        Swal.fire({
+          icon: "success",
+          title: "Blog Updated!",
+          text: `Your blog "${formData.title}" has been updated successfully 🎉`,
+          confirmButtonColor: "#f97316",
+        });
 
-      if (onUpdate) onUpdate(updatedBlog);
-      setOpen(false);
+        if (onUpdate) onUpdate(updatedBlog);
+        setOpen(false);
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "No Changes Made",
+          text: "You didn't make any changes to the blog.",
+        });
+      }
     } catch (error) {
       console.error("❌ Error updating blog:", error);
       Swal.fire({
@@ -138,7 +147,7 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
           <DialogHeader>
             <DialogTitle>Edit Blog</DialogTitle>
             <DialogDescription>
-              Update your blog details and click Update when done.
+              Update your blog details and click <strong>Update</strong> when done.
             </DialogDescription>
           </DialogHeader>
 
@@ -212,6 +221,7 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
               placeholder="Author"
               className="input input-bordered w-full"
             />
+
             <input
               name="publishDate"
               type="date"
@@ -219,6 +229,7 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
               onChange={handleChange}
               className="input input-bordered w-full"
             />
+
             <input
               name="category"
               value={formData.category}
@@ -226,6 +237,7 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
               placeholder="Category"
               className="input input-bordered w-full"
             />
+
             <input
               name="tags"
               value={formData.tags}
@@ -249,4 +261,3 @@ export default function EditBlogModal({ blog, onUpdate, open, setOpen }) {
     </>
   );
 }
-
