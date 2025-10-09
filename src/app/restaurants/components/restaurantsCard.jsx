@@ -8,8 +8,14 @@ import {
 } from "react-icons/fa";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { FaRegClock } from "react-icons/fa";
+import Link from "next/link";
+import { generateSlug } from "./generateSlug";
 
 export default function RestaurantsCard({ restaurant }) {
+  // slug generate
+
+  const slug = generateSlug(restaurant.name, restaurant.location?.area);
+
   // console.log(restaurant[2]);
   // rating
   const rendersStars = (rating) => {
@@ -99,10 +105,12 @@ export default function RestaurantsCard({ restaurant }) {
 
         {/* view menu button */}
         <div className="card-actions justify-end">
-          <button className="flex transition-all duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
-            View Menu{" "}
-            <FaArrowRight className="transition-transform duration-300  group-hover:translate-x-0.5" />
-          </button>
+          <Link href={`restaurants/${slug}`}>
+            <button className="flex transition-all duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
+              View Menu{" "}
+              <FaArrowRight className="transition-transform duration-300  group-hover:translate-x-0.5" />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
