@@ -8,17 +8,14 @@ export default async function ManageBlogs() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
         <MdArticle size={40} /> Manage Blogs
       </h1>
 
-      {/* Add Blog Button */}
       <div className="flex justify-end">
         <AddBlogModal />
       </div>
 
-      {/* Table Wrapper */}
       <div className="overflow-x-auto rounded-lg shadow-md py-2 bg-white dark:bg-gray-900">
         <table className="w-full rounded-lg overflow-hidden text-sm table-auto">
           <thead className="bg-gray-100 dark:bg-gray-800">
@@ -36,7 +33,7 @@ export default async function ManageBlogs() {
             {blogs.length === 0 ? (
               <tr>
                 <td
-                  colSpan="7"
+                  colSpan="6"
                   className="p-4 text-center text-gray-500 dark:text-gray-400"
                 >
                   No blogs found.
@@ -44,7 +41,7 @@ export default async function ManageBlogs() {
               </tr>
             ) : (
               blogs.map((blog, index) => (
-                <BlogRow key={blog._id} index={index} blog={blog} />
+                <BlogRow key={blog._id} blog={blog} index={index} />
               ))
             )}
           </tbody>
