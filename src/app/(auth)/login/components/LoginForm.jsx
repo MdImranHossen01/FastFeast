@@ -126,9 +126,9 @@ export default function LoginForm() {
               </Link>
             </div>
             <div className="flex gap-3 w-full justify-around">
-              <button>
+              <div>
                 <CreateDemoUsersButton></CreateDemoUsersButton>
-              </button>
+              </div>
               <Link href={"/demo-users"}>
                 <button className=" py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed mt-4">
                   Demo User Details
