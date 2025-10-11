@@ -1,14 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuModal from "./MenuModal";
+import Link from "next/link";
+import { generateSlug } from "@/app/restaurants/components/generateSlug";
 
-const MenuCard = ({ menu }) => {
+const MenuCard = ({ menu, restaurants }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [restaurant, setRestaurant] = useState(null);
+
+  // Find the restaurant data based on restaurantId
+  useEffect(() => {
+    if (restaurants && menu.restaurantId) {
+      const foundRestaurant = restaurants.find(r => r._id === menu.restaurantId);
+      setRestaurant(foundRestaurant);
+    }
+  }, [restaurants, menu.restaurantId]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  // Generate restaurant slug if restaurant exists
+  const restaurantSlug = restaurant ? generateSlug(restaurant.name, restaurant.location?.area) : "";
 
   return (
     <div>
@@ -46,12 +60,18 @@ const MenuCard = ({ menu }) => {
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            {/* {menu.restaurant.location} */}
+            {restaurant?.location?.area || "Location"}
           </div>
           {/* Price Badge - Right Side */}
           <div className="absolute top-2 right-2 bg-orange-500 rounded-full px-2 py-1 text-xs font-bold text-white">
             ৳{menu.price}
           </div>
+          {/* Special Offer Badge - Only show if it's a special offer */}
+          {menu.isSpecialOffer && (
+            <div className="absolute bottom-2 right-2 bg-red-500 rounded-full px-2 py-1 text-xs font-bold text-white">
+              {menu.discountRate}% OFF
+            </div>
+          )}
         </div>
         <div className="p-4">
           <h3 className="text-lg font-semibold text-orange-500">
@@ -64,17 +84,36 @@ const MenuCard = ({ menu }) => {
           {/* Restaurant Info with Add to Cart Button */}
           <div className="mt-3 flex items-center justify-between">
             <div className="flex items-center">
-              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-200">
-                <Image
-                  src={menu.imageUrl}
-                  alt={menu.title}
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-              <span className="ml-2 text-sm text-gray-700 font-medium">
-                {/* {menu.restaurant.name} */}
-              </span>
+              {/* Make restaurant logo and name clickable */}
+              {restaurant ? (
+                <Link href={`/restaurants/${restaurantSlug}`} className="flex items-center hover:opacity-80 transition-opacity">
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+                    <Image
+                      src={restaurant.logo}
+                      alt={restaurant.name}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <span className="ml-2 text-sm text-gray-700 font-medium hover:text-orange-500 transition-colors">
+                    {restaurant.name}
+                  </span>
+                </Link>
+              ) : (
+                <div className="flex items-center">
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+                    <Image
+                      src={menu.imageUrl}
+                      alt={menu.title}
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <span className="ml-2 text-sm text-gray-700 font-medium">
+                    Restaurant
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Large Circular Add to Cart Button */}
@@ -106,6 +145,7 @@ const MenuCard = ({ menu }) => {
         isOpen={isModalOpen} 
         onClose={closeModal} 
         menu={menu} 
+        restaurant={restaurant}
       />
     </div>
   );

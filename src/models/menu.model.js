@@ -6,7 +6,7 @@ const menuSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    image: {
+    imageUrl: {
       type: String,
       required: true,
     },
@@ -17,6 +17,23 @@ const menuSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true,
+    },
+    isSpecialOffer: {
+      type: Boolean,
+      default: false,
+    },
+    offerPrice: {
+      type: Number,
+      required: true,
+      default: function() {
+        return this.price;
+      }
+    },
+    discountRate: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 100,
     },
     isCombo: {
       type: Boolean,
@@ -50,7 +67,6 @@ const menuSchema = mongoose.Schema(
     ingredients: [
       {
         type: String,
-        required: true,
       },
     ],
     restaurantId: {
@@ -58,24 +74,23 @@ const menuSchema = mongoose.Schema(
       ref: "Restaurant",
       required: true,
     },
-    discountRate: {
-      type: Number,
-      default: 0,
-      min: 0,
-      max: 100,
-    },
-    discountedPrice: {
-      type: Number,
-      default: function () {
-        return this.price - (this.price * this.discountRate) / 100;
-      },
-    },
   },
   {
     timestamps: true, // automatically manage createdAt and updatedAt fields
     versionKey: false, // disable the __v field
   }
 );
+
+// Pre-save middleware to calculate offerPrice based on discountRate
+menuSchema.pre('save', function(next) {
+  if (this.isSpecialOffer && this.discountRate > 0) {
+    this.offerPrice = this.price - (this.price * this.discountRate) / 100;
+  } else {
+    this.offerPrice = this.price;
+    this.discountRate = 0;
+  }
+  next();
+});
 
 if (mongoose.models.Menu) {
   mongoose.deleteModel("Menu");
