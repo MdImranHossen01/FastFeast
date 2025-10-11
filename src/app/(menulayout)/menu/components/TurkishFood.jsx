@@ -5,16 +5,35 @@ import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
 import getRestaurant from "@/app/actions/restaurant/getRestaurant";
+import { useSelector } from "react-redux";
 
-const TurkishFood = () => {
+const TurkishFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   const [turkishMenus, setTurkishMenus] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Get filters from Redux to check if we should hide this section
+  const filters = useSelector((state) => state.filters);
+  const hasActiveFilters = filters.searchQuery || 
+    filters.selectedCuisines.length > 0 || 
+    filters.selectedRating > 0 || 
+    filters.selectedPrice || 
+    filters.isSpecialOfferSelected || 
+    filters.isComboSelected;
+
   useEffect(() => {
+    // If props are provided, use them (for better performance)
+    if (propMenus && propRestaurants) {
+      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Turkish");
+      setTurkishMenus(filteredMenus);
+      setRestaurants(propRestaurants);
+      setLoading(false);
+      return;
+    }
+
+    // Otherwise fetch data independently
     const fetchData = async () => {
       try {
-        // Fetch both menus and restaurants data
         const [menusData, restaurantsData] = await Promise.all([
           getMenu(),
           getRestaurant()
@@ -24,9 +43,6 @@ const TurkishFood = () => {
         const filteredMenus = menusData.filter((menu) => menu.cuisine === "Turkish");
         setTurkishMenus(filteredMenus);
         setRestaurants(restaurantsData);
-        
-        console.log("Turkish menus:", filteredMenus);
-        console.log("Restaurants:", restaurantsData);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -35,7 +51,12 @@ const TurkishFood = () => {
     };
 
     fetchData();
-  }, []);
+  }, [propMenus, propRestaurants]);
+
+  // Hide this section when filters are active
+  if (hasActiveFilters) {
+    return null;
+  }
 
   if (loading) {
     return (
@@ -65,10 +86,14 @@ const TurkishFood = () => {
           </Link>
         </div>
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Loading...</p>
+          <p className="text-gray-500 text-lg">Loading Turkish cuisine...</p>
         </div>
       </section>
     );
+  }
+
+  if (turkishMenus.length === 0) {
+    return null; // Don't show section if no Turkish food available
   }
 
   return (
@@ -93,25 +118,17 @@ const TurkishFood = () => {
                 strokeWidth={2}
                 d="M9 5l7 7-7 7"
               />
-              </svg>
-            </button>
-          </Link>
-        </div>
+            </svg>
+          </button>
+        </Link>
+      </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {turkishMenus.length > 0 ? (
-          turkishMenus.map((menu) => (
-            <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} restaurants={restaurants} />
-            </div>
-          ))
-        ) : (
-          <div className="text-center py-12 w-full">
-            <p className="text-gray-500 text-lg">
-              No dishes available at the moment.
-            </p>
+        {turkishMenus.map((menu) => (
+          <div key={menu?._id} className="flex-shrink-0 w-64">
+            <MenuCard menu={menu} restaurants={restaurants} />
           </div>
-        )}
+        ))}
       </div>
 
       {/* Custom scrollbar styles */}

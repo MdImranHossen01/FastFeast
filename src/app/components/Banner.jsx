@@ -6,7 +6,13 @@ import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import "swiper/css";
 import "swiper/css/effect-fade";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { 
+  setSearchQuery, 
+  setLocation, 
+  clearFilters 
+} from "@/lib/features/filtersSlice";
 
 // SVG Icons
 const LocationIcon = () => (
@@ -24,6 +30,12 @@ const CaretDownIcon = () => (
 const SearchIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="#828282" width="18" height="18" viewBox="0 0 20 20" className="mr-2 flex-shrink-0">
     <path d="M19.78 19.12l-3.88-3.9c1.28-1.6 2.080-3.6 2.080-5.8 0-5-3.98-9-8.98-9s-9 4-9 9c0 5 4 9 9 9 2.2 0 4.2-0.8 5.8-2.1l3.88 3.9c0.1 0.1 0.3 0.2 0.5 0.2s0.4-0.1 0.5-0.2c0.4-0.3 0.4-0.8 0.1-1.1zM1.5 9.42c0-4.1 3.4-7.5 7.5-7.5s7.48 3.4 7.48 7.5-3.38 7.5-7.48 7.5c-4.1 0-7.5-3.4-7.5-7.5z"></path>
+  </svg>
+);
+
+const ClearIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="16" height="16" viewBox="0 0 20 20" className="flex-shrink-0">
+    <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"></path>
   </svg>
 );
 
@@ -63,16 +75,43 @@ const sliderContent = [
 ];
 
 const Banner = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [location, setLocation] = useState("");
+  const router = useRouter();
+  const dispatch = useDispatch();
+  
+  // Get filters from Redux to sync state
+  const { searchQuery, location } = useSelector((state) => state.filters);
+  
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const locationDropdownRef = useRef(null);
 
   const availableLocations = ["Dhanmondi", "Mirpur", "Uttara", "Banani", "Gulshan"];
 
   const handleLocationSelect = (selectedLocation) => {
-    setLocation(selectedLocation);
+    dispatch(setLocation(selectedLocation));
     setIsLocationOpen(false);
+  };
+
+  // Handle search submission
+  const handleSearch = (e) => {
+    if (e.type === 'keydown' && e.key !== 'Enter') return;
+    
+    // Redirect to menu page with filters applied
+    router.push('/menu');
+  };
+
+  // Clear search and redirect to menu
+  const handleExploreMenu = () => {
+    dispatch(clearFilters());
+    router.push('/menu');
+  };
+
+  // Clear individual filters
+  const handleClearSearch = () => {
+    dispatch(setSearchQuery(""));
+  };
+
+  const handleClearLocation = () => {
+    dispatch(setLocation(""));
   };
 
   useEffect(() => {
@@ -91,6 +130,9 @@ const Banner = () => {
       behavior: "smooth",
     });
   };
+
+  // Check if there are any active filters
+  const hasActiveFilters = searchQuery || location;
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -185,32 +227,103 @@ const Banner = () => {
                       type="text"
                       placeholder="Search for restaurant, cuisine or a dish"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+                      onKeyDown={handleSearch}
                       className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white"
                     />
                   </div>
+
+                  {/* Clear Filters Button */}
+                  {hasActiveFilters && (
+                    <button
+                      onClick={() => {
+                        dispatch(clearFilters());
+                      }}
+                      className="ml-2 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
+                      aria-label="Clear filters"
+                    >
+                      <ClearIcon />
+                    </button>
+                  )}
                 </div>
+
+                {/* Search Hint */}
+                {(searchQuery || location) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-2 text-center"
+                  >
+                    <p className="text-white text-sm opacity-80">
+                      Press Enter to search {searchQuery && `for "${searchQuery}"`} 
+                      {searchQuery && location && ' in '} 
+                      {location && `📍 ${location}`}
+                    </p>
+                  </motion.div>
+                )}
+
+                {/* Active Filters Display */}
+                {hasActiveFilters && (
+                  <div className="mt-3 flex flex-wrap gap-2 justify-center">
+                    {searchQuery && (
+                      <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-white text-sm">
+                        <span>Search: {searchQuery}</span>
+                        <button
+                          onClick={handleClearSearch}
+                          className="ml-1"
+                          aria-label="Clear search"
+                        >
+                          <ClearIcon />
+                        </button>
+                      </div>
+                    )}
+                    {location && (
+                      <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-white text-sm">
+                        <span>Location: {location}</span>
+                        <button
+                          onClick={handleClearLocation}
+                          className="ml-1"
+                          aria-label="Clear location"
+                        >
+                          <ClearIcon />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </motion.div>
 
-              {/* CTA Button */}
+              {/* CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.9 }}
-                className="flex flex-wrap gap-4 mt-8"
+                className="flex flex-wrap gap-4 mt-8 justify-center"
               >
-                <Link href={"/menu"}>
-                  <button className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer">
-                    Explore Menu
+                {/* Search Button (visible when there's a search query) */}
+                {(searchQuery || location) && (
+                  <button 
+                    onClick={handleSearch}
+                    className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
+                  >
+                    Search Now
                   </button>
-                </Link>
+                )}
+                
+                {/* Regular Explore Menu Button */}
+                <button 
+                  onClick={handleExploreMenu}
+                  className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
+                >
+                  Explore Menu
+                </button>
               </motion.div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Scroll Down Button (moved lower) */}
+      {/* Scroll Down Button */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
