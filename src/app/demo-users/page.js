@@ -1,4 +1,5 @@
 import { dbConnect, collectionsName } from "@/lib/dbConnect";
+import Image from "next/image";
 
 async function getDemoUsers() {
   const usersCollection = await dbConnect(collectionsName.usersCollection);
@@ -28,15 +29,29 @@ export default async function DemoUsersPage() {
       {Object.entries(usersByRole).map(([role, users]) => (
         <div key={role} className="mb-8">
           <h2 className="text-2xl font-semibold mb-4 capitalize">{role} Accounts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {users.map((user, index) => (
-              <div key={user._id} className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
-                <h3 className="font-semibold text-lg mb-2">{user.name}</h3>
-                <div className="space-y-1 text-sm">
-                  <p><span className="font-medium">Email:</span> {user.email}</p>
-                  <p><span className="font-medium">Password:</span> demo-{role}-{index + 1}</p>
-                  <p><span className="font-medium">Role:</span> {user.role}</p>
-                  <p><span className="font-medium">Phone:</span> {user.phone}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {users.map((user) => (
+              <div key={user._id} className="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex items-center space-x-4">
+                {/* Profile Image */}
+                <div className="flex-shrink-0">
+                  <Image
+                    src={user.photoUrl}
+                    alt={`${user.name}'s profile`}
+                    width={64} // w-16
+                    height={64} // h-16
+                    className="rounded-full object-cover border-2 border-gray-200"
+                  />
+                </div>
+                
+                {/* User Details */}
+                <div className="flex-grow">
+                  <h3 className="font-semibold text-lg mb-1">{user.name}</h3>
+                  <div className="space-y-1 text-sm text-gray-600">
+                    <p><span className="font-medium text-gray-800">Email:</span> {user.email}</p>
+                    <p><span className="font-medium text-gray-800">Password:</span> <span className="font-mono bg-gray-100 px-1 rounded">{user.email.split('@')[0]}</span></p>
+                    <p><span className="font-medium text-gray-800">Role:</span> {user.role}</p>
+                    <p><span className="font-medium text-gray-800">Phone:</span> {user.phone}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -46,7 +61,7 @@ export default async function DemoUsersPage() {
       
       <div className="mt-8 p-4 bg-blue-50 rounded-lg">
         <p className="text-sm text-blue-800">
-          <strong>Note:</strong> These demo accounts have OTP verification disabled for testing purposes.
+          <strong>Note:</strong> These demo accounts have OTP verification disabled for testing purposes. The password for each account is the part of the email before the "@" symbol.
         </p>
       </div>
     </div>
