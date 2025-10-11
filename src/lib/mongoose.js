@@ -8,21 +8,24 @@ const connectMongooseDb = async () => {
       return true;
     }
 
-    // Ensure the MONGODB_URL environment variable is set
-    if (!process.env.MONGODB_URL) {
-      throw new Error("MONGODB_URL is not defined in environment variables.");
+    // Use the correct env variable
+    if (!process.env.MONGODB_URI) {
+      throw new Error("MONGODB_URI is not defined in environment variables.");
     }
 
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
-    // Return success object on successful connection
+    console.log("Connected to MongoDB");
     return { success: true, message: "Connected to MongoDB" };
   } catch (error) {
-    // Return error object on failure
+    console.error("MongoDB connection error:", error);
     return { success: false, message: error.message };
   }
 };
 
-// Export the connection function
 export default connectMongooseDb;
+

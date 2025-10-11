@@ -2,19 +2,17 @@ import connectMongooseDb from "@/lib/mongoose";
 import Blog from "@/models/blog.model";
 import { NextResponse } from "next/server";
 
-// GET all blogs
 export async function GET() {
   try {
-    // Ensure DB connection
-    await connectMongooseDb();
+    const dbRes = await connectMongooseDb();
+    console.log("DB Connection Result:", dbRes);
 
-    // Fetch all blogs
     const blogs = await Blog.find();
+    console.log("Fetched blogs:", blogs);
 
-    // Return blogs with 200 status
     return NextResponse.json(blogs, { status: 200 });
   } catch (error) {
-    // Handle errors and return 500 status
+    console.error("API Error:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
