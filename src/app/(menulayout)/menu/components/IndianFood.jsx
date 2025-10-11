@@ -4,26 +4,37 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
+import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 
 const IndianFood = () => {
-  const [IndianMenus, setIndianMenus] = useState([]);
+  const [indianMenus, setIndianMenus] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchIndianMenus = async () => {
+    const fetchData = async () => {
       try {
-        const menus = await getMenu();
-        const filteredMenus = menus.filter((menu) => menu.cuisine === "Indian");
+        // Fetch both menus and restaurants data
+        const [menusData, restaurantsData] = await Promise.all([
+          getMenu(),
+          getRestaurant()
+        ]);
+        
+        // Filter Indian cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Indian");
         setIndianMenus(filteredMenus);
+        setRestaurants(restaurantsData);
+        
         console.log("Indian menus:", filteredMenus);
+        console.log("Restaurants:", restaurantsData);
       } catch (error) {
-        console.error("Error fetching Indian menus:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchIndianMenus();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -88,10 +99,10 @@ const IndianFood = () => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {IndianMenus.length > 0 ? (
-          IndianMenus.map((menu) => (
+        {indianMenus.length > 0 ? (
+          indianMenus.map((menu) => (
             <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} />
+              <MenuCard menu={menu} restaurants={restaurants} />
             </div>
           ))
         ) : (
