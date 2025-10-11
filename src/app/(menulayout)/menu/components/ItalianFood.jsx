@@ -1,29 +1,40 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
+import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 
 const ItalianFood = () => {
-  const [ItalianMenus, setItalianMenus] = useState([]);
+  const [italianMenus, setItalianMenus] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchItalianMenus = async () => {
+    const fetchData = async () => {
       try {
-        const menus = await getMenu();
-        const filteredMenus = menus.filter((menu) => menu.cuisine === "Italian");
+        // Fetch both menus and restaurants data
+        const [menusData, restaurantsData] = await Promise.all([
+          getMenu(),
+          getRestaurant()
+        ]);
+        
+        // Filter Italian cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Italian");
         setItalianMenus(filteredMenus);
+        setRestaurants(restaurantsData);
+        
         console.log("Italian menus:", filteredMenus);
+        console.log("Restaurants:", restaurantsData);
       } catch (error) {
-        console.error("Error fetching Italian menus:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchItalianMenus();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -88,10 +99,10 @@ const ItalianFood = () => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {ItalianMenus.length > 0 ? (
-          ItalianMenus.map((menu) => (
+        {italianMenus.length > 0 ? (
+          italianMenus.map((menu) => (
             <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} />
+              <MenuCard menu={menu} restaurants={restaurants} />
             </div>
           ))
         ) : (

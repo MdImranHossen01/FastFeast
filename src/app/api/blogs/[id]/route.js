@@ -1,14 +1,15 @@
-import { collectionsName, dbConnect } from "@/lib/dbConnect";
-import { ObjectId } from "mongodb";
+import connectMongooseDb from "@/lib/mongoose";
+import Blog from "@/models/blog.model";
+import { NextResponse } from "next/server";
 
+// GET blog by ID
 export async function GET(req, { params }) {
   try {
-    // get blog id from params
+    // Extract ID from params
     const { id } = await params;
 
-    // connect to blogs collections
-    const blogsCollection =await dbConnect(collectionsName.blogsCollection);
-    const blog = await blogsCollection.findOne({ _id: new ObjectId(id) });
+    // Ensure DB connection
+    await connectMongooseDb();
 
     return Response.json(blog, { status: 200 });
   } catch (error) {
@@ -68,17 +69,19 @@ export async function PATCH(req, { params }) {
   }
 }
 
-export async function DELETE(req, { params }) {
-  try {
-    const { id } = await params;
-    const blogsCollection =await dbConnect(collectionsName.blogsCollection);
-    const deleteRes = await blogsCollection.deleteOne({
-      _id: new ObjectId(id),
-    });
+    // If blog not found, return 404
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, message: "Not found" },
+        { status: 404 }
+      );
+    }
 
-    return Response.json(deleteRes);
+    // Return blog with 200 status
+    return NextResponse.json(blog, { status: 200 });
   } catch (error) {
-    return Response.json(
+    // Handle errors and return 500 status
+    return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
     );
