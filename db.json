@@ -1,12 +1,14 @@
 {
   "menu": [
-  
   {
     "_id": "60c72b2f9f1b2c001f3e4d5e",
     "imageUrl": "https://i.ibb.co.com/WNrqbBhy/Classic-Tom-Yum-Soup.jpg",
     "title": "Classic Tom Yum Soup",
     "description": "Traditional Thai hot and sour soup with shrimp, mushrooms, lemongrass, and kaffir lime leaves.",
     "price": 320,
+    "isSpecialOffer": true,
+    "offerPrice": 256,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Thai",
     "category": "Soups",
@@ -21,7 +23,7 @@
     ],
     "dietaryTags": ["Gluten-Free", "Pescatarian"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_001",
     "createdAt": "2025-09-29T10:00:00.000Z"
   },
   {
@@ -30,6 +32,9 @@
     "title": "Authentic Pad Thai",
     "description": "Stir-fried rice noodles with tofu, shrimp, bean sprouts, peanuts, and tamarind sauce.",
     "price": 380,
+    "isSpecialOffer": false,
+    "offerPrice": 380,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Thai",
     "category": "Noodles",
@@ -44,7 +49,7 @@
     ],
     "dietaryTags": ["Contains Nuts", "Pescatarian"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_002",
     "createdAt": "2025-09-29T10:05:00.000Z"
   },
   {
@@ -53,6 +58,9 @@
     "title": "Thai Green Curry",
     "description": "Aromatic curry with coconut milk, Thai basil, eggplant, and your choice of protein.",
     "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Thai",
     "category": "Snacks",
@@ -67,7 +75,7 @@
     ],
     "dietaryTags": ["Dairy-Free", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_003",
     "createdAt": "2025-09-29T10:10:00.000Z"
   },
   {
@@ -76,6 +84,9 @@
     "title": "Mango Sticky Rice",
     "description": "Sweet coconut sticky rice topped with fresh mango slices and sesame seeds.",
     "price": 220,
+    "isSpecialOffer": false,
+    "offerPrice": 220,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Thai",
     "category": "Cakes",
@@ -89,7 +100,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_004",
     "createdAt": "2025-09-29T10:15:00.000Z"
   },
   {
@@ -98,6 +109,9 @@
     "title": "Som Tum (Papaya Salad)",
     "description": "Spicy green papaya salad with tomatoes, beans, peanuts, and lime dressing.",
     "price": 280,
+    "isSpecialOffer": true,
+    "offerPrice": 224,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Thai",
     "category": "Snacks",
@@ -112,7 +126,7 @@
     ],
     "dietaryTags": ["Vegan", "Gluten-Free", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_005",
     "createdAt": "2025-09-29T10:20:00.000Z"
   },
   {
@@ -121,6 +135,9 @@
     "title": "Massaman Curry",
     "description": "Rich and mild curry with potatoes, onions, peanuts, and tender beef.",
     "price": 450,
+    "isSpecialOffer": false,
+    "offerPrice": 450,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Thai",
     "category": "Snacks",
@@ -135,7 +152,7 @@
     ],
     "dietaryTags": ["Contains Nuts", "Dairy-Free"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_006",
     "createdAt": "2025-09-29T10:25:00.000Z"
   },
   {
@@ -144,6 +161,9 @@
     "title": "Fresh Spring Rolls",
     "description": "Rice paper rolls filled with vegetables, herbs, and served with sweet chili sauce.",
     "price": 250,
+    "isSpecialOffer": true,
+    "offerPrice": 200,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Thai",
     "category": "Snacks",
@@ -158,7 +178,7 @@
     ],
     "dietaryTags": ["Vegan", "Gluten-Free"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_007",
     "createdAt": "2025-09-29T10:30:00.000Z"
   },
   {
@@ -167,6 +187,9 @@
     "title": "Chicken Satay",
     "description": "Grilled chicken skewers marinated in Thai spices, served with peanut sauce.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Thai",
     "category": "Kebab",
@@ -181,7 +204,7 @@
     ],
     "dietaryTags": ["Contains Nuts", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_008",
     "createdAt": "2025-09-29T10:35:00.000Z"
   },
   {
@@ -190,6 +213,9 @@
     "title": "Thai Fish Cakes",
     "description": "Crispy fish cakes with red curry paste, green beans, and sweet chili sauce.",
     "price": 350,
+    "isSpecialOffer": true,
+    "offerPrice": 280,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Thai",
     "category": "Snacks",
@@ -204,7 +230,7 @@
     ],
     "dietaryTags": ["Pescatarian", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_009",
     "createdAt": "2025-09-29T10:40:00.000Z"
   },
   {
@@ -213,6 +239,9 @@
     "title": "Coconut Chicken Soup",
     "description": "Creamy coconut soup with chicken, mushrooms, galangal, and lime juice.",
     "price": 340,
+    "isSpecialOffer": false,
+    "offerPrice": 340,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Thai",
     "category": "Soups",
@@ -227,7 +256,7 @@
     ],
     "dietaryTags": ["Dairy-Free", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d60",
+    "restaurantId": "rest_010",
     "createdAt": "2025-09-29T10:45:00.000Z"
   },
   {
@@ -236,6 +265,9 @@
     "title": "Spaghetti Carbonara",
     "description": "Creamy pasta with eggs, cheese, pancetta, and black pepper.",
     "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Italian",
     "category": "Pasta",
@@ -249,7 +281,7 @@
     ],
     "dietaryTags": ["Contains Pork", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_011",
     "createdAt": "2025-09-29T11:05:00.000Z"
   },
   {
@@ -258,6 +290,9 @@
     "title": "Classic Tiramisu",
     "description": "Traditional Italian dessert with coffee-soaked ladyfingers and mascarpone cream.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Italian",
     "category": "Cakes",
@@ -272,7 +307,7 @@
     ],
     "dietaryTags": ["Contains Caffeine", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_012",
     "createdAt": "2025-09-29T11:10:00.000Z"
   },
   {
@@ -281,6 +316,9 @@
     "title": "Minestrone Soup",
     "description": "Hearty vegetable soup with beans, pasta, and fresh herbs.",
     "price": 320,
+    "isSpecialOffer": true,
+    "offerPrice": 256,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Italian",
     "category": "Soups",
@@ -295,7 +333,7 @@
     ],
     "dietaryTags": ["Vegan", "High-Fiber"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_013",
     "createdAt": "2025-09-29T11:15:00.000Z"
   },
   {
@@ -304,6 +342,9 @@
     "title": "Fettuccine Alfredo",
     "description": "Creamy pasta with butter, cream, and parmesan cheese.",
     "price": 440,
+    "isSpecialOffer": false,
+    "offerPrice": 440,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Italian",
     "category": "Pasta",
@@ -317,7 +358,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Dairy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_014",
     "createdAt": "2025-09-29T11:25:00.000Z"
   },
   {
@@ -326,6 +367,9 @@
     "title": "Tomato Bruschetta",
     "description": "Toasted bread topped with fresh tomatoes, garlic, basil, and olive oil.",
     "price": 220,
+    "isSpecialOffer": true,
+    "offerPrice": 176,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Italian",
     "category": "Snacks",
@@ -333,7 +377,7 @@
     "ingredients": ["Bread", "Tomato", "Garlic", "Basil", "Olive Oil"],
     "dietaryTags": ["Vegan", "Gluten-Free Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_015",
     "createdAt": "2025-09-29T11:20:00.000Z"
   },
   {
@@ -342,6 +386,9 @@
     "title": "Potato Gnocchi",
     "description": "Soft potato dumplings served with sage butter sauce and parmesan.",
     "price": 460,
+    "isSpecialOffer": false,
+    "offerPrice": 460,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Italian",
     "category": "Pasta",
@@ -349,7 +396,7 @@
     "ingredients": ["Potato", "Flour", "Egg", "Sage", "Butter", "Parmesan"],
     "dietaryTags": ["Vegetarian", "Contains Dairy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_016",
     "createdAt": "2025-09-29T11:30:00.000Z"
   },
   {
@@ -358,6 +405,9 @@
     "title": "Caprese Salad",
     "description": "Fresh mozzarella, tomatoes, and basil with balsamic glaze.",
     "price": 280,
+    "isSpecialOffer": true,
+    "offerPrice": 224,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Italian",
     "category": "Snacks",
@@ -371,7 +421,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Gluten-Free"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_017",
     "createdAt": "2025-09-29T11:35:00.000Z"
   },
   {
@@ -380,6 +430,9 @@
     "title": "Meat Calzone",
     "description": "Folded pizza dough filled with mozzarella, ricotta, and Italian meats.",
     "price": 520,
+    "isSpecialOffer": false,
+    "offerPrice": 520,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Italian",
     "category": "Pizza",
@@ -394,7 +447,7 @@
     ],
     "dietaryTags": ["Contains Pork", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_018",
     "createdAt": "2025-09-29T11:40:00.000Z"
   },
   {
@@ -403,6 +456,9 @@
     "title": "Mushroom Risotto",
     "description": "Creamy arborio rice with mixed mushrooms, parmesan, and white wine.",
     "price": 480,
+    "isSpecialOffer": true,
+    "offerPrice": 384,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Italian",
     "category": "Snacks",
@@ -417,7 +473,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Dairy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_019",
     "createdAt": "2025-09-29T11:45:00.000Z"
   },
   {
@@ -426,6 +482,9 @@
     "title": "Margherita Pizza",
     "description": "Classic pizza with tomato sauce, fresh mozzarella, basil, and olive oil.",
     "price": 480,
+    "isSpecialOffer": false,
+    "offerPrice": 480,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Italian",
     "category": "Pizza",
@@ -439,7 +498,7 @@
     ],
     "dietaryTags": ["Vegetarian"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d61",
+    "restaurantId": "rest_020",
     "createdAt": "2025-09-29T11:00:00.000Z"
   },
   {
@@ -448,6 +507,9 @@
     "title": "Butter Chicken",
     "description": "Tender chicken in a creamy tomato-based sauce with Indian spices.",
     "price": 450,
+    "isSpecialOffer": true,
+    "offerPrice": 360,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Indian",
     "category": "Snacks",
@@ -462,7 +524,7 @@
     ],
     "dietaryTags": ["Contains Dairy", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_021",
     "createdAt": "2025-09-29T12:00:00.000Z"
   },
   {
@@ -471,6 +533,9 @@
     "title": "Chicken Biryani",
     "description": "Fragrant basmati rice cooked with chicken, saffron, and aromatic spices.",
     "price": 480,
+    "isSpecialOffer": false,
+    "offerPrice": 480,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Indian",
     "category": "Biryani",
@@ -485,7 +550,7 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_022",
     "createdAt": "2025-09-29T12:05:00.000Z"
   },
   {
@@ -494,6 +559,9 @@
     "title": "Palak Paneer",
     "description": "Spinach curry with cubes of Indian cottage cheese and spices.",
     "price": 380,
+    "isSpecialOffer": true,
+    "offerPrice": 304,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Indian",
     "category": "Snacks",
@@ -508,7 +576,7 @@
     ],
     "dietaryTags": ["Vegetarian", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_023",
     "createdAt": "2025-09-29T12:10:00.000Z"
   },
   {
@@ -517,6 +585,9 @@
     "title": "Gulab Jamun",
     "description": "Soft milk dumplings soaked in rose-flavored sugar syrup.",
     "price": 180,
+    "isSpecialOffer": false,
+    "offerPrice": 180,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Indian",
     "category": "Cakes",
@@ -531,7 +602,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_024",
     "createdAt": "2025-09-29T12:15:00.000Z"
   },
   {
@@ -540,6 +611,9 @@
     "title": "Vegetable Samosa",
     "description": "Crispy pastry filled with spiced potatoes, peas, and herbs.",
     "price": 180,
+    "isSpecialOffer": true,
+    "offerPrice": 144,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Indian",
     "category": "Snacks",
@@ -554,7 +628,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Vegan Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_025",
     "createdAt": "2025-09-29T12:20:00.000Z"
   },
   {
@@ -563,6 +637,9 @@
     "title": "Dal Makhani",
     "description": "Creamy lentil curry slow-cooked with butter and cream.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Indian",
     "category": "Snacks",
@@ -577,7 +654,7 @@
     ],
     "dietaryTags": ["Vegetarian", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_026",
     "createdAt": "2025-09-29T12:25:00.000Z"
   },
   {
@@ -586,6 +663,9 @@
     "title": "Tandoori Chicken",
     "description": "Chicken marinated in yogurt and spices, cooked in a traditional clay oven.",
     "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Indian",
     "category": "Kebab",
@@ -600,7 +680,7 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_027",
     "createdAt": "2025-09-29T12:30:00.000Z"
   },
   {
@@ -609,6 +689,9 @@
     "title": "Khichuri",
     "description": "Comforting rice and lentil dish cooked with vegetables and spices.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Indian",
     "category": "Khichuri",
@@ -623,7 +706,7 @@
     ],
     "dietaryTags": ["Vegetarian", "High-Fiber"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_028",
     "createdAt": "2025-09-29T12:35:00.000Z"
   },
   {
@@ -632,6 +715,9 @@
     "title": "Garlic Naan",
     "description": "Soft Indian flatbread brushed with garlic butter and fresh cilantro.",
     "price": 120,
+    "isSpecialOffer": true,
+    "offerPrice": 96,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Indian",
     "category": "Snacks",
@@ -646,7 +732,7 @@
     ],
     "dietaryTags": ["Vegetarian"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_029",
     "createdAt": "2025-09-29T12:40:00.000Z"
   },
   {
@@ -655,6 +741,9 @@
     "title": "Chicken Tikka Masala",
     "description": "Grilled chicken pieces in a creamy, spiced tomato sauce.",
     "price": 460,
+    "isSpecialOffer": false,
+    "offerPrice": 460,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Indian",
     "category": "Snacks",
@@ -669,7 +758,7 @@
     ],
     "dietaryTags": ["Contains Dairy", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d62",
+    "restaurantId": "rest_030",
     "createdAt": "2025-09-29T12:45:00.000Z"
   },
   {
@@ -678,6 +767,9 @@
     "title": "Vegetable Spring Rolls",
     "description": "Crispy fried rolls filled with cabbage, carrots, and glass noodles.",
     "price": 220,
+    "isSpecialOffer": true,
+    "offerPrice": 176,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Chinese",
     "category": "Snacks",
@@ -691,7 +783,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Vegan Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_031",
     "createdAt": "2025-09-29T13:00:00.000Z"
   },
   {
@@ -700,6 +792,9 @@
     "title": "Chicken Chow Mein",
     "description": "Stir-fried noodles with chicken, vegetables, and soy sauce.",
     "price": 380,
+    "isSpecialOffer": false,
+    "offerPrice": 380,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Chinese",
     "category": "Noodles",
@@ -714,7 +809,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_032",
     "createdAt": "2025-09-29T13:05:00.000Z"
   },
   {
@@ -723,6 +818,9 @@
     "title": "Hot and Sour Soup",
     "description": "Spicy and tangy soup with mushrooms, tofu, and bamboo shoots.",
     "price": 280,
+    "isSpecialOffer": true,
+    "offerPrice": 224,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Chinese",
     "category": "Soups",
@@ -737,7 +835,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_033",
     "createdAt": "2025-09-29T13:10:00.000Z"
   },
   {
@@ -746,6 +844,9 @@
     "title": "Kung Pao Chicken",
     "description": "Spicy stir-fry with chicken, peanuts, vegetables, and chili peppers.",
     "price": 420,
+    "isSpecialOffer": false,
+    "offerPrice": 420,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Chinese",
     "category": "Snacks",
@@ -760,7 +861,7 @@
     ],
     "dietaryTags": ["Contains Nuts", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_034",
     "createdAt": "2025-09-29T13:15:00.000Z"
   },
   {
@@ -769,6 +870,9 @@
     "title": "Yangzhou Fried Rice",
     "description": "Wok-fried rice with shrimp, BBQ pork, eggs, and vegetables.",
     "price": 340,
+    "isSpecialOffer": true,
+    "offerPrice": 272,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Chinese",
     "category": "Snacks",
@@ -776,7 +880,7 @@
     "ingredients": ["Rice", "Shrimp", "BBQ Pork", "Egg", "Peas", "Soy Sauce"],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_035",
     "createdAt": "2025-09-29T13:20:00.000Z"
   },
   {
@@ -785,6 +889,9 @@
     "title": "Pork Dumplings",
     "description": "Steamed dumplings filled with seasoned pork and vegetables.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Chinese",
     "category": "Snacks",
@@ -799,7 +906,7 @@
     ],
     "dietaryTags": ["Contains Pork", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_036",
     "createdAt": "2025-09-29T13:25:00.000Z"
   },
   {
@@ -808,6 +915,9 @@
     "title": "Sweet and Sour Chicken",
     "description": "Crispy chicken in a tangy sweet and sour sauce with pineapple and peppers.",
     "price": 400,
+    "isSpecialOffer": true,
+    "offerPrice": 320,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Chinese",
     "category": "Snacks",
@@ -822,7 +932,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_037",
     "createdAt": "2025-09-29T13:30:00.000Z"
   },
   {
@@ -831,6 +941,9 @@
     "title": "Mapo Tofu",
     "description": "Spicy tofu dish with minced pork in a chili bean sauce.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Chinese",
     "category": "Snacks",
@@ -845,7 +958,7 @@
     ],
     "dietaryTags": ["Spicy", "Vegetarian Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_038",
     "createdAt": "2025-09-29T13:35:00.000Z"
   },
   {
@@ -854,6 +967,9 @@
     "title": "Wonton Soup",
     "description": "Clear broth with pork-filled wontons and vegetables.",
     "price": 280,
+    "isSpecialOffer": true,
+    "offerPrice": 224,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Chinese",
     "category": "Soups",
@@ -868,7 +984,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_039",
     "createdAt": "2025-09-29T13:40:00.000Z"
   },
   {
@@ -877,6 +993,9 @@
     "title": "Peking Duck",
     "description": "Roasted duck served with pancakes, hoisin sauce, and scallions.",
     "price": 680,
+    "isSpecialOffer": false,
+    "offerPrice": 680,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Chinese",
     "category": "Snacks",
@@ -890,7 +1009,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d63",
+    "restaurantId": "rest_040",
     "createdAt": "2025-09-29T13:45:00.000Z"
   },
   {
@@ -899,6 +1018,9 @@
     "title": "Sushi Platter",
     "description": "Assorted fresh sushi including nigiri, sashimi, and maki rolls.",
     "price": 850,
+    "isSpecialOffer": true,
+    "offerPrice": 680,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Sushi",
@@ -906,7 +1028,7 @@
     "ingredients": ["Rice", "Nori", "Salmon", "Tuna", "Shrimp", "Avocado"],
     "dietaryTags": ["Pescatarian", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_041",
     "createdAt": "2025-09-29T14:00:00.000Z"
   },
   {
@@ -915,6 +1037,9 @@
     "title": "Tonkotsu Ramen",
     "description": "Rich pork bone broth with noodles, chashu pork, egg, and vegetables.",
     "price": 480,
+    "isSpecialOffer": false,
+    "offerPrice": 480,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Japanese",
     "category": "Noodles",
@@ -929,7 +1054,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_042",
     "createdAt": "2025-09-29T14:05:00.000Z"
   },
   {
@@ -938,6 +1063,9 @@
     "title": "Vegetable Tempura",
     "description": "Lightly battered and fried vegetables served with dipping sauce.",
     "price": 320,
+    "isSpecialOffer": true,
+    "offerPrice": 256,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Snacks",
@@ -952,7 +1080,7 @@
     ],
     "dietaryTags": ["Vegetarian Option", "Pescatarian"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_043",
     "createdAt": "2025-09-29T14:10:00.000Z"
   },
   {
@@ -961,6 +1089,9 @@
     "title": "Miso Soup",
     "description": "Traditional soup with fermented soybean paste, tofu, and seaweed.",
     "price": 180,
+    "isSpecialOffer": false,
+    "offerPrice": 180,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Soups",
@@ -968,7 +1099,7 @@
     "ingredients": ["Miso Paste", "Tofu", "Seaweed", "Green Onion", "Dashi"],
     "dietaryTags": ["Vegetarian", "Gluten-Free"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_044",
     "createdAt": "2025-09-29T14:15:00.000Z"
   },
   {
@@ -977,6 +1108,9 @@
     "title": "Chicken Teriyaki",
     "description": "Grilled chicken glazed with sweet teriyaki sauce, served with rice.",
     "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Japanese",
     "category": "Snacks",
@@ -990,7 +1124,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_045",
     "createdAt": "2025-09-29T14:20:00.000Z"
   },
   {
@@ -999,6 +1133,9 @@
     "title": "Steamed Edamame",
     "description": "Young soybeans steamed and lightly salted.",
     "price": 180,
+    "isSpecialOffer": false,
+    "offerPrice": 180,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Snacks",
@@ -1006,7 +1143,7 @@
     "ingredients": ["Edamame", "Sea Salt"],
     "dietaryTags": ["Vegetarian", "Vegan", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_046",
     "createdAt": "2025-09-29T14:25:00.000Z"
   },
   {
@@ -1015,6 +1152,9 @@
     "title": "Pork Gyoza",
     "description": "Pan-fried dumplings filled with seasoned pork and vegetables.",
     "price": 280,
+    "isSpecialOffer": true,
+    "offerPrice": 224,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Snacks",
@@ -1029,7 +1169,7 @@
     ],
     "dietaryTags": ["Contains Pork", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_047",
     "createdAt": "2025-09-29T14:30:00.000Z"
   },
   {
@@ -1038,6 +1178,9 @@
     "title": "Chirashi Bowl",
     "description": "Sushi rice topped with assorted raw fish and vegetables.",
     "price": 680,
+    "isSpecialOffer": false,
+    "offerPrice": 680,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Sushi",
@@ -1052,7 +1195,7 @@
     ],
     "dietaryTags": ["Pescatarian", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_048",
     "createdAt": "2025-09-29T14:35:00.000Z"
   },
   {
@@ -1061,6 +1204,9 @@
     "title": "Takoyaki",
     "description": "Ball-shaped street food filled with minced octopus and tempura scraps.",
     "price": 320,
+    "isSpecialOffer": true,
+    "offerPrice": 256,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Snacks",
@@ -1075,7 +1221,7 @@
     ],
     "dietaryTags": ["Pescatarian"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_049",
     "createdAt": "2025-09-29T14:40:00.000Z"
   },
   {
@@ -1084,6 +1230,9 @@
     "title": "Mochi Ice Cream",
     "description": "Sweet rice cake filled with ice cream in various flavors.",
     "price": 220,
+    "isSpecialOffer": false,
+    "offerPrice": 220,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Japanese",
     "category": "Cakes",
@@ -1091,7 +1240,7 @@
     "ingredients": ["Mochi Rice", "Ice Cream", "Sugar", "Cornstarch"],
     "dietaryTags": ["Vegetarian", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d64",
+    "restaurantId": "rest_050",
     "createdAt": "2025-09-29T14:45:00.000Z"
   },
   {
@@ -1100,6 +1249,9 @@
     "title": "Bibimbap",
     "description": "Rice bowl topped with vegetables, beef, egg, and gochujang sauce.",
     "price": 480,
+    "isSpecialOffer": true,
+    "offerPrice": 384,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Korean",
     "category": "Snacks",
@@ -1114,7 +1266,7 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_051",
     "createdAt": "2025-09-29T15:00:00.000Z"
   },
   {
@@ -1123,6 +1275,9 @@
     "title": "Kimchi Pancakes",
     "description": "Savory pancakes made with fermented kimchi and vegetables.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Korean",
     "category": "Snacks",
@@ -1130,7 +1285,7 @@
     "ingredients": ["Kimchi", "Flour", "Egg", "Green Onion", "Sesame Oil"],
     "dietaryTags": ["Vegetarian", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_052",
     "createdAt": "2025-09-29T15:05:00.000Z"
   },
   {
@@ -1139,6 +1294,9 @@
     "title": "Bulgogi BBQ",
     "description": "Marinated grilled beef with vegetables and Korean sauces.",
     "price": 680,
+    "isSpecialOffer": true,
+    "offerPrice": 544,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Korean",
     "category": "Snacks",
@@ -1153,7 +1311,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_053",
     "createdAt": "2025-09-29T15:10:00.000Z"
   },
   {
@@ -1162,6 +1320,9 @@
     "title": "Tteokbokki",
     "description": "Spicy stir-fried rice cakes in a sweet chili sauce.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Korean",
     "category": "Snacks",
@@ -1175,7 +1336,7 @@
     ],
     "dietaryTags": ["Spicy", "Vegetarian Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_054",
     "createdAt": "2025-09-29T15:15:00.000Z"
   },
   {
@@ -1184,6 +1345,9 @@
     "title": "Japchae",
     "description": "Stir-fried glass noodles with vegetables and beef.",
     "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Korean",
     "category": "Noodles",
@@ -1198,7 +1362,7 @@
     ],
     "dietaryTags": ["High-Protein", "Vegetarian Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_055",
     "createdAt": "2025-09-29T15:20:00.000Z"
   },
   {
@@ -1207,6 +1371,9 @@
     "title": "Kimbap",
     "description": "Korean seaweed rice rolls filled with vegetables and beef.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Korean",
     "category": "Snacks",
@@ -1221,7 +1388,7 @@
     ],
     "dietaryTags": ["High-Protein", "Vegetarian Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_056",
     "createdAt": "2025-09-29T15:25:00.000Z"
   },
   {
@@ -1230,6 +1397,9 @@
     "title": "Sundubu Jjigae",
     "description": "Spicy soft tofu stew with seafood and vegetables.",
     "price": 380,
+    "isSpecialOffer": true,
+    "offerPrice": 304,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Korean",
     "category": "Soups",
@@ -1244,7 +1414,7 @@
     ],
     "dietaryTags": ["Spicy", "Pescatarian"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_057",
     "createdAt": "2025-09-29T15:30:00.000Z"
   },
   {
@@ -1253,6 +1423,9 @@
     "title": "Korean Fried Chicken",
     "description": "Crispy double-fried chicken with sweet and spicy sauce.",
     "price": 480,
+    "isSpecialOffer": false,
+    "offerPrice": 480,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Korean",
     "category": "Fried Chicken",
@@ -1267,7 +1440,7 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_058",
     "createdAt": "2025-09-29T15:35:00.000Z"
   },
   {
@@ -1276,6 +1449,9 @@
     "title": "Hotteok",
     "description": "Sweet Korean pancakes filled with brown sugar, cinnamon, and nuts.",
     "price": 220,
+    "isSpecialOffer": true,
+    "offerPrice": 176,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Korean",
     "category": "Cakes",
@@ -1283,7 +1459,7 @@
     "ingredients": ["Flour", "Brown Sugar", "Cinnamon", "Nuts", "Yeast"],
     "dietaryTags": ["Vegetarian", "Contains Nuts"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_059",
     "createdAt": "2025-09-29T15:40:00.000Z"
   },
   {
@@ -1292,6 +1468,9 @@
     "title": "Tuna Gimbap",
     "description": "Seaweed rice rolls filled with tuna, vegetables, and pickled radish.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Korean",
     "category": "Snacks",
@@ -1306,7 +1485,7 @@
     ],
     "dietaryTags": ["Pescatarian", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d65",
+    "restaurantId": "rest_060",
     "createdAt": "2025-09-29T15:45:00.000Z"
   },
   {
@@ -1315,6 +1494,9 @@
     "title": "Chicken Doner Kebab",
     "description": "Marinated chicken cooked on a vertical rotisserie, served with pita and sauces.",
     "price": 380,
+    "isSpecialOffer": true,
+    "offerPrice": 304,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Turkish",
     "category": "Kebab",
@@ -1329,7 +1511,7 @@
     ],
     "dietaryTags": ["Halal", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_001",
     "createdAt": "2025-09-29T16:00:00.000Z"
   },
   {
@@ -1338,6 +1520,9 @@
     "title": "Baklava",
     "description": "Sweet pastry made of layers of filo, filled with chopped nuts and sweetened with syrup.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Turkish",
     "category": "Cakes",
@@ -1351,7 +1536,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Nuts", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_002",
     "createdAt": "2025-09-29T16:05:00.000Z"
   },
   {
@@ -1360,6 +1545,9 @@
     "title": "Mercimek Corbasi (Lentil Soup)",
     "description": "Hearty red lentil soup with vegetables and spices.",
     "price": 220,
+    "isSpecialOffer": true,
+    "offerPrice": 176,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Turkish",
     "category": "Soups",
@@ -1374,7 +1562,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Vegan", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_003",
     "createdAt": "2025-09-29T16:10:00.000Z"
   },
   {
@@ -1383,6 +1571,9 @@
     "title": "Turkish Pide",
     "description": "Boat-shaped flatbread topped with cheese, eggs, and your choice of meat.",
     "price": 420,
+    "isSpecialOffer": false,
+    "offerPrice": 420,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Turkish",
     "category": "Snacks",
@@ -1397,7 +1588,7 @@
     ],
     "dietaryTags": ["High-Protein", "Vegetarian Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_004",
     "createdAt": "2025-09-29T16:15:00.000Z"
   },
   {
@@ -1406,6 +1597,9 @@
     "title": "Iskender Kebab",
     "description": "Slices of doner kebab served over pita bread with yogurt and tomato sauce.",
     "price": 520,
+    "isSpecialOffer": true,
+    "offerPrice": 416,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Turkish",
     "category": "Kebab",
@@ -1413,7 +1607,7 @@
     "ingredients": ["Lamb", "Pita Bread", "Yogurt", "Tomato Sauce", "Butter"],
     "dietaryTags": ["Halal", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_005",
     "createdAt": "2025-09-29T16:20:00.000Z"
   },
   {
@@ -1422,6 +1616,9 @@
     "title": "Manti",
     "description": "Tiny dumplings filled with spiced meat, served with yogurt and garlic sauce.",
     "price": 380,
+    "isSpecialOffer": false,
+    "offerPrice": 380,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Turkish",
     "category": "Snacks",
@@ -1436,7 +1633,7 @@
     ],
     "dietaryTags": ["Halal", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_006",
     "createdAt": "2025-09-29T16:25:00.000Z"
   },
   {
@@ -1445,6 +1642,9 @@
     "title": "Cheese Borek",
     "description": "Flaky pastry filled with cheese and parsley.",
     "price": 220,
+    "isSpecialOffer": true,
+    "offerPrice": 176,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Turkish",
     "category": "Snacks",
@@ -1452,7 +1652,7 @@
     "ingredients": ["Filo Dough", "Cheese", "Parsley", "Egg", "Yogurt"],
     "dietaryTags": ["Vegetarian", "Contains Dairy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_007",
     "createdAt": "2025-09-29T16:30:00.000Z"
   },
   {
@@ -1461,6 +1661,9 @@
     "title": "Turkish Kofte",
     "description": "Grilled seasoned meatballs served with rice and salad.",
     "price": 420,
+    "isSpecialOffer": false,
+    "offerPrice": 420,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Turkish",
     "category": "Kebab",
@@ -1474,7 +1677,7 @@
     ],
     "dietaryTags": ["Halal", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_008",
     "createdAt": "2025-09-29T16:35:00.000Z"
   },
   {
@@ -1483,6 +1686,9 @@
     "title": "Sis Kebab",
     "description": "Cubes of marinated meat grilled on skewers with vegetables.",
     "price": 480,
+    "isSpecialOffer": true,
+    "offerPrice": 384,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Turkish",
     "category": "Kebab",
@@ -1497,7 +1703,7 @@
     ],
     "dietaryTags": ["Halal", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_009",
     "createdAt": "2025-09-29T16:40:00.000Z"
   },
   {
@@ -1506,6 +1712,9 @@
     "title": "Hummus with Pita",
     "description": "Creamy chickpea dip served with warm pita bread.",
     "price": 220,
+    "isSpecialOffer": false,
+    "offerPrice": 220,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Turkish",
     "category": "Snacks",
@@ -1520,7 +1729,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Vegan", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d66",
+    "restaurantId": "rest_010",
     "createdAt": "2025-09-29T16:45:00.000Z"
   },
   {
@@ -1529,6 +1738,9 @@
     "title": "Classic Cheeseburger",
     "description": "Beef patty with cheese, lettuce, tomato, and special sauce.",
     "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1543,7 +1755,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_011",
     "createdAt": "2025-09-29T17:00:00.000Z"
   },
   {
@@ -1552,6 +1764,9 @@
     "title": "Bacon Burger",
     "description": "Beef patty with crispy bacon, cheese, and barbecue sauce.",
     "price": 480,
+    "isSpecialOffer": false,
+    "offerPrice": 480,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1566,7 +1781,7 @@
     ],
     "dietaryTags": ["High-Protein", "Contains Pork"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_012",
     "createdAt": "2025-09-29T17:05:00.000Z"
   },
   {
@@ -1575,6 +1790,9 @@
     "title": "Veggie Burger",
     "description": "Plant-based patty with avocado, lettuce, and tomato.",
     "price": 380,
+    "isSpecialOffer": true,
+    "offerPrice": 304,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1589,7 +1807,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Vegan Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_013",
     "createdAt": "2025-09-29T17:10:00.000Z"
   },
   {
@@ -1598,6 +1816,9 @@
     "title": "Double Cheeseburger",
     "description": "Two beef patties with double cheese, lettuce, tomato, and special sauce.",
     "price": 520,
+    "isSpecialOffer": false,
+    "offerPrice": 520,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1612,7 +1833,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_014",
     "createdAt": "2025-09-29T17:15:00.000Z"
   },
   {
@@ -1621,6 +1842,9 @@
     "title": "Mushroom Swiss Burger",
     "description": "Beef patty with sautéed mushrooms, Swiss cheese, and garlic aioli.",
     "price": 460,
+    "isSpecialOffer": true,
+    "offerPrice": 368,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1635,7 +1859,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_015",
     "createdAt": "2025-09-29T17:20:00.000Z"
   },
   {
@@ -1644,6 +1868,9 @@
     "title": "Crispy Chicken Burger",
     "description": "Crispy chicken fillet with lettuce, tomato, and mayo.",
     "price": 380,
+    "isSpecialOffer": false,
+    "offerPrice": 380,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1651,7 +1878,7 @@
     "ingredients": ["Chicken", "Lettuce", "Tomato", "Mayo", "Bun"],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_016",
     "createdAt": "2025-09-29T17:25:00.000Z"
   },
   {
@@ -1660,6 +1887,9 @@
     "title": "BBQ Bacon Burger",
     "description": "Beef patty with bacon, cheddar cheese, and BBQ sauce.",
     "price": 480,
+    "isSpecialOffer": true,
+    "offerPrice": 384,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1674,7 +1904,7 @@
     ],
     "dietaryTags": ["High-Protein", "Contains Pork"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_017",
     "createdAt": "2025-09-29T17:30:00.000Z"
   },
   {
@@ -1683,6 +1913,9 @@
     "title": "Jalapeno Popper Burger",
     "description": "Beef patty with cream cheese, jalapenos, and crispy onion strings.",
     "price": 460,
+    "isSpecialOffer": false,
+    "offerPrice": 460,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1696,7 +1929,7 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_018",
     "createdAt": "2025-09-29T17:35:00.000Z"
   },
   {
@@ -1705,6 +1938,9 @@
     "title": "Blue Cheese Burger",
     "description": "Beef patty with blue cheese, caramelized onions, and arugula.",
     "price": 480,
+    "isSpecialOffer": true,
+    "offerPrice": 384,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1718,7 +1954,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_019",
     "createdAt": "2025-09-29T17:40:00.000Z"
   },
   {
@@ -1727,6 +1963,9 @@
     "title": "Truffle Mushroom Burger",
     "description": "Beef patty with sautéed mushrooms, truffle aioli, and Swiss cheese.",
     "price": 580,
+    "isSpecialOffer": false,
+    "offerPrice": 580,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Burgers",
@@ -1741,7 +1980,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d67",
+    "restaurantId": "rest_020",
     "createdAt": "2025-09-29T17:45:00.000Z"
   },
   {
@@ -1750,6 +1989,9 @@
     "title": "Chocolate Lava Cake",
     "description": "Warm chocolate cake with a molten center and vanilla ice cream.",
     "price": 280,
+    "isSpecialOffer": true,
+    "offerPrice": 224,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1764,7 +2006,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_021",
     "createdAt": "2025-09-29T18:00:00.000Z"
   },
   {
@@ -1773,6 +2015,9 @@
     "title": "Red Velvet Cake",
     "description": "Moist red velvet cake with cream cheese frosting.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1787,7 +2032,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_022",
     "createdAt": "2025-09-29T18:05:00.000Z"
   },
   {
@@ -1796,6 +2041,9 @@
     "title": "Carrot Cake",
     "description": "Moist carrot cake with walnuts and cream cheese frosting.",
     "price": 300,
+    "isSpecialOffer": true,
+    "offerPrice": 240,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1810,7 +2058,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Nuts", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_023",
     "createdAt": "2025-09-29T18:10:00.000Z"
   },
   {
@@ -1819,6 +2067,9 @@
     "title": "New York Cheesecake",
     "description": "Rich and creamy cheesecake with a graham cracker crust.",
     "price": 340,
+    "isSpecialOffer": false,
+    "offerPrice": 340,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1833,7 +2084,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Dairy", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_024",
     "createdAt": "2025-09-29T18:15:00.000Z"
   },
   {
@@ -1842,6 +2093,9 @@
     "title": "Black Forest Cake",
     "description": "Chocolate cake layered with cherries and whipped cream.",
     "price": 360,
+    "isSpecialOffer": true,
+    "offerPrice": 288,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1856,7 +2110,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Alcohol", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_025",
     "createdAt": "2025-09-29T18:20:00.000Z"
   },
   {
@@ -1865,6 +2119,9 @@
     "title": "Lemon Drizzle Cake",
     "description": "Light and fluffy lemon cake with a tangy lemon drizzle.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1879,7 +2136,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_026",
     "createdAt": "2025-09-29T18:25:00.000Z"
   },
   {
@@ -1888,6 +2145,9 @@
     "title": "Tiramisu Cake",
     "description": "Coffee-soaked cake layers with mascarpone cream and cocoa.",
     "price": 380,
+    "isSpecialOffer": true,
+    "offerPrice": 304,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1902,7 +2162,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Caffeine", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_027",
     "createdAt": "2025-09-29T18:30:00.000Z"
   },
   {
@@ -1911,6 +2171,9 @@
     "title": "Strawberry Shortcake",
     "description": "Layers of sponge cake with fresh strawberries and whipped cream.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1925,7 +2188,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_028",
     "createdAt": "2025-09-29T18:35:00.000Z"
   },
   {
@@ -1934,6 +2197,9 @@
     "title": "Fudgy Brownie",
     "description": "Rich chocolate brownie with walnuts and a fudgy center.",
     "price": 220,
+    "isSpecialOffer": true,
+    "offerPrice": 176,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1948,7 +2214,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Contains Nuts", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_029",
     "createdAt": "2025-09-29T18:40:00.000Z"
   },
   {
@@ -1957,6 +2223,9 @@
     "title": "Pavlova",
     "description": "Meringue base topped with whipped cream and fresh fruits.",
     "price": 340,
+    "isSpecialOffer": false,
+    "offerPrice": 340,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Cakes",
@@ -1971,7 +2240,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Gluten-Free", "Dessert"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d68",
+    "restaurantId": "rest_030",
     "createdAt": "2025-09-29T18:45:00.000Z"
   },
   {
@@ -1980,6 +2249,9 @@
     "title": "Chicken Shawarma",
     "description": "Marinated chicken cooked on a vertical rotisserie, served with garlic sauce.",
     "price": 320,
+    "isSpecialOffer": true,
+    "offerPrice": 256,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -1994,7 +2266,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_031",
     "createdAt": "2025-09-29T19:00:00.000Z"
   },
   {
@@ -2003,6 +2275,9 @@
     "title": "Beef Shawarma",
     "description": "Tender beef slices with tahini sauce and vegetables in pita bread.",
     "price": 340,
+    "isSpecialOffer": false,
+    "offerPrice": 340,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2016,7 +2291,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_032",
     "createdAt": "2025-09-29T19:05:00.000Z"
   },
   {
@@ -2025,6 +2300,9 @@
     "title": "Mixed Shawarma Platter",
     "description": "Combination of chicken and beef shawarma with rice and salads.",
     "price": 480,
+    "isSpecialOffer": true,
+    "offerPrice": 384,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2039,7 +2317,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_033",
     "createdAt": "2025-09-29T19:10:00.000Z"
   },
   {
@@ -2048,6 +2326,9 @@
     "title": "Falafel Shawarma",
     "description": "Crispy falafel balls with tahini sauce and vegetables in pita bread.",
     "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2061,7 +2342,7 @@
     ],
     "dietaryTags": ["Vegetarian", "Vegan", "High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_034",
     "createdAt": "2025-09-29T19:15:00.000Z"
   },
   {
@@ -2070,6 +2351,9 @@
     "title": "Shawarma Plate",
     "description": "Shawarma meat served with rice, hummus, and salad.",
     "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2077,7 +2361,7 @@
     "ingredients": ["Chicken", "Rice", "Hummus", "Salad", "Garlic Sauce"],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_035",
     "createdAt": "2025-09-29T19:20:00.000Z"
   },
   {
@@ -2086,6 +2370,9 @@
     "title": "Shawarma Wrap",
     "description": "Shawarma meat and vegetables wrapped in a large tortilla.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2099,7 +2386,7 @@
     ],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_036",
     "createdAt": "2025-09-29T19:25:00.000Z"
   },
   {
@@ -2108,6 +2395,9 @@
     "title": "Spicy Shawarma",
     "description": "Shawarma with extra spicy sauce and pickled peppers.",
     "price": 340,
+    "isSpecialOffer": true,
+    "offerPrice": 272,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2121,7 +2411,7 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_037",
     "createdAt": "2025-09-29T19:30:00.000Z"
   },
   {
@@ -2130,6 +2420,9 @@
     "title": "Cheese Shawarma",
     "description": "Shawarma with melted cheese and garlic sauce.",
     "price": 360,
+    "isSpecialOffer": false,
+    "offerPrice": 360,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2143,7 +2436,7 @@
     ],
     "dietaryTags": ["High-Protein", "Contains Dairy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_038",
     "createdAt": "2025-09-29T19:35:00.000Z"
   },
   {
@@ -2152,6 +2445,9 @@
     "title": "Shawarma Fries",
     "description": "Crispy fries topped with shawarma meat, garlic sauce, and pickles.",
     "price": 380,
+    "isSpecialOffer": true,
+    "offerPrice": 304,
+    "discountRate": 20,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Shawarma",
@@ -2165,7 +2461,7 @@
     ],
     "dietaryTags": ["High-Protein", "Vegetarian Option"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d69",
+    "restaurantId": "rest_039",
     "createdAt": "2025-09-29T19:40:00.000Z"
   },
   {
@@ -2174,6 +2470,9 @@
     "title": "Crispy Fried Chicken",
     "description": "Golden fried chicken pieces with herbs and spices.",
     "price": 350,
+    "isSpecialOffer": false,
+    "offerPrice": 350,
+    "discountRate": 0,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Fried Chicken",
@@ -2181,7 +2480,7 @@
     "ingredients": ["Chicken", "Flour", "Spices", "Herbs", "Buttermilk"],
     "dietaryTags": ["High-Protein"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
+    "restaurantId": "rest_040",
     "createdAt": "2025-09-29T20:00:00.000Z"
   },
   {
@@ -2190,6 +2489,9 @@
     "title": "Spicy Fried Chicken",
     "description": "Crispy chicken with a spicy coating and dipping sauce.",
     "price": 380,
+    "isSpecialOffer": true,
+    "offerPrice": 304,
+    "discountRate": 20,
     "isCombo": true,
     "cuisine": "Others",
     "category": "Fried Chicken",
@@ -2203,7 +2505,7 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
+    "restaurantId": "rest_041",
     "createdAt": "2025-09-29T20:05:00.000Z"
   },
   {
@@ -2212,6 +2514,9 @@
     "title": "Buffalo Wings",
     "description": "Crispy chicken wings tossed in buffalo sauce with ranch dip.",
     "price": 320,
+    "isSpecialOffer": false,
+    "offerPrice": 320,
+    "discountRate": 0,
     "isCombo": false,
     "cuisine": "Others",
     "category": "Fried Chicken",
@@ -2225,130 +2530,150 @@
     ],
     "dietaryTags": ["High-Protein", "Spicy"],
     "availability": true,
-    "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
+    "restaurantId": "rest_042",
     "createdAt": "2025-09-29T20:10:00.000Z"
   },
- 
-    {
-      "_id": "60c72b2f9f1b2c001f3e4dc5",
-      "imageUrl": "https://i.ibb.co.com/mrNX7tGL/Chicken-Tenders.jpg",
-      "title": "Chicken Tenders",
-      "description": "Tender chicken strips with honey mustard dip.",
-      "price": 340,
-      "isCombo": true,
-      "cuisine": "Others",
-      "category": "Fried Chicken",
-      "rating": 4.5,
-      "ingredients": ["Chicken Breast", "Flour", "Spices", "Honey Mustard"],
-      "dietaryTags": ["High-Protein"],
-      "availability": true,
-      "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
-      "createdAt": "2025-09-29T20:15:00.000Z"
-    },
-    {
-      "_id": "60c72b2f9f1b2c001f3e4dc6",
-      "imageUrl": "https://i.ibb.co.com/yFh1d3Ss/Popcorn-Chicken.jpg",
-      "title": "Popcorn Chicken",
-      "description": "Bite-sized chicken pieces perfect for snacking.",
-      "price": 280,
-      "isCombo": false,
-      "cuisine": "Others",
-      "category": "Fried Chicken",
-      "rating": 4.4,
-      "ingredients": ["Chicken", "Flour", "Spices", "Buttermilk"],
-      "dietaryTags": ["High-Protein"],
-      "availability": true,
-      "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
-      "createdAt": "2025-09-29T20:20:00.000Z"
-    },
-    {
-      "_id": "60c72b2f9f1b2c001f3e4dc7",
-      "imageUrl": "https://i.ibb.co.com/qYj6sWzL/Chicken-Nuggets.jpg",
-      "title": "Chicken Nuggets",
-      "description": "Crispy chicken nuggets with barbecue dip.",
-      "price": 300,
-      "isCombo": true,
-      "cuisine": "Others",
-      "category": "Fried Chicken",
-      "rating": 4.3,
-      "ingredients": ["Chicken", "Breading", "Spices", "Barbecue Sauce"],
-      "dietaryTags": ["High-Protein"],
-      "availability": true,
-      "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
-      "createdAt": "2025-09-29T20:25:00.000Z"
-    },
-    {
-      "_id": "60c72b2f9f1b2c001f3e4dc8",
-      "imageUrl": "https://i.ibb.co.com/5gW2CT6C/Honey-Garlic-Chicken.jpg",
-      "title": "Honey Garlic Chicken",
-      "description": "Crispy chicken with sweet honey garlic sauce.",
-      "price": 360,
-      "isCombo": true,
-      "cuisine": "Others",
-      "category": "Fried Chicken",
-      "rating": 4.7,
-      "ingredients": ["Chicken", "Honey", "Garlic", "Soy Sauce", "Flour"],
-      "dietaryTags": ["High-Protein"],
-      "availability": true,
-      "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
-      "createdAt": "2025-09-29T20:30:00.000Z"
-    },
-    {
-      "_id": "60c72b2f9f1b2c001f3e4dc9",
-      "imageUrl": "https://i.ibb.co.com/hRPM5mts/Korean-Fried-Chicken-1.jpg",
-      "title": "Korean Fried Chicken",
-      "description": "Double-fried chicken with sweet and spicy gochujang sauce.",
-      "price": 420,
-      "isCombo": true,
-      "cuisine": "Others",
-      "category": "Fried Chicken",
-      "rating": 4.9,
-      "ingredients": [
-        "Chicken",
-        "Gochujang",
-        "Garlic",
-        "Ginger",
-        "Soy Sauce",
-        "Honey"
-      ],
-      "dietaryTags": ["High-Protein", "Spicy"],
-      "availability": true,
-      "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
-      "createdAt": "2025-09-29T20:35:00.000Z"
-    },
-    {
-      "_id": "60c72b2f9f1b2c001f3e4dca",
-      "imageUrl": "https://i.ibb.co.com/jZBvwWF7/Crispy-Chicken-Sandwich.jpg ",
-      "title": "Crispy Chicken Sandwich",
-      "description": "Crispy chicken fillet with lettuce, tomato, and mayo on a brioche bun.",
-      "price": 380,
-      "isCombo": true,
-      "cuisine": "Others",
-      "category": "Fried Chicken",
-      "rating": 4.6,
-      "ingredients": ["Chicken", "Brioche Bun", "Lettuce", "Tomato", "Mayo"],
-      "dietaryTags": ["High-Protein"],
-      "availability": true,
-      "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
-      "createdAt": "2025-09-29T20:40:00.000Z"
-    },
-    {
-      "_id": "60c72b2f9f1b2c001f3e4dcb",
-      "imageUrl": "https://i.ibb.co.com/dwsf56Wd/Chicken-Drums.jpg",
-      "title": "Chicken Drums",
-      "description": "Juicy chicken drumsticks with a crispy coating.",
-      "price": 320,
-      "isCombo": false,
-      "cuisine": "Others",
-      "category": "Fried Chicken",
-      "rating": 4.5,
-      "ingredients": ["Chicken Drumsticks", "Flour", "Spices", "Buttermilk"],
-      "dietaryTags": ["High-Protein"],
-      "availability": true,
-      "restaurantId": "60c72b2f9f1b2c001f3e4d6a",
-      "createdAt": "2025-09-29T20:45:00.000Z"
-    }
-  ],
+  {
+    "_id": "60c72b2f9f1b2c001f3e4dc5",
+    "imageUrl": "https://i.ibb.co.com/mrNX7tGL/Chicken-Tenders.jpg",
+    "title": "Chicken Tenders",
+    "description": "Tender chicken strips with honey mustard dip.",
+    "price": 340,
+    "isSpecialOffer": true,
+    "offerPrice": 272,
+    "discountRate": 20,
+    "isCombo": true,
+    "cuisine": "Others",
+    "category": "Fried Chicken",
+    "rating": 4.5,
+    "ingredients": ["Chicken Breast", "Flour", "Spices", "Honey Mustard"],
+    "dietaryTags": ["High-Protein"],
+    "availability": true,
+    "restaurantId": "rest_043",
+    "createdAt": "2025-09-29T20:15:00.000Z"
+  },
+  {
+    "_id": "60c72b2f9f1b2c001f3e4dc6",
+    "imageUrl": "https://i.ibb.co.com/yFh1d3Ss/Popcorn-Chicken.jpg",
+    "title": "Popcorn Chicken",
+    "description": "Bite-sized chicken pieces perfect for snacking.",
+    "price": 280,
+    "isSpecialOffer": false,
+    "offerPrice": 280,
+    "discountRate": 0,
+    "isCombo": false,
+    "cuisine": "Others",
+    "category": "Fried Chicken",
+    "rating": 4.4,
+    "ingredients": ["Chicken", "Flour", "Spices", "Buttermilk"],
+    "dietaryTags": ["High-Protein"],
+    "availability": true,
+    "restaurantId": "rest_044",
+    "createdAt": "2025-09-29T20:20:00.000Z"
+  },
+  {
+    "_id": "60c72b2f9f1b2c001f3e4dc7",
+    "imageUrl": "https://i.ibb.co.com/qYj6sWzL/Chicken-Nuggets.jpg",
+    "title": "Chicken Nuggets",
+    "description": "Crispy chicken nuggets with barbecue dip.",
+    "price": 300,
+    "isSpecialOffer": true,
+    "offerPrice": 240,
+    "discountRate": 20,
+    "isCombo": true,
+    "cuisine": "Others",
+    "category": "Fried Chicken",
+    "rating": 4.3,
+    "ingredients": ["Chicken", "Breading", "Spices", "Barbecue Sauce"],
+    "dietaryTags": ["High-Protein"],
+    "availability": true,
+    "restaurantId": "rest_045",
+    "createdAt": "2025-09-29T20:25:00.000Z"
+  },
+  {
+    "_id": "60c72b2f9f1b2c001f3e4dc8",
+    "imageUrl": "https://i.ibb.co.com/5gW2CT6C/Honey-Garlic-Chicken.jpg",
+    "title": "Honey Garlic Chicken",
+    "description": "Crispy chicken with sweet honey garlic sauce.",
+    "price": 360,
+    "isSpecialOffer": false,
+    "offerPrice": 360,
+    "discountRate": 0,
+    "isCombo": true,
+    "cuisine": "Others",
+    "category": "Fried Chicken",
+    "rating": 4.7,
+    "ingredients": ["Chicken", "Honey", "Garlic", "Soy Sauce", "Flour"],
+    "dietaryTags": ["High-Protein"],
+    "availability": true,
+    "restaurantId": "rest_046",
+    "createdAt": "2025-09-29T20:30:00.000Z"
+  },
+  {
+    "_id": "60c72b2f9f1b2c001f3e4dc9",
+    "imageUrl": "https://i.ibb.co.com/hRPM5mts/Korean-Fried-Chicken-1.jpg",
+    "title": "Korean Fried Chicken",
+    "description": "Double-fried chicken with sweet and spicy gochujang sauce.",
+    "price": 420,
+    "isSpecialOffer": true,
+    "offerPrice": 336,
+    "discountRate": 20,
+    "isCombo": true,
+    "cuisine": "Others",
+    "category": "Fried Chicken",
+    "rating": 4.9,
+    "ingredients": [
+      "Chicken",
+      "Gochujang",
+      "Garlic",
+      "Ginger",
+      "Soy Sauce",
+      "Honey"
+    ],
+    "dietaryTags": ["High-Protein", "Spicy"],
+    "availability": true,
+    "restaurantId": "rest_047",
+    "createdAt": "2025-09-29T20:35:00.000Z"
+  },
+  {
+    "_id": "60c72b2f9f1b2c001f3e4dca",
+    "imageUrl": "https://i.ibb.co.com/jZBvwWF7/Crispy-Chicken-Sandwich.jpg ",
+    "title": "Crispy Chicken Sandwich",
+    "description": "Crispy chicken fillet with lettuce, tomato, and mayo on a brioche bun.",
+    "price": 380,
+    "isSpecialOffer": false,
+    "offerPrice": 380,
+    "discountRate": 0,
+    "isCombo": true,
+    "cuisine": "Others",
+    "category": "Fried Chicken",
+    "rating": 4.6,
+    "ingredients": ["Chicken", "Brioche Bun", "Lettuce", "Tomato", "Mayo"],
+    "dietaryTags": ["High-Protein"],
+    "availability": true,
+    "restaurantId": "rest_048",
+    "createdAt": "2025-09-29T20:40:00.000Z"
+  },
+  {
+    "_id": "60c72b2f9f1b2c001f3e4dcb",
+    "imageUrl": "https://i.ibb.co.com/dwsf56Wd/Chicken-Drums.jpg",
+    "title": "Chicken Drums",
+    "description": "Juicy chicken drumsticks with a crispy coating.",
+    "price": 320,
+    "isSpecialOffer": true,
+    "offerPrice": 256,
+    "discountRate": 20,
+    "isCombo": false,
+    "cuisine": "Others",
+    "category": "Fried Chicken",
+    "rating": 4.5,
+    "ingredients": ["Chicken Drumsticks", "Flour", "Spices", "Buttermilk"],
+    "dietaryTags": ["High-Protein"],
+    "availability": true,
+    "restaurantId": "rest_049",
+    "createdAt": "2025-09-29T20:45:00.000Z"
+  }
+],
   "restaurants": [
   {
     "_id": "rest_001",

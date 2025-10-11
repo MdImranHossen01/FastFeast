@@ -4,26 +4,37 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
+import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 
 const TurkishFood = () => {
-  const [TurkishMenus, setTurkishMenus] = useState([]);
+  const [turkishMenus, setTurkishMenus] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTurkishMenus = async () => {
+    const fetchData = async () => {
       try {
-        const menus = await getMenu();
-        const filteredMenus = menus.filter((menu) => menu.cuisine === "Turkish");
+        // Fetch both menus and restaurants data
+        const [menusData, restaurantsData] = await Promise.all([
+          getMenu(),
+          getRestaurant()
+        ]);
+        
+        // Filter Turkish cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Turkish");
         setTurkishMenus(filteredMenus);
+        setRestaurants(restaurantsData);
+        
         console.log("Turkish menus:", filteredMenus);
+        console.log("Restaurants:", restaurantsData);
       } catch (error) {
-        console.error("Error fetching Turkish menus:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchTurkishMenus();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -82,16 +93,16 @@ const TurkishFood = () => {
                 strokeWidth={2}
                 d="M9 5l7 7-7 7"
               />
-            </svg>
-          </button>
-        </Link>
-      </div>
+              </svg>
+            </button>
+          </Link>
+        </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {TurkishMenus.length > 0 ? (
-          TurkishMenus.map((menu) => (
+        {turkishMenus.length > 0 ? (
+          turkishMenus.map((menu) => (
             <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} />
+              <MenuCard menu={menu} restaurants={restaurants} />
             </div>
           ))
         ) : (

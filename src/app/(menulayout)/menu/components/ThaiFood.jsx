@@ -4,26 +4,37 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
+import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 
 const ThaiFood = () => {
   const [thaiMenus, setThaiMenus] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchThaiMenus = async () => {
+    const fetchData = async () => {
       try {
-        const menus = await getMenu();
-        const filteredMenus = menus.filter((menu) => menu.cuisine === "Thai");
+        // Fetch both menus and restaurants data
+        const [menusData, restaurantsData] = await Promise.all([
+          getMenu(),
+          getRestaurant()
+        ]);
+        
+        // Filter Thai cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Thai");
         setThaiMenus(filteredMenus);
+        setRestaurants(restaurantsData);
+        
         console.log("Thai menus:", filteredMenus);
+        console.log("Restaurants:", restaurantsData);
       } catch (error) {
-        console.error("Error fetching Thai menus:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchThaiMenus();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -91,7 +102,7 @@ const ThaiFood = () => {
         {thaiMenus.length > 0 ? (
           thaiMenus.map((menu) => (
             <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} />
+              <MenuCard menu={menu} restaurants={restaurants} />
             </div>
           ))
         ) : (

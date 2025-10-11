@@ -4,26 +4,37 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
+import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 
 const ChineseFood = () => {
-  const [ChineseMenus, setChineseMenus] = useState([]);
+  const [chineseMenus, setChineseMenus] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchChineseMenus = async () => {
+    const fetchData = async () => {
       try {
-        const menus = await getMenu();
-        const filteredMenus = menus.filter((menu) => menu.cuisine === "Chinese");
+        // Fetch both menus and restaurants data
+        const [menusData, restaurantsData] = await Promise.all([
+          getMenu(),
+          getRestaurant()
+        ]);
+        
+        // Filter Chinese cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Chinese");
         setChineseMenus(filteredMenus);
+        setRestaurants(restaurantsData);
+        
         console.log("Chinese menus:", filteredMenus);
+        console.log("Restaurants:", restaurantsData);
       } catch (error) {
-        console.error("Error fetching Chinese menus:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchChineseMenus();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -88,10 +99,10 @@ const ChineseFood = () => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {ChineseMenus.length > 0 ? (
-          ChineseMenus.map((menu) => (
+        {chineseMenus.length > 0 ? (
+          chineseMenus.map((menu) => (
             <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} />
+              <MenuCard menu={menu} restaurants={restaurants} />
             </div>
           ))
         ) : (

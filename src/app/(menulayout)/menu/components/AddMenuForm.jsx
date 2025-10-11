@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "next/form";
 import { createMenu } from "@/app/actions/menu/createMenu";
 
@@ -9,6 +9,10 @@ const AddMenuForm = () => {
   const [dietaryTags, setDietaryTags] = useState("");
   const [availability, setAvailability] = useState("true");
   const [isCombo, setIsCombo] = useState("false");
+  const [isSpecialOffer, setIsSpecialOffer] = useState("false");
+  const [discountRate, setDiscountRate] = useState("0");
+  const [price, setPrice] = useState("");
+  const [offerPrice, setOfferPrice] = useState("");
 
   // Options for cuisine dropdown
   const cuisineOptions = [
@@ -20,6 +24,16 @@ const AddMenuForm = () => {
     "Kebab", "Khichuri", "Shawarma", "Burgers", "Cakes", "Biryani", 
     "Pizza", "Soups", "Sushi", "Fried Chicken", "Noodles", "Snacks", "Pasta", "Others"
   ];
+
+  // Calculate offer price when price or discount rate changes
+  useEffect(() => {
+    if (isSpecialOffer === "true" && price && discountRate) {
+      const calculatedPrice = price - (price * discountRate) / 100;
+      setOfferPrice(calculatedPrice.toFixed(2));
+    } else {
+      setOfferPrice(price);
+    }
+  }, [price, discountRate, isSpecialOffer]);
 
   const handleIngredientsChange = (e) => {
     setIngredients(e.target.value);
@@ -35,6 +49,26 @@ const AddMenuForm = () => {
 
   const handleIsComboChange = (e) => {
     setIsCombo(e.target.value);
+  };
+
+  const handleIsSpecialOfferChange = (e) => {
+    setIsSpecialOffer(e.target.value);
+    if (e.target.value === "false") {
+      setDiscountRate("0");
+      setOfferPrice(price);
+    }
+  };
+
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
+
+  const handleDiscountRateChange = (e) => {
+    const value = e.target.value;
+    // Ensure discount rate is between 0 and 30
+    if (value === "" || (parseFloat(value) >= 0 && parseFloat(value) <= 30)) {
+      setDiscountRate(value);
+    }
   };
 
   const handleSubmit = (formData) => {
@@ -54,6 +88,9 @@ const AddMenuForm = () => {
     formData.append("dietaryTags", JSON.stringify(dietaryTagsArray));
     formData.append("availability", availability === "true");
     formData.append("isCombo", isCombo === "true");
+    formData.append("isSpecialOffer", isSpecialOffer === "true");
+    formData.append("discountRate", isSpecialOffer === "true" ? discountRate : "0");
+    formData.append("offerPrice", offerPrice || price);
     
     // Call the createMenu action
     return createMenu(formData);
@@ -121,6 +158,8 @@ const AddMenuForm = () => {
           type="number"
           id="price"
           name="price"
+          value={price}
+          onChange={handlePriceChange}
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
           placeholder="Enter price"
           min="0"
@@ -128,6 +167,83 @@ const AddMenuForm = () => {
           required
         />
       </div>
+
+      {/* Is Special Offer - Radio Buttons */}
+      <div className="mb-4">
+        <label className="block text-gray-700 mb-2">Special Offer?</label>
+        <div className="flex space-x-4">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="specialOfferYes"
+              name="isSpecialOffer"
+              value="true"
+              checked={isSpecialOffer === "true"}
+              onChange={handleIsSpecialOfferChange}
+              className="h-4 w-4 text-orange-500 focus:ring-orange-500"
+            />
+            <label htmlFor="specialOfferYes" className="ml-2 text-gray-700">
+              Yes
+            </label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="specialOfferNo"
+              name="isSpecialOffer"
+              value="false"
+              checked={isSpecialOffer === "false"}
+              onChange={handleIsSpecialOfferChange}
+              className="h-4 w-4 text-orange-500 focus:ring-orange-500"
+            />
+            <label htmlFor="specialOfferNo" className="ml-2 text-gray-700">
+              No
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Discount Rate - Only show if special offer is selected */}
+      {isSpecialOffer === "true" && (
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="discountRate">
+            Discount Rate (%)
+          </label>
+          <input
+            type="number"
+            id="discountRate"
+            name="discountRate"
+            value={discountRate}
+            onChange={handleDiscountRateChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+            placeholder="Enter discount rate (10-30%)"
+            min="10"
+            max="30"
+            step="1"
+            required={isSpecialOffer === "true"}
+          />
+          <p className="text-xs text-gray-500 mt-1">Discount rate should be between 10% and 30%</p>
+        </div>
+      )}
+
+      {/* Offer Price - Calculated based on discount rate */}
+      {isSpecialOffer === "true" && (
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="offerPrice">
+            Offer Price
+          </label>
+          <input
+            type="number"
+            id="offerPrice"
+            name="offerPrice"
+            value={offerPrice}
+            readOnly
+            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            placeholder="Offer price will be calculated automatically"
+          />
+          <p className="text-xs text-gray-500 mt-1">Offer price is calculated automatically based on discount rate</p>
+        </div>
+      )}
 
       {/* Is Combo - Radio Buttons */}
       <div className="mb-4">
