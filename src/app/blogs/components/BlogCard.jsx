@@ -101,7 +101,7 @@ export default function BlogCard({ blog }) {
         </div>
 
         {/* Excerpt */}
-        <p className="text-sm text-gray-700 line-clamp-3 mb-4">{excerpt}</p>
+        <p className="text-sm text-gray-700 line-clamp-2 mb-4">{excerpt}</p>
 
         <hr className="border-orange-200 mb-3" />
 

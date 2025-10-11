@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import BlogCard from "./BlogCard";
+
 import Banner from "./Banner";
 import BlogContent from "./BlogContent";
 
