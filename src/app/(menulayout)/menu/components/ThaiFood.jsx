@@ -5,28 +5,44 @@ import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
 import getRestaurant from "@/app/actions/restaurant/getRestaurant";
+import { useSelector } from "react-redux";
 
-const ThaiFood = () => {
+const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   const [thaiMenus, setThaiMenus] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Get filters from Redux to check if we should hide this section
+  const filters = useSelector((state) => state.filters);
+  const hasActiveFilters = filters.searchQuery || 
+    filters.selectedCuisines.length > 0 || 
+    filters.selectedRating > 0 || 
+    filters.selectedPrice || 
+    filters.isSpecialOfferSelected || 
+    filters.isComboSelected;
+
   useEffect(() => {
+    // If props are provided, use them (for better performance)
+    if (propMenus && propRestaurants) {
+      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Thai");
+      setThaiMenus(filteredMenus);
+      setRestaurants(propRestaurants);
+      setLoading(false);
+      return;
+    }
+
+    // Otherwise fetch data independently
     const fetchData = async () => {
       try {
-        // Fetch both menus and restaurants data
         const [menusData, restaurantsData] = await Promise.all([
           getMenu(),
           getRestaurant()
         ]);
-        
+
         // Filter Thai cuisine menus
         const filteredMenus = menusData.filter((menu) => menu.cuisine === "Thai");
         setThaiMenus(filteredMenus);
         setRestaurants(restaurantsData);
-        
-        console.log("Thai menus:", filteredMenus);
-        console.log("Restaurants:", restaurantsData);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -35,7 +51,12 @@ const ThaiFood = () => {
     };
 
     fetchData();
-  }, []);
+  }, [propMenus, propRestaurants]);
+
+  // Hide this section when filters are active
+  if (hasActiveFilters) {
+    return null;
+  }
 
   if (loading) {
     return (
@@ -65,10 +86,14 @@ const ThaiFood = () => {
           </Link>
         </div>
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Loading...</p>
+          <p className="text-gray-500 text-lg">Loading Thai cuisine...</p>
         </div>
       </section>
     );
+  }
+
+  if (thaiMenus.length === 0) {
+    return null; // Don't show section if no Thai food available
   }
 
   return (
@@ -99,19 +124,11 @@ const ThaiFood = () => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {thaiMenus.length > 0 ? (
-          thaiMenus.map((menu) => (
-            <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} restaurants={restaurants} />
-            </div>
-          ))
-        ) : (
-          <div className="text-center py-12 w-full">
-            <p className="text-gray-500 text-lg">
-              No dishes available at the moment.
-            </p>
+        {thaiMenus.map((menu) => (
+          <div key={menu?._id} className="flex-shrink-0 w-64">
+            <MenuCard menu={menu} restaurants={restaurants} />
           </div>
-        )}
+        ))}
       </div>
 
       {/* Custom scrollbar styles */}
