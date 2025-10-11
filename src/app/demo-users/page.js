@@ -36,7 +36,7 @@ export default async function DemoUsersPage() {
                 <div className="flex-shrink-0">
                   <Image
                     src={user.photoUrl}
-                    alt={`${user.name}'s profile`}
+                    alt={`Profile picture of ${user.name}`} // <-- FIX IS HERE
                     width={64} // w-16
                     height={64} // h-16
                     className="rounded-full object-cover border-2 border-gray-200"
@@ -61,7 +61,7 @@ export default async function DemoUsersPage() {
       
       <div className="mt-8 p-4 bg-blue-50 rounded-lg">
         <p className="text-sm text-blue-800">
-          <strong>Note:</strong> These demo accounts have OTP verification disabled for testing purposes. The password for each account is the part of the email before the "@" symbol.
+          <strong>Note:</strong> These demo accounts have OTP verification disabled for testing purposes. The password for each account is the part of the email before the @ symbol.
         </p>
       </div>
     </div>
