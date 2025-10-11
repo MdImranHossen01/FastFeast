@@ -1,0 +1,42 @@
+"use server";
+
+// Action to delete a blog by ID
+export default async function deleteBlogById(id) {
+  try {
+    // Fetch blogs from the API
+    const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
+
+    const res = await fetch(
+      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/admin/blogs/${id}`,
+      {
+        method: "DELETE",
+        cache: "no-store", // ensure fresh data
+      }
+    );
+
+    // always return an object
+    if (!res.ok) {
+      return {
+        success: false,
+        message: `Failed to delete blog. Status: ${res.status}`,
+        data: null,
+      };
+    }
+
+    // If response is ok, parse and return the data
+    const data = await res.json();
+    return {
+      success: true,
+      message: "Blog deleted successfully.",
+      data,
+    };
+  } catch (error) {
+    // Log the error for debugging purposes
+    console.error("Error deleting blog:", error.message);
+    return {
+      success: false,
+      message: error.message || "Unexpected server error",
+      data: null,
+    };
+  }
+}

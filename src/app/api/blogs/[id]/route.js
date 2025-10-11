@@ -1,61 +1,32 @@
-import { collectionsName, dbConnect } from "@/lib/dbConnect";
-import { ObjectId } from "mongodb";
+import connectMongooseDb from "@/lib/mongoose";
+import Blog from "@/models/blog.model";
+import { NextResponse } from "next/server";
 
+// GET blog by ID
 export async function GET(req, { params }) {
   try {
-    // get blog id from params
+    // Extract ID from params
     const { id } = await params;
 
-    // connect to blogs collections
-    const blogsCollection =await dbConnect(collectionsName.blogsCollection);
-    const blog = await blogsCollection.findOne({ _id: new ObjectId(id) });
+    // Ensure DB connection
+    await connectMongooseDb();
 
-    return Response.json(blog, { status: 200 });
+    // Fetch blog by ID excluding password
+    const blog = await Blog.findById(id);
+
+    // If blog not found, return 404
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, message: "Not found" },
+        { status: 404 }
+      );
+    }
+
+    // Return blog with 200 status
+    return NextResponse.json(blog, { status: 200 });
   } catch (error) {
-    return Response.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
-  }
-}
-
-export async function PATCH(req, { params }) {
-  try {
-    // get blog id from params
-    const { id } = await params;
-    const filter = { _id: new ObjectId(id) };
-    // updatedData
-    const updatedData = await req.json();
-    // connect to blogs collections
-    const blogsCollection =await dbConnect(collectionsName.blogsCollection);
-
-    // update data by id
-    const updatedRes = await blogsCollection.updateOne(
-      filter,
-      { $set: { ...updatedData } },
-      { upsert: true }
-    );
-
-    return Response.json(updatedRes);
-  } catch (error) {
-    return Response.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
-  }
-}
-
-export async function DELETE(req, { params }) {
-  try {
-    const { id } = await params;
-    const blogsCollection =await dbConnect(collectionsName.blogsCollection);
-    const deleteRes = await blogsCollection.deleteOne({
-      _id: new ObjectId(id),
-    });
-
-    return Response.json(deleteRes);
-  } catch (error) {
-    return Response.json(
+    // Handle errors and return 500 status
+    return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
     );

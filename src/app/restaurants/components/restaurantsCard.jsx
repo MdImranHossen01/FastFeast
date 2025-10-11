@@ -1,22 +1,13 @@
 "use client";
 import React from "react";
-import {
-  FaArrowRight,
-  FaMotorcycle,
-  FaStar,
-  FaStarHalfAlt,
-} from "react-icons/fa";
-import { TbCurrencyTaka } from "react-icons/tb";
-import { FaRegClock } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { generateSlug } from "./generateSlug";
 
 export default function RestaurantsCard({ restaurant }) {
   // slug generate
-
   const slug = generateSlug(restaurant.name, restaurant.location?.area);
 
-  // console.log(restaurant[2]);
   // rating
   const rendersStars = (rating) => {
     const stars = [];
@@ -35,80 +26,92 @@ export default function RestaurantsCard({ restaurant }) {
     }
     return stars;
   };
+
   return (
-    <div className="card  group bg-white shadow-md hover:shadow-lg hover:-translate-y-1   transition-transform  transition-shadow duration-300 cursor-pointer">
-      {/* banner */}
-      <figure>
-        <img
-          className="h-60 w-[400px] object-cover hover:scale-110 transition-transform duration-300"
-          src={restaurant.banner}
-          alt="restaurant"
-        />
-      </figure>
-      <div className="card-body space-y-1">
-        <div className="flex justify-between items-end ">
-          {/* logo+name */}
-          <div className="flex items-center  gap-2">
-            <img
-              className="w-12 h-12 rounded-full object-cover  "
-              src={restaurant.logo}
-              alt=""
-            />
-            <h2 className="card-title group-hover:text-orange-500 text-gray-700">
-              {restaurant.name}{" "}
-            </h2>
+    <div className="group bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden rounded-2xl">
+      <div className="p-6">
+        {/* Logo and Restaurant Info */}
+        <div className="flex flex-col items-center">
+          {/* Larger Circular Logo with Border Animation */}
+          <div className="relative mb-4">
+            <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
+              <img
+                className="w-full h-full rounded-full object-cover hover:scale-110 transition-transform duration-300"
+                src={restaurant.logo}
+                alt={restaurant.name}
+              />
+            </div>
+            {/* Pulsing Border Animation */}
+            <div className="absolute inset-0 rounded-full border-4 border-orange-300 animate-pulse"></div>
           </div>
 
-          {/* rating+reviews */}
-          <div>
-            <div className="flex items-center gap-1 text-gray-700">
+          {/* Restaurant Name - Clickable */}
+          <Link href={`restaurants/${slug}`} className="text-center hover:text-orange-500 transition-colors">
+            <h2 className="text-xl font-bold text-gray-900">
+              {restaurant.name}
+            </h2>
+          </Link>
+
+          {/* Location Area */}
+          <div className="flex items-center justify-center text-gray-600 mb-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            <span className="text-sm">
+              {restaurant.location?.area || "Location"}
+            </span>
+          </div>
+
+          {/* Rating */}
+          <div className="flex items-center justify-center mb-3">
+            <div className="flex items-center gap-1">
               {rendersStars(restaurant.rating)}
-              <span className="font-semibold">
+              <span className="font-semibold text-sm">
                 {restaurant.rating.toFixed(1)}
               </span>
             </div>
-            <p className="text-xs text-end text-gray-500">
-              ({restaurant.reviewsCount}+reviews)
+            <p className="text-xs text-gray-500">
+              ({restaurant.reviewsCount}+ reviews)
             </p>
           </div>
         </div>
 
-        {/* cuisine */}
-        <div className="flex justify-between items-center mt-2">
-          {/* cuisine */}
-          <div>
-            {restaurant.cuisines.map((cuisine, i) => (
-              <div
-                key={i}
-                className="badge bg-white text-gray-700 px-2 mr-2  border border-gray-300 "
-              >
-                {cuisine}
-              </div>
-            ))}
-          </div>
-        </div>
-        {/* delivery fee+delivery time */}
-        <div className="flex text-gray-500 gap-3">
-          {/* delivery time */}
-          <div className="flex items-center    gap-2">
-            <FaRegClock className="text-lg" />
-            <span>{restaurant.estimatedDeliveryTime} </span>
-          </div>
-          <span> | </span>
-          <div>
-            <p className="flex items-center gap-1">
-              <FaMotorcycle className="text-lg" /> {restaurant.deliveryFee}
-              <TbCurrencyTaka />
-            </p>
-          </div>
-        </div>
-
-        {/* view menu button */}
-        <div className="card-actions justify-end">
+        {/* View Menu Button */}
+        <div className="flex justify-center">
           <Link href={`restaurants/${slug}`}>
-            <button className="flex transition-all duration-300  group-hover:translate-x-1 text-orange-500 items-center gap-1 hover:border-b-2 hover:border-orange-500   hover:translate-x-0.5   ">
-              View Menu{" "}
-              <FaArrowRight className="transition-transform duration-300  group-hover:translate-x-0.5" />
+            <button className="flex items-center gap-2 bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors duration-300">
+              View Menu
+              <svg
+                xmlns="http://www.w3.org/2000/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
             </button>
           </Link>
         </div>
