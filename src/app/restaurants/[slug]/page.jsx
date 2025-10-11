@@ -39,10 +39,14 @@ export default async function RestaurantDetails({ params }) {
           <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <FaUtensils className="text-3xl text-orange-500" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-3">Restaurant Not Found</h1>
-          <p className="text-gray-600 mb-6">Sorry, we couldn't find the restaurant you're looking for.</p>
-          <Link 
-            href="/restaurants" 
+          <h1 className="text-2xl font-bold text-gray-900 mb-3">
+            Restaurant Not Found
+          </h1>
+          <p className="text-gray-600 mb-6">
+            Sorry, we couldn't find the restaurant you're looking for.
+          </p>
+          <Link
+            href="/restaurants"
             className="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors font-medium"
           >
             Browse Restaurants
@@ -84,24 +88,24 @@ export default async function RestaurantDetails({ params }) {
 
   const isRestaurantOpen = () => {
     const now = new Date();
-    const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
     const currentDay = days[now.getDay()]; // Get current day as 'sun', 'mon', etc.
     const currentTime = now.getHours() * 100 + now.getMinutes();
-    
+
     const hours = restaurant.openingHours[currentDay];
     if (!hours || !hours.open || !hours.close) return false;
-    
-    const [openHour, openMinute] = hours.open.split(':').map(Number);
-    const [closeHour, closeMinute] = hours.close.split(':').map(Number);
-    
+
+    const [openHour, openMinute] = hours.open.split(":").map(Number);
+    const [closeHour, closeMinute] = hours.close.split(":").map(Number);
+
     const openTime = openHour * 100 + openMinute;
     const closeTime = closeHour * 100 + closeMinute;
-    
+
     return currentTime >= openTime && currentTime <= closeTime;
   };
 
   const getCurrentDay = () => {
-    const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
     return days[new Date().getDay()];
   };
 
@@ -110,8 +114,8 @@ export default async function RestaurantDetails({ params }) {
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm mb-6">
-          <Link 
-            href="/restaurants" 
+          <Link
+            href="/restaurants"
             className="text-orange-500 hover:text-orange-600 transition-colors font-medium"
           >
             Restaurants
@@ -138,12 +142,14 @@ export default async function RestaurantDetails({ params }) {
                   {restaurant.rating.toFixed(1)}
                 </span>
               </div>
-              <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                isRestaurantOpen() 
-                  ? 'bg-green-500 text-white' 
-                  : 'bg-red-500 text-white'
-              }`}>
-                {isRestaurantOpen() ? 'Open Now' : 'Closed'}
+              <div
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  isRestaurantOpen()
+                    ? "bg-green-500 text-white"
+                    : "bg-red-500 text-white"
+                }`}
+              >
+                {isRestaurantOpen() ? "Open Now" : "Closed"}
               </div>
             </div>
           </div>
@@ -193,11 +199,13 @@ export default async function RestaurantDetails({ params }) {
                       </div>
                       <div>
                         <p className="text-sm text-gray-600">Delivery Time</p>
-                        <p className="font-semibold text-gray-900">{restaurant.estimatedDeliveryTime}</p>
+                        <p className="font-semibold text-gray-900">
+                          {restaurant.estimatedDeliveryTime}
+                        </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -206,12 +214,13 @@ export default async function RestaurantDetails({ params }) {
                       <div>
                         <p className="text-sm text-gray-600">Delivery Fee</p>
                         <p className="font-semibold text-gray-900 flex items-center">
-                          {restaurant.deliveryFee} <TbCurrencyTaka className="ml-1" />
+                          {restaurant.deliveryFee}{" "}
+                          <TbCurrencyTaka className="ml-1" />
                         </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -220,7 +229,8 @@ export default async function RestaurantDetails({ params }) {
                       <div>
                         <p className="text-sm text-gray-600">Min Order</p>
                         <p className="font-semibold text-gray-900 flex items-center">
-                          {restaurant.minOrderValue} <TbCurrencyTaka className="ml-1" />
+                          {restaurant.minOrderValue}{" "}
+                          <TbCurrencyTaka className="ml-1" />
                         </p>
                       </div>
                     </div>
@@ -237,45 +247,53 @@ export default async function RestaurantDetails({ params }) {
                     <div className="space-y-2 text-gray-700">
                       <p className="font-medium">{restaurant.location.area}</p>
                       <p className="text-sm">{restaurant.location.address}</p>
-                      <p className="text-sm text-gray-600">{restaurant.location.city}</p>
+                      <p className="text-sm text-gray-600">
+                        {restaurant.location.city}
+                      </p>
                     </div>
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-gray-900">Contact & Social</h3>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      Contact & Social
+                    </h3>
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
                         <FaPhoneAlt className="text-orange-500" />
-                        <span className="text-gray-700">{restaurant.contact.phone}</span>
+                        <span className="text-gray-700">
+                          {restaurant.contact.phone}
+                        </span>
                       </div>
                       <div className="flex items-center gap-3">
                         <FaEnvelope className="text-orange-500" />
-                        <span className="text-gray-700">{restaurant.contact.email}</span>
+                        <span className="text-gray-700">
+                          {restaurant.contact.email}
+                        </span>
                       </div>
                       <div className="flex items-center gap-4 pt-2">
-                        <Link 
-                          href="https://facebook.com" 
+                        <Link
+                          href="https://facebook.com"
                           target="_blank"
                           className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
                         >
                           <FaFacebook />
                         </Link>
-                        <Link 
-                          href="https://instagram.com" 
+                        <Link
+                          href="https://instagram.com"
                           target="_blank"
                           className="w-10 h-10 bg-pink-600 text-white rounded-lg flex items-center justify-center hover:bg-pink-700 transition-colors"
                         >
                           <FaInstagram />
                         </Link>
-                        <Link 
-                          href="https://twitter.com" 
+                        <Link
+                          href="https://twitter.com"
                           target="_blank"
                           className="w-10 h-10 bg-blue-400 text-white rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors"
                         >
                           <FaTwitter />
                         </Link>
-                        <Link 
-                          href="https://zerofeekitchen.bd" 
+                        <Link
+                          href="https://zerofeekitchen.bd"
                           target="_blank"
                           className="w-10 h-10 bg-gray-700 text-white rounded-lg flex items-center justify-center hover:bg-gray-800 transition-colors"
                         >
@@ -295,24 +313,36 @@ export default async function RestaurantDetails({ params }) {
                     Opening Hours
                   </h2>
                   <ul className="space-y-3">
-                    {Object.entries(restaurant.openingHours).map(([day, hours]) => {
-                      const isToday = getCurrentDay() === day;
-                      return (
-                        <li 
-                          key={day} 
-                          className={`flex justify-between items-center p-3 rounded-lg ${
-                            isToday ? 'bg-orange-500 text-white' : 'bg-white text-gray-700'
-                          }`}
-                        >
-                          <span className="capitalize font-medium">{day}</span>
-                          <span className={isToday ? 'text-white' : 'text-gray-600'}>
-                            {hours.open && hours.close
-                              ? `${formatTime(hours.open)} - ${formatTime(hours.close)}`
-                              : "Closed"}
-                          </span>
-                        </li>
-                      );
-                    })}
+                    {Object.entries(restaurant.openingHours).map(
+                      ([day, hours]) => {
+                        const isToday = getCurrentDay() === day;
+                        return (
+                          <li
+                            key={day}
+                            className={`flex justify-between items-center p-3 rounded-lg ${
+                              isToday
+                                ? "bg-orange-500 text-white"
+                                : "bg-white text-gray-700"
+                            }`}
+                          >
+                            <span className="capitalize font-medium">
+                              {day}
+                            </span>
+                            <span
+                              className={
+                                isToday ? "text-white" : "text-gray-600"
+                              }
+                            >
+                              {hours.open && hours.close
+                                ? `${formatTime(hours.open)} - ${formatTime(
+                                    hours.close
+                                  )}`
+                                : "Closed"}
+                            </span>
+                          </li>
+                        );
+                      }
+                    )}
                   </ul>
                 </div>
               </div>
@@ -328,11 +358,15 @@ export default async function RestaurantDetails({ params }) {
               {restaurantMenuItems.length} items available
             </div>
           </div>
-          
+
           {restaurantMenuItems.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {restaurantMenuItems.map((menu) => (
-                <MenuCard key={menu._id} menu={menu} restaurants={[restaurant]} />
+                <MenuCard
+                  key={menu._id}
+                  menu={menu}
+                  restaurants={[restaurant]}
+                />
               ))}
             </div>
           ) : (
@@ -340,9 +374,12 @@ export default async function RestaurantDetails({ params }) {
               <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FaUtensils className="text-3xl text-gray-400" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No Menu Items Available</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                No Menu Items Available
+              </h3>
               <p className="text-gray-500 max-w-md mx-auto">
-                This restaurant hasn't added any menu items yet. Please check back later.
+                This restaurant hasn't added any menu items yet. Please check
+                back later.
               </p>
             </div>
           )}
