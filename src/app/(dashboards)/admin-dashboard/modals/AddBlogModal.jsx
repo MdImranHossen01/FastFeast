@@ -13,8 +13,14 @@ import {
 } from "@/components/ui/dialog";
 import { uploadToImgBB } from "@/utils/imageUpload";
 import { FaPenFancy } from "react-icons/fa";
+import { useSession } from "next-auth/react";
 
 export default function AddBlogModal({ onSave }) {
+  const { data: session } = useSession()
+  // console.log(session.user.name)
+  const userName = session?.user?.name;
+  const userEmail = session?.user?.email;
+  const userPhoto = session?.user?.image;
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     slug: "",
@@ -80,9 +86,9 @@ export default function AddBlogModal({ onSave }) {
         ? new Date(formData.publishDate).toISOString() // ✅ ISO format save
         : null,
       visitCount: 0,
-      author: currentUser?.displayName || "Anonymous",
-      authorEmail: currentUser?.email || "",
-      authorPhoto: currentUser?.photoURL || "/default-avatar.png",
+      author: userName || "Anonymous",
+      authorEmail: userEmail || "",
+      authorPhoto: userPhoto || "/default-avatar.png",
     };
 
     try {
@@ -101,9 +107,10 @@ export default function AddBlogModal({ onSave }) {
       Swal.fire({
         icon: "success",
         title: "Blog Added!",
-        text: "Your blog has been saved successfully 🎉",
-        confirmButtonColor: "#f97316", // orange
+        text: `New blog "${formData.title}" added successfully 🎉`,
+        confirmButtonColor: "#f97316",
       });
+
 
       // Optional: refresh parent state
       if (onSave) onSave(blogData);
@@ -212,9 +219,9 @@ export default function AddBlogModal({ onSave }) {
             {/* Other Fields */}
             <input
               name="author"
-              placeholder="Author"
+              placeholder={userName}
               className="input input-bordered w-full"
-              onChange={handleChange}
+              readOnly
             />
             <input
               name="publishDate"
