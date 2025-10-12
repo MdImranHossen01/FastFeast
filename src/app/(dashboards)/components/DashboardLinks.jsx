@@ -75,6 +75,14 @@ export default function DashboardLinks() {
               Manage Ordres
             </Link>
           </li>
+          <li>
+            <Link
+              href="/MyFavouriteMenu"
+              className={linkStyle("/MyFavouriteMenu")}
+            >
+              My Favourite Menus
+            </Link>
+          </li>
         </>
       )}
 
