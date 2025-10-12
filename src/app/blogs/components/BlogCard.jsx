@@ -62,12 +62,12 @@ export default function BlogCard({ blog }) {
         )}
 
         {/* Blog Title */}
-        <h1 className="text-xl font-extrabold mb-3 text-gray-900">
+        <h1 className="text-xl font-extrabold mb-3 line-clamp-2 text-gray-900">
           {title}
         </h1>
 
         {/* Meta Info */}
-        <div className="flex items-center gap-3 text-sm text-gray-600 mb-6">
+        <div className="flex items-center justify-between text-sm text-gray-600 mb-6">
           <div className="flex items-center gap-2">
             <Image
               src={authorPhoto || "/user.png"}
@@ -76,14 +76,11 @@ export default function BlogCard({ blog }) {
               height={32}
               className="rounded-full border border-gray-200 object-cover"
             />
-            <span className="font-semibold">{author || "Unknown"}</span>
-          </div>
-
-          <span className="text-gray-400">•</span>
-
-          {/* Date */}
+           <div className="flex flex-col">
+             <span className="font-semibold text-xs">{author || "Unknown"}</span>
+            {/* Date */}
           {publishDate && (
-            <span>
+            <span className="text-xs ">
               {new Date(publishDate).toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
@@ -91,13 +88,17 @@ export default function BlogCard({ blog }) {
               })}
             </span>
           )}
+           </div>
+          </div>
 
-          <span className="text-gray-400">•</span>
+         <div className="flex gap-1 justify-center">
+          {/* <span className="text-gray-400">•</span> */}
 
           {/* 👁️ View Count */}
-          <span className="flex items-center gap-1 text-gray-600">
-          <FaEye className="w-5 h-5"/> {visitCount || 0} views
+          <span className="flex  items-center  gap-1 text-gray-600">
+          <FaEye className="w-4 h-4"/> {visitCount || 0} views
           </span>
+         </div>
         </div>
 
         {/* Excerpt */}
@@ -106,7 +107,7 @@ export default function BlogCard({ blog }) {
         <hr className="border-orange-200 mb-3" />
 
         {/* Footer: Read More */}
-        <div className="flex items-center justify-end">
+        <div className="flex flex-1 items-center justify-end">
           <span
             className="flex items-center gap-1 text-sm font-semibold cursor-pointer text-gray-500 transition-colors duration-300 group-hover:text-orange-500"
             onClick={handleReadMore}
