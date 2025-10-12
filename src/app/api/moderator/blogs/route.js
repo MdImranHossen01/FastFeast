@@ -58,3 +58,22 @@ export async function POST(req) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    // Connect to the database
+    const dbRes = await connectMongooseDb();
+    console.log("DB Connection Result:", dbRes);
+
+    const blogs = await Blog.find();
+    console.log("Fetched blogs:", blogs);
+
+    return NextResponse.json(blogs, { status: 200 });
+  } catch (error) {
+    console.error("API Error:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+}
