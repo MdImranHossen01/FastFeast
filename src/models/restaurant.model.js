@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
-// Define sub-schemas for structured/nested data
+// Sub-schema for coordinates
 const coordinatesSchema = new mongoose.Schema({
   lat: { type: Number, required: true },
   lng: { type: Number, required: true },
 });
 
+// Sub-schema for location
 const locationSchema = new mongoose.Schema({
   address: { type: String, required: true },
   area: { type: String, required: true },
@@ -14,11 +15,13 @@ const locationSchema = new mongoose.Schema({
   coordinates: { type: coordinatesSchema, required: true },
 });
 
+// Sub-schema for contact information
 const contactSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, required: true },
 });
 
+// Sub-schema for opening hours
 const openingHoursSchema = new mongoose.Schema({
   mon: { open: String, close: String },
   tue: { open: String, close: String },
@@ -32,14 +35,18 @@ const openingHoursSchema = new mongoose.Schema({
 // Main Restaurant Schema
 const restaurantSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
     slug: {
       type: String,
       required: true,
       unique: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    bio: {
+      type: String,
+      required: true,
     },
     logo: {
       type: String,
@@ -47,16 +54,6 @@ const restaurantSchema = new mongoose.Schema(
     },
     banner: {
       type: String,
-      required: true,
-    },
-    rating: {
-      type: Number,
-      required: true,
-      min: 0,
-      max: 5,
-    },
-    reviewsCount: {
-      type: Number,
       required: true,
     },
     cuisines: [
@@ -68,36 +65,15 @@ const restaurantSchema = new mongoose.Schema(
     currency: {
       type: String,
       required: true,
-    },
-    estimatedDeliveryTime: {
-      type: String,
-      default: "30 min",
+      enum: ["BDT", "USD", "EUR", "GBP", "INR"],
     },
     deliveryFee: {
       type: Number,
       required: true,
     },
-    status: {
+    estimatedDeliveryTime: {
       type: String,
-      default: "pending",
-      enum: ["approved", "pending", "rejected"],
-    },
-    isFeatured: {
-      type: Boolean,
-      default: false,
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-    ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    bio: {
-      type: String,
-      required: true,
+      default: "30 min",
     },
     location: {
       type: locationSchema,
@@ -111,14 +87,38 @@ const restaurantSchema = new mongoose.Schema(
       type: openingHoursSchema,
       required: true,
     },
-    minOrderValue: {
-      type: Number,
+    ownerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    status: {
+      type: String,
+      default: "pending",
+      enum: ["approved", "pending", "rejected"],
+    },
+    reviewsCount: {
+      type: Number,
+      default: 0,
+    },
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+    },
   },
-  { timestamps: true, versionKey: false } // adds createdAt & updatedAt
+  {
+    timestamps: true,
+    versionKey: false,
+  }
 );
 
+// Delete existing model to prevent OverwriteModelError in development
 if (mongoose.models.Restaurant) {
   delete mongoose.models.Restaurant;
 }
@@ -126,4 +126,5 @@ if (mongoose.models.Restaurant) {
 // Prevent OverwriteModelError during hot reload in Next.js
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);
 
+// Export the model
 export default Restaurant;

@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const menuSchema = mongoose.Schema(
   {
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     title: {
       type: String,
       required: true,
@@ -42,6 +47,10 @@ const menuSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Restaurant",
       required: true,
+    },
+    reviewsCount: {
+      type: Number,
+      default: 0,
     },
     rating: {
       type: Number,
