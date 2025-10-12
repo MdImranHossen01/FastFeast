@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 // Define the Blog schema with timestamps
 const blogSchema = new mongoose.Schema(
   {
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     title: {
       type: String,
       required: true,
@@ -48,8 +53,14 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false }
 );
 
+if (mongoose.models.Blog) {
+  mongoose.deleteModel("Blog");
+}
+
+const Blog = mongoose.model("Blog", blogSchema);
+
 // Create or retrieve the old Blog model
-const Blog = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
+// const Blog = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
 
 // Export the Blog model
 export default Blog;

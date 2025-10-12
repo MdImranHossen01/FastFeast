@@ -14,17 +14,15 @@ const connectMongooseDb = async () => {
     }
 
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URL);
 
-    console.log("Connected to MongoDB");
+    // Return success message
     return { success: true, message: "Connected to MongoDB" };
   } catch (error) {
-    console.error("MongoDB connection error:", error);
+    // Handle connection errors
     return { success: false, message: error.message };
   }
 };
 
+// Export the connection function
 export default connectMongooseDb;

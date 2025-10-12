@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 import connectMongooseDb from "@/lib/mongoose";
 import Blog from "@/models/blog.model";
 
+// POST (create) a new blog
 export async function POST(req) {
   try {
-    // Parse the request body
-    const body = await req.json();
+    // Parse the request body to get blog data
+    const blogData = await req.json();
 
-    // Destructure the blog data from the request body
+    // Destructure fields from blogData
     const {
+      slug,
       title,
       excerpt,
       details,
@@ -18,10 +20,10 @@ export async function POST(req) {
       tags,
       visitCount,
       author,
-    } = body;
+    } = blogData;
 
     // Basic validation
-    if (!title || !excerpt || !details || !coverImage || !category || !author) {
+    if (!slug || !title || !excerpt || !category || !author) {
       return NextResponse.json(
         { success: false, message: "Missing required fields" },
         { status: 400 }
@@ -33,6 +35,7 @@ export async function POST(req) {
 
     // Create a new blog post
     const newBlog = await Blog.create({
+      slug,
       title,
       excerpt,
       details,
@@ -40,7 +43,7 @@ export async function POST(req) {
       gallery: Array.isArray(gallery) ? gallery : [],
       category,
       tags: Array.isArray(tags) ? tags : [],
-      visitCount: visitCount || 0,
+      visitCount,
       author,
     });
 
@@ -59,18 +62,20 @@ export async function POST(req) {
   }
 }
 
+// GET all blogs
 export async function GET() {
   try {
     // Connect to the database
-    const dbRes = await connectMongooseDb();
-    console.log("DB Connection Result:", dbRes);
+    await connectMongooseDb();
 
+    // Fetch all blogs
     const blogs = await Blog.find();
-    console.log("Fetched blogs:", blogs);
 
+    // Return blogs with 200 status
     return NextResponse.json(blogs, { status: 200 });
   } catch (error) {
-    console.error("API Error:", error);
+    // Log the error for debugging
+    console.error("Error fetching blogs:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
