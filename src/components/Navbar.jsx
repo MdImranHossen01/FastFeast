@@ -7,11 +7,13 @@ import Logo from "./logo";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { FiX, FiMenu, FiUser, FiGrid, FiLogOut } from "react-icons/fi";
+import { MdLocationSearching } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
 import { MdShoppingCart } from "react-icons/md";
 import { useCart } from "@/lib/cartContext";
+import OrderStatusModal from "./OrderStatusModal"; // Import the new modal
 
 // --- Reusable NavLink Component ---
 const NavLink = ({ href, children, onClick }) => {
@@ -46,6 +48,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOrderStatusModalOpen, setIsOrderStatusModalOpen] = useState(false); // Add state for modal
   const userMenuRef = useRef(null);
   const { cartCount } = useCart();
 
@@ -145,6 +148,17 @@ export default function Navbar() {
                         </p>
                       </div>
                       <ul className="p-2">
+                        <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
+                          <MdLocationSearching />{" "}
+                          <button
+                            onClick={() => {
+                              setIsUserMenuOpen(false);
+                              setIsOrderStatusModalOpen(true);
+                            }}
+                          >
+                            Order Status
+                          </button>
+                        </li>
                         <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
                           <FiUser />{" "}
                           <Link
@@ -280,6 +294,13 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Order Status Modal */}
+      <OrderStatusModal
+        isOpen={isOrderStatusModalOpen}
+        onClose={() => setIsOrderStatusModalOpen(false)}
+        userEmail={session?.user?.email}
+      />
     </>
   );
 }
