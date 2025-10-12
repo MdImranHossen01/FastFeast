@@ -145,14 +145,14 @@ export const PATCH = async (request) => {
     const collection = db.collection("restaurants");
     const body = await request.json();
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+    const id = searchParams.get("id") || searchParams.get("_id");
 
     if (!id) {
       return new NextResponse("Missing restaurant ID", { status: 400 });
     }
 
     // parse_id
-    const parsedId = parseId(id);
+    const parsedId = id;
 
     const result = await collection.updateOne(
       { _id: parsedId },

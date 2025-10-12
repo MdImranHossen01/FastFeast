@@ -14,9 +14,9 @@ export default function PendingRestaurants({ restaurants, setRestaurants }) {
     try {
       let body = {};
       if (action === "approved") {
-        body = { approved: true, status: "approved" };
+        body = { status: "approved" };
       } else if (action === "rejected") {
-        body = { approved: false, status: "rejected" };
+        body = { status: "rejected" };
       }
 
       const res = await fetch(
@@ -87,7 +87,8 @@ export default function PendingRestaurants({ restaurants, setRestaurants }) {
   };
 
   const pendingList = restaurants.filter(
-    (restaurant) => restaurant.approved === false
+    (restaurant) =>
+      restaurant.status === "pending" || restaurant.status === "rejected"
   );
 
   return (
