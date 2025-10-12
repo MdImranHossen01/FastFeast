@@ -6,10 +6,29 @@ import Link from 'next/link';
 import { useCart } from '@/lib/cartContext';
 import { useRouter } from 'next/navigation';
 import StripePaymentModal from '@/components/StripePaymentModal';
+import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const CheckOutPage = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
   const router = useRouter();
+  const { data: session } = useSession(); //  Get session from next-auth
+  const user = session?.user; // Define user from session
+  const searchParams = useSearchParams();
+  const status = searchParams.get("status");
+  const tranId = searchParams.get("tran_id");
+  const orderIdFromQuery = searchParams.get("order_id");
+
+  useEffect(() => {
+  if (status === "success" && tranId) {
+    setOrderPlaced(true);
+    setOrderId(orderIdFromQuery || "Unknown");
+    setPaymentIntentId(tranId);
+    clearCart();
+  }
+  }, [status, tranId, orderIdFromQuery]);
+
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderId, setOrderId] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,6 +44,34 @@ const CheckOutPage = () => {
     postalCode: '',
     paymentMethod: 'cash'
   });
+const handlePayment = async () => {
+  try {
+    const totalAmount = calculateTotal(cartItems); // existing function
+    const customer = {
+      name: user?.name,
+      email: user?.email,
+      phone: user?.phone,
+    };
+
+    const res = await fetch("/api/sslcommerz/initiate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ totalAmount, customer }),
+    });
+
+    const data = await res.json();
+    if (data.success && data.GatewayPageURL) {
+      window.location.href = data.GatewayPageURL;
+    } else {
+      console.error("SSLCommerz Error:", data);
+      alert("Failed to initialize payment.");
+    }
+  } catch (err) {
+    console.error("Payment error:", err);
+    alert("Something went wrong!");
+  }
+};
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,6 +139,12 @@ const CheckOutPage = () => {
       setShowStripeModal(true);
       return;
     }
+
+    if (formData.paymentMethod === "sslcommerz") {
+    await handlePayment();
+    return;
+    }
+
     
     // For cash on delivery, proceed with normal order submission
     submitOrder();
@@ -456,6 +509,18 @@ const CheckOutPage = () => {
                 </div>
               </label>
             </div>
+      <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 mb-2">
+         <input
+          type="radio"
+          name="paymentMethod"
+          value="sslcommerz"
+          checked={formData.paymentMethod === "sslcommerz"}
+          onChange={handleChange}
+          className="mr-3 text-orange-500 focus:ring-orange-500"
+         />
+        <span className="text-gray-700">Online Payment (SSLCommerz)</span>
+      </label>
+
             
             <button
               type="submit"
