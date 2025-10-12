@@ -31,13 +31,30 @@ export const authOptions = {
         if (!user) throw new Error("Invalid email or password");
         if (!user.password) throw new Error("User registered with Google/GitHub");
 
+        // Check if this is a demo user
+        const isDemoUser = user.isDemo === true;
+
         // Password check
         if (!credentials.skipOtp) {
           const isMatch = await bcrypt.compare(credentials.password, user.password);
           if (!isMatch) throw new Error("Invalid email or password");
         }
 
-        // OTP for login
+        // Skip OTP for demo users
+        if (isDemoUser) {
+          return {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            image: user.photoUrl,
+            location: user.location,
+            phone: user.phone,
+            role: user.role,
+            isDemo: true,
+          };
+        }
+
+        // OTP for regular users
         if (!credentials.skipOtp) {
           const otp = Math.floor(100000 + Math.random() * 900000).toString();
           const hashedOtp = await bcrypt.hash(otp, 10);
@@ -73,6 +90,7 @@ export const authOptions = {
           image: user.photoUrl,
           location: user.location,
           phone: user.phone,
+          role: user.role,
         };
       },
     }),
@@ -111,6 +129,8 @@ export const authOptions = {
           image: dbUser.photoUrl,
           location: dbUser.location,
           phone: dbUser.phone,
+          role: dbUser.role,
+          isDemo: dbUser.isDemo,
         };
       } else if (user) {
         // fallback for first login

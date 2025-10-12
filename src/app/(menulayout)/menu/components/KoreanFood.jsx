@@ -4,27 +4,59 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MenuCard from "../../menu/components/MenuCard";
 import getMenu from "@/app/actions/menu/getMenu";
+import getRestaurant from "@/app/actions/restaurant/getRestaurant";
+import { useSelector } from "react-redux";
 
-const KoreanFood = () => {
-  const [KoreanMenus, setKoreanMenus] = useState([]);
+const KoreanFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
+  const [koreanMenus, setKoreanMenus] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Get filters from Redux to check if we should hide this section
+  const filters = useSelector((state) => state.filters);
+  const hasActiveFilters = filters.searchQuery || 
+    filters.selectedCuisines.length > 0 || 
+    filters.selectedRating > 0 || 
+    filters.selectedPrice || 
+    filters.isSpecialOfferSelected || 
+    filters.isComboSelected;
+
   useEffect(() => {
-    const fetchKoreanMenus = async () => {
+    // If props are provided, use them (for better performance)
+    if (propMenus && propRestaurants) {
+      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Korean");
+      setKoreanMenus(filteredMenus);
+      setRestaurants(propRestaurants);
+      setLoading(false);
+      return;
+    }
+
+    // Otherwise fetch data independently
+    const fetchData = async () => {
       try {
-        const menus = await getMenu();
-        const filteredMenus = menus.filter((menu) => menu.cuisine === "Korean");
+        const [menusData, restaurantsData] = await Promise.all([
+          getMenu(),
+          getRestaurant()
+        ]);
+        
+        // Filter Korean cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Korean");
         setKoreanMenus(filteredMenus);
-        console.log("Korean menus:", filteredMenus);
+        setRestaurants(restaurantsData);
       } catch (error) {
-        console.error("Error fetching Korean menus:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchKoreanMenus();
-  }, []);
+    fetchData();
+  }, [propMenus, propRestaurants]);
+
+  // Hide this section when filters are active
+  if (hasActiveFilters) {
+    return null;
+  }
 
   if (loading) {
     return (
@@ -54,10 +86,14 @@ const KoreanFood = () => {
           </Link>
         </div>
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Loading...</p>
+          <p className="text-gray-500 text-lg">Loading Korean cuisine...</p>
         </div>
       </section>
     );
+  }
+
+  if (koreanMenus.length === 0) {
+    return null; // Don't show section if no Korean food available
   }
 
   return (
@@ -88,19 +124,11 @@ const KoreanFood = () => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {KoreanMenus.length > 0 ? (
-          KoreanMenus.map((menu) => (
-            <div key={menu?._id} className="flex-shrink-0 w-64">
-              <MenuCard menu={menu} />
-            </div>
-          ))
-        ) : (
-          <div className="text-center py-12 w-full">
-            <p className="text-gray-500 text-lg">
-              No dishes available at the moment.
-            </p>
+        {koreanMenus.map((menu) => (
+          <div key={menu?._id} className="flex-shrink-0 w-64">
+            <MenuCard menu={menu} restaurants={restaurants} />
           </div>
-        )}
+        ))}
       </div>
 
       {/* Custom scrollbar styles */}

@@ -1,41 +1,43 @@
-import { collectionsName, dbConnect } from "@/lib/dbConnect";
+import connectMongooseDb from "@/lib/mongoose";
+import Blog from "@/models/blog.model";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    // connect blogs collections
-    const blogsCollection =await dbConnect(collectionsName.blogsCollection);
-    const blogs = await blogsCollection.find().toArray();
+    const dbRes = await connectMongooseDb();
+    console.log("DB Connection Result:", dbRes);
 
-    // Convert ObjectId to string so it's valid JSON
-    // const cleanData = blogs.map((blog) => ({
-    //   ...blog,
-    //   _id: blog._id.toString(),
-    // }));
-    console.log("blogs", blogs)
-    return Response.json(blogs, { status: 200 });
+    const blogs = await Blog.find();
+    console.log("Fetched blogs:", blogs);
+
+    return NextResponse.json(blogs, { status: 200 });
   } catch (error) {
-    return Response.json(
+    console.error("API Error:", error);
+    return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
     );
   }
 }
 
+
+// POST: Add a new blog
 export async function POST(req) {
   try {
-    const blog = await req.json();
-    const blogsCollection =await dbConnect(collectionsName.blogsCollection);
-    const result = await blogsCollection.insertOne(blog);
+    await connectMongooseDb();
 
-    return Response.json(
-      {
-        acknowledged: result.acknowledged,
-        insertedId: result.insertedId.toString(),
-      },
+    const data = await req.json();
+
+    // Create a new blog document
+    const newBlog = await Blog.create(data);
+
+    return NextResponse.json(
+      { success: true, message: "Blog created successfully", blog: newBlog },
       { status: 201 }
     );
   } catch (error) {
-    return Response.json(
+    console.error("Error creating blog:", error);
+    return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
     );

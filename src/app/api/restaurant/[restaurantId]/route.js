@@ -1,9 +1,18 @@
 // G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\app\api\restaurant\[restaurantId]\route.js
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 // Connect to MongoDB
 const client = new MongoClient(process.env.MONGODB_URI);
+
+// helper function to handle mixed _id
+function parseId(id) {
+  // 24-character hex string --objectId
+  if (/^[0-9a-fA-F]{24}$/.test(id)) {
+    return new ObjectId(id);
+  }
+  return id;
+}
 
 export async function GET(request, { params }) {
   try {
@@ -16,11 +25,11 @@ export async function GET(request, { params }) {
     // Get the database and collection
     const db = client.db(process.env.DB_NAME);
     const collection = db.collection("restaurants");
-    const menusCollection = db.collection("menu");
+    const menusCollection = db.collection("foods");
 
     // Find the restaurant by ID
     const restaurant = await collection.findOne({
-      _id: new MongoClient.ObjectId(restaurantId),
+      _id: parseId(restaurantId),
     });
 
     if (!restaurant) {
@@ -29,7 +38,9 @@ export async function GET(request, { params }) {
 
     // find menu in restaurant's wise
     const menus = await menusCollection
-      .find({ restaurantId: restaurantId })
+      .find({
+        restaurantId: restaurant._id.toString(),
+      })
       .toArray();
 
     // Return the restaurant data
@@ -62,7 +73,7 @@ export const PUT = async (request, { params }) => {
 
     // Update the restaurant
     const result = await collection.updateOne(
-      { _id: new MongoClient.ObjectId(restaurantId) },
+      { _id: parseId(restaurantId) },
       { $set: updatedData }
     );
 
@@ -103,7 +114,7 @@ export const DELETE = async (request, { params }) => {
 
     // Delete the restaurant
     const result = await collection.deleteOne({
-      _id: new MongoClient.ObjectId(restaurantId),
+      _id: parseId(restaurantId),
     });
 
     if (result.deletedCount === 0) {

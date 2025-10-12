@@ -1,3 +1,4 @@
+// src/app/(menulayout)/menu/layout.jsx
 "use client"
 import Banner from "./menu/components/banner";
 import FavouriteFood from "./menu/components/FavouriteFood";
@@ -52,7 +53,7 @@ const MenuLayout = ({ children }) => {
             <div className="relative w-80 h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
               {/* Drawer Header */}
               <div className="flex items-center justify-between p-4 border-b">
-             
+                <h2 className="text-lg font-semibold">Filters</h2>
                 <button
                   onClick={() => setIsFilterOpen(false)}
                   className="p-1 rounded-full hover:bg-gray-100"

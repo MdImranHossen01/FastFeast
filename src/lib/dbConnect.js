@@ -10,6 +10,7 @@ export const collectionsName = {
   reviewsCollection: "reviews",
   ordersCollection: "orders",
   transactionHistoryCollection: "transactionHistory",
+  favoritesCollection: "favorites"
 };
 
 // Cache the database connection
