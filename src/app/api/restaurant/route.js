@@ -183,14 +183,14 @@ export const DELETE = async (request) => {
 
     // Get the ID from the query parameters
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+    const id = searchParams.get("id") || searchParams.get("_id");
 
     if (!id) {
       return new NextResponse("Missing restaurant ID", { status: 400 });
     }
 
     // ✅ Parse _id
-    const parsedId = parseId(id);
+    const parsedId = id;
 
     // Delete the restaurant from the MongoDB collection
     const result = await collection.deleteOne({
