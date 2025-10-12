@@ -14,9 +14,9 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
     try {
       let body = {};
       if (action === "approved") {
-        body = { approved: true, status: "approved" };
+        body = { status: "approved" };
       } else if (action === "rejected") {
-        body = { approved: false, status: "rejected" };
+        body = { status: "rejected" };
       }
 
       const res = await fetch(
@@ -86,7 +86,7 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
   };
 
   const approvedList = restaurants.filter(
-    (restaurant) => restaurant.approved === true
+    (restaurant) => restaurant.status === "approved"
   );
 
   return (
