@@ -2,11 +2,12 @@
 
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function BlogCard({ blog }) {
-  console.log(blog)
+  const router = useRouter();
   const {
     _id,
     coverImage,
@@ -17,11 +18,27 @@ export default function BlogCard({ blog }) {
     authorEmail,
     authorPhoto,
     publishDate,
+    visitCount,
   } = blog;
 
+  const handleReadMore = async (e) => {
+    e.preventDefault();
+
+    try {
+      // increment visit count before navigating
+      await fetch(`/api/blogs/${_id}`, {
+        method: "POST", // use POST here, since you already made a POST route for increment
+      });
+
+      router.push(`/blogs/${_id}`);
+    } catch (error) {
+      console.error("Failed to increment view count:", error);
+      router.push(`/blogs/${_id}`);
+    }
+  };
+
   return (
-    <Link
-      href={`/blogs/${_id}`}
+    <section
       className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
     >
       {/* Cover image */}
@@ -44,51 +61,62 @@ export default function BlogCard({ blog }) {
           </span>
         )}
 
-        {/* Title */}
-        <h3 className="mb-2 text-lg font-bold text-gray-900 transition-colors duration-300 group-hover:text-orange-600 line-clamp-2">
+        {/* Blog Title */}
+        <h1 className="text-xl font-extrabold mb-3 text-gray-900">
           {title}
-        </h3>
+        </h1>
 
-        {/* Author Info + Date */}
-        <div className="mb-3 flex items-center justify-between text-xs text-gray-600">
+        {/* Meta Info */}
+        <div className="flex items-center gap-3 text-sm text-gray-600 mb-6">
           <div className="flex items-center gap-2">
             <Image
               src={authorPhoto || "/user.png"}
               alt={author || "Author"}
               width={32}
               height={32}
-              className="rounded-full object-cover border border-gray-200"
+              className="rounded-full border border-gray-200 object-cover"
             />
-            <div className="flex flex-col leading-tight">
-              <span className="font-medium text-gray-800">{author || "Unknown"}</span>
-              <span className="text-gray-500 text-[11px]">{authorEmail}</span>
-            </div>
+            <span className="font-semibold">{author || "Unknown"}</span>
           </div>
 
+          <span className="text-gray-400">•</span>
+
+          {/* Date */}
           {publishDate && (
             <span>
               {new Date(publishDate).toLocaleDateString("en-US", {
-                month: "short",
+                month: "long",
                 day: "numeric",
                 year: "numeric",
               })}
             </span>
           )}
+
+          <span className="text-gray-400">•</span>
+
+          {/* 👁️ View Count */}
+          <span className="flex items-center gap-1 text-gray-600">
+          <FaEye className="w-5 h-5"/> {visitCount || 0} views
+          </span>
         </div>
 
         {/* Excerpt */}
-        <p className="text-sm text-gray-700 line-clamp-3 mb-4">{excerpt}</p>
+        <p className="text-sm text-gray-700 line-clamp-2 mb-4">{excerpt}</p>
 
         <hr className="border-orange-200 mb-3" />
 
         {/* Footer: Read More */}
         <div className="flex items-center justify-end">
-          <span className="flex items-center gap-1 text-sm font-semibold text-gray-500 transition-colors duration-300 group-hover:text-orange-500">
+          <span
+            className="flex items-center gap-1 text-sm font-semibold cursor-pointer text-gray-500 transition-colors duration-300 group-hover:text-orange-500"
+            onClick={handleReadMore}
+          >
             Read More
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>
       </div>
-    </Link>
+    </section>
   );
 }
+

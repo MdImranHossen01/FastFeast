@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaHome, FaCalendar, FaTags } from "react-icons/fa";
+import { FaHome, FaCalendar, FaTags, FaEye } from "react-icons/fa";
 import getBlogs from "@/app/actions/blogs/getBlogs";
 import ReactMarkdown from "react-markdown";
 import RelatedBlogSidebar from "../components/RelatedBlogSlider"; // Retaining user's import path
@@ -28,108 +28,129 @@ export default async function BlogDetails({ params }) {
   const relatedBlogs = blogs.filter((blog) => blog._id !== slug);
 
   return (
-    <main className="max-w-[1500px] mx-auto px-14 py-18">
-      {/* Cover Image */}
-      <div className="w-full md:h-[500px] overflow-hidden rounded-xl shadow-lg mb-8">
+    <main className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 bg-white shadow-lg rounded-lg mt-10 mb-20">
+      {/* Header Image */}
+      <div className="w-full mb-8 overflow-hidden rounded-lg">
         <img
           src={post.coverImage || post.image}
           alt={post.title}
-          className="w-full h-full object-cover"
+          className="w-full h-[400px] object-cover rounded-lg"
         />
       </div>
 
-      {/* Title & Meta */}
-      <header className="mb-6">
-        <h1 className="text-4xl font-extrabold mb-4">{post.title}</h1>
-        <div className="flex items-center gap-6 text-gray-600 text-sm">
-          <span className="flex items-center gap-2">
-            <img
-              src={post.authorPhoto || "/default-avatar.png"}
-              alt={post.author}
-              className="w-8 h-8 rounded-full object-cover"
-            />
-            <div className="flex flex-col">
-              <span className="font-medium">{post.author}</span>
-              <span className="text-gray-500">{post.authorEmail}</span>
-            </div>
-          </span>
-          <span className="flex items-center gap-2">
-            <FaCalendar />{" "}
-            {new Date(post.publishDate).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>
-        </div>
-      </header>
+      {/* Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
 
-      {/* Main Content Area: Details, Gallery, Tags, and Related Sidebar */}
-      <div className="grid grid-cols-12 gap-8">
-        {/* Main Content - col-span-12 on mobile, col-span-9 on md and up */}
-        <div className="col-span-12 md:col-span-9">
-          {/* Details */}
-          <article className="prose max-w-none mb-10">
+        {/* Main Blog Content */}
+        <article className="md:col-span-8">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-4 leading-snug">
+            {post.title}
+          </h1>
+
+          {/* Author Info */}
+          <div className="flex items-center gap-4 mb-3 text-gray-600 text-sm">
+            <div className="flex items-center gap-2">
+              <img
+                src={post.authorPhoto || "/user.png"}
+                alt={post.author}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+              <div className="flex flex-col">
+                <span className="font-semibold text-gray-800">{post.author}</span>
+                <span className="text-gray-500">
+                  {new Date(post.publishDate).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* View Count */}
+          <div className="flex items-center gap-1 text-sm text-gray-500 mb-6">
+          <FaEye className="w-5 h-5" /> <span className="font-medium">{post.visitCount || 0}</span> views
+          </div>
+
+
+          <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
             <ReactMarkdown>{post.details}</ReactMarkdown>
-          </article>
+          </div>
+
+          {/* Tags */}
+          <div className="flex items-center flex-wrap gap-3 mt-6">
+            <FaTags className="text-gray-500" />
+            {post.tags?.map((tag, idx) => (
+              <span
+                key={idx}
+                className="text-sm px-3 py-1 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
 
           {/* Gallery */}
-          {post.gallery && post.gallery.length > 0 && (
-            <section className="mb-10">
-              <h2 className="text-2xl font-bold mb-4">Gallery</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {post.gallery.map((img, index) => (
-                  <div key={index} className="overflow-hidden rounded-lg shadow">
+          {post.gallery?.length > 0 && (
+            <section className="mt-12">
+              <h2 className="text-2xl font-bold mb-4 border-b pb-2">
+                Photo Gallery
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {post.gallery.map((img, i) => (
+                  <div key={i} className="overflow-hidden rounded-lg">
                     <img
                       src={img}
-                      alt={`Gallery ${index}`}
-                      className="w-full h-78 object-cover hover:scale-110 transition-transform"
+                      alt={`Gallery ${i}`}
+                      className="w-full h-56 object-cover hover:scale-105 transition-transform"
                     />
                   </div>
                 ))}
               </div>
             </section>
           )}
+        </article>
 
-          {/* Tags */}
-          <div className="flex items-center gap-2 flex-wrap mb-10">
-            <FaTags className="text-gray-500" />
-            {post.tags?.map((tag, idx) => (
-              <span key={idx} className="badge badge-outline">
-                {tag}
-              </span>
-            ))}
+        {/* Sidebar */}
+        <aside className="md:col-span-4 space-y-8">
+          <div className="p-6 bg-gray-50 rounded-lg shadow-sm">
+            <h2 className="text-xl font-semibold mb-4">About the Author</h2>
+            <div className="flex flex-col items-center text-center">
+              <img
+                src={post.authorPhoto || "/default-avatar.png"}
+                alt={post.author}
+                className="w-20 h-20 rounded-full mb-3 object-cover"
+              />
+              <p className="text-gray-600 text-sm">
+                Passionate about exploring flavors and sharing stories through food.
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Related Blog Sidebar (Now Sticky on medium screens and up)
-          - sticky: Enables the sticky positioning.
-          - top-8: Sets the sticky element 2rem (32px) from the top of the viewport.
-          - self-start: Ensures the sticky element doesn't stretch vertically in the grid container.
-        */}
-        <aside className="col-span-12 md:col-span-3 md:sticky md:top-8 md:self-start">
-          <h2 className="text-xl font-bold mb-4">More Posts</h2>
-          {/* Pass the related blogs to the client component for cycling */}
-          {relatedBlogs.length > 0 ? (
-            <RelatedBlogSidebar blogs={relatedBlogs} />
-          ) : (
-            <div className="text-gray-500">No other posts found.</div>
-          )}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">More Posts</h2>
+            {relatedBlogs.length > 0 ? (
+              <RelatedBlogSidebar blogs={relatedBlogs} />
+            ) : (
+              <p className="text-gray-500">No other posts found.</p>
+            )}
+          </div>
 
-          <SocialIcons/>
+          <SocialIcons />
         </aside>
-        
       </div>
 
       {/* Back Button */}
-      <div className="mt-8">
+      <div className="mt-12 text-center">
         <Link
           href="/blogs"
-          className="btn btn-outline text-orange-500 hover:bg-orange-600 hover:text-white"
+          className="inline-flex items-center px-6 py-3 text-sm font-semibold border border-orange-500 text-orange-600 rounded-lg hover:bg-orange-500 hover:text-white transition-colors"
         >
           <FaHome className="mr-2" /> Back to Blogs
         </Link>
       </div>
     </main>
+
   );
 }

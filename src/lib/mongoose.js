@@ -28,3 +28,4 @@ const connectMongooseDb = async () => {
 };
 
 export default connectMongooseDb;
+
