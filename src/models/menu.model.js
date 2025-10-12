@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const menuSchema = mongoose.Schema(
   {
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     title: {
       type: String,
       required: true,
@@ -50,7 +45,7 @@ const menuSchema = mongoose.Schema(
     },
     reviewsCount: {
       type: Number,
-      default: 0,
+      default: 175,
     },
     rating: {
       type: Number,
@@ -79,7 +74,7 @@ const menuSchema = mongoose.Schema(
     offerPrice: {
       type: Number,
       default: function () {
-        return this.price;
+        return this.price - (this.price * this.discountRate) / 100;
       },
     },
   },
@@ -88,17 +83,6 @@ const menuSchema = mongoose.Schema(
     versionKey: false,
   }
 );
-
-// Pre-save middleware to calculate offerPrice based on discountRate
-menuSchema.pre("save", function (next) {
-  if (this.isSpecialOffer && this.discountRate > 0) {
-    this.offerPrice = this.price - (this.price * this.discountRate) / 100;
-  } else {
-    this.offerPrice = this.price;
-    this.discountRate = 0;
-  }
-  next();
-});
 
 // Prevent model overwrite upon initial compile
 if (mongoose.models.Menu) {
