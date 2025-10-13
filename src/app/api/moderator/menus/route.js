@@ -5,37 +5,36 @@ import { NextResponse } from "next/server";
 // POST (create) a new menu
 export async function POST(req) {
   try {
-    // Parse request body
-    const body = await req.json();
+    // Parse the request body to get menu data
+    const menuData = await req.json();
 
     // Destructure required fields
     const {
       title,
-      image,
+      imageUrl,
       description,
       price,
-      isCombo,
       cuisine,
       category,
-      rating,
       ingredients,
       dietaryTags,
-      availability,
       restaurantId,
-    } = body;
+      reviewsCount,
+      rating,
+      isSpecialOffer,
+      discountRate,
+    } = menuData;
 
     // Basic validation
     if (
       !title ||
-      !image ||
+      !imageUrl ||
       !description ||
       !price ||
       !cuisine ||
       !category ||
-      !rating ||
       !ingredients ||
       !dietaryTags ||
-      !availability ||
       !restaurantId
     ) {
       return NextResponse.json(
@@ -50,17 +49,18 @@ export async function POST(req) {
     // Create new menu
     const newMenu = await Menu.create({
       title,
-      image,
+      imageUrl,
       description,
       price,
-      isCombo,
       cuisine,
       category,
-      rating,
       ingredients,
       dietaryTags,
-      availability,
       restaurantId,
+      reviewsCount,
+      rating,
+      isSpecialOffer,
+      discountRate,
     });
 
     // Return the created menu

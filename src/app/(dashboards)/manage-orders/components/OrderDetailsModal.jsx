@@ -1,9 +1,10 @@
 // src/app/(dashboards)/admin-dashboard/manage-orders/components/OrderDetailsModal.jsx
 import React, { useState } from 'react';
-import { FiClock, FiCheck, FiX, FiPackage, FiTruck, FiUsers } from 'react-icons/fi';
+import { FiClock, FiCheck, FiX, FiPackage, FiTruck, FiUsers, FiMapPin, FiPhone } from 'react-icons/fi';
 
 const OrderDetailsModal = ({ order, isOpen, onClose, updateOrderStatus, assignRiderToOrder, riders }) => {
   const [showRiderDropdown, setShowRiderDropdown] = useState(false);
+  const [showLiveTracking, setShowLiveTracking] = useState(false);
 
   // Format date
   const formatDate = (dateString) => {
@@ -108,7 +109,7 @@ const OrderDetailsModal = ({ order, isOpen, onClose, updateOrderStatus, assignRi
   if (!isOpen || !order) return null;
 
   const nextAction = getNextStatusAction(order.status);
-  const assignedRider = order.assignedRider ? riders.find(r => r.id === order.assignedRider) : null;
+  const assignedRider = order.riderInfo || null;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto items-center bg-black/70">
@@ -283,6 +284,73 @@ const OrderDetailsModal = ({ order, isOpen, onClose, updateOrderStatus, assignRi
                 </div>
               </div>
             </div>
+            
+            {/* Rider Information (if assigned) */}
+            {assignedRider && (
+              <div className="mt-6">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="text-lg font-medium text-gray-900">Rider Information</h4>
+                  {order.status === 'out-for-delivery' && (
+                    <button
+                      type="button"
+                      className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      onClick={() => setShowLiveTracking(!showLiveTracking)}
+                    >
+                      {showLiveTracking ? 'Hide' : 'Show'} Live Tracking
+                    </button>
+                  )}
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-12 w-12 rounded-full"
+                        src={assignedRider.photoUrl || `https://avatar.vercel.sh/${assignedRider.email}`}
+                        alt={assignedRider.name}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center">
+                        <h5 className="text-lg font-medium text-gray-900">{assignedRider.name}</h5>
+                        <div className="ml-2 flex items-center text-sm text-gray-500">
+                          <FiPhone className="mr-1" />
+                          {assignedRider.phone}
+                        </div>
+                      </div>
+                      <div className="mt-1 flex items-center text-sm text-gray-500">
+                        <FiMapPin className="mr-1" />
+                        {assignedRider.currentLocation ? 
+                          `Lat: ${assignedRider.currentLocation.lat}, Lng: ${assignedRider.currentLocation.lng}` : 
+                          'Location not available'
+                        }
+                      </div>
+                      <div className="mt-1 text-sm text-gray-500">
+                        Vehicle: {assignedRider.vehicleType || 'Not specified'}
+                      </div>
+                      <div className="mt-1 text-sm text-gray-500">
+                        Status: {assignedRider.isAvailable ? 
+                          <span className="text-green-600">Available</span> : 
+                          <span className="text-red-600">Busy</span>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Live Tracking Map (placeholder) */}
+                {showLiveTracking && (
+                  <div className="mt-4 bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="animate-pulse">
+                        <FiTruck className="mx-auto h-12 w-12 text-orange-500" />
+                      </div>
+                      <p className="mt-2 text-sm text-gray-600">Live tracking map would be displayed here</p>
+                      <p className="text-xs text-gray-500 mt-1">Rider is on the way with your order</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
             
             {/* Order Timeline */}
             <div className="mt-6">

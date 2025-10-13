@@ -1,135 +1,128 @@
-import { NextResponse } from 'next/server';
-import { getCollection } from '@/lib/dbConnect';
-import { getServerSession } from 'next-auth/next';
-import { ObjectId } from 'mongodb';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { NextResponse } from "next/server";
+import { getCollection } from "@/lib/dbConnect";
+import { getServerSession } from "next-auth/next";
+import { ObjectId } from "mongodb";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-// GET user's favorite menus
-export async function GET(request) {
+// GET - Get all favorites for logged-in user
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
-    
-    if (!session || !session.user?.id) {
-      console.error('Unauthorized: No session or user ID');
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    if (!session?.user?.email && !session?.user?.id) {
+      console.error("❌ Unauthorized: No session or user ID found");
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const collection = await getCollection('favorites');
-    
+    const collection = await getCollection("favorites");
+
+    // Some auth providers may not have a MongoDB ID
+    const userId =
+      session.user.id && ObjectId.isValid(session.user.id)
+        ? new ObjectId(session.user.id)
+        : session.user.email;
+
     const favorites = await collection
-      .find({ userId: new ObjectId(session.user.id) })
+      .find({ userId })
       .sort({ addedAt: -1 })
       .toArray();
 
     return NextResponse.json(favorites);
   } catch (error) {
-    console.error('Error fetching favorites:', error);
+    console.error("❌ Error fetching favorites:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch favorites' },
+      { error: "Failed to fetch favorites", details: error.message },
       { status: 500 }
     );
   }
 }
 
-// POST - Add a menu to favorites
+// POST - Add a menu item to favorites
 export async function POST(request) {
   try {
     const session = await getServerSession(authOptions);
-    
-    if (!session || !session.user?.id) {
-      console.error('Unauthorized: No session or user ID');
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    if (!session?.user?.email && !session?.user?.id) {
+      console.error("❌ Unauthorized: No session or user ID found");
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await request.json();
     const { menu, restaurant } = body;
-    
-    console.log('Received request to add favorite:', { 
-      menuTitle: menu?.title, 
-      menuId: menu?._id, 
-      userId: session.user.id 
-    });
 
-    if (!menu || !menu._id) {
-      console.error('Bad Request: Menu data or menu._id is missing');
+    if (!menu?._id) {
+      console.error("❌ Bad Request: Menu data is missing");
       return NextResponse.json(
-        { error: 'Menu data is required' },
+        { error: "Menu data is required" },
         { status: 400 }
       );
     }
 
-    // Validate ObjectIds
-    let userId, menuId;
-    try {
-      userId = new ObjectId(session.user.id);
-      menuId = new ObjectId(menu._id);
-    } catch (e) {
-      console.error('Invalid ObjectId format:', { 
-        userId: session.user.id, 
-        menuId: menu._id,
-        error: e.message 
-      });
-      return NextResponse.json(
-        { error: 'Invalid ID format' },
-        { status: 400 }
-      );
-    }
+    const userId =
+      session.user.id && ObjectId.isValid(session.user.id)
+        ? new ObjectId(session.user.id)
+        : session.user.email;
+    const menuId = ObjectId.isValid(menu._id)
+      ? new ObjectId(menu._id)
+      : menu._id;
 
-    const collection = await getCollection('favorites');
-    
-    // Check if already favorited
+    const collection = await getCollection("favorites");
+
     const existingFavorite = await collection.findOne({
-      userId: userId,
-      menuId: menuId
+      userId,
+      menuId,
     });
 
     if (existingFavorite) {
-      console.log('Menu already favorited by user');
+      console.log("⚠️ Menu already favorited by user");
       return NextResponse.json(
-        { error: 'Menu already in favorites' },
-        { status: 409 }
+        { message: "Already in favorites" },
+        { status: 200 }
       );
     }
 
-    // Create new favorite document
     const favoriteDocument = {
-      userId: userId,
-      menuId: menuId,
+      userId,
+      menuId,
       menu: {
         title: menu.title,
-        description: menu.description,
-        price: menu.price,
-        imageUrl: menu.imageUrl,
-        restaurantId: menu.restaurantId ? new ObjectId(menu.restaurantId) : null,
-        isSpecialOffer: menu.isSpecialOffer || false,
-        discountRate: menu.discountRate || 0
+        description: menu.description || "",
+        price: menu.price || 0,
+        imageUrl: menu.imageUrl || "",
+        restaurantId:
+          menu.restaurantId && ObjectId.isValid(menu.restaurantId)
+            ? new ObjectId(menu.restaurantId)
+            : menu.restaurantId || null,
+        isSpecialOffer: !!menu.isSpecialOffer,
+        discountRate: menu.discountRate || 0,
       },
-      restaurant: restaurant ? {
-        _id: new ObjectId(restaurant._id),
-        name: restaurant.name,
-        logo: restaurant.logo,
-        location: restaurant.location || {}
-      } : null,
-      addedAt: new Date()
+      restaurant: restaurant
+        ? {
+            _id:
+              restaurant._id && ObjectId.isValid(restaurant._id)
+                ? new ObjectId(restaurant._id)
+                : restaurant._id,
+            name: restaurant.name || "",
+            logo: restaurant.logo || "",
+            location: restaurant.location || {},
+          }
+        : null,
+      addedAt: new Date(),
     };
 
-    console.log('Inserting favorite document...');
     const result = await collection.insertOne(favoriteDocument);
-    console.log('Successfully inserted favorite with ID:', result.insertedId);
 
     return NextResponse.json(
-      { 
-        message: 'Added to favorites', 
-        favorite: { ...favoriteDocument, _id: result.insertedId } 
+      {
+        message: "Added to favorites",
+        favorite: { ...favoriteDocument, _id: result.insertedId },
       },
       { status: 201 }
     );
   } catch (error) {
-    console.error('=== DETAILED ERROR IN ADDING TO FAVORITES ===');
-    console.error('Error Message:', error.message);
-    console.error('Error Stack:', error.stack);
+    console.error("❌ Error adding to favorites:", error);
     return NextResponse.json(
-      { error: 'Failed to add to favorites', details: error.message },
+      { error: "Failed to add to favorites", details: error.message },
       { status: 500 }
     );
   }

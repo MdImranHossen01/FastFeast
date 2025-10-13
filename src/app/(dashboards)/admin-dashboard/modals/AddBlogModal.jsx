@@ -17,7 +17,7 @@ import { useSession } from "next-auth/react";
 
 export default function AddBlogModal({ onSave }) {
   const { data: session } = useSession();
-  console.log(session.user)
+  // console.log(session.user)
   const userName = session?.user?.name;
   const userEmail = session?.user?.email;
   const userPhoto = session?.user?.image;
@@ -116,7 +116,7 @@ export default function AddBlogModal({ onSave }) {
 
       setOpen(false);
     } catch (error) {
-      console.error("❌ Error saving blog:", error);
+      console.error("❌ Error saving blogs:", error);
 
       // ❌ SweetAlert error
       Swal.fire({

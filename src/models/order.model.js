@@ -24,7 +24,7 @@ const orderSchema = new mongoose.Schema(
       enum: ["cash", "card"],
       required: true,
     },
-    paymentIntentId: { type: String }, // For Stripe payments
+    paymentIntentId: { type: String },
     pricing: {
       subtotal: { type: Number, required: true },
       deliveryFee: { type: Number, required: true },

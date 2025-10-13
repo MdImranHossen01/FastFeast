@@ -152,12 +152,12 @@ export const PATCH = async (request) => {
     }
 
     // parse_id
-    const parsedId = id;
+    const parsedId = parseId(id);
 
-    const result = await collection.updateOne(
-      { _id: parsedId },
-      { $set: body }
-    );
+    let result = await collection.updateOne({ _id: parsedId }, { $set: body });
+    if (result.matchedCount === 0) {
+      result = await collection.updateOne({ _id: id }, { $set: body });
+    }
     if (result.matchedCount === 0) {
       return new NextResponse("Restaurant not found", { status: 404 });
     }
@@ -174,45 +174,31 @@ export const PATCH = async (request) => {
 // DELETE method to remove a restaurant
 export const DELETE = async (request) => {
   try {
-    // Connect to MongoDB
     await client.connect();
-
-    // Get the database and collection
     const db = client.db(process.env.DB_NAME);
     const collection = db.collection("restaurants");
 
-    // Get the ID from the query parameters
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id") || searchParams.get("_id");
 
-    if (!id) {
-      return new NextResponse("Missing restaurant ID", { status: 400 });
-    }
+    if (!id) return new NextResponse("Missing restaurant ID", { status: 400 });
 
-    // ✅ Parse _id
-    const parsedId = id;
+    // try ObjectId first
+    const parsedId = /^[0-9a-fA-F]{24}$/.test(id) ? new ObjectId(id) : id;
 
-    // Delete the restaurant from the MongoDB collection
-    const result = await collection.deleteOne({
-      _id: parsedId,
-    });
+    let result = await collection.deleteOne({ _id: parsedId });
 
+    // fallback to string match
     if (result.deletedCount === 0) {
-      return new NextResponse("Restaurant not found", { status: 404 });
+      result = await collection.deleteOne({ _id: id });
     }
 
-    // Return success response
+    if (result.deletedCount === 0)
+      return new NextResponse("Restaurant not found", { status: 404 });
+
     return new NextResponse(
-      JSON.stringify({
-        message: "Restaurant deleted successfully",
-        id: id,
-      }),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      JSON.stringify({ message: "Restaurant deleted successfully", id }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error(error);
