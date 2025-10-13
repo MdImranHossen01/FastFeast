@@ -37,8 +37,6 @@ export async function POST(req) {
       !logo ||
       !banner ||
       !cuisines ||
-      !currency ||
-      !deliveryFee ||
       !location ||
       !contact ||
       !openingHours ||

@@ -1,36 +1,48 @@
 import mongoose from "mongoose";
 
 // Sub-schema for coordinates
-const coordinatesSchema = new mongoose.Schema({
-  lat: { type: Number, required: true },
-  lng: { type: Number, required: true },
-});
+const coordinatesSchema = new mongoose.Schema(
+  {
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true },
+  },
+  { _id: false }
+);
 
 // Sub-schema for location
-const locationSchema = new mongoose.Schema({
-  address: { type: String, required: true },
-  area: { type: String, required: true },
-  city: { type: String, required: true },
-  country: { type: String, required: true },
-  coordinates: { type: coordinatesSchema, required: true },
-});
+const locationSchema = new mongoose.Schema(
+  {
+    address: { type: String, required: true },
+    area: { type: String, required: true },
+    city: { type: String, required: true },
+    country: { type: String, required: true },
+    coordinates: { type: coordinatesSchema, required: true },
+  },
+  { _id: false }
+);
 
 // Sub-schema for contact information
-const contactSchema = new mongoose.Schema({
-  phone: { type: String, required: true },
-  email: { type: String, required: true },
-});
+const contactSchema = new mongoose.Schema(
+  {
+    phone: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  { _id: false }
+);
 
 // Sub-schema for opening hours
-const openingHoursSchema = new mongoose.Schema({
-  mon: { open: String, close: String },
-  tue: { open: String, close: String },
-  wed: { open: String, close: String },
-  thu: { open: String, close: String },
-  fri: { open: String, close: String },
-  sat: { open: String, close: String },
-  sun: { open: String, close: String },
-});
+const openingHoursSchema = new mongoose.Schema(
+  {
+    mon: { open: String, close: String },
+    tue: { open: String, close: String },
+    wed: { open: String, close: String },
+    thu: { open: String, close: String },
+    fri: { open: String, close: String },
+    sat: { open: String, close: String },
+    sun: { open: String, close: String },
+  },
+  { _id: false }
+);
 
 // Main Restaurant Schema
 const restaurantSchema = new mongoose.Schema(
@@ -64,12 +76,12 @@ const restaurantSchema = new mongoose.Schema(
     ],
     currency: {
       type: String,
-      required: true,
       enum: ["BDT", "USD", "EUR", "GBP", "INR"],
+      default: "BDT",
     },
     deliveryFee: {
       type: Number,
-      required: true,
+      default: 0,
     },
     estimatedDeliveryTime: {
       type: String,
@@ -120,8 +132,17 @@ const restaurantSchema = new mongoose.Schema(
 
 // Delete existing model to prevent OverwriteModelError in development
 if (mongoose.models.Restaurant) {
-  delete mongoose.models.Restaurant;
+  mongoose.deleteModel("Restaurant");
 }
+
+// Auto Generate Slug from Name
+restaurantSchema.pre("save", function (next) {
+  if (!this.slug) {
+    this.slug = this.name.toLowerCase().replace(/\s+/g, "-");
+  }
+
+  next();
+});
 
 // Prevent OverwriteModelError during hot reload in Next.js
 const Restaurant = mongoose.model("Restaurant", restaurantSchema);

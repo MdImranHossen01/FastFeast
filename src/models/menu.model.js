@@ -45,7 +45,7 @@ const menuSchema = mongoose.Schema(
     },
     reviewsCount: {
       type: Number,
-      default: 175,
+      default: 0,
     },
     rating: {
       type: Number,
