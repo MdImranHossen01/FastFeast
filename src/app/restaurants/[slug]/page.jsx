@@ -1,4 +1,4 @@
-import getMenu from "@/app/actions/menu/getMenu";
+import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 import React from "react";
 import { generateSlug } from "../components/generateSlug";

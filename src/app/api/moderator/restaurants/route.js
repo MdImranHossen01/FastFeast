@@ -5,52 +5,42 @@ import Restaurant from "@/models/restaurant.model";
 // CREATE a new restaurant
 export async function POST(req) {
   try {
-    // Parse request body
-    const body = await req.json();
+    // Parse the request body
+    const restaurantData = await req.json();
 
     // Destructure required fields
     const {
+      slug,
       name,
+      bio,
       logo,
       banner,
-      rating,
-      reviewsCount,
       cuisines,
       currency,
-      estimatedDeliveryTime,
       deliveryFee,
-      status,
-      isFeatured,
-      isActive,
-      approved,
-      ownerId,
-      ownerEmail,
-      bio,
+      estimatedDeliveryTime,
       location,
       contact,
       openingHours,
-      minOrderValue,
-      avgCostForTwo,
-    } = body;
+      ownerId,
+      isActive,
+      status,
+      reviewsCount,
+      rating,
+    } = restaurantData;
 
     // Basic validation
     if (
+      !slug ||
       !name ||
+      !bio ||
       !logo ||
       !banner ||
-      !rating ||
-      !reviewsCount ||
       !cuisines ||
-      !currency ||
-      !deliveryFee ||
-      !ownerId ||
-      !ownerEmail ||
-      !bio ||
       !location ||
       !contact ||
       !openingHours ||
-      !minOrderValue ||
-      !avgCostForTwo
+      !ownerId
     ) {
       return NextResponse.json(
         { success: false, message: "Missing required fields" },
@@ -63,27 +53,23 @@ export async function POST(req) {
 
     // Create new restaurant
     const newRestaurant = await Restaurant.create({
+      slug,
       name,
+      bio,
       logo,
       banner,
-      rating,
-      reviewsCount,
       cuisines,
       currency,
-      estimatedDeliveryTime,
       deliveryFee,
-      status,
-      isFeatured,
-      isActive,
-      approved,
-      ownerId,
-      ownerEmail,
-      bio,
+      estimatedDeliveryTime,
       location,
       contact,
       openingHours,
-      minOrderValue,
-      avgCostForTwo,
+      ownerId,
+      isActive,
+      status,
+      reviewsCount,
+      rating,
     });
 
     // Return the created restaurant
