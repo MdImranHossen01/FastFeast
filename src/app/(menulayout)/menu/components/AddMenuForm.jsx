@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Form from "next/form";
-import { createMenu } from "@/app/actions/menu/createMenu";
+import { createMenu } from "@/app/actions/menus/createMenu";
 
 const AddMenuForm = () => {
   const [ingredients, setIngredients] = useState("");
