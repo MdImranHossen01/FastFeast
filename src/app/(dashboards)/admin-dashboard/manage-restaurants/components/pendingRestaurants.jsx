@@ -164,7 +164,9 @@ export default function PendingRestaurants({
                           <AiOutlineClose size={16} /> Reject
                         </button>
                         <button
-                          onClick={() => handleDelete(restaurant._id)}
+                          onClick={() =>
+                            handleDelete(restaurant._id.toString())
+                          }
                           className="btn btn-xs md:btn-sm rounded-full flex items-center gap-1 bg-gray-100 dark:bg-gray-800 border border-gray-500 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-500 shadow-none hover:text-white"
                         >
                           <MdDeleteOutline size={16} /> Delete

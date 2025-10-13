@@ -7,7 +7,7 @@ import ItalianFood from "./components/ItalianFood";
 import JapaneseFood from "./components/JapaneseFood";
 import KoreanFood from "./components/KoreanFood";
 import TurkishFood from "./components/TurkishFood";
-import getMenu from "@/app/actions/menu/getMenu";
+import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 import { useSelector } from "react-redux";
 import MenuCard from "./components/MenuCard";
