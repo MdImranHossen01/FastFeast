@@ -3,6 +3,7 @@ import { reviews } from "./reviews";
 import ManageReviewHeader from "./components/ManageReviewHeader";
 import ReviewCards from "./components/ReviewCardContainer";
 import ReviewCardContainer from "./components/ReviewCardContainer";
+import ReviewTable from "./components/ReviewTable";
 
 export default async function ManageReviews({ searchParams }) {
   const { search } = await searchParams;
@@ -13,7 +14,8 @@ export default async function ManageReviews({ searchParams }) {
   return (
     <div className="px-6">
       <ManageReviewHeader />
-      <ReviewCardContainer reviews={data} />
+      <ReviewTable reviews={data}/>
+      {/* <ReviewCardContainer reviews={data} /> */}
     </div>
   );
 }
