@@ -7,7 +7,7 @@ export async function GET(req, { params }) {
         const param = await params;
 
         // Connect reviews collection
-        const reviewsCollection = dbConnect(collectionsName.reviewsCollection);
+        const reviewsCollection = await dbConnect(collectionsName.reviewsCollection);
         const filter = { _id: new ObjectId(param?.id) }
         const reviews = await reviewsCollection
             .findOne(
@@ -30,7 +30,7 @@ export async function PATCH(req, { params }) {
         // console.log(updatedData)
 
         // Connect reviews collection
-        const reviewsCollection = dbConnect(collectionsName.reviewsCollection);
+        const reviewsCollection = await dbConnect(collectionsName.reviewsCollection);
         const result = await reviewsCollection
             .updateOne(
                 { _id: new ObjectId(param?.id) },
@@ -57,7 +57,7 @@ export async function DELETE(req, { params }) {
         const param = await params;
 
         // Connect reviews collection
-        const reviewsCollection = dbConnect(collectionsName.reviewsCollection);
+        const reviewsCollection = await dbConnect(collectionsName.reviewsCollection);
         const result = await reviewsCollection
             .deleteOne(
                 { _id: new ObjectId(param?.id) },

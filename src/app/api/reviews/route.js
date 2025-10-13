@@ -3,7 +3,7 @@ import { collectionsName, dbConnect } from "@/lib/dbConnect";
 export async function GET() {
     try {
         // Connect reviews collection
-        const reviewsCollection = dbConnect(collectionsName.reviewsCollection);
+        const reviewsCollection = await dbConnect(collectionsName.reviewsCollection);
         const reviews = await reviewsCollection.find().toArray();
 
         return Response.json(reviews, { status: 200 });
@@ -19,7 +19,7 @@ export async function POST(req) {
     try {
         const review = await req.json();
 
-        const reviewsCollection = dbConnect(collectionsName.reviewsCollection);
+        const reviewsCollection = await dbConnect(collectionsName.reviewsCollection);
         const result = await reviewsCollection.insertOne(review);
 
         return Response.json(
