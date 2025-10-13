@@ -116,7 +116,7 @@ export default function AddBlogModal({ onSave }) {
 
       setOpen(false);
     } catch (error) {
-      console.error("❌ Error saving blog:", error);
+      console.error("❌ Error saving blogs:", error);
 
       // ❌ SweetAlert error
       Swal.fire({
