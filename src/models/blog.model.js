@@ -2,10 +2,14 @@ import mongoose from "mongoose";
 
 // Define the Blog schema with timestamps
 const blogSchema = new mongoose.Schema(
-  {
+  { 
     title: {
       type: String,
       required: true,
+    },
+    slug: {
+      type: String,
+      required:true,
     },
     excerpt: {
       type: String,

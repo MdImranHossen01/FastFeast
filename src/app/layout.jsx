@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import NextThemeProvider from "@/providers/NextThemeProvider";
 import { CartProvider } from "@/lib/cartContext";
 import { Toaster } from "react-hot-toast";
+import StoreProvider from "@/lib/StoreProvider"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,16 +35,18 @@ export default function RootLayout({ children }) {
         <SessionWrapper>
           <NextThemeProvider>
             <AOSProvider>
-              <CartProvider>
-                <header>
-                  <Navbar />
-                </header>
-                <main>{children}</main>
-                <Toaster position="top-center" />
-                <footer>
-                  <Footer />
-                </footer>
-              </CartProvider>
+              <StoreProvider> {/* Add StoreProvider here */}
+                <CartProvider>
+                  <header>
+                    <Navbar />
+                  </header>
+                  <main>{children}</main>
+                  <Toaster position="top-center" />
+                  <footer>
+                    <Footer />
+                  </footer>
+                </CartProvider>
+              </StoreProvider>
             </AOSProvider>
           </NextThemeProvider>
         </SessionWrapper>

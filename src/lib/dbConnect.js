@@ -8,7 +8,9 @@ export const collectionsName = {
   foodsCollection: "foods",
   restaurantsCollection: "restaurants",
   reviewsCollection: "reviews",
-  ordersCollection: "orders", 
+  ordersCollection: "orders",
+  transactionHistoryCollection: "transactionHistory",
+  favoritesCollection: "favorites"
 };
 
 // Cache the database connection

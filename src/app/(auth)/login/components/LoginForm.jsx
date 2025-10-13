@@ -9,6 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Swal from "sweetalert2";
 import OtpModal from "./OtpModal";
+import CreateDemoUsersButton from "./CreateDemoUsersButton";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -124,7 +125,16 @@ export default function LoginForm() {
                 Forgot password?
               </Link>
             </div>
-
+            <div className="flex gap-3 w-full justify-around">
+              <div>
+                <CreateDemoUsersButton></CreateDemoUsersButton>
+              </div>
+              <Link href={"/demo-users"}>
+                <button className=" py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed mt-4">
+                  Demo User Details
+                </button>
+              </Link>
+            </div>
             <button
               type="submit"
               disabled={loading}

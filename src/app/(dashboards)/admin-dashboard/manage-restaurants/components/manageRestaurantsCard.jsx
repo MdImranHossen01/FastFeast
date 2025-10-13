@@ -2,10 +2,15 @@
 import React, { useState } from "react";
 import PendingRestaurants from "./pendingRestaurants";
 import ApprovedRestaurants from "./approvedRestaurants";
+import Swal from "sweetalert2";
+import ViewApproved from "./viewModal";
+import ViewModal from "./viewModal";
 
 export default function ManageRestaurantsCard({ restaurants }) {
   const [allRestaurants, setAllRestaurants] = useState(restaurants);
   const [search, setSearch] = useState("");
+  // modal
+  const [isOpen, setIsOpen] = useState(false);
 
   // search
   let filteredRestaurants = allRestaurants.filter((restaurant) => {
@@ -14,6 +19,52 @@ export default function ManageRestaurantsCard({ restaurants }) {
       .includes(search.trim().toLocaleLowerCase());
     return matchesSearch;
   });
+
+  // open modal
+  const handleModal = (_id) => {
+    document.getElementById("my_modal_2").showModal();
+    setIsOpen(_id);
+  };
+
+  // delete
+  const handleDelete = async (id) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+    const result = await swalWithBootstrapButtons.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    });
+    if (result.isConfirmed) {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?id=${id}`,
+          {
+            method: "DELETE",
+          }
+        );
+        if (!res.ok) {
+          throw new Error("Failed to delete restaurant");
+        }
+
+        // remove delete restaurant
+        setAllRestaurants((prev) =>
+          prev.filter((restaurant) => restaurant._id !== id)
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
   return (
     <div>
@@ -45,6 +96,8 @@ export default function ManageRestaurantsCard({ restaurants }) {
         <PendingRestaurants
           restaurants={filteredRestaurants}
           setRestaurants={setAllRestaurants}
+          handleDelete={handleDelete}
+          handleModal={handleModal}
         />
       </div>
 
@@ -56,8 +109,24 @@ export default function ManageRestaurantsCard({ restaurants }) {
         <ApprovedRestaurants
           restaurants={filteredRestaurants}
           setRestaurants={setAllRestaurants}
+          handleDelete={handleDelete}
+          handleModal={handleModal}
         />
       </div>
+      <dialog id="my_modal_2" className="modal">
+        <div className="modal-box   overflow-auto">
+          {isOpen && (
+            <ViewModal
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+              restaurants={restaurants}
+            ></ViewModal>
+          )}
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
     </div>
   );
 }

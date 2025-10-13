@@ -11,6 +11,9 @@ import {
   FaEdit,
   FaMapMarkerAlt,
   FaPhoneAlt,
+  FaHistory,
+  FaComments,
+  FaWallet,
 } from "react-icons/fa";
 
 export default function ProfilePage() {
@@ -43,6 +46,7 @@ export default function ProfilePage() {
       Swal.fire("Error", "Geolocation not supported!", "error");
       return;
     }
+
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const { latitude, longitude } = pos.coords;
@@ -74,10 +78,12 @@ export default function ProfilePage() {
     const formData = new FormData();
     formData.append("image", file);
     const key = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+
     const res = await fetch(`https://api.imgbb.com/1/upload?key=${key}`, {
       method: "POST",
       body: formData,
     });
+
     const data = await res.json();
     return data?.data?.url;
   };
@@ -86,6 +92,7 @@ export default function ProfilePage() {
     try {
       setUploading(true);
       let imageUrl = profileData.image;
+
       if (selectedFile) imageUrl = await uploadToImgBB(selectedFile);
 
       const res = await fetch("/api/updateProfile", {
@@ -99,10 +106,12 @@ export default function ProfilePage() {
           image: imageUrl,
         }),
       });
+
       const result = await res.json();
 
       if (res.ok) {
         setProfileData((p) => ({ ...p, image: imageUrl }));
+
         await updateSession({
           user: {
             ...session.user,
@@ -112,9 +121,12 @@ export default function ProfilePage() {
             location: profileData.location,
           },
         });
+
         Swal.fire("Success", "Profile updated successfully!", "success");
         setShowModal(false);
-      } else Swal.fire("Error", result.message || "Update failed", "error");
+      } else {
+        Swal.fire("Error", result.message || "Update failed", "error");
+      }
     } catch (err) {
       console.error(err);
       Swal.fire("Error", "Server error", "error");
@@ -127,6 +139,14 @@ export default function ProfilePage() {
     { icon: <FaShoppingBag className="text-orange-600" />, label: "Orders", value: 24 },
     { icon: <FaStar className="text-orange-600" />, label: "Reviews", value: 7 },
     { icon: <FaHeart className="text-orange-600" />, label: "Favorites", value: 5 },
+  ];
+
+  const quickLinks = [
+    { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders" },
+    { icon: <FaWallet />, title: "Transaction History", desc: "Track your payments & wallet usage" },
+    { icon: <FaComments />, title: "Message Rider", desc: "Chat with delivery partner in real time" },
+    { icon: <FaHeart />, title: "Saved Restaurants", desc: "Manage your favorite spots" },
+    { icon: <FaHistory />, title: "Order Activity", desc: "See your delivery history and logs" },
   ];
 
   return (
@@ -155,7 +175,9 @@ export default function ProfilePage() {
               <FaEdit />
             </button>
           </div>
-          <h2 className="mt-4 text-2xl font-bold">{profileData.name || "Guest User"}</h2>
+          <h2 className="mt-4 text-2xl font-bold">
+            {profileData.name || "Guest User"}
+          </h2>
           {profileData.location && (
             <p className="flex items-center justify-center gap-2 text-xs mt-1 text-gray-200">
               <FaMapMarkerAlt /> {profileData.location}
@@ -175,39 +197,24 @@ export default function ProfilePage() {
         ))}
       </div>
 
-      {/* Main content */}
-      <div className="max-w-5xl mx-auto mt-10 grid sm:grid-cols-2 gap-6 px-6">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition">
-          <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-gray-800 dark:text-gray-200">
-            <FaStar className="text-orange-600" /> My Reviews
-          </h3>
-          <div className="flex flex-col items-center text-gray-500">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/747/747376.png"
-              alt="No Reviews"
-              width={70}
-              height={70}
-              className="opacity-70"
-            />
-            <p className="mt-3 text-sm">You haven’t added any reviews yet.</p>
+      {/* Quick Links */}
+      <div className="px-[10%] mx-auto mt-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {quickLinks.map((q, i) => (
+          <div
+            key={i}
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer"
+          >
+            <div className="flex items-center gap-3 mb-2 text-orange-600 text-2xl">
+              {q.icon}
+            </div>
+            <h3 className="font-bold text-lg text-gray-800 dark:text-gray-100">
+              {q.title}
+            </h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              {q.desc}
+            </p>
           </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition">
-          <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-gray-800 dark:text-gray-200">
-            <FaHeart className="text-orange-600" /> Favorite Restaurants
-          </h3>
-          <div className="flex flex-col items-center text-gray-500">
-            <img
-              src="https://i.ibb.co.com/S73TWZvk/tray.png"
-              alt="No Favorites"
-              width={70}
-              height={70}
-              className="opacity-70"
-            />
-            <p className="mt-3 text-sm">No favorites added yet.</p>
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* Modal */}
@@ -290,7 +297,10 @@ export default function ProfilePage() {
             </div>
 
             <div className="flex justify-end gap-2 mt-6">
-              <button onClick={() => setShowModal(false)} className="btn border-gray-400">
+              <button
+                onClick={() => setShowModal(false)}
+                className="btn border-gray-400"
+              >
                 Cancel
               </button>
               <button
