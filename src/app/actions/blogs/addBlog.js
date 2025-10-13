@@ -6,7 +6,7 @@ export default async function addBlog(id, blog) {
     // Fetch blogs from the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
     const res = await fetch(
-      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/admin/blogs/${id}`,
+      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/blogs`,
       {
         method: "POST",
         headers: {
