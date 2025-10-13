@@ -19,3 +19,27 @@ export async function GET() {
     );
   }
 }
+
+
+// POST: Add a new blog
+export async function POST(req) {
+  try {
+    await connectMongooseDb();
+
+    const data = await req.json();
+
+    // Create a new blog document
+    const newBlog = await Blog.create(data);
+
+    return NextResponse.json(
+      { success: true, message: "Blog created successfully", blog: newBlog },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error creating blog:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+}

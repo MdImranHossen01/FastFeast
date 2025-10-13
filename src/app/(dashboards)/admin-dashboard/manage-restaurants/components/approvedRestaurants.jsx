@@ -5,18 +5,20 @@ import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
 import ViewDetails from "./viewPending";
 
-export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
-  // modal
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function ApprovedRestaurants({
+  restaurants,
+  setRestaurants,
+  handleDelete,
+  handleModal,
+}) {
   // for approve and reject button
   const handleStatusChange = async (id, action) => {
     try {
       let body = {};
       if (action === "approved") {
-        body = { approved: true, status: "approved" };
+        body = { status: "approved" };
       } else if (action === "rejected") {
-        body = { approved: false, status: "rejected" };
+        body = { status: "rejected" };
       }
 
       const res = await fetch(
@@ -39,54 +41,8 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
     }
   };
 
-  // delete
-  const handleDelete = async (id) => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-    const result = await swalWithBootstrapButtons.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    });
-    if (result.isConfirmed) {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?id=${id}`,
-          {
-            method: "DELETE",
-          }
-        );
-        if (!res.ok) {
-          throw new Error("Failed to delete restaurant");
-        }
-
-        // remove delete restaurant
-        setRestaurants((prev) =>
-          prev.filter((restaurant) => restaurant._id !== id)
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
-  // open modal
-  const handleModal = (_id) => {
-    document.getElementById("my_modal_2").showModal();
-    setIsOpen(_id);
-  };
-
   const approvedList = restaurants.filter(
-    (restaurant) => restaurant.approved === true
+    (restaurant) => restaurant.status === "approved"
   );
 
   return (
@@ -191,7 +147,9 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
                           <AiOutlineClose size={16} /> Reject
                         </button>
                         <button
-                          onClick={() => handleDelete(restaurant._id)}
+                          onClick={() =>
+                            handleDelete(restaurant._id.toString())
+                          }
                           className="btn btn-xs md:btn-sm rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-500 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-500 shadow-none hover:text-white"
                         >
                           <MdDeleteOutline size={16} /> Delete
@@ -209,20 +167,6 @@ export default function ApprovedRestaurants({ restaurants, setRestaurants }) {
           No more restaurants
         </div>
       )}
-      <dialog id="my_modal_2" className="modal">
-        <div className="modal-box   overflow-auto">
-          {isOpen && (
-            <ViewDetails
-              setIsOpen={setIsOpen}
-              isOpen={isOpen}
-              restaurants={restaurants}
-            ></ViewDetails>
-          )}
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
     </div>
   );
 }

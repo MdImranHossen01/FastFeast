@@ -14,7 +14,14 @@ const connectMongooseDb = async () => {
     }
 
     // Connect to MongoDB
+<<<<<<< HEAD
     await mongoose.connect(process.env.MONGODB_URL);
+=======
+    await mongoose.connect(process.env.MONGODB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+>>>>>>> a139315aa346a7c0144b9ab98e07f0f60c58fb8c
 
     // Return success message
     return { success: true, message: "Connected to MongoDB" };

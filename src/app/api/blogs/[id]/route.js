@@ -1,12 +1,13 @@
 
 import { collectionsName, dbConnect } from "@/lib/dbConnect";
+import { AwardIcon } from "lucide-react";
 import { ObjectId } from "mongodb";
 
 // ================= GET =================
 export async function GET(req, { params }) {
   try {
     // get blog id from params
-    const { id } = params;
+    const { id } =await params;
 
     // connect to blogs collection
     const blogsCollection = await dbConnect(collectionsName.blogsCollection);
@@ -21,10 +22,32 @@ export async function GET(req, { params }) {
   }
 }
 
+
+// ================= POST (create new blog) =================
+export async function POST(req) {
+  try {
+    const body = await req.json();
+
+    const blogsCollection = await dbConnect(collectionsName.blogsCollection);
+    const result = await blogsCollection.insertOne(body);
+
+    return Response.json(
+      { success: true, message: "Blog created successfully", result },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("❌ Error creating blog:", error);
+    return Response.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+}
+
 // ================= PATCH =================
 export async function PATCH(req, { params }) {
   try {
-    const { id } = params;
+    const { id } =await params;
     const filter = { _id: new ObjectId(id) };
     const blogsCollection = await dbConnect(collectionsName.blogsCollection);
 
@@ -64,7 +87,7 @@ export async function PATCH(req, { params }) {
 // ================= DELETE =================
 export async function DELETE(req, { params }) {
   try {
-    const { id } = params;
+    const { id } =await params;
     const blogsCollection = await dbConnect(collectionsName.blogsCollection);
     const deleteRes = await blogsCollection.deleteOne({
       _id: new ObjectId(id),

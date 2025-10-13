@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ViewApproved({ restaurants }) {
+export default function ViewModal({ restaurants, isOpen }) {
   const viewDetails = restaurants.find(
     (restaurant) => restaurant._id === isOpen
   );

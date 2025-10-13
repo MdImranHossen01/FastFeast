@@ -17,7 +17,7 @@ import { useSession } from "next-auth/react";
 
 export default function AddBlogModal({ onSave }) {
   const { data: session } = useSession();
-  // console.log(session.user.name)
+  // console.log(session.user)
   const userName = session?.user?.name;
   const userEmail = session?.user?.email;
   const userPhoto = session?.user?.image;
@@ -35,6 +35,7 @@ export default function AddBlogModal({ onSave }) {
     tags: "",
   });
 
+  
   // ✅ Handle text input
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -87,7 +88,7 @@ export default function AddBlogModal({ onSave }) {
       visitCount: 0,
       author: userName || "Anonymous",
       authorEmail: userEmail || "",
-      authorPhoto: userPhoto || "/default-avatar.png",
+      authorPhoto: userPhoto || "/user.png",
     };
 
     try {
@@ -115,7 +116,7 @@ export default function AddBlogModal({ onSave }) {
 
       setOpen(false);
     } catch (error) {
-      console.error("❌ Error saving blog:", error);
+      console.error("❌ Error saving blogs:", error);
 
       // ❌ SweetAlert error
       Swal.fire({
