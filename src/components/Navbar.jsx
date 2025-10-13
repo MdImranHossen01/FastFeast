@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 "use client";
 
 import Link from "next/link";
@@ -42,6 +41,19 @@ const NavLink = ({ href, children, onClick }) => {
   );
 };
 
+// Helper function to format date
+function formatDate(dateString) {
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  const d = dateString ? new Date(dateString) : new Date();
+  return d.toLocaleDateString(undefined, options);
+}
+
 // --- Main Navbar Component ---
 export default function Navbar() {
   const { data: session } = useSession();
@@ -50,7 +62,8 @@ export default function Navbar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOrderStatusModalOpen, setIsOrderStatusModalOpen] = useState(false);
-  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
+  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
+    useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const userMenuRef = useRef(null);
@@ -64,13 +77,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Effect for closing user menu when clicking outside
+  // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
         setIsUserMenuOpen(false);
       }
-      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
         setIsNotificationDropdownOpen(false);
       }
     };
@@ -83,42 +99,50 @@ export default function Navbar() {
     if (session?.user?.email) {
       fetchNotifications();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.user?.email]);
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch(`/api/notifications?userEmail=${session.user.email}`);
+      const url = `/api/notifications?userEmail=${encodeURIComponent(
+        session.user.email
+      )}`;
+      const response = await fetch(url);
       const data = await response.json();
       setNotifications(data.notifications || []);
       setUnreadCount(data.unreadCount || 0);
     } catch (error) {
-      console.error('Error fetching notifications:', error);
+      console.error("Error fetching notifications:", error);
     }
   };
 
   const markAsRead = async (notificationId) => {
     try {
       await fetch(`/api/notifications/${notificationId}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ isRead: true }),
       });
-      
+
       // Update local state
-      setNotifications(prevNotifications => 
-        prevNotifications.map(notification => 
-          notification.id === notificationId 
-            ? { ...notification, isRead: true } 
-            : notification
-        )
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === notificationId ? { ...n, isRead: true } : n))
       );
-      
-      // Update unread count
-      setUnreadCount(prev => Math.max(0, prev - 1));
+      setUnreadCount((prev) => Math.max(0, prev - 1));
     } catch (error) {
-      console.error('Error marking notification as read:', error);
+      console.error("Error marking notification as read:", error);
+    }
+  };
+
+  const markAllAsRead = async () => {
+    try {
+      const unread = notifications.filter((n) => !n.isRead);
+      await Promise.all(unread.map((n) => markAsRead(n.id)));
+      setUnreadCount(0);
+    } catch (e) {
+      console.error("Error marking all as read:", e);
     }
   };
 
@@ -156,9 +180,9 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Profile/Login Icon - Always on the Right */}
+          {/* Right Icons */}
           <div className="flex gap-2 items-center">
-            {/* Cart Icon - Always visible */}
+            {/* Cart */}
             <Link
               href="/cart"
               className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
@@ -171,10 +195,12 @@ export default function Navbar() {
               <MdShoppingCart size={25} />
             </Link>
 
-            {/* Notifications Icon */}
+            {/* Notifications */}
             <div className="relative" ref={notificationRef}>
               <button
-                onClick={() => setIsNotificationDropdownOpen(!isNotificationDropdownOpen)}
+                onClick={() =>
+                  setIsNotificationDropdownOpen(!isNotificationDropdownOpen)
+                }
                 className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
               >
                 {unreadCount > 0 && (
@@ -200,10 +226,7 @@ export default function Navbar() {
                         <h3 className="font-medium">Notifications</h3>
                         {unreadCount > 0 && (
                           <button
-                            onClick={() => {
-                              // Mark all as read
-                              notifications.filter(n => !n.isRead).forEach(n => markAsRead(n.id));
-                            }}
+                            onClick={markAllAsRead}
                             className="text-sm text-blue-600 hover:text-blue-800"
                           >
                             Mark all as read
@@ -228,9 +251,13 @@ export default function Navbar() {
                             >
                               <div className="flex items-start">
                                 <div className="flex-shrink-0">
-                                  <div className={`w-2 h-2 rounded-full mt-1.5 ${
-                                    !notification.isRead ? "bg-blue-500" : "bg-gray-300"
-                                  }`}></div>
+                                  <div
+                                    className={`w-2 h-2 rounded-full mt-1.5 ${
+                                      !notification.isRead
+                                        ? "bg-blue-500"
+                                        : "bg-gray-300"
+                                    }`}
+                                  ></div>
                                 </div>
                                 <div className="ml-3 flex-1">
                                   <p className="text-sm font-medium text-gray-900">
@@ -259,9 +286,7 @@ export default function Navbar() {
             </div>
 
             {/* Email Icon */}
-            <div
-              className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
-            >
+            <div className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105">
               <MdOutlineEmail size={25} />
             </div>
 
@@ -449,16 +474,4 @@ export default function Navbar() {
       />
     </>
   );
-}
-
-// Helper function to format date
-function formatDate(dateString) {
-  const options = { 
-    year: 'numeric', 
-    month: 'short', 
-    day: 'numeric', 
-    hour: '2-digit', 
-    minute: '2-digit' 
-  };
-  return new Date(dateString).toLocaleDateString(undefined, options);
 }

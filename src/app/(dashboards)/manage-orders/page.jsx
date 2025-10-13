@@ -1,17 +1,29 @@
-// src/app/(dashboards)/admin-dashboard/manage-orders/page.jsx
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { FiFilter, FiSearch, FiMoreVertical, FiCheck, FiX, FiClock, FiTruck, FiPackage, FiTrendingUp, FiUsers, FiDollarSign, FiShoppingCart } from 'react-icons/fi';
-import OrderDetailsModal from './components/OrderDetailsModal';
+import React, { useState, useEffect } from "react";
+import {
+  FiFilter,
+  FiSearch,
+  FiMoreVertical,
+  FiCheck,
+  FiX,
+  FiClock,
+  FiTruck,
+  FiPackage,
+  FiTrendingUp,
+  FiUsers,
+  FiDollarSign,
+  FiShoppingCart,
+} from "react-icons/fi";
+import OrderDetailsModal from "./components/OrderDetailsModal";
 
 const ManageOrderPage = () => {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [riders, setRiders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showOrderDetails, setShowOrderDetails] = useState(false);
   const [showRiderDropdown, setShowRiderDropdown] = useState(null);
@@ -24,35 +36,45 @@ const ManageOrderPage = () => {
     outForDeliveryOrders: 0,
     deliveredOrders: 0,
     cancelledOrders: 0,
-    totalRevenue: 0
+    totalRevenue: 0,
   });
 
-  // Fetch orders from API
+  // Fetch orders & riders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('/api/orders');
+        const response = await fetch("/api/orders");
         const data = await response.json();
-        setOrders(data.orders || []);
-        setFilteredOrders(data.orders || []);
-        
+        const normalized = (data.orders || []).map((o) => ({
+          ...o,
+          id: o.id ?? o._id, // ✅ ensure id exists
+          orderDate: o.orderDate ?? o.createdAt ?? new Date(),
+        }));
+        setOrders(normalized);
+        setFilteredOrders(normalized);
+
         // Calculate monthly stats
-        calculateMonthlyStats(data.orders || []);
+        calculateMonthlyStats(normalized);
       } catch (error) {
-        console.error('Error fetching orders:', error);
+        console.error("Error fetching orders:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    // Fetch riders for assignment (only users with rider role)
     const fetchRiders = async () => {
       try {
-        const response = await fetch('/api/users?role=rider');
+        // Keep your existing path — we implement /api/users below
+        const response = await fetch("/api/users?role=rider");
         const data = await response.json();
-        setRiders(data.users || []);
+        const normalized = (data.users || []).map((u) => ({
+          id: u.id ?? u._id,
+          name: u.name,
+          phone: u.phone,
+        }));
+        setRiders(normalized);
       } catch (error) {
-        console.error('Error fetching riders:', error);
+        console.error("Error fetching riders:", error);
       }
     };
 
@@ -64,41 +86,55 @@ const ManageOrderPage = () => {
   const calculateMonthlyStats = (ordersData) => {
     const currentMonth = new Date().getMonth();
     const currentYear = new Date().getFullYear();
-    
-    const monthlyOrders = ordersData.filter(order => {
+
+    const monthlyOrders = ordersData.filter((order) => {
       const orderDate = new Date(order.orderDate);
-      return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+      return (
+        orderDate.getMonth() === currentMonth &&
+        orderDate.getFullYear() === currentYear
+      );
     });
-    
+
     const stats = {
       totalOrders: monthlyOrders.length,
-      pendingOrders: monthlyOrders.filter(order => order.status === 'pending').length,
-      confirmedOrders: monthlyOrders.filter(order => order.status === 'confirmed').length,
-      preparingOrders: monthlyOrders.filter(order => order.status === 'preparing').length,
-      readyOrders: monthlyOrders.filter(order => order.status === 'ready').length,
-      outForDeliveryOrders: monthlyOrders.filter(order => order.status === 'out-for-delivery').length,
-      deliveredOrders: monthlyOrders.filter(order => order.status === 'delivered').length,
-      cancelledOrders: monthlyOrders.filter(order => order.status === 'cancelled').length,
-      totalRevenue: monthlyOrders.reduce((sum, order) => sum + order.pricing.total, 0)
+      pendingOrders: monthlyOrders.filter((o) => o.status === "pending").length,
+      confirmedOrders: monthlyOrders.filter((o) => o.status === "confirmed")
+        .length,
+      preparingOrders: monthlyOrders.filter((o) => o.status === "preparing")
+        .length,
+      readyOrders: monthlyOrders.filter((o) => o.status === "ready").length,
+      outForDeliveryOrders: monthlyOrders.filter(
+        (o) => o.status === "out-for-delivery"
+      ).length,
+      deliveredOrders: monthlyOrders.filter((o) => o.status === "delivered")
+        .length,
+      cancelledOrders: monthlyOrders.filter((o) => o.status === "cancelled")
+        .length,
+      totalRevenue: monthlyOrders.reduce(
+        (sum, o) => sum + (o.pricing?.total || 0),
+        0
+      ),
     };
-    
+
     setMonthlyStats(stats);
   };
 
-  // Filter orders based on search term and status
+  // Filter orders
   useEffect(() => {
     let filtered = orders;
 
     if (searchTerm) {
-      filtered = filtered.filter(order => 
-        order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.customerInfo.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.customerInfo.email.toLowerCase().includes(searchTerm.toLowerCase())
+      const q = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (order) =>
+          (order.id + "").toLowerCase().includes(q) ||
+          order.customerInfo?.fullName?.toLowerCase?.().includes(q) ||
+          order.customerInfo?.email?.toLowerCase?.().includes(q)
       );
     }
 
-    if (statusFilter !== 'all') {
-      filtered = filtered.filter(order => order.status === statusFilter);
+    if (statusFilter !== "all") {
+      filtered = filtered.filter((order) => order.status === statusFilter);
     }
 
     setFilteredOrders(filtered);
@@ -107,145 +143,166 @@ const ManageOrderPage = () => {
   // Update order status
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const response = await fetch('/api/orders', {
-        method: 'PUT',
+      const response = await fetch("/api/orders", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ orderId, status: newStatus }),
       });
 
       if (response.ok) {
-        // Update the local state
-        setOrders(prevOrders => 
-          prevOrders.map(order => 
-            order.id === orderId ? { ...order, status: newStatus } : order
-          )
+        setOrders((prev) =>
+          prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o))
         );
-        
-        // Update the selected order if it's currently open
+
         if (selectedOrder && selectedOrder.id === orderId) {
-          setSelectedOrder(prev => ({ ...prev, status: newStatus }));
+          setSelectedOrder((prev) => ({ ...prev, status: newStatus }));
         }
-        
-        // Recalculate monthly stats
-        calculateMonthlyStats(orders.map(order => 
-          order.id === orderId ? { ...order, status: newStatus } : order
-        ));
+
+        const nextOrders = orders.map((o) =>
+          o.id === orderId ? { ...o, status: newStatus } : o
+        );
+        calculateMonthlyStats(nextOrders);
       } else {
-        console.error('Failed to update order status');
+        console.error("Failed to update order status");
       }
     } catch (error) {
-      console.error('Error updating order status:', error);
+      console.error("Error updating order status:", error);
     }
   };
 
   // Assign rider to order
   const assignRiderToOrder = async (orderId, riderId) => {
     try {
-      // Get rider details
-      const selectedRider = riders.find(rider => rider.id === riderId);
-      
-      const response = await fetch('/api/orders', {
-        method: 'PUT',
+      const selectedRider = riders.find((r) => r.id === riderId);
+
+      const response = await fetch("/api/orders", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          orderId, 
-          action: 'assignRider',
+        body: JSON.stringify({
+          orderId,
+          action: "assignRider",
           riderId,
-          riderInfo: selectedRider // Include rider details
+          riderInfo: selectedRider,
         }),
       });
 
       if (response.ok) {
-        // Update the local state
-        setOrders(prevOrders => 
-          prevOrders.map(order => 
-            order.id === orderId ? { 
-              ...order, 
-              assignedRider: riderId,
-              riderInfo: selectedRider // Store rider details
-            } : order
+        setOrders((prev) =>
+          prev.map((o) =>
+            o.id === orderId
+              ? { ...o, assignedRider: riderId, riderInfo: selectedRider }
+              : o
           )
         );
-        
-        // Update the selected order if it's currently open
+
         if (selectedOrder && selectedOrder.id === orderId) {
-          setSelectedOrder(prev => ({ 
-            ...prev, 
+          setSelectedOrder((prev) => ({
+            ...prev,
             assignedRider: riderId,
-            riderInfo: selectedRider // Store rider details
+            riderInfo: selectedRider,
           }));
         }
-        
+
         setShowRiderDropdown(null);
       } else {
-        console.error('Failed to assign rider');
+        console.error("Failed to assign rider");
       }
     } catch (error) {
-      console.error('Error assigning rider:', error);
+      console.error("Error assigning rider:", error);
     }
   };
 
   // Format date
   const formatDate = (dateString) => {
-    const options = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric', 
-      hour: '2-digit', 
-      minute: '2-digit' 
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  // Get status badge
+  // Badges & icons
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'pending':
-        return <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">Pending</span>;
-      case 'confirmed':
-        return <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Confirmed</span>;
-      case 'preparing':
-        return <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">Preparing</span>;
-      case 'ready':
-        return <span className="px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-800 rounded-full">Ready</span>;
-      case 'out-for-delivery':
-        return <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">Out for Delivery</span>;
-      case 'delivered':
-        return <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Delivered</span>;
-      case 'cancelled':
-        return <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Cancelled</span>;
+      case "pending":
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
+            Pending
+          </span>
+        );
+      case "confirmed":
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
+            Confirmed
+          </span>
+        );
+      case "preparing":
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
+            Preparing
+          </span>
+        );
+      case "ready":
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-indigo-100 text-indigo-800 rounded-full">
+            Ready
+          </span>
+        );
+      case "out-for-delivery":
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">
+            Out for Delivery
+          </span>
+        );
+      case "delivered":
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+            Delivered
+          </span>
+        );
+      case "cancelled":
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
+            Cancelled
+          </span>
+        );
       default:
-        return <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">Unknown</span>;
+        return (
+          <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">
+            Unknown
+          </span>
+        );
     }
   };
 
-  // Get status icon
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'pending':
+      case "pending":
         return <FiClock className="text-yellow-600" />;
-      case 'confirmed':
+      case "confirmed":
         return <FiCheck className="text-blue-600" />;
-      case 'preparing':
+      case "preparing":
         return <FiPackage className="text-purple-600" />;
-      case 'ready':
+      case "ready":
         return <FiPackage className="text-indigo-600" />;
-      case 'out-for-delivery':
+      case "out-for-delivery":
         return <FiTruck className="text-orange-600" />;
-      case 'delivered':
+      case "delivered":
         return <FiCheck className="text-green-600" />;
-      case 'cancelled':
+      case "cancelled":
         return <FiX className="text-red-600" />;
       default:
         return null;
     }
   };
 
-  // Show order details
   const showOrderDetailsModal = (order) => {
     setSelectedOrder(order);
     setShowOrderDetails(true);
@@ -275,11 +332,13 @@ const ManageOrderPage = () => {
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Total Orders</p>
-              <p className="text-2xl font-bold text-gray-900">{monthlyStats.totalOrders}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {monthlyStats.totalOrders}
+              </p>
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-green-100 text-green-500 mr-4">
@@ -287,23 +346,29 @@ const ManageOrderPage = () => {
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">৳{monthlyStats.totalRevenue}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                ৳{monthlyStats.totalRevenue}
+              </p>
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-yellow-100 text-yellow-500 mr-4">
               <FiClock className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-500">Pending Orders</p>
-              <p className="text-2xl font-bold text-gray-900">{monthlyStats.pendingOrders}</p>
+              <p className="text-sm font-medium text-gray-500">
+                Pending Orders
+              </p>
+              <p className="text-2xl font-bold text-gray-900">
+                {monthlyStats.pendingOrders}
+              </p>
             </div>
           </div>
         </div>
-        
+
         <div className="bg-white rounded-lg shadow p-4">
           <div className="flex items-center">
             <div className="p-3 rounded-full bg-purple-100 text-purple-500 mr-4">
@@ -311,48 +376,66 @@ const ManageOrderPage = () => {
             </div>
             <div>
               <p className="text-sm font-medium text-gray-500">Delivered</p>
-              <p className="text-2xl font-bold text-gray-900">{monthlyStats.deliveredOrders}</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {monthlyStats.deliveredOrders}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Order Status Breakdown */}
+      {/* Status Breakdown */}
       <div className="bg-white rounded-lg shadow p-4 mb-6">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Monthly Order Status Breakdown</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">
+          Monthly Order Status Breakdown
+        </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-yellow-600">{monthlyStats.pendingOrders}</div>
+            <div className="text-2xl font-bold text-yellow-600">
+              {monthlyStats.pendingOrders}
+            </div>
             <div className="text-sm text-gray-500">Pending</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{monthlyStats.confirmedOrders}</div>
+            <div className="text-2xl font-bold text-blue-600">
+              {monthlyStats.confirmedOrders}
+            </div>
             <div className="text-sm text-gray-500">Confirmed</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">{monthlyStats.preparingOrders}</div>
+            <div className="text-2xl font-bold text-purple-600">
+              {monthlyStats.preparingOrders}
+            </div>
             <div className="text-sm text-gray-500">Preparing</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-indigo-600">{monthlyStats.readyOrders}</div>
+            <div className="text-2xl font-bold text-indigo-600">
+              {monthlyStats.readyOrders}
+            </div>
             <div className="text-sm text-gray-500">Ready</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-orange-600">{monthlyStats.outForDeliveryOrders}</div>
+            <div className="text-2xl font-bold text-orange-600">
+              {monthlyStats.outForDeliveryOrders}
+            </div>
             <div className="text-sm text-gray-500">Out for Delivery</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{monthlyStats.deliveredOrders}</div>
+            <div className="text-2xl font-bold text-green-600">
+              {monthlyStats.deliveredOrders}
+            </div>
             <div className="text-sm text-gray-500">Delivered</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-red-600">{monthlyStats.cancelledOrders}</div>
+            <div className="text-2xl font-bold text-red-600">
+              {monthlyStats.cancelledOrders}
+            </div>
             <div className="text-sm text-gray-500">Cancelled</div>
           </div>
         </div>
       </div>
 
-      {/* Filters and Search */}
+      {/* Filters */}
       <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="relative flex-1 max-w-md">
@@ -367,7 +450,7 @@ const ManageOrderPage = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
+
           <div className="flex items-center gap-2">
             <FiFilter className="text-gray-500" />
             <select
@@ -394,25 +477,25 @@ const ManageOrderPage = () => {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Order ID
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Customer
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Date
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Total
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Rider
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -426,15 +509,19 @@ const ManageOrderPage = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <div className="text-sm font-medium text-gray-900">{order.customerInfo.fullName}</div>
-                        <div className="text-sm text-gray-500">{order.customerInfo.email}</div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {order.customerInfo?.fullName}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {order.customerInfo?.email}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {formatDate(order.orderDate)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ৳{order.pricing.total}
+                      ৳{order.pricing?.total ?? 0}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
@@ -447,8 +534,12 @@ const ManageOrderPage = () => {
                         <div className="flex items-center">
                           <FiUsers className="mr-1" />
                           <div>
-                            <div className="font-medium">{order.riderInfo.name}</div>
-                            <div className="text-xs text-gray-500">{order.riderInfo.phone}</div>
+                            <div className="font-medium">
+                              {order.riderInfo.name}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {order.riderInfo.phone}
+                            </div>
                           </div>
                         </div>
                       ) : (
@@ -463,70 +554,89 @@ const ManageOrderPage = () => {
                         >
                           View
                         </button>
-                        
-                        {order.status === 'pending' && (
+
+                        {order.status === "pending" && (
                           <button
-                            onClick={() => updateOrderStatus(order.id, 'confirmed')}
+                            onClick={() =>
+                              updateOrderStatus(order.id, "confirmed")
+                            }
                             className="text-blue-600 hover:text-blue-900"
                           >
                             Confirm
                           </button>
                         )}
-                        
-                        {order.status === 'confirmed' && (
+
+                        {order.status === "confirmed" && (
                           <button
-                            onClick={() => updateOrderStatus(order.id, 'preparing')}
+                            onClick={() =>
+                              updateOrderStatus(order.id, "preparing")
+                            }
                             className="text-purple-600 hover:text-purple-900"
                           >
                             Start Preparing
                           </button>
                         )}
-                        
-                        {order.status === 'preparing' && (
+
+                        {order.status === "preparing" && (
                           <button
-                            onClick={() => updateOrderStatus(order.id, 'ready')}
+                            onClick={() =>
+                              updateOrderStatus(order.id, "ready")
+                            }
                             className="text-indigo-600 hover:text-indigo-900"
                           >
                             Mark Ready
                           </button>
                         )}
-                        
-                        {order.status === 'ready' && (
+
+                        {order.status === "ready" && (
                           <button
-                            onClick={() => updateOrderStatus(order.id, 'out-for-delivery')}
+                            onClick={() =>
+                              updateOrderStatus(order.id, "out-for-delivery")
+                            }
                             className="text-orange-600 hover:text-orange-900"
                           >
                             Out for Delivery
                           </button>
                         )}
-                        
-                        {order.status === 'out-for-delivery' && (
+
+                        {order.status === "out-for-delivery" && (
                           <button
-                            onClick={() => updateOrderStatus(order.id, 'delivered')}
+                            onClick={() =>
+                              updateOrderStatus(order.id, "delivered")
+                            }
                             className="text-green-600 hover:text-green-900"
                           >
                             Mark Delivered
                           </button>
                         )}
-                        
-                        {order.status !== 'delivered' && order.status !== 'cancelled' && (
-                          <button
-                            onClick={() => updateOrderStatus(order.id, 'cancelled')}
-                            className="text-red-600 hover:text-red-900"
-                          >
-                            Cancel
-                          </button>
-                        )}
-                        
-                        {order.status === 'ready' && !order.assignedRider && (
+
+                        {order.status !== "delivered" &&
+                          order.status !== "cancelled" && (
+                            <button
+                              onClick={() =>
+                                updateOrderStatus(order.id, "cancelled")
+                              }
+                              className="text-red-600 hover:text-red-900"
+                            >
+                              Cancel
+                            </button>
+                          )}
+
+                        {order.status === "ready" && !order.assignedRider && (
                           <div className="relative">
                             <button
-                              onClick={() => setShowRiderDropdown(showRiderDropdown === order.id ? null : order.id)}
+                              onClick={() =>
+                                setShowRiderDropdown(
+                                  showRiderDropdown === order.id
+                                    ? null
+                                    : order.id
+                                )
+                              }
                               className="text-blue-600 hover:text-blue-900"
                             >
                               Assign Rider
                             </button>
-                            
+
                             {showRiderDropdown === order.id && (
                               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                                 <div className="py-1">
@@ -534,7 +644,9 @@ const ManageOrderPage = () => {
                                     riders.map((rider) => (
                                       <button
                                         key={rider.id}
-                                        onClick={() => assignRiderToOrder(order.id, rider.id)}
+                                        onClick={() =>
+                                          assignRiderToOrder(order.id, rider.id)
+                                        }
                                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                       >
                                         {rider.name}
@@ -556,7 +668,10 @@ const ManageOrderPage = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7" className="px-6 py-4 text-center text-sm text-gray-500">
+                  <td
+                    colSpan="7"
+                    className="px-6 py-4 text-center text-sm text-gray-500"
+                  >
                     No orders found
                   </td>
                 </tr>
