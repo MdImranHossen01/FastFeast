@@ -15,15 +15,15 @@ export default function BlogWrapper({ blogs }) {
 
   return (
     <div>
-      <Banner blogs={blogs}
-      query={query}
-      setQuery={setQuery}
-      tag={tag}
-      setTag={setTag}/>
+      <Banner
+        blogs={blogs}
+        query={query}
+        setQuery={setQuery}
+        tag={tag}
+        setTag={setTag}
+      />
 
-      <BlogContent blogs={blogs}
-            query={query}
-            tag={tag}/>
+      <BlogContent blogs={blogs} query={query} tag={tag} />
     </div>
   );
 }

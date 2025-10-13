@@ -1,6 +1,6 @@
 import React from "react";
 import MenuCard from "../../menu/components/MenuCard";
-import getMenu from "@/app/actions/menu/getMenu";
+import getMenu from "@/app/actions/menus/getMenus";
 
 const NoodlesPage = async () => {
   const menus = await getMenu();
