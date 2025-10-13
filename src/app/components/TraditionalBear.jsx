@@ -68,7 +68,7 @@ const TraditionalBear = () => {
 
           {/* Dish List - Compact spacing */}
           {/* FIX: Added overflow-y-auto to allow only the list to scroll if it exceeds the space. */}
-          <div className="mt-4 md:mt-6 divide-y divide-gray-300 flex-grow pr-12 overflow-y-auto pr-2">
+          <div className="mt-4 md:mt-6 divide-y divide-gray-300 flex-grow pr-12 overflow-y-auto">
             {dishes.map((dish, index) => (
               <div
                 key={dish.id}
