@@ -58,7 +58,7 @@ export default function ManageRestaurantsCard({ restaurants }) {
 
         // remove delete restaurant
         setAllRestaurants((prev) =>
-          prev.filter((restaurant) => restaurant._id !== id)
+          prev.filter((restaurant) => restaurant._id.toString() !== id)
         );
       } catch (error) {
         console.error(error);
