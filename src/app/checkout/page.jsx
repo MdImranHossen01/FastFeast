@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/lib/cartContext';
@@ -8,26 +8,16 @@ import { useRouter } from 'next/navigation';
 import StripePaymentModal from '@/components/StripePaymentModal';
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
 const CheckOutPage = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
   const router = useRouter();
-  const { data: session } = useSession(); //  Get session from next-auth
+  const { data: session } = useSession(); // Get session from next-auth
   const user = session?.user; // Define user from session
   const searchParams = useSearchParams();
   const status = searchParams.get("status");
   const tranId = searchParams.get("tran_id");
   const orderIdFromQuery = searchParams.get("order_id");
-
-  useEffect(() => {
-  if (status === "success" && tranId) {
-    setOrderPlaced(true);
-    setOrderId(orderIdFromQuery || "Unknown");
-    setPaymentIntentId(tranId);
-    clearCart();
-  }
-  }, [status, tranId, orderIdFromQuery]);
 
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderId, setOrderId] = useState(null);
@@ -35,6 +25,8 @@ const CheckOutPage = () => {
   const [showStripeModal, setShowStripeModal] = useState(false);
   const [paymentIntentId, setPaymentIntentId] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
+  
+  // Initialize form data with empty values
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -44,34 +36,58 @@ const CheckOutPage = () => {
     postalCode: '',
     paymentMethod: 'cash'
   });
-const handlePayment = async () => {
-  try {
-    const totalAmount = calculateTotal(cartItems); // existing function
-    const customer = {
-      name: user?.name,
-      email: user?.email,
-      phone: user?.phone,
-    };
 
-    const res = await fetch("/api/sslcommerz/initiate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ totalAmount, customer }),
-    });
-
-    const data = await res.json();
-    if (data.success && data.GatewayPageURL) {
-      window.location.href = data.GatewayPageURL;
-    } else {
-      console.error("SSLCommerz Error:", data);
-      alert("Failed to initialize payment.");
+  // Populate form with user data when session changes
+  useEffect(() => {
+    if (user) {
+      setFormData(prev => ({
+        ...prev,
+        fullName: user.name || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        address: user.address || '',
+        city: user.city || '',
+        postalCode: user.postalCode || ''
+      }));
     }
-  } catch (err) {
-    console.error("Payment error:", err);
-    alert("Something went wrong!");
-  }
-};
+  }, [user]);
 
+  useEffect(() => {
+    if (status === "success" && tranId) {
+      setOrderPlaced(true);
+      setOrderId(orderIdFromQuery || "Unknown");
+      setPaymentIntentId(tranId);
+      clearCart();
+    }
+  }, [status, tranId, orderIdFromQuery, clearCart]);
+
+  const handlePayment = async () => {
+    try {
+      const totalAmount = calculateTotal(cartItems); // existing function
+      const customer = {
+        name: formData.fullName || user?.name,
+        email: formData.email || user?.email,
+        phone: formData.phone || user?.phone,
+      };
+
+      const res = await fetch("/api/sslcommerz/initiate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ totalAmount, customer }),
+      });
+
+      const data = await res.json();
+      if (data.success && data.GatewayPageURL) {
+        window.location.href = data.GatewayPageURL;
+      } else {
+        console.error("SSLCommerz Error:", data);
+        alert("Failed to initialize payment.");
+      }
+    } catch (err) {
+      console.error("Payment error:", err);
+      alert("Something went wrong!");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -141,10 +157,9 @@ const handlePayment = async () => {
     }
 
     if (formData.paymentMethod === "sslcommerz") {
-    await handlePayment();
-    return;
+      await handlePayment();
+      return;
     }
-
     
     // For cash on delivery, proceed with normal order submission
     submitOrder();
@@ -187,7 +202,8 @@ const handlePayment = async () => {
         },
         status: paymentIntentId ? 'paid' : 'pending', // Set status based on payment
         orderDate: new Date().toISOString(),
-        estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString() // 45 minutes from now
+        estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString(), // 45 minutes from now
+        userId: user?.id || null // Include user ID if logged in
       };
       
       // Save order to backend
@@ -372,6 +388,15 @@ const handlePayment = async () => {
           <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4 text-gray-900">Delivery Information</h2>
             
+            {user && (
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-700">
+                  You're logged in as <span className="font-semibold">{user.name}</span>. 
+                  Your information has been pre-filled below, but you can edit it if needed.
+                </p>
+              </div>
+            )}
+            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
                 <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -509,18 +534,18 @@ const handlePayment = async () => {
                 </div>
               </label>
             </div>
-      <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 mb-2">
-         <input
-          type="radio"
-          name="paymentMethod"
-          value="sslcommerz"
-          checked={formData.paymentMethod === "sslcommerz"}
-          onChange={handleChange}
-          className="mr-3 text-orange-500 focus:ring-orange-500"
-         />
-        <span className="text-gray-700">Online Payment (SSLCommerz)</span>
-      </label>
-
+            
+            <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 mb-2">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="sslcommerz"
+                checked={formData.paymentMethod === "sslcommerz"}
+                onChange={handleChange}
+                className="mr-3 text-orange-500 focus:ring-orange-500"
+              />
+              <span className="text-gray-700">Online Payment (SSLCommerz)</span>
+            </label>
             
             <button
               type="submit"
