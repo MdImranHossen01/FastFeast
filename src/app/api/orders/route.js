@@ -1,17 +1,55 @@
 // src/app/api/orders/route.js
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
-import { getCollection } from '@/lib/dbConnect';
+import { dbConnect, collectionsName } from '@/lib/dbConnect';
+
+// Helper function to create notifications
+const createNotification = async (userEmail, title, message, orderId) => {
+  try {
+    const { db } = await dbConnect();
+    const notificationsCollection = db.collection(collectionsName.notificationsCollection);
+    
+    await notificationsCollection.insertOne({
+      userEmail,
+      title,
+      message,
+      orderId,
+      isRead: false,
+      createdAt: new Date()
+    });
+    return true;
+  } catch (error) {
+    console.error("Error creating notification:", error);
+    return false;
+  }
+};
+
+// Helper function to fetch rider details
+const getRiderDetails = async (riderId) => {
+  try {
+    const { db } = await dbConnect();
+    const usersCollection = db.collection(collectionsName.usersCollection);
+    
+    const rider = await usersCollection.findOne({ _id: riderId, role: 'rider' });
+    return rider;
+  } catch (error) {
+    console.error("Error fetching rider details:", error);
+    return null;
+  }
+};
 
 export async function GET(request) {
   try {
-    const ordersCollection = await getCollection('ordersCollection');
+    const { db } = await dbConnect();
+    const ordersCollection = db.collection(collectionsName.ordersCollection);
     
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
+    const userEmail = searchParams.get('userEmail');
     
     let query = {};
     if (status) query.status = status;
+    if (userEmail) query['customerInfo.email'] = userEmail;
     
     const orders = await ordersCollection.find(query).sort({ orderDate: -1 }).toArray();
     
@@ -28,7 +66,8 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const orderData = await request.json();
-    const ordersCollection = await getCollection('ordersCollection');
+    const { db } = await dbConnect();
+    const ordersCollection = db.collection(collectionsName.ordersCollection);
     
     // Generate a unique order ID
     const orderId = uuidv4().substring(0, 8).toUpperCase();
@@ -70,7 +109,8 @@ export async function POST(request) {
 export async function PUT(request) {
   try {
     const { orderId, status, action, riderId } = await request.json();
-    const ordersCollection = await getCollection('ordersCollection');
+    const { db } = await dbConnect();
+    const ordersCollection = db.collection(collectionsName.ordersCollection);
     
     // Find the order by ID
     const order = await ordersCollection.findOne({ id: orderId });
@@ -87,11 +127,33 @@ export async function PUT(request) {
       updatedAt: new Date()
     };
     
-    // Update the order
+    // Handle rider assignment
     if (action === 'assignRider' && riderId) {
+      const riderDetails = await getRiderDetails(riderId);
       updateData.assignedRider = riderId;
+      updateData.riderInfo = riderDetails;
+      
+      // Create notification for the user about rider assignment
+      if (order.customerInfo?.email) {
+        await createNotification(
+          order.customerInfo.email,
+          'Rider Assigned',
+          `A rider has been assigned to your order #${orderId}`,
+          orderId
+        );
+      }
     } else if (status) {
       updateData.status = status;
+      
+      // Create notification for the user about status change
+      if (order.customerInfo?.email) {
+        await createNotification(
+          order.customerInfo.email,
+          'Order Status Update',
+          `Your order #${orderId} is now ${status}`,
+          orderId
+        );
+      }
     }
     
     // Update the order in the database

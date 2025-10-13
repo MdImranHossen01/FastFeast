@@ -2691,7 +2691,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_01",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "xyz@gmail.com",
       "bio": "Kacchi Bhai brings authentic Bengali flavors to Dhanmondi with their signature biriyani dishes. Using traditional recipes passed down through generations, they offer perfectly cooked rice with tender meat and aromatic spices. Their commitment to quality ingredients and consistent taste has made them a favorite among locals seeking genuine Bengali cuisine.",
       "location": {
@@ -2733,7 +2733,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_02",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "sultan@example.com",
       "bio": "Sultan's Dine offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Located in the heart of Dhanmondi, they combine traditional flavors with modern presentation. Their menu features a wide variety of dishes that celebrate the rich culinary heritage of Bengal, prepared with the finest ingredients and utmost care.",
       "location": {
@@ -2775,7 +2775,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_03",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "burgerlab@example.com",
       "bio": "Burger Lab is where culinary experimentation meets classic American comfort food. In Dhanmondi's bustling food scene, they stand out with their innovative burger creations, using locally sourced ingredients to craft unique flavor combinations. Their casual atmosphere and affordable prices make it a perfect spot for students and young professionals.",
       "location": {
@@ -2817,7 +2817,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_04",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "roma@example.com",
       "bio": "Pizza Roma brings a slice of Italy to Dhanmondi with authentic wood-fired pizzas and classic Italian dishes. Using traditional techniques and imported ingredients, their chefs create culinary masterpieces that transport diners to the streets of Rome. The warm, inviting atmosphere and attentive service make every visit a memorable experience.",
       "location": {
@@ -2859,7 +2859,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_05",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "sushi@example.com",
       "bio": "Sushi Master offers an authentic Japanese dining experience in the heart of Dhanmondi. Their skilled chefs prepare each dish with precision and artistry, using the freshest ingredients imported directly from Japan. From traditional nigiri to creative specialty rolls, every bite is a testament to their commitment to culinary excellence and Japanese tradition.",
       "location": {
@@ -2901,7 +2901,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_06",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "thai@example.com",
       "bio": "Thai Pavilion invites diners on a culinary journey through the vibrant flavors of Thailand. Located in Dhanmondi, their menu showcases the perfect balance of sweet, sour, salty, and spicy that defines authentic Thai cuisine. Each dish is prepared with traditional techniques and imported Thai spices, creating an unforgettable dining experience.",
       "location": {
@@ -2943,7 +2943,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_07",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "bbq@example.com",
       "bio": "BBQ Tonight is renowned for its succulent grilled meats and authentic Pakistani flavors in Dhanmondi. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following. The restaurant's vibrant atmosphere and exceptional service make it the perfect destination for special occasions and casual dining alike.",
       "location": {
@@ -2985,7 +2985,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_08",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "china@example.com",
       "bio": "China Town brings the authentic flavors of Chinese cuisine to Dhanmondi with their extensive menu of regional specialties. From Sichuan's spicy dishes to Cantonese dim sum, their chefs recreate traditional recipes using imported ingredients and time-honored cooking techniques. The elegant ambiance and attentive service provide a complete Chinese dining experience.",
       "location": {
@@ -3027,7 +3027,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_09",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "coffee@example.com",
       "bio": "The Coffee House is Dhanmondi's cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans sourced from around the world, while their pastry chefs create delectable treats that pair beautifully with their beverages. The relaxed atmosphere makes it an ideal spot for meetings, study sessions, or simply unwinding with a good book.",
       "location": {
@@ -3069,7 +3069,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_10",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "biryani@example.com",
       "bio": "Biryani House specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to Dhanmondi. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful. Each biryani is cooked to order, ensuring freshness and authenticity in every bite.",
       "location": {
@@ -3111,7 +3111,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_11",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "mirpur@kacchibhai.bd",
       "bio": "Kacchi Bhai in Mirpur continues the tradition of serving authentic Bengali biriyani that has made them famous across Dhaka. Their Mirpur location maintains the same high standards of quality and taste, using traditional cooking methods and the finest ingredients to create dishes that celebrate the rich culinary heritage of Bengal.",
       "location": {
@@ -3153,7 +3153,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_12",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "sultanmirpur@example.com",
       "bio": "Sultan's Dine in Mirpur brings their signature royal dining experience to the area with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Mirpur residents seeking authentic flavors and impeccable service.",
       "location": {
@@ -3195,7 +3195,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_13",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "burgermirpur@example.com",
       "bio": "Burger Lab's Mirpur location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in the area looking for delicious, affordable meals.",
       "location": {
@@ -3237,7 +3237,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_14",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "romamirpur@example.com",
       "bio": "Pizza Roma brings the authentic taste of Italy to Mirpur with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience without leaving their neighborhood.",
       "location": {
@@ -3279,7 +3279,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_15",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "sushimirpur@example.com",
       "bio": "Sushi Master in Mirpur offers an authentic Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in the area.",
       "location": {
@@ -3321,7 +3321,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_16",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "thaimirpur@example.com",
       "bio": "Thai Pavilion in Mirpur brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Mirpur.",
       "location": {
@@ -3363,7 +3363,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_17",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "bbqmirpur@example.com",
       "bio": "BBQ Tonight in Mirpur is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers.",
       "location": {
@@ -3405,7 +3405,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_18",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "chinamirpur@example.com",
       "bio": "China Town in Mirpur offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Mirpur.",
       "location": {
@@ -3447,7 +3447,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_19",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "coffeemirpur@example.com",
       "bio": "The Coffee House in Mirpur is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Mirpur.",
       "location": {
@@ -3489,7 +3489,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_20",
+      "ownerId": "65a7b2c3d4e5f6789012352",
       "ownerEmail": "biryanimirpur@example.com",
       "bio": "Biryani House in Mirpur specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to the neighborhood. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful.",
       "location": {
@@ -3531,7 +3531,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_21",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "uttara@kacchibhai.bd",
       "bio": "Kacchi Bhai's Uttara location upholds their reputation for serving authentic Bengali biriyani with the same commitment to quality and taste. Using traditional recipes and the finest ingredients, they bring the rich flavors of Bengal to Uttara's discerning diners.",
       "location": {
@@ -3573,7 +3573,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_22",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "sultanuttara@example.com",
       "bio": "Sultan's Dine in Uttara offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Uttara's residents seeking authentic flavors and impeccable service.",
       "location": {
@@ -3615,7 +3615,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_23",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "burgeruttara@example.com",
       "bio": "Burger Lab's Uttara location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in Uttara.",
       "location": {
@@ -3657,7 +3657,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_24",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "romauttara@example.com",
       "bio": "Pizza Roma brings the authentic taste of Italy to Uttara with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience in Uttara.",
       "location": {
@@ -3699,7 +3699,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_25",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "sushiuttara@example.com",
       "bio": "Sushi Master in Uttara offers an exceptional Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in Uttara.",
       "location": {
@@ -3741,7 +3741,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_26",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "thaiuttara@example.com",
       "bio": "Thai Pavilion in Uttara brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Uttara.",
       "location": {
@@ -3783,7 +3783,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_27",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "bbquttara@example.com",
       "bio": "BBQ Tonight in Uttara is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers in Uttara.",
       "location": {
@@ -3825,7 +3825,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_28",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "chinauttara@example.com",
       "bio": "China Town in Uttara offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Uttara.",
       "location": {
@@ -3867,7 +3867,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_29",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "coffeeuttara@example.com",
       "bio": "The Coffee House in Uttara is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Uttara.",
       "location": {
@@ -3909,7 +3909,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_30",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "biryaniuttara@example.com",
       "bio": "Biryani House in Uttara specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to the neighborhood. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful.",
       "location": {
@@ -3951,7 +3951,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_31",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "ottoman@example.com",
       "bio": "The Ottoman Grill brings the rich flavors of Turkish and Mediterranean cuisine to Banani. Their menu features authentic kebabs, mezes, and grilled specialties prepared with traditional techniques and imported spices. The elegant ambiance and attentive service create a dining experience that transports guests to the shores of the Mediterranean.",
       "location": {
@@ -3993,7 +3993,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_32",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "banani@kacchibhai.bd",
       "bio": "Kacchi Bhai's Banani location upholds their reputation for serving authentic Bengali biriyani with the same commitment to quality and taste. Using traditional recipes and the finest ingredients, they bring the rich flavors of Bengal to Banani's discerning diners.",
       "location": {
@@ -4035,7 +4035,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_33",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "sultanbanani@example.com",
       "bio": "Sultan's Dine in Banani offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Banani's residents seeking authentic flavors and impeccable service.",
       "location": {
@@ -4077,7 +4077,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_34",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "burgerbanani@example.com",
       "bio": "Burger Lab's Banani location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in Banani.",
       "location": {
@@ -4119,7 +4119,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_35",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "romabanani@example.com",
       "bio": "Pizza Roma brings the authentic taste of Italy to Banani with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience in Banani.",
       "location": {
@@ -4161,7 +4161,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_36",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "sushibanani@example.com",
       "bio": "Sushi Master in Banani offers an exceptional Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in Banani.",
       "location": {
@@ -4203,7 +4203,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_37",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "thaibanani@example.com",
       "bio": "Thai Pavilion in Banani brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Banani.",
       "location": {
@@ -4245,7 +4245,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_38",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "bbqbanani@example.com",
       "bio": "BBQ Tonight in Banani is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers in Banani.",
       "location": {
@@ -4287,7 +4287,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_39",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "chinabanani@example.com",
       "bio": "China Town in Banani offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Banani.",
       "location": {
@@ -4329,7 +4329,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_40",
+      "ownerId": "65a7b2c3d4e5f6789012353",
       "ownerEmail": "coffeebanani@example.com",
       "bio": "The Coffee House in Banani is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Banani.",
       "location": {
@@ -4371,7 +4371,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_41",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "gulshan@kacchibhai.bd",
       "bio": "Kacchi Bhai's Gulshan location upholds their reputation for serving authentic Bengali biriyani with the same commitment to quality and taste. Using traditional recipes and the finest ingredients, they bring the rich flavors of Bengal to Gulshan's discerning diners.",
       "location": {
@@ -4413,7 +4413,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_42",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "sultangulshan@example.com",
       "bio": "Sultan's Dine in Gulshan offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Gulshan's residents seeking authentic flavors and impeccable service.",
       "location": {
@@ -4455,7 +4455,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_43",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "burgergulshan@example.com",
       "bio": "Burger Lab's Gulshan location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in Gulshan.",
       "location": {
@@ -4497,7 +4497,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_44",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "romagulshan@example.com",
       "bio": "Pizza Roma brings the authentic taste of Italy to Gulshan with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience in Gulshan.",
       "location": {
@@ -4539,7 +4539,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_45",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "sushigulshan@example.com",
       "bio": "Sushi Master in Gulshan offers an exceptional Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in Gulshan.",
       "location": {
@@ -4581,7 +4581,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_46",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "thaigulshan@example.com",
       "bio": "Thai Pavilion in Gulshan brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Gulshan.",
       "location": {
@@ -4623,7 +4623,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_47",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "bbqgulshan@example.com",
       "bio": "BBQ Tonight in Gulshan is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers in Gulshan.",
       "location": {
@@ -4665,7 +4665,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_48",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "chinagulshan@example.com",
       "bio": "China Town in Gulshan offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Gulshan.",
       "location": {
@@ -4707,7 +4707,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_49",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "coffeegulshan@example.com",
       "bio": "The Coffee House in Gulshan is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Gulshan.",
       "location": {
@@ -4749,7 +4749,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": true,
-      "ownerId": "user_rest_50",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "biryani@example.com",
       "bio": "Biryani House in Gulshan specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to the neighborhood. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful.",
       "location": {
@@ -4791,7 +4791,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_51",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "freedeliverydhanmondi@example.com",
       "bio": "Free Delivery Express in Dhanmondi offers delicious fast food and burgers with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
       "location": {
@@ -4833,7 +4833,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_52",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "zerofeedhanmondi@example.com",
       "bio": "Zero Fee Kitchen in Dhanmondi offers a delightful fusion of Chinese and Thai cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
       "location": {
@@ -4875,7 +4875,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_53",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "freedeliverymirpur@example.com",
       "bio": "Free Delivery Express in Mirpur offers delicious fast food and pizza with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
       "location": {
@@ -4917,7 +4917,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_54",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "zerofeemirpur@example.com",
       "bio": "Zero Fee Kitchen in Mirpur offers a delightful fusion of Indian and Bengali cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
       "location": {
@@ -4959,7 +4959,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_55",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "freedeliveryuttara@example.com",
       "bio": "Free Delivery Express in Uttara offers delicious fast food and sandwiches with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
       "location": {
@@ -5001,7 +5001,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_56",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "zerofeeuttara@example.com",
       "bio": "Zero Fee Kitchen in Uttara offers a delightful fusion of Italian and Continental cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
       "location": {
@@ -5043,7 +5043,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_57",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "freedeliverybanani@example.com",
       "bio": "Free Delivery Express in Banani offers delicious fast food and wraps with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
       "location": {
@@ -5085,7 +5085,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_58",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "zerofeebanani@example.com",
       "bio": "Zero Fee Kitchen in Banani offers a delightful fusion of Mediterranean and Middle Eastern cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
       "location": {
@@ -5127,7 +5127,7 @@
       "isFeatured": false,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_59",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "freedeliverygulshan@example.com",
       "bio": "Free Delivery Express in Gulshan offers delicious fast food and salads with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
       "location": {
@@ -5169,7 +5169,7 @@
       "isFeatured": true,
       "isActive": true,
       "approved": false,
-      "ownerId": "user_rest_60",
+      "ownerId": "65a7b2c3d4e5f6789012354",
       "ownerEmail": "zerofeegulshan@example.com",
       "bio": "Zero Fee Kitchen in Gulshan offers a delightful fusion of Mexican and Tex-Mex cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
       "location": {
