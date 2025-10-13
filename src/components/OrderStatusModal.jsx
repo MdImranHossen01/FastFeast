@@ -1,12 +1,14 @@
 // src/components/OrderStatusModal.jsx
 import React, { useState, useEffect } from 'react';
-import { FiX, FiSearch, FiClock, FiCheck, FiPackage, FiTruck } from 'react-icons/fi';
+import { FiX, FiSearch, FiClock, FiCheck, FiPackage, FiTruck, FiUser, FiPhone, FiMapPin } from 'react-icons/fi';
 
 const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [showRiderDetails, setShowRiderDetails] = useState(false);
 
   // Fetch user orders when modal opens
   useEffect(() => {
@@ -112,6 +114,11 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
     }
   };
 
+  // Show order details
+  const showOrderDetails = (order) => {
+    setSelectedOrder(order);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -192,7 +199,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                     </div>
                     
                     {/* Order Details */}
-                    <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div className="grid grid-cols-2 gap-4 text-sm mb-3">
                       <div>
                         <span className="text-gray-500">Items:</span>
                         <span className="ml-2 font-medium">{order.items.length}</span>
@@ -211,6 +218,63 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                           {order.paymentMethod === 'cash' ? 'Cash on Delivery' : 'Card'}
                         </span>
                       </div>
+                    </div>
+                    
+                    {/* Rider Information (if assigned) */}
+                    {order.riderInfo && (
+                      <div className="mt-3 p-3 bg-white rounded-lg">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <FiTruck className="text-orange-500 mr-2" />
+                            <span className="text-sm font-medium">Delivery by: {order.riderInfo.name}</span>
+                          </div>
+                          <button
+                            className="text-blue-600 hover:text-blue-800 text-sm"
+                            onClick={() => setShowRiderDetails(showRiderDetails === order.id ? null : order.id)}
+                          >
+                            {showRiderDetails === order.id ? 'Hide' : 'Show'} Details
+                          </button>
+                        </div>
+                        
+                        {showRiderDetails === order.id && (
+                          <div className="mt-3 pt-3 border-t border-gray-200">
+                            <div className="flex items-center space-x-3">
+                              <img
+                                className="h-10 w-10 rounded-full"
+                                src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
+                                alt={order.riderInfo.name}
+                              />
+                              <div>
+                                <div className="font-medium">{order.riderInfo.name}</div>
+                                <div className="flex items-center text-sm text-gray-500">
+                                  <FiPhone className="mr-1" />
+                                  {order.riderInfo.phone}
+                                </div>
+                                <div className="flex items-center text-sm text-gray-500">
+                                  <FiMapPin className="mr-1" />
+                                  {order.riderInfo.currentLocation ? 
+                                    `Lat: ${order.riderInfo.currentLocation.lat}, Lng: ${order.riderInfo.currentLocation.lng}` : 
+                                    'Location not available'
+                                  }
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  Vehicle: {order.riderInfo.vehicleType || 'Not specified'}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
+                    {/* View Details Button */}
+                    <div className="mt-3">
+                      <button
+                        className="w-full py-2 px-4 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                        onClick={() => showOrderDetails(order)}
+                      >
+                        View Full Details
+                      </button>
                     </div>
                   </div>
                 ))}

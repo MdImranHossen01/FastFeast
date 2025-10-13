@@ -45,12 +45,12 @@ const ManageOrderPage = () => {
       }
     };
 
-    // Fetch riders for assignment
+    // Fetch riders for assignment (only users with rider role)
     const fetchRiders = async () => {
       try {
-        const response = await fetch('/api/riders');
+        const response = await fetch('/api/users?role=rider');
         const data = await response.json();
-        setRiders(data.riders || []);
+        setRiders(data.users || []);
       } catch (error) {
         console.error('Error fetching riders:', error);
       }
@@ -143,6 +143,9 @@ const ManageOrderPage = () => {
   // Assign rider to order
   const assignRiderToOrder = async (orderId, riderId) => {
     try {
+      // Get rider details
+      const selectedRider = riders.find(rider => rider.id === riderId);
+      
       const response = await fetch('/api/orders', {
         method: 'PUT',
         headers: {
@@ -151,7 +154,8 @@ const ManageOrderPage = () => {
         body: JSON.stringify({ 
           orderId, 
           action: 'assignRider',
-          riderId 
+          riderId,
+          riderInfo: selectedRider // Include rider details
         }),
       });
 
@@ -159,13 +163,21 @@ const ManageOrderPage = () => {
         // Update the local state
         setOrders(prevOrders => 
           prevOrders.map(order => 
-            order.id === orderId ? { ...order, assignedRider: riderId } : order
+            order.id === orderId ? { 
+              ...order, 
+              assignedRider: riderId,
+              riderInfo: selectedRider // Store rider details
+            } : order
           )
         );
         
         // Update the selected order if it's currently open
         if (selectedOrder && selectedOrder.id === orderId) {
-          setSelectedOrder(prev => ({ ...prev, assignedRider: riderId }));
+          setSelectedOrder(prev => ({ 
+            ...prev, 
+            assignedRider: riderId,
+            riderInfo: selectedRider // Store rider details
+          }));
         }
         
         setShowRiderDropdown(null);
@@ -431,10 +443,13 @@ const ManageOrderPage = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {order.assignedRider ? (
+                      {order.riderInfo ? (
                         <div className="flex items-center">
                           <FiUsers className="mr-1" />
-                          {riders.find(r => r.id === order.assignedRider)?.name || 'Unknown Rider'}
+                          <div>
+                            <div className="font-medium">{order.riderInfo.name}</div>
+                            <div className="text-xs text-gray-500">{order.riderInfo.phone}</div>
+                          </div>
                         </div>
                       ) : (
                         <span className="text-gray-400">Not assigned</span>
@@ -557,6 +572,8 @@ const ManageOrderPage = () => {
         isOpen={showOrderDetails}
         onClose={() => setShowOrderDetails(false)}
         updateOrderStatus={updateOrderStatus}
+        assignRiderToOrder={assignRiderToOrder}
+        riders={riders}
       />
     </div>
   );
