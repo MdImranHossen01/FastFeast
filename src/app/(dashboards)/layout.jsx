@@ -7,19 +7,52 @@ import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 import { useTheme } from "next-themes";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { FiUser } from "react-icons/fi";
 
 export default function DashboardLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const user = session?.user;
 
-  console.log(user);
+  // Remove the console.log that's causing the undefined logs
+  // console.log(user);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Show loading state while session is loading
+  if (status === "loading") {
+    return (
+      <div className="flex min-h-screen bg-gray-50 dark:bg-slate-900 items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+      </div>
+    );
+  }
+
+  // Show error state if not authenticated
+  if (status === "unauthenticated") {
+    return (
+      <div className="flex min-h-screen bg-gray-50 dark:bg-slate-900 items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+            Access Denied
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
+            Please log in to access the dashboard
+          </p>
+          <button
+            onClick={() => (window.location.href = "/login")}
+            className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-50 dark:bg-slate-900 transition-all duration-300">
@@ -84,14 +117,34 @@ export default function DashboardLayout({ children }) {
           </div>
 
           <div className="flex items-center gap-4">
-            <div>
-              <Image
-                src={user?.image || "/demo-user.png"}
-                width={40}
-                height={40}
-                alt="User image"
-                className="rounded-full"
-              />
+            <div className="relative">
+              {user ? (
+                <Image
+                  src={user.image || "/demo-user.png"}
+                  width={48}
+                  height={48}
+                  alt="User image"
+                  className="rounded-full"
+                  priority={true}
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    objectFit: "cover",
+                  }}
+                  onError={(e) => {
+                    // Fallback to a default avatar if the image fails to load
+                    e.target.src = `https://avatar.vercel.sh/${
+                      user.name || "user"
+                    }`;
+                  }}
+                />
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                  <span className="text-gray-600 dark:text-gray-400">
+                    <FiUser className="h-6 w-6" />
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Theme Toggle */}

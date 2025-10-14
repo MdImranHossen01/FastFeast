@@ -1,6 +1,8 @@
 // src/components/OrderStatusModal.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { FiX, FiSearch, FiClock, FiCheck, FiPackage, FiTruck, FiPhone, FiMapPin } from 'react-icons/fi';
+import { FiX, FiSearch, FiClock, FiCheck, FiPackage, FiTruck, FiPhone, FiMapPin, FiExternalLink, FiUser } from 'react-icons/fi';
+import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 // --- helpers ---
 const normalizeStatus = (status) => {
@@ -78,6 +80,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showRiderDetails, setShowRiderDetails] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
 
   const pollRef = useRef(null);
 
@@ -86,7 +89,13 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
     if (!userEmail) return;
     try {
       setLoading(true);
+      setFetchError(null);
       const res = await fetch(`/api/orders?userEmail=${encodeURIComponent(userEmail)}`);
+      
+      if (!res.ok) {
+        throw new Error(`Failed to fetch orders: ${res.status}`);
+      }
+      
       const data = await res.json();
 
       // normalize shape & status
@@ -97,12 +106,19 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
         orderDate: o.orderDate ?? o.createdAt ?? Date.now(),
         pricing: o.pricing || {},
         items: Array.isArray(o.items) ? o.items : (o.items ? [o.items] : []),
+        // Ensure riderInfo includes the ID
+        riderInfo: o.riderInfo ? {
+          ...o.riderInfo,
+          id: o.riderInfo.id || o.riderInfo._id || ''
+        } : null
       }));
 
       setOrders(list);
       setFilteredOrders(applySearch(list, searchTerm));
     } catch (e) {
       console.error('Error fetching orders:', e);
+      setFetchError(e.message);
+      toast.error('Failed to load orders. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -138,6 +154,14 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   }, [searchTerm, orders]);
 
   const showOrderDetails = (order) => setSelectedOrder(order);
+
+  const handleRiderClick = (riderId, riderName) => {
+    if (!riderId) {
+      toast.error('Rider information is not available');
+      return;
+    }
+    toast.success(`Opening ${riderName}'s profile...`);
+  };
 
   if (!isOpen) return null;
 
@@ -178,6 +202,16 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
             {loading ? (
               <div className="flex justify-center items-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+              </div>
+            ) : fetchError ? (
+              <div className="text-center py-8">
+                <p className="text-red-500 mb-4">{fetchError}</p>
+                <button
+                  onClick={fetchUserOrders}
+                  className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                >
+                  Try Again
+                </button>
               </div>
             ) : filteredOrders.length > 0 ? (
               <div className="space-y-4 max-h-96 overflow-y-auto">
@@ -238,25 +272,56 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                           <div className="flex items-center justify-between">
                             <div className="flex items-center">
                               <FiTruck className="text-orange-500 mr-2" />
-                              <span className="text-sm font-medium">Delivery by: {order.riderInfo.name}</span>
+                              {/* Make the rider name clickable and link to rider details page */}
+                              {order.riderInfo.id ? (
+                                <Link href={`/riders/${order.riderInfo.id}`}>
+                                  <span 
+                                    className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline cursor-pointer flex items-center gap-1"
+                                    onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                                  >
+                                    {order.riderInfo.name}
+                                    <FiExternalLink className="h-3 w-3" />
+                                  </span>
+                                </Link>
+                              ) : (
+                                <span className="text-sm font-medium text-gray-600">
+                                  {order.riderInfo.name}
+                                </span>
+                              )}
                             </div>
-                            <button
-                              className="text-blue-600 hover:text-blue-800 text-sm"
-                              onClick={() => setShowRiderDetails(showRiderDetails === order.id ? null : order.id)}
-                            >
-                              {showRiderDetails === order.id ? 'Hide' : 'Show'} Details
-                            </button>
+                            <div className="flex items-center gap-2">
+                              {order.riderInfo.id && (
+                                <Link href={`/riders/${order.riderInfo.id}`}>
+                                  <button
+                                    className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1"
+                                    onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                                  >
+                                    <FiUser className="h-4 w-4" />
+                                    Profile
+                                  </button>
+                                </Link>
+                              )}
+                              <button
+                                className="text-blue-600 hover:text-blue-800 text-sm"
+                                onClick={() => setShowRiderDetails(showRiderDetails === order.id ? null : order.id)}
+                              >
+                                {showRiderDetails === order.id ? 'Hide' : 'Show'} Details
+                              </button>
+                            </div>
                           </div>
 
                           {showRiderDetails === order.id && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
                               <div className="flex items-center space-x-3">
                                 <img
-                                  className="h-10 w-10 rounded-full"
+                                  className="h-10 w-10 rounded-full object-cover"
                                   src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
                                   alt={order.riderInfo.name}
+                                  onError={(e) => {
+                                    e.target.src = `https://avatar.vercel.sh/${order.riderInfo.name || 'rider'}`;
+                                  }}
                                 />
-                                <div>
+                                <div className="flex-grow">
                                   <div className="font-medium">{order.riderInfo.name}</div>
                                   <div className="flex items-center text-sm text-gray-500">
                                     <FiPhone className="mr-1" />
@@ -272,6 +337,17 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                                     Vehicle: {order.riderInfo.vehicleType || 'Not specified'}
                                   </div>
                                 </div>
+                                {order.riderInfo.id && (
+                                  <Link href={`/riders/${order.riderInfo.id}`}>
+                                    <button
+                                      className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors flex items-center gap-1"
+                                      onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                                    >
+                                      <FiExternalLink className="h-3 w-3" />
+                                      View Profile
+                                    </button>
+                                  </Link>
+                                )}
                               </div>
                             </div>
                           )}

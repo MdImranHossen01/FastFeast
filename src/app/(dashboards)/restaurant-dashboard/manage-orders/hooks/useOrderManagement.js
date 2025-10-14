@@ -1,208 +1,240 @@
-import { useState, useEffect } from "react";
+// src/app/(dashboards)/restaurant-dashboard/manage-orders/hooks/useOrderManagement.js
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export const useOrderManagement = () => {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [riders, setRiders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showOrderDetails, setShowOrderDetails] = useState(false);
   const [showRiderDropdown, setShowRiderDropdown] = useState(null);
   const [monthlyStats, setMonthlyStats] = useState({
-    totalOrders: 0,
-    pendingOrders: 0,
-    confirmedOrders: 0,
-    preparingOrders: 0,
-    readyOrders: 0,
-    outForDeliveryOrders: 0,
-    deliveredOrders: 0,
-    cancelledOrders: 0,
-    totalRevenue: 0,
+    total: 0,
+    pending: 0,
+    confirmed: 0,
+    preparing: 0,
+    ready: 0,
+    outForDelivery: 0,
+    delivered: 0,
+    cancelled: 0,
+    totalRevenue: 0
   });
 
-  // Fetch orders & riders
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch("/api/orders");
-        const data = await response.json();
-        const normalized = (data.orders || []).map((o) => ({
-          ...o,
-          id: o.id ?? o._id, // ✅ ensure id exists
-          orderDate: o.orderDate ?? o.createdAt ?? new Date(),
-        }));
-        setOrders(normalized);
-        setFilteredOrders(normalized);
-
-        // Calculate monthly stats
-        calculateMonthlyStats(normalized);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      } finally {
-        setLoading(false);
+  // Fetch orders
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch('/api/orders');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
-    };
-
-    const fetchRiders = async () => {
-      try {
-        // Keep your existing path — we implement /api/users below
-        const response = await fetch("/api/users?role=rider");
-        const data = await response.json();
-        const normalized = (data.users || []).map((u) => ({
-          id: u.id ?? u._id,
-          name: u.name,
-          phone: u.phone,
-        }));
-        setRiders(normalized);
-      } catch (error) {
-        console.error("Error fetching riders:", error);
+      const data = await response.json();
+      
+      if (data.success) {
+        setOrders(data.orders);
+        setFilteredOrders(data.orders);
+      } else {
+        toast.error(data.message || 'Failed to fetch orders');
       }
-    };
-
-    fetchOrders();
-    fetchRiders();
-  }, []);
-
-  // Calculate monthly statistics
-  const calculateMonthlyStats = (ordersData) => {
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
-
-    const monthlyOrders = ordersData.filter((order) => {
-      const orderDate = new Date(order.orderDate);
-      return (
-        orderDate.getMonth() === currentMonth &&
-        orderDate.getFullYear() === currentYear
-      );
-    });
-
-    const stats = {
-      totalOrders: monthlyOrders.length,
-      pendingOrders: monthlyOrders.filter((o) => o.status === "pending").length,
-      confirmedOrders: monthlyOrders.filter((o) => o.status === "confirmed")
-        .length,
-      preparingOrders: monthlyOrders.filter((o) => o.status === "preparing")
-        .length,
-      readyOrders: monthlyOrders.filter((o) => o.status === "ready").length,
-      outForDeliveryOrders: monthlyOrders.filter(
-        (o) => o.status === "out-for-delivery"
-      ).length,
-      deliveredOrders: monthlyOrders.filter((o) => o.status === "delivered")
-        .length,
-      cancelledOrders: monthlyOrders.filter((o) => o.status === "cancelled")
-        .length,
-      totalRevenue: monthlyOrders.reduce(
-        (sum, o) => sum + (o.pricing?.total || 0),
-        0
-      ),
-    };
-
-    setMonthlyStats(stats);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      toast.error('Failed to fetch orders');
+    }
   };
 
-  // Filter orders
-  useEffect(() => {
-    let filtered = orders;
-
-    if (searchTerm) {
-      const q = searchTerm.toLowerCase();
-      filtered = filtered.filter(
-        (order) =>
-          (order.id + "").toLowerCase().includes(q) ||
-          order.customerInfo?.fullName?.toLowerCase?.().includes(q) ||
-          order.customerInfo?.email?.toLowerCase?.().includes(q)
-      );
+  // Fetch riders
+  const fetchRiders = async () => {
+    try {
+      const response = await fetch('/api/users?role=rider');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      
+      if (data.success) {
+        console.log('Fetched riders:', data.users);
+        setRiders(data.users);
+      } else {
+        toast.error(data.message || 'Failed to fetch riders');
+      }
+    } catch (error) {
+      console.error('Error fetching riders:', error);
+      toast.error('Failed to fetch riders');
+      // Fallback to empty array if API fails
+      setRiders([]);
     }
+  };
 
-    if (statusFilter !== "all") {
-      filtered = filtered.filter((order) => order.status === statusFilter);
+  // Fetch monthly stats
+  const fetchMonthlyStats = async () => {
+    try {
+      const response = await fetch('/api/orders/stats/monthly');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      
+      if (data.success) {
+        setMonthlyStats(data.stats);
+      } else {
+        toast.error(data.message || 'Failed to fetch monthly stats');
+      }
+    } catch (error) {
+      console.error('Error fetching monthly stats:', error);
+      toast.error('Failed to fetch monthly stats');
+      // Set default stats if API fails
+      setMonthlyStats({
+        total: 0,
+        pending: 0,
+        confirmed: 0,
+        preparing: 0,
+        ready: 0,
+        outForDelivery: 0,
+        delivered: 0,
+        cancelled: 0,
+        totalRevenue: 0
+      });
     }
-
-    setFilteredOrders(filtered);
-  }, [orders, searchTerm, statusFilter]);
+  };
 
   // Update order status
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const response = await fetch("/api/orders", {
-        method: "PUT",
+      const response = await fetch(`/api/orders/${orderId}`, {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ orderId, status: newStatus }),
+        body: JSON.stringify({ status: newStatus }),
       });
-
-      if (response.ok) {
-        setOrders((prev) =>
-          prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o))
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Update the order in the local state
+        setOrders(prevOrders => 
+          prevOrders.map(order => 
+            order.id === orderId ? { ...order, status: newStatus } : order
+          )
         );
-
-        if (selectedOrder && selectedOrder.id === orderId) {
-          setSelectedOrder((prev) => ({ ...prev, status: newStatus }));
-        }
-
-        const nextOrders = orders.map((o) =>
-          o.id === orderId ? { ...o, status: newStatus } : o
+        
+        // Update filtered orders as well
+        setFilteredOrders(prevOrders => 
+          prevOrders.map(order => 
+            order.id === orderId ? { ...order, status: newStatus } : order
+          )
         );
-        calculateMonthlyStats(nextOrders);
+        
+        toast.success(`Order status updated to ${newStatus}`);
       } else {
-        console.error("Failed to update order status");
+        toast.error(data.message || 'Failed to update order status');
       }
     } catch (error) {
-      console.error("Error updating order status:", error);
+      console.error('Error updating order status:', error);
+      toast.error(error.message || 'Failed to update order status');
     }
   };
 
   // Assign rider to order
   const assignRiderToOrder = async (orderId, riderId) => {
     try {
-      const selectedRider = riders.find((r) => r.id === riderId);
-
-      const response = await fetch("/api/orders", {
-        method: "PUT",
+      console.log('Assigning rider to order:', { orderId, riderId });
+      console.log('Type of riderId:', typeof riderId);
+      
+      const response = await fetch(`/api/orders/${orderId}`, {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          orderId,
-          action: "assignRider",
-          riderId,
-          riderInfo: selectedRider,
-        }),
+        body: JSON.stringify({ riderId }),
       });
-
-      if (response.ok) {
-        setOrders((prev) =>
-          prev.map((o) =>
-            o.id === orderId
-              ? { ...o, assignedRider: riderId, riderInfo: selectedRider }
-              : o
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API Error:', errorData);
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        // Update the order in the local state
+        setOrders(prevOrders => 
+          prevOrders.map(order => 
+            order.id === orderId ? { ...order, riderInfo: data.riderInfo } : order
           )
         );
-
-        if (selectedOrder && selectedOrder.id === orderId) {
-          setSelectedOrder((prev) => ({
-            ...prev,
-            assignedRider: riderId,
-            riderInfo: selectedRider,
-          }));
-        }
-
+        
+        // Update filtered orders as well
+        setFilteredOrders(prevOrders => 
+          prevOrders.map(order => 
+            order.id === orderId ? { ...order, riderInfo: data.riderInfo } : order
+          )
+        );
+        
+        // Close the dropdown
         setShowRiderDropdown(null);
+        toast.success('Rider assigned successfully');
       } else {
-        console.error("Failed to assign rider");
+        toast.error(data.message || 'Failed to assign rider');
       }
     } catch (error) {
-      console.error("Error assigning rider:", error);
+      console.error('Error assigning rider to order:', error);
+      toast.error(error.message || 'Failed to assign rider');
     }
   };
 
+  // Show order details modal
   const showOrderDetailsModal = (order) => {
     setSelectedOrder(order);
     setShowOrderDetails(true);
   };
+
+  // Apply filters
+  useEffect(() => {
+    let filtered = orders;
+    
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(order => 
+        order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (order.customerInfo?.fullName && order.customerInfo.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+    
+    // Apply status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(order => order.status === statusFilter);
+    }
+    
+    setFilteredOrders(filtered);
+  }, [orders, searchTerm, statusFilter]);
+
+  // Initial data fetch
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await Promise.all([
+        fetchOrders(),
+        fetchRiders(),
+        fetchMonthlyStats()
+      ]);
+      setLoading(false);
+    };
+    
+    fetchData();
+  }, []);
 
   return {
     orders,
