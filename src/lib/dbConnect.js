@@ -1,4 +1,3 @@
-// src/lib/dbConnect.js
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 export const collectionsName = {
@@ -10,7 +9,9 @@ export const collectionsName = {
   reviewsCollection: "reviews",
   ordersCollection: "orders",
   transactionHistoryCollection: "transactionHistory",
-  favoritesCollection: "favorites"
+  favoritesCollection: "favorites",
+  favoritesRestCollection: "favRestaurant",
+  notificationsCollection: "notifications", // ✅ added
 };
 
 // Cache the database connection
@@ -27,11 +28,11 @@ export const connectToDatabase = async () => {
   const { MONGODB_URI, DB_NAME } = process.env;
 
   if (!MONGODB_URI) {
-    throw new Error('Please define the MONGODB_URI environment variable');
+    throw new Error("Please define the MONGODB_URI environment variable");
   }
 
   if (!DB_NAME) {
-    throw new Error('Please define the DB_NAME environment variable');
+    throw new Error("Please define the DB_NAME environment variable");
   }
 
   // Create a new MongoClient
@@ -56,13 +57,13 @@ export const connectToDatabase = async () => {
   return { client, db };
 };
 
-// Export a function to get a collection
+// Helper to get a collection
 export const getCollection = async (collectionName) => {
   const { db } = await connectToDatabase();
   return db.collection(collectionName);
 };
 
-// Keep your original function for backward compatibility
+// Backward-compatible alias (returns a collection)
 export const dbConnect = async (collectionName) => {
   const { db } = await connectToDatabase();
   return db.collection(collectionName);
