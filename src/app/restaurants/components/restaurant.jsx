@@ -58,23 +58,11 @@ export default function Restaurant({ restaurants }) {
   }
 
   // sort by price range
-
-  // calculate average price
-  const averagePrice = (menu) => {
-    if (!menu || menu.length === 0) return 0;
-    const total = menu.reduce((sum, item) => sum + item.price, 0);
-    return total / menu.length;
-  };
-
-  const priceRangeCategory = (price) => {
-    if (price > 500) return "High";
-    if (price > 300) return "Medium";
-    return "Low";
-  };
   if (priceRange) {
     filteredRestaurants = filteredRestaurants.filter((restaurant) => {
-      const avgPrice = averagePrice(restaurant.menu);
-      return priceRangeCategory(avgPrice) === priceRange;
+      if (priceRange === "Low") return restaurant.priceRange === "৳";
+      if (priceRange === "Medium") return restaurant.priceRange === "৳৳";
+      if (priceRange === "High") return restaurant.priceRange === "৳৳৳";
     });
   }
   return (
@@ -154,13 +142,13 @@ export default function Restaurant({ restaurants }) {
               Price Range
             </option>
             <option className="text-gray-700 bg-white" value="High">
-              High
+              High(৳৳৳)
             </option>
             <option className="text-gray-700 bg-white" value="Medium">
-              Medium
+              Medium(৳৳)
             </option>
             <option className="text-gray-700 bg-white" value="Low">
-              Low
+              Low(৳)
             </option>
           </select>
         </div>
