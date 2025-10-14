@@ -176,9 +176,10 @@ const MenuCard = ({ menu, restaurants }) => {
         </div>
         <div className="p-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-orange-500">
+            {/* Made the title clickable with Link component */}
+            <Link href={`/menu/${menu._id}`} className="text-lg font-semibold text-orange-500 hover:text-orange-600 transition-colors">
               {menu.title}
-            </h3>
+            </Link>
             {/* Heart Icon - filled if favorite, outlined if not */}
             <button
               onClick={toggleFavorite}

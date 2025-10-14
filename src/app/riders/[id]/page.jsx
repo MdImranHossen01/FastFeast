@@ -4,8 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiArrowLeft, FiPhone, FiMapPin, FiTruck, FiMail, FiCalendar, FiStar, FiPackage, FiCheckCircle } from 'react-icons/fi';
-
+import { FiArrowLeft, FiPhone, FiMapPin, FiTruck, FiMail, FiCalendar, FiStar, FiPackage, FiCheckCircle, FiUser } from 'react-icons/fi';
 const RiderDetailsPage = () => {
   const params = useParams();
   const router = useRouter();

@@ -4,18 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
-    // AWAIT THE PARAMS - This is the fix!
     const { id } = await params;
-    
-    console.log('Fetching menu item with ID:', id); // Add this for debugging
     
     // Get menu collection
     const menuCollection = await getCollection('menu');
     
-    // Find the menu item
-    const menuItem = await menuCollection.findOne({ 
-      _id: new ObjectId(id)
-    });
+    // Find the menu item using the ID as a STRING
+    const menuItem = await menuCollection.findOne({ _id: id });
     
     if (!menuItem) {
       return NextResponse.json(
@@ -27,8 +22,8 @@ export async function GET(request, { params }) {
     // Get reviews collection
     const reviewsCollection = await getCollection('reviews');
     
-    // Find reviews for this menu item
-    const itemReviews = await reviewsCollection
+    // Find all review documents that contain a review for this menu item
+    const reviewDocuments = await reviewsCollection
       .find({ 
         'itemReviews.itemId': id,
         'itemReviews.rating': { $gt: 0 }
@@ -39,26 +34,32 @@ export async function GET(request, { params }) {
     // Serialize documents to JSON-safe format
     const serializedMenuItem = serializeDocument(menuItem);
     
-    // Calculate average rating
+    // Extract and flatten the individual item reviews
+    const reviews = [];
     let totalRating = 0;
-    let reviewCount = 0;
     
-    itemReviews.forEach(review => {
-      const itemReview = review.itemReviews.find(item => item.itemId === id);
-      if (itemReview && itemReview.rating > 0) {
+    reviewDocuments.forEach(doc => {
+      const itemReview = doc.itemReviews.find(r => r.itemId === id);
+      if (itemReview) {
+        reviews.push({
+          customerEmail: doc.customerEmail,
+          rating: itemReview.rating,
+          comment: itemReview.comment,
+          createdAt: doc.createdAt
+        });
         totalRating += itemReview.rating;
-        reviewCount++;
       }
     });
     
-    const averageRating = reviewCount > 0 ? (totalRating / reviewCount).toFixed(1) : null;
+    const averageRating = reviews.length > 0 ? (totalRating / reviews.length).toFixed(1) : null;
     
     return NextResponse.json({
       success: true,
       menuItem: {
         ...serializedMenuItem,
         rating: averageRating,
-        reviewCount: reviewCount
+        reviewCount: reviews.length,
+        reviews: reviews // IMPORTANT: Add the reviews array to the response
       }
     });
   } catch (error) {
@@ -70,20 +71,19 @@ export async function GET(request, { params }) {
   }
 }
 
+// ... (keep PUT and DELETE functions as they are)
+
 export async function PUT(request, { params }) {
   try {
-    // AWAIT THE PARAMS
     const { id } = await params;
-    
-    // Parse the incoming data
     const updatedData = await request.json();
     
-    // Get menu collection
+    // IMPORTANT: For PUT and DELETE, you still need to use ObjectId
+    // if you plan to perform those operations on documents with string IDs.
+    // However, if your _id is a string, you should query by string here too.
     const menuCollection = await getCollection('menu');
-    
-    // Update the menu item
     const result = await menuCollection.updateOne(
-      { _id: new ObjectId(id) },
+      { _id: id }, // Update by string ID
       { $set: updatedData }
     );
     
@@ -94,7 +94,6 @@ export async function PUT(request, { params }) {
       );
     }
     
-    // Return success response
     return NextResponse.json({
       success: true,
       message: 'Menu item updated successfully',
@@ -111,14 +110,10 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    // AWAIT THE PARAMS
     const { id } = await params;
     
-    // Get menu collection
     const menuCollection = await getCollection('menu');
-    
-    // Delete the menu item
-    const result = await menuCollection.deleteOne({ _id: new ObjectId(id) });
+    const result = await menuCollection.deleteOne({ _id: id }); // Delete by string ID
     
     if (result.deletedCount === 0) {
       return NextResponse.json(
@@ -127,7 +122,6 @@ export async function DELETE(request, { params }) {
       );
     }
     
-    // Return success response
     return NextResponse.json({
       success: true,
       message: 'Menu item deleted successfully',
