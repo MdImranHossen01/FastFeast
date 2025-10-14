@@ -129,7 +129,7 @@ const CustomersReview = () => {
           {/* Right Reviews Slider (Main Card Container) */}
           <div
             className="w-full flex flex-col items-center justify-center 
-            py-12 relative rounded-xl 
+            py-12 px-6 relative bg-rounded-2xl 
             bg-center bg-contain bg-no-repeat"
             style={{ backgroundImage: "url('/photoFrame.png')" }}
           >

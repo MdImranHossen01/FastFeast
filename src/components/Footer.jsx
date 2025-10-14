@@ -12,6 +12,7 @@ import { FaXTwitter } from "react-icons/fa6"; // Using the newer FaXTwitter icon
 import { IoLocationSharp, IoCall, IoMail } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import NewsletterForm from "@/app/components/NewsLetter";
 
 // --- Reusable Footer Column Component ---
 const FooterColumn = ({ title, links }) => (
@@ -142,27 +143,7 @@ const Footer = () => {
             <h3 className="mb-4 text-sm font-semibold uppercase text-gray-100">
               Newsletter
             </h3>
-            <div>
-              <p className="text-sm leading-relaxed mb-4">
-                Get exclusive updates, offers, and content directly to your
-                inbox.
-              </p>
-              <form className="flex" onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="email"
-                  placeholder="your email address"
-                  className="w-full bg-gray-700 text-white px-4 py-3 rounded-l-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  suppressHydrationWarning
-                />
-                <button
-                  type="submit"
-                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-3 rounded-r-md transition-colors"
-                  aria-label="Subscribe"
-                >
-                  <FaRegPaperPlane />
-                </button>
-              </form>
-            </div>
+            <NewsletterForm/>
           </div>
         </div>
       </div>
