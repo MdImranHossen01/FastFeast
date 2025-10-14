@@ -1,10 +1,17 @@
 "use client";
-import React from "react";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaRegHeart, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Link from "next/link";
 import { generateSlug } from "./generateSlug";
+import toast from "react-hot-toast";
+import { IoHeart } from "react-icons/io5";
+import { GoHeartFill } from "react-icons/go";
+import { useSession } from "next-auth/react";
 
 export default function RestaurantsCard({ restaurant }) {
+  const { data: session } = useSession();
+  const [isFavorite, setIsFavorite] = useState(false);
+
   // slug generate
   const slug = generateSlug(restaurant.name, restaurant.location?.area);
 
@@ -27,11 +34,82 @@ export default function RestaurantsCard({ restaurant }) {
     return stars;
   };
 
+  // fetch user favorites and also check if this restaurant is already exist in favorite
+  useEffect(() => {
+    if (!session?.user?.id) {
+      return setIsFavorite(false);
+    }
+    async function checkFavorite() {
+      try {
+        const res = await fetch("/api/favRestaurants", {
+          credentials: "include",
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch favorites");
+
+        const data = await res.json();
+
+        const exist = data.some(
+          (fav) => fav.restaurantId.toString() === restaurant._id.toString()
+        );
+        setIsFavorite(exist);
+      } catch (error) {
+        console.error("Failed to fetch favorites", error);
+      }
+    }
+    checkFavorite();
+  }, [session, restaurant._id]);
+
+  // toggle
+  const handleToggle = async () => {
+    if (!session?.user?.id) {
+      toast.error("Please login to add favorite");
+      return;
+    }
+    try {
+      if (isFavorite) {
+        // remove favorite
+        const res = await fetch(`/api/favRestaurants?id=${restaurant._id}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
+        if (!res.ok) {
+          const eraData = await res.json().catch(() => ({}));
+          throw new Error(eraData.message || "Failed to remove favorite");
+        }
+        setIsFavorite(false);
+        toast.success("Removed from favorites");
+      } else {
+        // add favorite
+        const res = await fetch("/api/favRestaurants", {
+          method: "POST",
+          headers: { "content-Type": "application/json" },
+          body: JSON.stringify({
+            restaurantId: restaurant._id,
+            userId: session.user.id,
+          }),
+          credentials: "include",
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.message || "Failed to add to favorites");
+        }
+
+        setIsFavorite(true);
+        toast.success("Added to favorite");
+      }
+    } catch (error) {
+      console.error("Favorite toggle failed:", error);
+      toast.error(error.message || "Something went wrong");
+    }
+  };
+
   return (
     <div className="group bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden rounded-2xl">
-      <div className="p-6">
+      <div className="p-6 relative">
         {/* Logo and Restaurant Info */}
-        <div className="flex flex-col items-center">
+        <div className=" flex flex-col items-center">
           {/* Larger Circular Logo with Border Animation */}
           <div className="relative mb-4">
             <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
@@ -41,12 +119,16 @@ export default function RestaurantsCard({ restaurant }) {
                 alt={restaurant.name}
               />
             </div>
+
             {/* Pulsing Border Animation */}
             <div className="absolute inset-0 rounded-full border-4 border-orange-300 animate-pulse"></div>
           </div>
 
           {/* Restaurant Name - Clickable */}
-          <Link href={`restaurants/${slug}`} className="text-center hover:text-orange-500 transition-colors">
+          <Link
+            href={`restaurants/${slug}`}
+            className="text-center hover:text-orange-500 transition-colors"
+          >
             <h2 className="text-xl font-bold text-gray-900">
               {restaurant.name}
             </h2>
@@ -115,6 +197,14 @@ export default function RestaurantsCard({ restaurant }) {
             </button>
           </Link>
         </div>
+        {/* add to favorite and remove to favorite */}
+        <button onClick={handleToggle} className="absolute top-0.5 right-1 p-2">
+          {isFavorite ? (
+            <GoHeartFill size={24} color="#F97316" />
+          ) : (
+            <FaRegHeart size={24} color="#F97316" />
+          )}
+        </button>
       </div>
     </div>
   );

@@ -64,11 +64,11 @@ const testimonials = [
 ];
 
 const CustomersReview = () => {
-  
+
   const [headingIndex, setHeadingIndex] = useState(0);
   const [reviewIndex, setReviewIndex] = useState(0);
 
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setHeadingIndex((prev) => (prev + 1) % textList.length);
@@ -76,14 +76,13 @@ const CustomersReview = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // ডান দিকের কার্ড শুধু arrow button এ চলবে
   const next = () =>
     setReviewIndex((prev) => (prev + 1) % testimonials.length);
   const prev = () =>
     setReviewIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-16 bg-amber-50">
+    <section className="py-16 bg-amber-50 my-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           {/* Left Banner Text */}
@@ -95,7 +94,7 @@ const CustomersReview = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6 }}
-                className="text-5xl font-bold text-gray-800 leading-tight mb-4"
+                className="text-5xl font-bold text-gray-800 leading-tight"
               >
                 <span className="text-orange-500">
                   {textList[headingIndex].split(" ")[0]}
@@ -103,14 +102,37 @@ const CustomersReview = () => {
                 {textList[headingIndex].split(" ").slice(1).join(" ")}
               </motion.h2>
             </AnimatePresence>
-            <p className="text-lg text-gray-600 max-w-md">
+            <p className="text-lg text-gray-600 max-w-md my-8">
               Real stories from our happy customers. We always focus on quality,
               fast delivery, and excellent service.
             </p>
+
+             {/* Arrows - Attractive Orange Gradient & Correct Margin */}
+            <div className="w-full max-w-[400px] flex justify-center mt-10 gap-4">
+              <button
+                onClick={prev}
+                // Simple solid orange for balance
+                className="p-4 bg-orange-500 hover:bg-orange-600 rounded-full cursor-pointer transition shadow-lg shadow-orange-300/50"
+              >
+                <FaArrowLeft className="text-white" />
+              </button>
+              <button
+                onClick={next}
+                // Vibrant Linear Gradient: Light orange/yellow to deep orange
+                className="p-4 bg-gradient-to-r from-amber-400 to-orange-600 hover:from-amber-500 hover:to-orange-700 rounded-full transition shadow-lg cursor-pointer shadow-orange-300/50"
+              >
+                <FaArrowRight className="text-white" />
+              </button>
+            </div>
           </div>
 
-          {/* Right Reviews Slider */}
-          <div className="w-full flex flex-col items-center justify-center bg-white py-12 rounded-xl shadow-lg">
+          {/* Right Reviews Slider (Main Card Container) */}
+          <div
+            className="w-full flex flex-col items-center justify-center 
+            py-12 px-6 relative bg-rounded-2xl 
+            bg-center bg-contain bg-no-repeat"
+            style={{ backgroundImage: "url('/photoFrame.png')" }}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={reviewIndex}
@@ -118,60 +140,54 @@ const CustomersReview = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: -40 }}
                 transition={{ duration: 0.6 }}
-                className="w-[320px] h-[280px] md:w-[400px] md:h-[300px] bg-gray-50 rounded-2xl p-6 flex flex-col items-center text-center"
+                className="w-[520px] md:w-[600px] p-8 flex flex-col items-center text-center"
               >
-                <img
-                  src={testimonials[reviewIndex].photo}
-                  alt={testimonials[reviewIndex].name}
-                  className="w-16 h-16 rounded-full mb-4 object-cover"
-                />
 
-                {/* Stars */}
+                {/* Profile Photo Container (The small frame) */}
+                <div
+                  className="relative w-[400px] h-auto bg-center bg-contain bg-no-repeat flex items-center justify-center mx-auto mb-2"
+                >
+                  <img
+                    src={testimonials[reviewIndex].photo}
+                    alt={testimonials[reviewIndex].name}
+                    // FIX: Removed mt-16 to stop covering the stars
+                    className="w-20 h-20 md:w-28 md:h-28 mb-2 rounded-full object-cover shadow-lg"
+                  />
+                </div>
+
+                {/* Stars (Now Visible) */}
                 <div className="flex mb-2">
                   {Array.from({ length: 5 }, (_, i) => (
                     <FaStar
                       key={i}
-                      className={`${
-                        i < testimonials[reviewIndex].rating
+                      className={`${i < testimonials[reviewIndex].rating
                           ? "text-yellow-500"
                           : "text-gray-300"
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
 
-                <p className="text-gray-700 text-sm md:text-base mb-3 line-clamp-3">
+                {/* Review Text */}
+                <p className="text-gray-700 w-3/6 text-sm italic font-semibold md:text-base mb-5 line-clamp-6">
                   "{testimonials[reviewIndex].review}"
                 </p>
 
-                <h4 className="font-semibold text-gray-900">
+                <h4 className="font-semibold text-gray-900 mt-4">
                   {testimonials[reviewIndex].name}
                 </h4>
-                <span className="text-gray-500 text-xs md:text-sm">
+                <span className="text-gray-500 text-xs md:text-sm mt-2">
                   Ordered: {testimonials[reviewIndex].order}
                 </span>
               </motion.div>
             </AnimatePresence>
 
-            {/* Arrows */}
-            <div className="w-full max-w-[400px] flex justify-start mt-6 gap-4">
-              <button
-                onClick={prev}
-                className="p-3 bg-gray-200 hover:bg-gray-300 rounded-full transition"
-              >
-                <FaArrowLeft className="text-gray-700" />
-              </button>
-              <button
-                onClick={next}
-                className="p-3 bg-gray-200 hover:bg-gray-300 rounded-full transition"
-              >
-                <FaArrowRight className="text-gray-700" />
-              </button>
-            </div>
+           
           </div>
+           
         </div>
       </div>
-      
+
     </section>
   );
 };

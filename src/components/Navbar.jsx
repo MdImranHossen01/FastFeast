@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import Link from "next/link";
@@ -475,3 +476,7 @@ export default function Navbar() {
     </>
   );
 }
+=======
+// // Export the modular navbar from the navbar folder
+export { default } from './navbar';
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960

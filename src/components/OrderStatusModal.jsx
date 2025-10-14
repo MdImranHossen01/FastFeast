@@ -1,6 +1,14 @@
 // src/components/OrderStatusModal.jsx
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from 'react';
 import { FiX, FiSearch, FiClock, FiCheck, FiPackage, FiTruck, FiPhone, FiMapPin } from 'react-icons/fi';
+=======
+import React, { useState, useEffect } from 'react';
+import { FiX, FiSearch, FiClock, FiCheck, FiPackage, FiTruck, FiPhone, FiMapPin, FiExternalLink, FiUser, FiRefreshCw, FiStar } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import ReviewModal from './ReviewModal';
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
 
 // --- helpers ---
 const normalizeStatus = (status) => {
@@ -72,21 +80,39 @@ const fmtDate = (dateString) => {
 };
 
 const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
+  const router = useRouter();
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showRiderDetails, setShowRiderDetails] = useState(null);
+<<<<<<< HEAD
 
   const pollRef = useRef(null);
 
+=======
+  const [fetchError, setFetchError] = useState(null);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [orderToReview, setOrderToReview] = useState(null);
+
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
   // fetch orders
   const fetchUserOrders = async () => {
     if (!userEmail) return;
     try {
       setLoading(true);
+<<<<<<< HEAD
       const res = await fetch(`/api/orders?userEmail=${encodeURIComponent(userEmail)}`);
+=======
+      setFetchError(null);
+      const res = await fetch(`/api/orders?userEmail=${encodeURIComponent(userEmail)}`);
+      
+      if (!res.ok) {
+        throw new Error(`Failed to fetch orders: ${res.status}`);
+      }
+      
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
       const data = await res.json();
 
       // normalize shape & status
@@ -97,17 +123,31 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
         orderDate: o.orderDate ?? o.createdAt ?? Date.now(),
         pricing: o.pricing || {},
         items: Array.isArray(o.items) ? o.items : (o.items ? [o.items] : []),
+<<<<<<< HEAD
+=======
+        // Ensure riderInfo includes the ID
+        riderInfo: o.riderInfo ? {
+          ...o.riderInfo,
+          id: o.riderInfo.id || o.riderInfo._id || ''
+        } : null
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
       }));
 
       setOrders(list);
       setFilteredOrders(applySearch(list, searchTerm));
     } catch (e) {
       console.error('Error fetching orders:', e);
+<<<<<<< HEAD
+=======
+      setFetchError(e.message);
+      toast.error('Failed to load orders. Please try again.');
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
     } finally {
       setLoading(false);
     }
   };
 
+<<<<<<< HEAD
   // open/close lifecycle + lightweight polling (optional)
   useEffect(() => {
     if (isOpen && userEmail) {
@@ -120,6 +160,13 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
     }
     // cleanup when closed
     clearInterval(pollRef.current);
+=======
+  // Fetch data only when the modal is opened.
+  useEffect(() => {
+    if (isOpen && userEmail) {
+      fetchUserOrders();
+    }
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, userEmail]);
 
@@ -136,12 +183,71 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   useEffect(() => {
     setFilteredOrders(applySearch(orders, searchTerm));
   }, [searchTerm, orders]);
+<<<<<<< HEAD
 
   const showOrderDetails = (order) => setSelectedOrder(order);
+=======
+
+  const showOrderDetails = (order) => {
+    // Navigate to order details page
+    router.push(`/orders/${order.id}`);
+  };
+
+  const handleRiderClick = (riderId, riderName) => {
+    if (!riderId) {
+      toast.error('Rider information is not available');
+      return;
+    }
+    // Navigate to rider details page
+    router.push(`/riders/${riderId}`);
+  };
+
+  const handleReviewSubmit = async (reviewData) => {
+    try {
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reviewData),
+      });
+      
+      const data = await response.json();
+      
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to submit review');
+      }
+      
+      // Refresh orders to update review status
+      fetchUserOrders();
+      
+      return data;
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      throw error;
+    }
+  };
+
+  const openReviewModal = (order) => {
+    setOrderToReview(order);
+    setReviewModalOpen(true);
+  };
+
+  const closeReviewModal = () => {
+    setReviewModalOpen(false);
+    setOrderToReview(null);
+  };
+
+  // Prevent modal from closing when clicking inside the modal content
+  const handleModalContentClick = (e) => {
+    e.stopPropagation();
+  };
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
 
   if (!isOpen) return null;
 
   return (
+<<<<<<< HEAD
     <div className="fixed inset-0 z-50 overflow-y-auto items-center bg-black/70">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div className="fixed inset-0 transition-opacity" aria-hidden="true" onClick={onClose}>
@@ -158,6 +264,32 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                 <span className="sr-only">Close</span>
                 <FiX className="h-6 w-6" />
               </button>
+=======
+    <>
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-70 flex items-center justify-center p-4" onClick={onClose}>
+        <div 
+          className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full max-h-[90vh] flex flex-col"
+          onClick={handleModalContentClick}
+        >
+          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex-shrink-0">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl leading-6 font-medium text-gray-900">Order Status Tracking</h3>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={fetchUserOrders}
+                  disabled={loading}
+                  className="p-2 text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50"
+                  title="Refresh Orders"
+                >
+                  <FiRefreshCw className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`} />
+                </button>
+                <button type="button" className="text-gray-400 hover:text-gray-500 focus:outline-none" onClick={onClose}>
+                  <span className="sr-only">Close</span>
+                  <FiX className="h-6 w-6" />
+                </button>
+              </div>
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
             </div>
 
             {/* Search Bar */}
@@ -173,14 +305,35 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
+<<<<<<< HEAD
 
             {/* Orders List */}
+=======
+          </div>
+
+          {/* Orders List with proper scrolling */}
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6">
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
             {loading ? (
               <div className="flex justify-center items-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
               </div>
+            ) : fetchError ? (
+              <div className="text-center py-8">
+                <p className="text-red-500 mb-4">{fetchError}</p>
+                <button
+                  onClick={fetchUserOrders}
+                  className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+                >
+                  Try Again
+                </button>
+              </div>
             ) : filteredOrders.length > 0 ? (
+<<<<<<< HEAD
               <div className="space-y-4 max-h-96 overflow-y-auto">
+=======
+              <div className="space-y-4 pb-4">
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
                 {filteredOrders.map((order) => {
                   const pct = progressFromStatus(order.status);
                   return (
@@ -238,6 +391,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                           <div className="flex items-center justify-between">
                             <div className="flex items-center">
                               <FiTruck className="text-orange-500 mr-2" />
+<<<<<<< HEAD
                               <span className="text-sm font-medium">Delivery by: {order.riderInfo.name}</span>
                             </div>
                             <button
@@ -246,17 +400,54 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                             >
                               {showRiderDetails === order.id ? 'Hide' : 'Show'} Details
                             </button>
+=======
+                              {/* Make the rider name clickable */}
+                              <span 
+                                className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline cursor-pointer flex items-center gap-1"
+                                onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                              >
+                                {order.riderInfo.name}
+                                <FiExternalLink className="h-3 w-3" />
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1"
+                                onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                              >
+                                <FiUser className="h-4 w-4" />
+                                Profile
+                              </button>
+                              <button
+                                className="text-blue-600 hover:text-blue-800 text-sm"
+                                onClick={() => setShowRiderDetails(showRiderDetails === order.id ? null : order.id)}
+                              >
+                                {showRiderDetails === order.id ? 'Hide' : 'Show'} Details
+                              </button>
+                            </div>
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
                           </div>
 
                           {showRiderDetails === order.id && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
                               <div className="flex items-center space-x-3">
                                 <img
+<<<<<<< HEAD
                                   className="h-10 w-10 rounded-full"
                                   src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
                                   alt={order.riderInfo.name}
                                 />
                                 <div>
+=======
+                                  className="h-10 w-10 rounded-full object-cover"
+                                  src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
+                                  alt={order.riderInfo.name}
+                                  onError={(e) => {
+                                    e.target.src = `https://avatar.vercel.sh/${order.riderInfo.name || 'rider'}`;
+                                  }}
+                                />
+                                <div className="flex-grow">
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
                                   <div className="font-medium">{order.riderInfo.name}</div>
                                   <div className="flex items-center text-sm text-gray-500">
                                     <FiPhone className="mr-1" />
@@ -272,20 +463,51 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                                     Vehicle: {order.riderInfo.vehicleType || 'Not specified'}
                                   </div>
                                 </div>
+<<<<<<< HEAD
+=======
+                                <button
+                                  className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors flex items-center gap-1"
+                                  onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                                >
+                                  <FiExternalLink className="h-3 w-3" />
+                                  View Profile
+                                </button>
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
                               </div>
                             </div>
                           )}
                         </div>
                       )}
 
+<<<<<<< HEAD
                       {/* View Details Button */}
                       <div className="mt-3">
                         <button
                           className="w-full py-2 px-4 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+=======
+                      {/* Action Buttons */}
+                      <div className="mt-3 flex gap-2">
+                        <button
+                          className="flex-1 py-2 px-4 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
                           onClick={() => showOrderDetails(order)}
                         >
                           View Full Details
                         </button>
+<<<<<<< HEAD
+=======
+                        
+                        {/* Show Review Button for Delivered Orders */}
+                        {order.status === 'delivered' && (
+                          <button
+                            className="flex-1 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors flex items-center justify-center gap-1"
+                            onClick={() => openReviewModal(order)}
+                          >
+                            <FiStar className="h-4 w-4" />
+                            Rate Order
+                          </button>
+                        )}
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
                       </div>
                     </div>
                   );
@@ -301,7 +523,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
           </div>
 
           {/* Modal Actions */}
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse flex-shrink-0">
             <button
               type="button"
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-600 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:ml-3 sm:w-auto sm:text-sm"
@@ -312,7 +534,15 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={reviewModalOpen}
+        onClose={closeReviewModal}
+        order={orderToReview}
+        onSubmit={handleReviewSubmit}
+      />
+    </>
   );
 };
 

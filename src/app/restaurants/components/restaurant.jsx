@@ -11,6 +11,7 @@ export default function Restaurant({ restaurants }) {
 
   // convert min to number
   const foodDelivery = (timeStr) => {
+    if (!timeStr || typeof timeStr !== "string") return Infinity;
     const firstNumber = Number(timeStr.split("-")[0]);
     return isNaN(firstNumber) ? Infinity : firstNumber;
   };
@@ -43,38 +44,25 @@ export default function Restaurant({ restaurants }) {
   }
 
   // sort by delivery time
-  if (deliveryTime === "Fastest") {
-    filteredRestaurants = [...filteredRestaurants].sort(
-      (a, b) =>
-        foodDelivery(a.estimatedDeliveryTime) -
-        foodDelivery(b.estimatedDeliveryTime)
+  if (deliveryTime === "25min") {
+    filteredRestaurants = filteredRestaurants.filter(
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 25
     );
-  } else if (deliveryTime === "Slowest") {
-    filteredRestaurants = [...filteredRestaurants].sort(
-      (a, b) =>
-        foodDelivery(b.estimatedDeliveryTime) -
-        foodDelivery(a.estimatedDeliveryTime)
+  } else if (deliveryTime === "40min") {
+    filteredRestaurants = filteredRestaurants.filter(
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 40
+    );
+  } else if (deliveryTime === "any") {
+    filteredRestaurants = filteredRestaurants.filter(
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) > 40
     );
   }
-
   // sort by price range
-
-  // calculate average price
-  const averagePrice = (menu) => {
-    if (!menu || menu.length === 0) return 0;
-    const total = menu.reduce((sum, item) => sum + item.price, 0);
-    return total / menu.length;
-  };
-
-  const priceRangeCategory = (price) => {
-    if (price > 500) return "High";
-    if (price > 300) return "Medium";
-    return "Low";
-  };
   if (priceRange) {
     filteredRestaurants = filteredRestaurants.filter((restaurant) => {
-      const avgPrice = averagePrice(restaurant.menu);
-      return priceRangeCategory(avgPrice) === priceRange;
+      if (priceRange === "Low") return restaurant.priceRange === "৳";
+      if (priceRange === "Medium") return restaurant.priceRange === "৳৳";
+      if (priceRange === "High") return restaurant.priceRange === "৳৳৳";
     });
   }
   return (
@@ -137,11 +125,14 @@ export default function Restaurant({ restaurants }) {
             <option value="" className="text-gray-700 bg-white">
               Delivery Time
             </option>
-            <option className="text-gray-700 bg-white" value="Fastest">
-              Fastest Delivery
+            <option className="text-gray-700 bg-white" value="25min">
+              Within 25 min
             </option>
-            <option className=" text-gray-700 bg-white" value="Slowest">
-              Slowest Delivery
+            <option className="text-gray-700 bg-white" value="40min">
+              Within 40 min
+            </option>
+            <option className=" text-gray-700 bg-white" value="any">
+              Any time
             </option>
           </select>
           {/* sort by price range */}
@@ -154,13 +145,13 @@ export default function Restaurant({ restaurants }) {
               Price Range
             </option>
             <option className="text-gray-700 bg-white" value="High">
-              High
+              High(৳৳৳)
             </option>
             <option className="text-gray-700 bg-white" value="Medium">
-              Medium
+              Medium(৳৳)
             </option>
             <option className="text-gray-700 bg-white" value="Low">
-              Low
+              Low(৳)
             </option>
           </select>
         </div>

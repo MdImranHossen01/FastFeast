@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 import { getServerSession } from "next-auth";
+=======
+import { getServerSession } from "next-auth/next";
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
 import { authOptions } from "../auth/[...nextauth]/route";
 import { getCollection } from "@/lib/dbConnect";
 import { NextResponse } from "next/server";
 import { error } from "console";
+<<<<<<< HEAD
+=======
+import { ObjectId } from "mongodb";
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
 
 // GET user's favorite restaurants
 export async function GET(request) {
   try {
     const session = await getServerSession(authOptions);
+<<<<<<< HEAD
     if (!session || !session.user?.id) {
       console.error("Unauthorized :No session or user Id");
       return NextResponse.json(
@@ -22,6 +31,18 @@ export async function GET(request) {
 
     const favorites = await collection
       .find({ userId: new ObjectId(session.user.id) })
+=======
+    if (!session) {
+      return NextResponse.json([], {
+        status: 401,
+      });
+    }
+
+    const collection = await getCollection("favRestaurant");
+
+    const favorites = await collection
+      .find({ userId: session.user.id })
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
       .sort({ addedAt: -1 })
       .toArray();
     return NextResponse.json(favorites);
@@ -42,16 +63,23 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const session = await getServerSession(authOptions);
+<<<<<<< HEAD
     if (!session || !session.user?.id) {
       console.error("Unauthorized: No session or user Id");
       return NextResponse.json(
         { error: "Unauthorized" },
+=======
+    if (!session) {
+      return NextResponse.json(
+        { message: "Unauthorized" },
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
         {
           status: 401,
         }
       );
     }
 
+<<<<<<< HEAD
     const body = await request.json();
     const { restaurant } = body;
     console.log("Received request to add favorite:", {});
@@ -122,6 +150,60 @@ export async function POST(request) {
       {
         status: 500,
       }
+=======
+    const { restaurantId } = await request.json();
+    const collection = await getCollection("favRestaurant");
+
+    // check duplicate
+    const exist = await collection.findOne({
+      userId: session.user.id,
+      restaurantId,
+    });
+    if (exist) {
+      return NextResponse.json(
+        { message: "Already in favorites" },
+        { status: 409 }
+      );
+    }
+    await collection.insertOne({
+      userId: session.user.id,
+      restaurantId,
+      createdAt: new Date(),
+    });
+    return NextResponse.json(
+      { message: "Added to favorites" },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+// DELETE from favorites
+export async function DELETE(request) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    const collection = await getCollection("favRestaurant");
+    await collection.deleteOne({
+      userId: session.user.id,
+      restaurantId: id,
+    });
+    return NextResponse.json({ message: "Removed from favorites" });
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+>>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
     );
   }
 }

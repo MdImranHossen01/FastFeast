@@ -6,7 +6,7 @@ export default async function updateBlogById(id, updatedData) {
     // Fetch blogs from the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
     const res = await fetch(
-      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/admin/blogs/${id}`,
+      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/blogs/${id}`,
       {
         method: "PATCH",
         headers: {
