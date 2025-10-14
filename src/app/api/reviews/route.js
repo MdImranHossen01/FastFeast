@@ -1,78 +1,99 @@
 // src/app/api/reviews/route.js
 import { getCollection, serializeDocument, ObjectId } from '@/lib/dbConnect';
+import { NextResponse } from 'next/server';
 
 export async function POST(request) {
   try {
     const reviewData = await request.json();
+    const { orderId, customerEmail, riderReview, itemReviews } = reviewData;
+    
+    if (!orderId || !customerEmail) {
+      return NextResponse.json(
+        { success: false, message: 'Order ID and customer email are required' },
+        { status: 400 }
+      );
+    }
     
     // Get reviews collection
     const reviewsCollection = await getCollection('reviews');
     
-    // Create new review
-    const result = await reviewsCollection.insertOne({
-      ...reviewData,
-      createdAt: new Date(),
-    });
+    // Check if a review already exists for this order
+    const existingReview = await reviewsCollection.findOne({ orderId });
     
-    // Update rider's average rating
-    if (reviewData.riderId && reviewData.riderReview.rating > 0) {
-      const usersCollection = await getCollection('users');
-      
-      // Get all reviews for this rider
-      const riderReviews = await reviewsCollection
-        .find({ riderId: reviewData.riderId, 'riderReview.rating': { $gt: 0 } })
-        .toArray();
-      
-      // Calculate new average rating
-      const totalRating = riderReviews.reduce((sum, review) => sum + review.riderReview.rating, 0);
-      const averageRating = totalRating / riderReviews.length;
-      
-      // Update rider's rating
-      await usersCollection.updateOne(
-        { _id: new ObjectId(reviewData.riderId) },
-        { $set: { rating: averageRating.toFixed(1) } }
+    if (existingReview) {
+      return NextResponse.json(
+        { success: false, message: 'You have already reviewed this order' },
+        { status: 409 }
       );
     }
     
-    // Update menu items' average ratings
-    if (reviewData.itemReviews && reviewData.itemReviews.length > 0) {
+    // Create the review document
+    const newReview = {
+      orderId,
+      customerEmail,
+      createdAt: new Date(),
+    };
+    
+    // Add rider review if provided
+    if (riderReview && riderReview.rating > 0) {
+      newReview.riderReview = riderReview;
+      
+      // Also update the rider's rating in the users collection
+      if (reviewData.riderId) {
+        const usersCollection = await getCollection('users');
+        await usersCollection.updateOne(
+          { _id: new ObjectId(reviewData.riderId) },
+          { 
+            $push: { 
+              reviews: {
+                customerEmail,
+                rating: riderReview.rating,
+                comment: riderReview.comment,
+                createdAt: new Date()
+              }
+            }
+          }
+        );
+      }
+    }
+    
+    // Add item reviews if provided
+    if (itemReviews && itemReviews.length > 0) {
+      newReview.itemReviews = itemReviews;
+      
+      // Also update each menu item's rating in the menu collection
       const menuCollection = await getCollection('menu');
       
-      for (const itemReview of reviewData.itemReviews) {
+      for (const itemReview of itemReviews) {
         if (itemReview.rating > 0) {
-          // Get all reviews for this menu item
-          const itemReviews = await reviewsCollection
-            .find({ 
-              'itemReviews.itemId': itemReview.itemId, 
-              'itemReviews.rating': { $gt: 0 } 
-            })
-            .toArray();
-          
-          // Calculate new average rating
-          const totalRating = itemReviews.reduce((sum, review) => {
-            const item = review.itemReviews.find(i => i.itemId === itemReview.itemId);
-            return sum + (item ? item.rating : 0);
-          }, 0);
-          
-          const averageRating = totalRating / itemReviews.length;
-          
-          // Update menu item's rating
           await menuCollection.updateOne(
             { _id: new ObjectId(itemReview.itemId) },
-            { $set: { rating: averageRating.toFixed(1) } }
+            { 
+              $push: { 
+                reviews: {
+                  customerEmail,
+                  rating: itemReview.rating,
+                  comment: itemReview.comment,
+                  createdAt: new Date()
+                }
+              }
+            }
           );
         }
       }
     }
     
-    return Response.json({
+    // Insert the review
+    const result = await reviewsCollection.insertOne(newReview);
+    
+    return NextResponse.json({
       success: true,
       message: 'Review submitted successfully',
-      reviewId: result.insertedId.toString()
-    }, { status: 201 });
+      reviewId: result.insertedId
+    });
   } catch (error) {
     console.error('Error submitting review:', error);
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: 'Failed to submit review', error: error.message },
       { status: 500 }
     );
@@ -83,48 +104,28 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const orderId = searchParams.get('orderId');
-    const riderId = searchParams.get('riderId');
-    const itemId = searchParams.get('itemId');
     const customerEmail = searchParams.get('customerEmail');
     
-    // Build query
-    let query = {};
+    const reviewsCollection = await getCollection('reviews');
+    let reviews;
     
     if (orderId) {
-      query.orderId = orderId;
+      reviews = await reviewsCollection.find({ orderId }).toArray();
+    } else if (customerEmail) {
+      reviews = await reviewsCollection.find({ customerEmail }).toArray();
+    } else {
+      reviews = await reviewsCollection.find({}).toArray();
     }
     
-    if (riderId) {
-      query.riderId = riderId;
-    }
-    
-    if (itemId) {
-      query['itemReviews.itemId'] = itemId;
-    }
-    
-    if (customerEmail) {
-      query.customerEmail = customerEmail;
-    }
-    
-    // Get reviews collection
-    const reviewsCollection = await getCollection('reviews');
-    
-    // Find reviews
-    const reviews = await reviewsCollection
-      .find(query)
-      .sort({ createdAt: -1 })
-      .toArray();
-    
-    // Serialize documents to JSON-safe format
     const serializedReviews = serializeDocument(reviews);
     
-    return Response.json({
+    return NextResponse.json({
       success: true,
       reviews: serializedReviews
     });
   } catch (error) {
     console.error('Error fetching reviews:', error);
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: 'Failed to fetch reviews', error: error.message },
       { status: 500 }
     );
