@@ -1,19 +1,15 @@
 import Link from "next/link";
-import { FaHome, FaCalendar, FaTags, FaEye } from "react-icons/fa";
-import getBlogs from "@/app/actions/blogs/getBlogs";
+import { FaHome, FaTags } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
-import RelatedBlogSidebar from "../components/RelatedBlogSlider"; // Retaining user's import path
+import RelatedBlogSidebar from "../components/RelatedBlogSlider";
 import SocialIcons from "../components/SocialIcons";
+import getBlogById from "@/app/actions/blogs/getBlogById";
+import getBlogs from "@/app/actions/blogs/getBlogs";
 
+export default async function BlogDetailsPage({ params: { slug: id } }) {
+  const blog = await getBlogById(id);
 
-export default async function BlogDetails({ params }) {
-  const { slug } = await params;
-  const blogs = await getBlogs();
-
-  // find post by slug (assuming slug matches _id)
-  const post = blogs.find((p) => p._id === slug);
-
-  if (!post) {
+  if (!blog) {
     return (
       <div className="container mx-auto py-20 text-center">
         <h2 className="text-2xl font-bold">Post not found</h2>
@@ -24,124 +20,101 @@ export default async function BlogDetails({ params }) {
     );
   }
 
-  // Filter out the current post for the sidebar
-  const relatedBlogs = blogs.filter((blog) => blog._id !== slug);
+  const relatedBlogs = await getBlogs({
+    limit: 3,
+    excludeIds: [blog._id],
+  });
 
   return (
     <main className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 bg-white shadow-lg rounded-lg mt-10 mb-20">
-      {/* Header Image */}
-      <div className="w-full mb-8 overflow-hidden rounded-lg">
-        <img
-          src={post.coverImage || post.image}
-          alt={post.title}
-          className="w-full h-[400px] object-cover rounded-lg"
-        />
-      </div>
-
-      {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-
-        {/* Main Blog Content */}
-        <article className="md:col-span-8">
+      <article className="md:col-span-8">
+        <header className="mb-8">
           <h1 className="text-3xl md:text-4xl font-extrabold mb-4 leading-snug">
-            {post.title}
+            {blog.title}
           </h1>
-
-          {/* Author Info */}
           <div className="flex items-center gap-4 mb-3 text-gray-600 text-sm">
-            <div className="flex items-center gap-2">
-              <img
-                src={post.authorPhoto || "/user.png"}
-                alt={post.author}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-              <div className="flex flex-col">
-                <span className="font-semibold text-gray-800">{post.author}</span>
-                <span className="text-gray-500">
-                  {new Date(post.publishDate).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* View Count */}
-          <div className="flex items-center gap-1 text-sm text-gray-500 mb-6">
-          <FaEye className="w-5 h-5" /> <span className="font-medium">{post.visitCount || 0}</span> views
-          </div>
-
-
-          <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
-            <ReactMarkdown>{post.details}</ReactMarkdown>
-          </div>
-
-          {/* Tags */}
-          <div className="flex items-center flex-wrap gap-3 mt-6">
-            <FaTags className="text-gray-500" />
-            {post.tags?.map((tag, idx) => (
-              <span
-                key={idx}
-                className="text-sm px-3 py-1 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100"
-              >
-                #{tag}
+            <img
+              src={blog.authorPhoto || "/default-avatar.png"}
+              alt={blog.author}
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <div className="flex flex-col">
+              <span className="font-semibold text-gray-800">{blog.author}</span>
+              <span className="text-gray-500">
+                {new Date(blog.publishDate).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
               </span>
-            ))}
-          </div>
-
-          {/* Gallery */}
-          {post.gallery?.length > 0 && (
-            <section className="mt-12">
-              <h2 className="text-2xl font-bold mb-4 border-b pb-2">
-                Photo Gallery
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {post.gallery.map((img, i) => (
-                  <div key={i} className="overflow-hidden rounded-lg">
-                    <img
-                      src={img}
-                      alt={`Gallery ${i}`}
-                      className="w-full h-56 object-cover hover:scale-105 transition-transform"
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-        </article>
-
-        {/* Sidebar */}
-        <aside className="md:col-span-4 space-y-8">
-          <div className="p-6 bg-gray-50 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-4">About the Author</h2>
-            <div className="flex flex-col items-center text-center">
-              <img
-                src={post.authorPhoto || "/default-avatar.png"}
-                alt={post.author}
-                className="w-20 h-20 rounded-full mb-3 object-cover"
-              />
-              <p className="text-gray-600 text-sm">
-                Passionate about exploring flavors and sharing stories through food.
-              </p>
             </div>
           </div>
+        </header>
 
-          <div>
-            <h2 className="text-xl font-semibold mb-4">More Posts</h2>
-            {relatedBlogs.length > 0 ? (
-              <RelatedBlogSidebar blogs={relatedBlogs} />
-            ) : (
-              <p className="text-gray-500">No other posts found.</p>
-            )}
+        <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
+          <ReactMarkdown>{blog.details}</ReactMarkdown>
+        </div>
+
+        <div className="flex items-center flex-wrap gap-3 mt-6">
+          <FaTags className="text-gray-500" />
+          {blog.tags?.map((tag, idx) => (
+            <span
+              key={idx}
+              className="text-sm px-3 py-1 border border-gray-300 rounded-full text-gray-600 hover:bg-gray-100"
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+
+        {blog.gallery?.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-2xl font-bold mb-4 border-b pb-2">
+              Photo Gallery
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {blog.gallery.map((img, i) => (
+                <div key={i} className="overflow-hidden rounded-lg">
+                  <img
+                    src={img}
+                    alt={`Gallery ${i}`}
+                    className="w-full h-56 object-cover hover:scale-105 transition-transform"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
+
+      <aside className="md:col-span-4 space-y-8">
+        <div className="p-6 bg-gray-50 rounded-lg shadow-sm">
+          <h2 className="text-xl font-semibold mb-4">About the Author</h2>
+          <div className="flex flex-col items-center text-center">
+            <img
+              src={"/default-avatar.png"}
+              alt={blog.author}
+              className="w-20 h-20 rounded-full mb-3 object-cover"
+            />
+            <p className="text-gray-600 text-sm">
+              Passionate about exploring flavors and sharing stories through
+              food.
+            </p>
           </div>
+        </div>
 
-          <SocialIcons />
-        </aside>
-      </div>
+        <div>
+          <h2 className="text-xl font-semibold mb-4">More Posts</h2>
+          {relatedBlogs.length > 0 ? (
+            <RelatedBlogSidebar blogs={relatedBlogs} />
+          ) : (
+            <p className="text-gray-500">No other posts found.</p>
+          )}
+        </div>
 
-      {/* Back Button */}
+        <SocialIcons />
+      </aside>
+
       <div className="mt-12 text-center">
         <Link
           href="/blogs"
@@ -151,6 +124,5 @@ export default async function BlogDetails({ params }) {
         </Link>
       </div>
     </main>
-
   );
 }

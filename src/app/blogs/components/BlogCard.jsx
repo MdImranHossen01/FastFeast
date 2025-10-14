@@ -2,23 +2,22 @@
 
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 export default function BlogCard({ blog }) {
   const router = useRouter();
   const {
     _id,
-    coverImage,
     title,
     excerpt,
+    coverImage,
     tags,
-    author,
-    authorEmail,
-    authorPhoto,
-    publishDate,
     visitCount,
+    author,
+    createdAt,
   } = blog;
 
   const handleReadMore = async (e) => {
@@ -38,9 +37,7 @@ export default function BlogCard({ blog }) {
   };
 
   return (
-    <section
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-    >
+    <section className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       {/* Cover image */}
       <figure className="relative h-52 overflow-hidden">
         {coverImage && (
@@ -70,35 +67,37 @@ export default function BlogCard({ blog }) {
         <div className="flex items-center justify-between text-sm text-gray-600 mb-6">
           <div className="flex items-center gap-2">
             <Image
-              src={authorPhoto || "/user.png"}
+              src={"/user.png"}
               alt={author || "Author"}
               width={32}
               height={32}
               className="rounded-full border border-gray-200 object-cover"
             />
-           <div className="flex flex-col">
-             <span className="font-semibold text-xs">{author || "Unknown"}</span>
-            {/* Date */}
-          {publishDate && (
-            <span className="text-xs ">
-              {new Date(publishDate).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
-          )}
-           </div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-xs">
+                {author || "Unknown"}
+              </span>
+              {/* Date */}
+              {createdAt && (
+                <span className="text-xs ">
+                  {new Date(createdAt).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
+              )}
+            </div>
           </div>
 
-         <div className="flex gap-1 justify-center">
-          {/* <span className="text-gray-400">•</span> */}
+          <div className="flex gap-1 justify-center">
+            {/* <span className="text-gray-400">•</span> */}
 
-          {/* 👁️ View Count */}
-          <span className="flex  items-center  gap-1 text-gray-600">
-          <FaEye className="w-4 h-4"/> {visitCount || 0} views
-          </span>
-         </div>
+            {/* 👁️ View Count */}
+            <span className="flex  items-center  gap-1 text-gray-600">
+              <FaEye className="w-4 h-4" /> {visitCount || 0} views
+            </span>
+          </div>
         </div>
 
         {/* Excerpt */}
@@ -106,18 +105,17 @@ export default function BlogCard({ blog }) {
 
         <hr className="border-orange-200 mb-3" />
 
-        {/* Footer: Read More */}
+        {/* Read More */}
         <div className="flex flex-1 items-center justify-end">
-          <span
+          <Link
+            href={`/blogs/${_id}`}
             className="flex items-center gap-1 text-sm font-semibold cursor-pointer text-gray-500 transition-colors duration-300 group-hover:text-orange-500"
-            onClick={handleReadMore}
           >
             Read More
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </span>
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-
