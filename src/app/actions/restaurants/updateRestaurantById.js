@@ -1,12 +1,12 @@
 "use server";
 
-// Action to update a blog by ID
-export default async function updateBlogById(id, updatedData) {
+// Action to update a restaurant by ID
+export default async function updateRestaurantById(id, updatedData) {
   try {
-    // Update blog to the API
+    // Update restaurant to the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
     const res = await fetch(
-      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/blogs/${id}`,
+      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurants/${id}`,
       {
         method: "PATCH",
         headers: {
@@ -21,7 +21,7 @@ export default async function updateBlogById(id, updatedData) {
     if (!res.ok) {
       return {
         success: false,
-        message: `Failed to update blog. Status: ${res.status}`,
+        message: `Failed to update Restaurant. Status: ${res.status}`,
         data: null,
       };
     }
@@ -30,12 +30,12 @@ export default async function updateBlogById(id, updatedData) {
     const data = await res.json();
     return {
       success: true,
-      message: "Blog updated successfully.",
+      message: "Restaurant updated successfully.",
       data,
     };
   } catch (error) {
     // Log the error for debugging purposes
-    console.error("Error updating blog:", error.message);
+    console.error("Error updating restaurant:", error.message);
     return {
       success: false,
       message: error.message || "Unexpected server error",

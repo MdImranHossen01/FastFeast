@@ -1,5 +1,5 @@
 import getMenu from "@/app/actions/menus/getMenus";
-import getRestaurant from "@/app/actions/restaurant/getRestaurant";
+import getRestaurant from "@/app/actions/restaurants/getRestaurant";
 import React from "react";
 import { generateSlug } from "../components/generateSlug";
 import Image from "next/image";

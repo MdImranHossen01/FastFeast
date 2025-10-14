@@ -1,11 +1,11 @@
 "use server";
 
-// Action to get a blog by ID
-export default async function getBlogById(id) {
+// Action to get a rider by ID
+export default async function getRiderById(id) {
   try {
-    // Fetch blog from the API
+    // Fetch rider from the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/blogs/${id}`);
+    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/riders/${id}`);
 
     // always return an object
     if (!res.ok) {

@@ -1,26 +1,23 @@
 "use server";
 
-export default async function addBlog(blog) {
+export default async function addRider(rider) {
   try {
-    // Add blog to the API
+    // Add rider to the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(
-      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/blogs`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(blog),
-        cache: "no-store", // ensure fresh data
-      }
-    );
+    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/riders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rider),
+      cache: "no-store", // ensure fresh data
+    });
 
     // always return an object
     if (!res.ok) {
       return {
         success: false,
-        message: `Failed to add blog. Status: ${res.status}`,
+        message: `Failed to add rider. Status: ${res.status}`,
         data: null,
       };
     }
@@ -29,12 +26,12 @@ export default async function addBlog(blog) {
     const data = await res.json();
     return {
       success: true,
-      message: "Blog added successfully.",
+      message: "Rider added successfully.",
       data,
     };
   } catch (error) {
     // Log the error for debugging purposes
-    console.error("Error adding blog:", error.message);
+    console.error("Error adding rider:", error.message);
     return {
       success: false,
       message: error.message || "Unexpected server error",

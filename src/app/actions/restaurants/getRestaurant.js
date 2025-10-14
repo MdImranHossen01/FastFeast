@@ -1,15 +1,14 @@
 "use server";
 
-// Action to get a blog by ID
-export default async function getBlogById(id) {
+export default async function getRestaurants() {
   try {
-    // Fetch blog from the API
+    // Fetch restaurants from the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/blogs/${id}`);
+    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurants`);
 
-    // always return an object
+    // always return an array
     if (!res.ok) {
-      return {};
+      return [];
     }
 
     // If response is ok, parse and return the data
@@ -18,6 +17,6 @@ export default async function getBlogById(id) {
   } catch (error) {
     // Log the error for debugging purposes
     console.error("Error fetching data:", error.message);
-    return {};
+    return [];
   }
 }

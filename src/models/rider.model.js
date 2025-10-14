@@ -35,6 +35,7 @@ const bankDetailsSchema = new mongoose.Schema({
   },
 });
 
+// Define the Rider schema
 const riderSchema = new mongoose.Schema({
   name: {
     type: String,

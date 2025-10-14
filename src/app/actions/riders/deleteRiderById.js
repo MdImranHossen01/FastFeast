@@ -1,18 +1,14 @@
 "use server";
 
-// Action to delete a blog by ID
-export default async function deleteBlogById(id) {
+// Action to delete a rider by ID
+export default async function deleteRiderById(id) {
   try {
-    // Delete blog to the API
+    // Delete rider to the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-
-    const res = await fetch(
-      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/blogs/${id}`,
-      {
-        method: "DELETE",
-        cache: "no-store", // ensure fresh data
-      }
-    );
+    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/riders/${id}`, {
+      method: "DELETE",
+      cache: "no-store", // ensure fresh data
+    });
 
     // always return an object
     if (!res.ok) {
@@ -23,12 +19,12 @@ export default async function deleteBlogById(id) {
     const data = await res.json();
     return {
       success: true,
-      message: "Blog deleted successfully.",
+      message: "Rider deleted successfully.",
       data,
     };
   } catch (error) {
     // Log the error for debugging purposes
-    console.error("Error deleting blog:", error.message);
+    console.error("Error deleting rider:", error.message);
     return {
       success: false,
       message: error.message || "Unexpected server error",
