@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
         <SessionWrapper>
           <NextThemeProvider>
             <AOSProvider>
-              <StoreProvider> {/* Add StoreProvider here */}
+              <StoreProvider>
                 <CartProvider>
                   <header>
                     <Navbar />

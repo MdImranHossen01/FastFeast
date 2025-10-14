@@ -1,3 +1,4 @@
+// src/app/(dashboards)/restaurant-dashboard/manage-orders/components/OrderActions.jsx
 import React from "react";
 import { FiUsers } from "react-icons/fi";
 
@@ -93,7 +94,10 @@ const OrderActions = ({
                   riders.map((rider) => (
                     <button
                       key={rider.id}
-                      onClick={() => assignRiderToOrder(order.id, rider.id)}
+                      onClick={() => {
+                        console.log('Assigning rider:', rider.id, rider.name);
+                        assignRiderToOrder(order.id, rider.id);
+                      }}
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       {rider.name}
