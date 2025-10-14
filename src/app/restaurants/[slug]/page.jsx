@@ -1,4 +1,3 @@
-// app/restaurants/[slug]/page.jsx
 import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurant/getRestaurant";
 import React from "react";
@@ -22,7 +21,6 @@ import {
 } from "react-icons/fa";
 import { TbCurrencyTaka } from "react-icons/tb";
 import MenuCard from "@/app/(menulayout)/menu/components/MenuCard";
-import RestaurantOwner from "@/components/RestaurantOwner";
 
 export default async function RestaurantDetails({ params }) {
   const { slug } = await params;
@@ -62,26 +60,6 @@ export default async function RestaurantDetails({ params }) {
     (item) => item.restaurantId === restaurant._id
   );
 
-  // Fetch owner information
-  let owner = null;
-  try {
-    if (restaurant.ownerId) {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 
-                     (process.env.NODE_ENV === 'production' 
-                       ? 'https://yourdomain.com' 
-                       : 'http://localhost:3000');
-      const response = await fetch(`${baseUrl}/api/users/${restaurant.ownerId}`, {
-        cache: 'no-store'
-      });
-      if (response.ok) {
-        const data = await response.json();
-        owner = data.user;
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching owner information:", error);
-  }
-
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -111,7 +89,7 @@ export default async function RestaurantDetails({ params }) {
   const isRestaurantOpen = () => {
     const now = new Date();
     const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-    const currentDay = days[now.getDay()];
+    const currentDay = days[now.getDay()]; // Get current day as 'sun', 'mon', etc.
     const currentTime = now.getHours() * 100 + now.getMinutes();
 
     const hours = restaurant.openingHours[currentDay];
@@ -371,9 +349,6 @@ export default async function RestaurantDetails({ params }) {
             </div>
           </div>
         </div>
-
-        {/* Restaurant Owner Section */}
-        <RestaurantOwner owner={owner} />
 
         {/* Menu Items */}
         <div className="mb-12">
