@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { MongoClient, ServerApiVersion } from "mongodb";
-=======
 // src/lib/dbConnect.js
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
->>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
 
 export const collectionsName = {
   usersCollection: "users",
@@ -15,10 +11,7 @@ export const collectionsName = {
   ordersCollection: "orders",
   transactionHistoryCollection: "transactionHistory",
   favoritesCollection: "favorites",
-<<<<<<< HEAD
-=======
   favoritesRestCollection: "favRestaurant",
->>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960
   notificationsCollection: "notifications", // ✅ added
 };
 
@@ -76,8 +69,6 @@ export const dbConnect = async (collectionName) => {
   const { db } = await connectToDatabase();
   return db.collection(collectionName);
 };
-<<<<<<< HEAD
-=======
 
 // New helper functions for cleaner API routes
 export const getDatabase = async () => {
@@ -115,4 +106,3 @@ export const serializeDocument = (doc) => {
 
 // Export ObjectId for use in API routes
 export { ObjectId };
->>>>>>> b053cccc0cc3f42aed932cbf128c24251628b960

@@ -9,13 +9,13 @@ export default async function ManageReviews({ searchParams }) {
   const { search, ratings } = await searchParams;
 
 
-  const data = await getReviews(search, ratings);
-  // console.log(data)
+  const {reviews} = await getReviews(search, ratings);
+  console.log(reviews)
 
   return (
     <div className="px-6">
       <ManageReviewHeader />
-      <ReviewTable reviews={data} />
+      <ReviewTable reviews={reviews} />
       {/* <ReviewCardContainer reviews={data} /> */}
     </div>
   );
