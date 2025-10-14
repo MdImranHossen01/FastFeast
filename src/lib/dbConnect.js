@@ -10,7 +10,8 @@ export const collectionsName = {
   reviewsCollection: "reviews",
   ordersCollection: "orders",
   transactionHistoryCollection: "transactionHistory",
-  favoritesCollection: "favorites"
+  favoritesCollection: "favorites",
+  favoritesRestCollection: "favRestaurant",
 };
 
 // Cache the database connection
@@ -27,11 +28,11 @@ export const connectToDatabase = async () => {
   const { MONGODB_URI, DB_NAME } = process.env;
 
   if (!MONGODB_URI) {
-    throw new Error('Please define the MONGODB_URI environment variable');
+    throw new Error("Please define the MONGODB_URI environment variable");
   }
 
   if (!DB_NAME) {
-    throw new Error('Please define the DB_NAME environment variable');
+    throw new Error("Please define the DB_NAME environment variable");
   }
 
   // Create a new MongoClient

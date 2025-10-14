@@ -1,27 +1,24 @@
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { getCollection } from "@/lib/dbConnect";
 import { NextResponse } from "next/server";
 import { error } from "console";
+import { ObjectId } from "mongodb";
 
 // GET user's favorite restaurants
 export async function GET(request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user?.id) {
-      console.error("Unauthorized :No session or user Id");
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        {
-          status: 401,
-        }
-      );
+    if (!session) {
+      return NextResponse.json([], {
+        status: 401,
+      });
     }
 
-    const collection = await getCollection("favorites");
+    const collection = await getCollection("favRestaurant");
 
     const favorites = await collection
-      .find({ userId: new ObjectId(session.user.id) })
+      .find({ userId: session.user.id })
       .sort({ addedAt: -1 })
       .toArray();
     return NextResponse.json(favorites);
@@ -42,86 +39,67 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user?.id) {
-      console.error("Unauthorized: No session or user Id");
+    if (!session) {
       return NextResponse.json(
-        { error: "Unauthorized" },
+        { message: "Unauthorized" },
         {
           status: 401,
         }
       );
     }
 
-    const body = await request.json();
-    const { restaurant } = body;
-    console.log("Received request to add favorite:", {});
+    const { restaurantId } = await request.json();
+    const collection = await getCollection("favRestaurant");
 
-    // validate objectIds
-    let userId, restaurantId;
-    try {
-      userId = new ObjectId(session.user.id);
-      restaurantId = new ObjectId(restaurant._id);
-    } catch (error) {
-      console.error("Invalid ObjectId format", {
-        userId: session.user.id,
-        restaurantId: restaurant._id,
-      });
-      return NextResponse.json({ error: "Invalid ID format" }, { status: 400 });
-    }
-
-    const collection = await getCollection("favorites");
-
-    // check if already have
-    const existingFavorite = await collection.findOne({
-      userId: userId,
-      restaurantId: restaurantId,
+    // check duplicate
+    const exist = await collection.findOne({
+      userId: session.user.id,
+      restaurantId,
     });
-    if (existingFavorite) {
-      console.log("Restaurant already added by user");
+    if (exist) {
       return NextResponse.json(
-        { error: "Restaurant already in favorite" },
+        { message: "Already in favorites" },
         { status: 409 }
       );
     }
-
-    // create new favorite
-    const favoriteDocument = {
-      userId: userId,
-      restaurantId: restaurantId,
-      restaurant: restaurant
-        ? {
-            _id: new ObjectId(restaurant._id),
-            name: restaurant.name,
-            logo: restaurant.logo,
-            location: restaurant.location || {},
-          }
-        : null,
-      addedAt: new Date(),
-    };
-
-    console.log("Inserting favorite document...");
-    const result = await collection.insertOne(favoriteDocument);
-    console.log("Successfully inserted");
-    result.insertId;
-
+    await collection.insertOne({
+      userId: session.user.id,
+      restaurantId,
+      createdAt: new Date(),
+    });
     return NextResponse.json(
-      {
-        message: "Added to favorite",
-        favorite: { ...favoriteDocument, _id: result.insertedId },
-      },
-      {
-        status: 201,
-      }
+      { message: "Added to favorites" },
+      { status: 201 }
     );
   } catch (error) {
-    console.error("===DETAILED ERROR IN ADDING TO FAVORITES ");
-    console.error("Error Message:", error.message);
-    console.error("Error stack:", error.stack);
+    console.error("Error adding favorite:", error);
     return NextResponse.json(
-      { error: "Failed to add to favorites", details: error.message },
-      {
-        status: 500,
-      }
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+// DELETE from favorites
+export async function DELETE(request) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    const collection = await getCollection("favRestaurant");
+    await collection.deleteOne({
+      userId: session.user.id,
+      restaurantId: id,
+    });
+    return NextResponse.json({ message: "Removed from favorites" });
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
     );
   }
 }
