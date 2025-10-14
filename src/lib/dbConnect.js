@@ -1,4 +1,3 @@
-// src/lib/dbConnect.js
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 export const collectionsName = {
@@ -12,6 +11,7 @@ export const collectionsName = {
   transactionHistoryCollection: "transactionHistory",
   favoritesCollection: "favorites",
   favoritesRestCollection: "favRestaurant",
+  notificationsCollection: "notifications", // ✅ added
 };
 
 // Cache the database connection
@@ -57,13 +57,13 @@ export const connectToDatabase = async () => {
   return { client, db };
 };
 
-// Export a function to get a collection
+// Helper to get a collection
 export const getCollection = async (collectionName) => {
   const { db } = await connectToDatabase();
   return db.collection(collectionName);
 };
 
-// Keep your original function for backward compatibility
+// Backward-compatible alias (returns a collection)
 export const dbConnect = async (collectionName) => {
   const { db } = await connectToDatabase();
   return db.collection(collectionName);

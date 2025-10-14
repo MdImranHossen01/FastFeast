@@ -1,17 +1,32 @@
-import { collectionsName, dbConnect } from "@/lib/dbConnect";
 import { NextResponse } from "next/server";
+import { getCollection, collectionsName } from "@/lib/dbConnect";
 
-export async function GET() {
+// GET /api/users?role=rider
+export async function GET(request) {
   try {
-    const usersCollection = dbConnect(collectionsName.usersCollection);
+    const { searchParams } = new URL(request.url);
+    const role = searchParams.get("role") || undefined;
 
-    const users = await usersCollection.find().toArray();
+    const usersCol = await getCollection(collectionsName.usersCollection);
 
-    return NextResponse.json(users, { status: 200 });
-  } catch (error) {
-    console.log(error);
+    const query = role ? { role } : {};
+    const users = await usersCol
+      .find(query)
+      .project({ name: 1, phone: 1, role: 1 })
+      .toArray();
+
+    const normalized = users.map((u) => ({
+      id: u._id?.toString(),
+      name: u.name,
+      phone: u.phone,
+      role: u.role,
+    }));
+
+    return NextResponse.json({ users: normalized });
+  } catch (e) {
+    console.error("GET /api/users error:", e);
     return NextResponse.json(
-      { success: false, message: error.message },
+      { error: "Failed to load users" },
       { status: 500 }
     );
   }
