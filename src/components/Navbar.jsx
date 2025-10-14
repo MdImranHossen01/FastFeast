@@ -1,3 +1,4 @@
+// components/Navbar.jsx
 "use client";
 
 import Link from "next/link";
@@ -6,7 +7,7 @@ import Logo from "./logo";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { FiX, FiMenu, FiUser, FiGrid, FiLogOut } from "react-icons/fi";
-import { MdLocationSearching, MdOutlineEmail } from "react-icons/md";
+import { MdLocationSearching, MdOutlineEmail, MdMessage } from "react-icons/md";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { CgProfile } from "react-icons/cg";
@@ -14,6 +15,8 @@ import { MdShoppingCart } from "react-icons/md";
 import { useCart } from "@/lib/cartContext";
 import OrderStatusModal from "./OrderStatusModal";
 import { IoMdNotifications } from "react-icons/io";
+import Messaging from "./Messaging";
+import { useSocket } from "@/contexts/SocketContext";
 
 // --- Reusable NavLink Component ---
 const NavLink = ({ href, children, onClick }) => {
@@ -64,11 +67,14 @@ export default function Navbar() {
   const [isOrderStatusModalOpen, setIsOrderStatusModalOpen] = useState(false);
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
     useState(false);
+  const [isMessagingOpen, setIsMessagingOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [messageCount, setMessageCount] = useState(0);
   const userMenuRef = useRef(null);
   const notificationRef = useRef(null);
   const { cartCount } = useCart();
+  const { socket } = useSocket();
 
   // Effect for scroll handling
   useEffect(() => {
@@ -98,9 +104,23 @@ export default function Navbar() {
   useEffect(() => {
     if (session?.user?.email) {
       fetchNotifications();
+      fetchMessageCount();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.user?.email]);
+
+  // Listen for new messages
+  useEffect(() => {
+    if (socket) {
+      socket.on('newMessage', () => {
+        fetchMessageCount();
+      });
+
+      return () => {
+        socket.off('newMessage');
+      };
+    }
+  }, [socket]);
 
   const fetchNotifications = async () => {
     try {
@@ -113,6 +133,42 @@ export default function Navbar() {
       setUnreadCount(data.unreadCount || 0);
     } catch (error) {
       console.error("Error fetching notifications:", error);
+    }
+  };
+
+  const fetchMessageCount = async () => {
+    try {
+      const response = await fetch('/api/messages');
+      
+      if (!response.ok) {
+        console.error('Failed to fetch messages:', response.statusText);
+        return;
+      }
+      
+      const data = await response.json();
+      
+      // Add defensive checks
+      if (!data || !Array.isArray(data.conversations)) {
+        console.warn('Invalid conversations data:', data);
+        setMessageCount(0);
+        return;
+      }
+      
+      const totalUnread = data.conversations.reduce(
+        (sum, conv) => {
+          // Ensure conv and conv.unreadCount exist
+          if (conv && typeof conv.unreadCount === 'number') {
+            return sum + conv.unreadCount;
+          }
+          return sum;
+        },
+        0
+      );
+      
+      setMessageCount(totalUnread);
+    } catch (error) {
+      console.error("Error fetching message count:", error);
+      setMessageCount(0); // Set to 0 on error
     }
   };
 
@@ -284,6 +340,19 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Messages */}
+            <button
+              onClick={() => setIsMessagingOpen(true)}
+              className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
+            >
+              {messageCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {messageCount}
+                </span>
+              )}
+              <MdMessage size={25} />
+            </button>
 
             {/* Email Icon */}
             <div className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105">
@@ -471,6 +540,12 @@ export default function Navbar() {
         isOpen={isOrderStatusModalOpen}
         onClose={() => setIsOrderStatusModalOpen(false)}
         userEmail={session?.user?.email}
+      />
+
+      {/* Messaging Component */}
+      <Messaging
+        isOpen={isMessagingOpen}
+        onClose={() => setIsMessagingOpen(false)}
       />
     </>
   );
