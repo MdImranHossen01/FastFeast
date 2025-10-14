@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { ShieldCheck, FileText, RefreshCcw } from "lucide-react";
 
 export default function PolicyPage({
   siteName = "FastFeast",
@@ -8,34 +9,49 @@ export default function PolicyPage({
   contactEmail = "support@fastfeast.com",
 }) {
   return (
-    <div className="max-w-4xl mx-auto p-6 md:p-10 bg-white rounded-2xl shadow-lg leading-relaxed">
-      <header className="mb-6 text-center">
-        <h1 className="text-3xl md:text-4xl font-semibold text-primary">
-          {siteName} Policy Center
-        </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Effective Date: {effectiveDate}
-        </p>
-      </header>
-
-      <section className="space-y-8 text-gray-700">
-        {/* Privacy Policy */}
-        <div>
-          <h3 className="text-2xl font-semibold mb-2">Privacy Policy</h3>
-          <p>
-            We value your privacy and are committed to protecting your personal
-            information. We collect basic information like your name, email,
-            address, and payment details only to process orders and improve your
-            experience. Your data is stored securely and never sold to third
-            parties.
+    <div className="min-h-screen bg-gradient-to-b from-base-200 to-base-100">
+      {/*  Hero Section */}
+      <div
+        className="relative bg-cover bg-center h-[300px] md:h-[420px] flex items-center justify-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1605902711622-cfb43c4437b5?auto=format&fit=crop&w=1600&q=80')",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
+        <div className="relative text-center text-white px-6 fade-up">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-3 drop-shadow-xl">
+            {siteName} Policy Center
+          </h1>
+          <p className="text-base md:text-lg text-gray-300">
+            Effective Date: {effectiveDate}
           </p>
-          <p className="mt-2">
-            We may use cookies to enhance your experience and analyze site
-            performance. You can control cookies through your browser settings.
-            For any privacy-related questions, reach us at{" "}
+        </div>
+      </div>
+
+      {/*  Cards Section */}
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-16 grid md:grid-cols-3 gap-8">
+        {/* Privacy Policy */}
+        <div className="group bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-3 transition-all duration-300">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-primary/10 text-primary p-3 rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <ShieldCheck size={26} />
+            </div>
+            <h3 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition">
+              Privacy Policy
+            </h3>
+          </div>
+          <p className="text-gray-700 leading-relaxed">
+            We value your privacy and protect your personal information. We only
+            collect necessary details like your name, email, and payment info to
+            process orders and enhance your experience.
+          </p>
+          <p className="text-gray-700 mt-3">
+            Your data is securely stored and never sold to others. For privacy
+            inquiries, contact us at{" "}
             <a
               href={`mailto:${contactEmail}`}
-              className="text-primary hover:underline"
+              className="text-primary font-medium hover:underline"
             >
               {contactEmail}
             </a>
@@ -43,68 +59,66 @@ export default function PolicyPage({
           </p>
         </div>
 
-        {/* Terms & Conditions */}
-        <div>
-          <h3 className="text-2xl font-semibold mb-2">Terms & Conditions</h3>
-          <p>
-            By accessing or using {siteName}, you agree to follow our terms and
-            conditions. All products, prices, and services are subject to
-            availability and may change without prior notice.
+        {/*  Terms & Conditions */}
+        <div className="group bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-3 transition-all duration-300">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-primary/10 text-primary p-3 rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <FileText size={26} />
+            </div>
+            <h3 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition">
+              Terms & Conditions
+            </h3>
+          </div>
+          <p className="text-gray-700 leading-relaxed">
+            By using {siteName}, you agree to our terms. Products, prices, and
+            services are subject to change without prior notice.
           </p>
-          <p className="mt-2">
-            Users must provide accurate information during registration and
-            purchases. Misuse, fraud, or illegal activity may lead to account
-            suspension or cancellation.
-          </p>
-          <p className="mt-2">
-            We reserve the right to modify these terms anytime. Updates will be
-            reflected here with a new effective date.
-          </p>
-        </div>
-
-        {/* Return & Refund Policy */}
-        <div>
-          <h3 className="text-2xl font-semibold mb-2">Return & Refund Policy</h3>
-          <p>
-            Customer satisfaction is our priority. If you receive a damaged or
-            incorrect item, please contact us within <strong>7 days</strong> of
-            delivery with proof (photo/video).
-          </p>
-          <p className="mt-2">
-            Eligible returns will be refunded or replaced within{" "}
-            <strong>5–10 business days</strong> after approval. Products must be
-            unused, in original packaging, and accompanied by the order receipt.
-          </p>
-          <p className="mt-2">
-            Certain items like perishable goods or opened food boxes cannot be
-            returned for hygiene reasons.
+          <p className="text-gray-700 mt-3">
+            Users must provide accurate information when registering or
+            ordering. Fraud or misuse may result in suspension. Updates to these
+            terms will appear here with a new effective date.
           </p>
         </div>
-      </section>
 
-      <hr className="my-8" />
+        {/*  Return & Refund Policy */}
+        <div className="group bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-3 transition-all duration-300">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="bg-primary/10 text-primary p-3 rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <RefreshCcw size={26} />
+            </div>
+            <h3 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition">
+              Return & Refund Policy
+            </h3>
+          </div>
+          <p className="text-gray-700 leading-relaxed">
+            If you receive a damaged or incorrect item, please contact us within{" "}
+            <strong>7 days</strong> of delivery with valid proof (photo/video).
+          </p>
+          <p className="text-gray-700 mt-3">
+            Approved refunds or replacements are processed within{" "}
+            <strong>5–10 business days</strong>. For hygiene reasons, opened or
+            perishable goods cannot be returned.
+          </p>
+        </div>
+      </div>
 
-      <div className="flex flex-col md:flex-row gap-3 md:gap-4 justify-center">
+      {/*  Buttons */}
+      <div className="flex flex-col md:flex-row justify-center gap-4 pb-12">
         <button
           onClick={() => window.print()}
-          className="btn btn-outline btn-sm md:btn-md"
+          className="btn btn-outline btn-accent rounded-full px-6 shadow hover:shadow-md transition"
         >
           Print / Save as PDF
         </button>
-
         <a
           href={`mailto:${contactEmail}?subject=${encodeURIComponent(
             siteName + " Policy Inquiry"
           )}`}
-          className="btn btn-primary btn-sm md:btn-md"
+          className="btn btn-accent rounded-full px-6 shadow hover:shadow-md transition"
         >
           Contact Support
         </a>
       </div>
-
-      <p className="text-center text-gray-500 text-sm mt-4">
-        © {new Date().getFullYear()} {siteName}. All rights reserved.
-      </p>
     </div>
   );
 }
