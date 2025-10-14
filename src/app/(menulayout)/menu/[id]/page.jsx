@@ -4,12 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiArrowLeft, FiStar, FiMapPin, FiPhone, FiClock, FiUser, FiShoppingCart, FiMinus, FiPlus } from 'react-icons/fi';
 import Image from 'next/image';
-import { useCart } from '@/lib/cartContext'; // Fixed import
+import { useCart } from '@/lib/cartContext';
 
 const MenuItemDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
-  const { addToCart } = useCart(); // Using the hook instead of context directly
+  const { addToCart } = useCart();
   const [menuItem, setMenuItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,15 +57,8 @@ const MenuItemDetailsPage = () => {
     }
   };
 
-  const increaseQuantity = () => {
-    setQuantity(prev => prev + 1);
-  };
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
-    }
-  };
+  const increaseQuantity = () => setQuantity(prev => prev + 1);
+  const decreaseQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   if (loading) {
     return (
@@ -81,10 +74,7 @@ const MenuItemDetailsPage = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Item Not Found</h2>
           <p className="text-gray-600 mb-4">{error || 'The menu item you are looking for does not exist.'}</p>
-          <button
-            onClick={() => router.back()}
-            className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
-          >
+          <button onClick={() => router.back()} className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors">
             Go Back
           </button>
         </div>
@@ -97,10 +87,7 @@ const MenuItemDetailsPage = () => {
       {/* Header with Back Button */}
       <div className="sticky top-0 z-10 bg-white shadow-sm">
         <div className="max-w-4xl mx-auto p-4 flex items-center">
-          <button
-            onClick={() => router.back()}
-            className="mr-4 p-2 rounded-full hover:bg-gray-200 transition-colors"
-          >
+          <button onClick={() => router.back()} className="mr-4 p-2 rounded-full hover:bg-gray-200 transition-colors">
             <FiArrowLeft className="h-5 w-5 text-gray-600" />
           </button>
           <h1 className="text-xl font-semibold text-gray-800">Item Details</h1>
@@ -111,12 +98,7 @@ const MenuItemDetailsPage = () => {
         {/* Main Image and Basic Info */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="relative h-64 md:h-96 w-full">
-            <Image
-              src={menuItem.imageUrl}
-              alt={menuItem.title}
-              layout="fill"
-              objectFit="cover"
-            />
+            <Image src={menuItem.imageUrl} alt={menuItem.title} layout="fill" objectFit="cover" />
             {menuItem.isSpecialOffer && (
               <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                 {menuItem.discountRate}% OFF
@@ -130,9 +112,7 @@ const MenuItemDetailsPage = () => {
                 <p className="text-3xl font-bold text-orange-500 mt-2">
                   ৳{menuItem.offerPrice || menuItem.price}
                   {menuItem.offerPrice && (
-                    <span className="text-lg font-normal text-gray-500 line-through ml-2">
-                      ৳{menuItem.price}
-                    </span>
+                    <span className="text-lg font-normal text-gray-500 line-through ml-2">৳{menuItem.price}</span>
                   )}
                 </p>
               </div>
@@ -156,31 +136,16 @@ const MenuItemDetailsPage = () => {
             <div className="flex items-center">
               <span className="font-medium text-gray-700 mr-4">Quantity:</span>
               <div className="flex items-center border border-gray-300 rounded-md">
-                <button
-                  onClick={decreaseQuantity}
-                  className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors"
-                  disabled={quantity <= 1}
-                >
+                <button onClick={decreaseQuantity} className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors" disabled={quantity <= 1}>
                   <FiMinus className="h-4 w-4" />
                 </button>
                 <span className="px-4 py-2 font-medium">{quantity}</span>
-                <button
-                  onClick={increaseQuantity}
-                  className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors"
-                >
+                <button onClick={increaseQuantity} className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors">
                   <FiPlus className="h-4 w-4" />
                 </button>
               </div>
             </div>
-            
-            <button
-              onClick={handleAddToCart}
-              className={`flex items-center px-6 py-3 rounded-md font-medium transition-all ${
-                addedToCart
-                  ? 'bg-green-500 text-white'
-                  : 'bg-orange-500 text-white hover:bg-orange-600'
-              }`}
-            >
+            <button onClick={handleAddToCart} className={`flex items-center px-6 py-3 rounded-md font-medium transition-all ${addedToCart ? 'bg-green-500 text-white' : 'bg-orange-500 text-white hover:bg-orange-600'}`}>
               {addedToCart ? (
                 <>
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -196,59 +161,14 @@ const MenuItemDetailsPage = () => {
               )}
             </button>
           </div>
-          
           {addedToCart && (
             <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
-              <p className="text-green-800 text-sm">
-                {quantity} × {menuItem.title} has been added to your cart.
-              </p>
-              <button
-                onClick={() => router.push('/cart')}
-                className="mt-2 text-green-600 font-medium text-sm hover:text-green-800"
-              >
+              <p className="text-green-800 text-sm">{quantity} × {menuItem.title} has been added to your cart.</p>
+              <button onClick={() => router.push('/cart')} className="mt-2 text-green-600 font-medium text-sm hover:text-green-800">
                 View Cart
               </button>
             </div>
           )}
-        </div>
-
-        {/* Additional Details */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Details</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div className="flex items-center">
-              <span className="font-medium text-gray-700 mr-2">Cuisine:</span>
-              <span className="text-gray-600">{menuItem.cuisine}</span>
-            </div>
-            <div className="flex items-center">
-              <span className="font-medium text-gray-700 mr-2">Category:</span>
-              <span className="text-gray-600">{menuItem.category}</span>
-            </div>
-            {menuItem.ingredients && (
-              <div className="md:col-span-2">
-                <span className="font-medium text-gray-700">Ingredients:</span>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {menuItem.ingredients.map((ingredient, index) => (
-                    <span key={index} className="px-2 py-1 bg-gray-100 rounded-full text-xs text-gray-700">
-                      {ingredient}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {menuItem.dietaryTags && (
-              <div className="md:col-span-2">
-                <span className="font-medium text-gray-700">Dietary Tags:</span>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {menuItem.dietaryTags.map((tag, index) => (
-                    <span key={index} className="px-2 py-1 bg-green-100 rounded-full text-xs text-green-700">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
 
         {/* Reviews Section */}
@@ -257,8 +177,6 @@ const MenuItemDetailsPage = () => {
             <h3 className="text-lg font-semibold text-gray-800">Customer Reviews</h3>
           </div>
           <div className="p-6">
-            {/* This is a placeholder. Your API needs to return an array of reviews. */}
-            {/* Assuming the API returns a `reviews` array on the menuItem object */}
             {menuItem.reviews && menuItem.reviews.length > 0 ? (
               <div className="space-y-4">
                 {menuItem.reviews.map((review, index) => (
@@ -272,25 +190,16 @@ const MenuItemDetailsPage = () => {
                       <div className="ml-4 flex-1">
                         <div className="flex items-center justify-between">
                           <h4 className="text-sm font-medium text-gray-900">
-                            {review.customerName || 'Anonymous Customer'}
+                            {review.customerEmail ? review.customerEmail.split('@')[0] : 'Anonymous Customer'}
                           </h4>
                           <div className="flex items-center">
                             {[1, 2, 3, 4, 5].map((star) => (
-                              <FiStar
-                                key={star}
-                                className={`h-4 w-4 ${
-                                  star <= review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                                }`}
-                              />
+                              <FiStar key={star} className={`h-4 w-4 ${star <= review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
                             ))}
                           </div>
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Reviewed on {formatDate(review.createdAt)}
-                        </p>
-                        {review.comment && (
-                          <p className="mt-2 text-sm text-gray-700">{review.comment}</p>
-                        )}
+                        <p className="text-sm text-gray-500 mt-1">Reviewed on {formatDate(review.createdAt)}</p>
+                        {review.comment && <p className="mt-2 text-sm text-gray-700">{review.comment}</p>}
                       </div>
                     </div>
                   </div>
