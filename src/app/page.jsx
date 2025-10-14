@@ -14,6 +14,7 @@ import HowWeWork from "./components/HowWeWork";
 
 import RestaurantSection from "./components/RestaurantSection";
 import FoodCompare from "./components/FoodCompare";
+import PrivacyPolicy from "@/components/ui/PrivacyPolicy";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
 
       <OurPartner />
       <CustomersReview />
+      <PrivacyPolicy/>
 
       {/* <NewsLetter /> */}
     </div>
