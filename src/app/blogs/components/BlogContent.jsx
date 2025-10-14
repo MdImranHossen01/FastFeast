@@ -3,13 +3,14 @@
 import BlogCard from "./BlogCard";
 
 export default function BlogContent({ blogs, query, tag }) {
-  const filtered = blogs.filter((p) => {
-    const matchTag = tag === "All" ? true : p.tags?.includes(tag);
+  // Filter blogs based on query and tag
+  const filtered = blogs.filter((b) => {
+    const matchTag = tag === "All" ? true : b.tags?.includes(tag);
     const matchQuery =
       query.trim() === ""
         ? true
-        : p.title.toLowerCase().includes(query.toLowerCase()) ||
-          p.excerpt.toLowerCase().includes(query.toLowerCase());
+        : b.title.toLowerCase().includes(query.toLowerCase()) ||
+          b.excerpt.toLowerCase().includes(query.toLowerCase());
     return matchTag && matchQuery;
   });
 
