@@ -6,6 +6,7 @@ import MenuModal from "./MenuModal";
 import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
+import { FiStar } from "react-icons/fi";
 
 const MenuCard = ({ menu, restaurants }) => {
   const { data: session } = useSession();
@@ -13,6 +14,9 @@ const MenuCard = ({ menu, restaurants }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [ratingLoading, setRatingLoading] = useState(true);
 
   // Find the restaurant data based on restaurantId
   useEffect(() => {
@@ -48,6 +52,49 @@ const MenuCard = ({ menu, restaurants }) => {
 
     checkFavorite();
   }, [session, menu._id]);
+
+  // Fetch menu item rating and review count
+  useEffect(() => {
+    const fetchRating = async () => {
+      if (!menu._id) return;
+      
+      try {
+        setRatingLoading(true);
+        const response = await fetch(`/api/menu/${menu._id}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            setRating(data.menuItem.rating);
+            
+            // Get review count
+            const reviewsResponse = await fetch(`/api/reviews?itemId=${menu._id}`);
+            if (reviewsResponse.ok) {
+              const reviewsData = await reviewsResponse.json();
+              if (reviewsData.success) {
+                // Count reviews for this specific item
+                let count = 0;
+                reviewsData.reviews.forEach(review => {
+                  const itemReview = review.itemReviews.find(item => item.itemId === menu._id);
+                  if (itemReview && itemReview.rating > 0) {
+                    count++;
+                  }
+                });
+                setReviewCount(count);
+              }
+            }
+          }
+        } else {
+          console.error('Failed to fetch menu item rating');
+        }
+      } catch (error) {
+        console.error('Error fetching menu item rating:', error);
+      } finally {
+        setRatingLoading(false);
+      }
+    };
+
+    fetchRating();
+  }, [menu._id]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -122,6 +169,12 @@ const MenuCard = ({ menu, restaurants }) => {
     }
   };
 
+  // Navigate to reviews page
+  const viewReviews = (e) => {
+    e.stopPropagation(); // Prevent opening modal
+    window.location.href = `/menu/${menu._id}/reviews`;
+  };
+
   // Generate restaurant slug if restaurant exists
   const restaurantSlug = restaurant ? generateSlug(restaurant.name, restaurant.location?.area) : "";
 
@@ -171,6 +224,13 @@ const MenuCard = ({ menu, restaurants }) => {
           {menu.isSpecialOffer && (
             <div className="absolute bottom-2 right-2 bg-red-500 rounded-full px-2 py-1 text-xs font-bold text-white">
               {menu.discountRate}% OFF
+            </div>
+          )}
+          {/* Rating Badge - Show if rating exists */}
+          {!ratingLoading && rating && (
+            <div className="absolute bottom-2 left-2 bg-white rounded-full px-2 py-1 text-xs font-bold text-gray-800 flex items-center shadow-md">
+              <FiStar className="h-3 w-3 text-yellow-400 fill-current mr-1" />
+              {rating}
             </div>
           )}
         </div>
@@ -267,6 +327,23 @@ const MenuCard = ({ menu, restaurants }) => {
               </svg>
             </button>
           </div>
+
+          {/* Reviews Section - Show if there are reviews */}
+          {!ratingLoading && reviewCount > 0 && (
+            <div className="mt-3 flex items-center justify-between">
+              <div className="flex items-center">
+                <FiStar className="h-4 w-4 text-yellow-400 fill-current mr-1" />
+                <span className="text-sm text-gray-700 font-medium">{rating}</span>
+                <span className="text-sm text-gray-500 ml-1">({reviewCount} reviews)</span>
+              </div>
+              <button
+                onClick={viewReviews}
+                className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors"
+              >
+                View Reviews
+              </button>
+            </div>
+          )}
         </div>
       </div>
       
