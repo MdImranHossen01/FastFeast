@@ -1,5 +1,6 @@
 // src/app/api/menu/[id]/route.js
 import { getCollection, serializeDocument, ObjectId } from '@/lib/dbConnect';
+import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
@@ -14,7 +15,7 @@ export async function GET(request, { params }) {
     });
     
     if (!menuItem) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: 'Menu item not found' },
         { status: 404 }
       );
@@ -49,17 +50,88 @@ export async function GET(request, { params }) {
     
     const averageRating = reviewCount > 0 ? (totalRating / reviewCount).toFixed(1) : null;
     
-    return Response.json({
+    return NextResponse.json({
       success: true,
       menuItem: {
         ...serializedMenuItem,
-        rating: averageRating
+        rating: averageRating,
+        reviewCount: reviewCount
       }
     });
   } catch (error) {
     console.error('Error fetching menu item:', error);
-    return Response.json(
+    return NextResponse.json(
       { success: false, message: 'Failed to fetch menu item', error: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request, { params }) {
+  try {
+    const { id } = params;
+    
+    // Parse the incoming data
+    const updatedData = await request.json();
+    
+    // Get menu collection
+    const menuCollection = await getCollection('menu');
+    
+    // Update the menu item
+    const result = await menuCollection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updatedData }
+    );
+    
+    if (result.matchedCount === 0) {
+      return NextResponse.json(
+        { success: false, message: 'Menu item not found' },
+        { status: 404 }
+      );
+    }
+    
+    // Return success response
+    return NextResponse.json({
+      success: true,
+      message: 'Menu item updated successfully',
+      menuId: id
+    });
+  } catch (error) {
+    console.error('Error updating menu item:', error);
+    return NextResponse.json(
+      { success: false, message: 'Failed to update menu item', error: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request, { params }) {
+  try {
+    const { id } = params;
+    
+    // Get menu collection
+    const menuCollection = await getCollection('menu');
+    
+    // Delete the menu item
+    const result = await menuCollection.deleteOne({ _id: new ObjectId(id) });
+    
+    if (result.deletedCount === 0) {
+      return NextResponse.json(
+        { success: false, message: 'Menu item not found' },
+        { status: 404 }
+      );
+    }
+    
+    // Return success response
+    return NextResponse.json({
+      success: true,
+      message: 'Menu item deleted successfully',
+      menuId: id
+    });
+  } catch (error) {
+    console.error('Error deleting menu item:', error);
+    return NextResponse.json(
+      { success: false, message: 'Failed to delete menu item', error: error.message },
       { status: 500 }
     );
   }
