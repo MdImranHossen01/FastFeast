@@ -4,7 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
-    const { id } = params;
+    // AWAIT THE PARAMS - This is the fix!
+    const { id } = await params;
+    
+    console.log('Fetching menu item with ID:', id); // Add this for debugging
     
     // Get menu collection
     const menuCollection = await getCollection('menu');
@@ -69,7 +72,8 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const { id } = params;
+    // AWAIT THE PARAMS
+    const { id } = await params;
     
     // Parse the incoming data
     const updatedData = await request.json();
@@ -107,7 +111,8 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    const { id } = params;
+    // AWAIT THE PARAMS
+    const { id } = await params;
     
     // Get menu collection
     const menuCollection = await getCollection('menu');
