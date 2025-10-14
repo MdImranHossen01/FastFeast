@@ -197,6 +197,7 @@ export default function RestaurantsCard({ restaurant }) {
             </button>
           </Link>
         </div>
+        {/* add to favorite and remove to favorite */}
         <button onClick={handleToggle} className="absolute top-0.5 right-1 p-2">
           {isFavorite ? (
             <GoHeartFill size={24} color="#F97316" />

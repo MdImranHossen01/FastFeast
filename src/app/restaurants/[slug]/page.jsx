@@ -21,6 +21,7 @@ import {
 } from "react-icons/fa";
 import { TbCurrencyTaka } from "react-icons/tb";
 import MenuCard from "@/app/(menulayout)/menu/components/MenuCard";
+import FavRestaurant from "../components/favRestaurant";
 
 export default async function RestaurantDetails({ params }) {
   const { slug } = await params;
@@ -150,6 +151,9 @@ export default async function RestaurantDetails({ params }) {
                 }`}
               >
                 {isRestaurantOpen() ? "Open Now" : "Closed"}
+              </div>
+              <div>
+                <FavRestaurant restaurant={restaurant} />
               </div>
             </div>
           </div>
