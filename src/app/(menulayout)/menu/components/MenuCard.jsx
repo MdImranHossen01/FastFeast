@@ -6,13 +6,19 @@ import MenuModal from "./MenuModal";
 import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
+import { FiStar } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 const MenuCard = ({ menu, restaurants }) => {
   const { data: session } = useSession();
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [restaurant, setRestaurant] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [ratingLoading, setRatingLoading] = useState(false); // Set to false since we have direct rating
 
   // Find the restaurant data based on restaurantId
   useEffect(() => {
@@ -48,6 +54,18 @@ const MenuCard = ({ menu, restaurants }) => {
 
     checkFavorite();
   }, [session, menu._id]);
+
+  // Use direct rating from menu data instead of fetching from API
+  useEffect(() => {
+    // Use the rating directly from the menu object
+    if (menu.rating !== undefined) {
+      setRating(menu.rating);
+    }
+    
+    // If you need to fetch review count separately, you can do it here
+    // But for now, we'll use a placeholder or fetch it if needed
+    setReviewCount(menu.reviewCount || 0); // You can add reviewCount to your menu data if available
+  }, [menu]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -122,8 +140,23 @@ const MenuCard = ({ menu, restaurants }) => {
     }
   };
 
+  // Navigate to reviews page
+  const viewReviews = (e) => {
+    if (e) e.stopPropagation(); // Prevent opening modal
+    router.push(`/menu/${menu._id}/reviews`);
+  };
+
+  // Navigate to reviews when clicking on rating badge
+  const handleRatingClick = (e) => {
+    e.stopPropagation();
+    viewReviews();
+  };
+
   // Generate restaurant slug if restaurant exists
   const restaurantSlug = restaurant ? generateSlug(restaurant.name, restaurant.location?.area) : "";
+
+  // Check if menu has ratings (rating exists and is greater than 0)
+  const hasRatings = rating !== null && rating !== undefined && rating > 0;
 
   return (
     <div>
@@ -172,6 +205,18 @@ const MenuCard = ({ menu, restaurants }) => {
             <div className="absolute bottom-2 right-2 bg-red-500 rounded-full px-2 py-1 text-xs font-bold text-white">
               {menu.discountRate}% OFF
             </div>
+          )}
+          {/* Rating Badge - Show if rating exists */}
+          {hasRatings && (
+            <button
+              onClick={handleRatingClick}
+              className={`absolute bottom-2 left-2 bg-white rounded-full px-2 py-1 text-xs font-bold flex items-center shadow-md transition-all duration-200 ${
+                'hover:shadow-lg hover:scale-105 cursor-pointer'
+              }`}
+            >
+              <FiStar className="h-3 w-3 text-yellow-400 fill-current mr-1" />
+              {rating}
+            </button>
           )}
         </div>
         <div className="p-4">
@@ -267,6 +312,67 @@ const MenuCard = ({ menu, restaurants }) => {
               </svg>
             </button>
           </div>
+
+          {/* Reviews Section */}
+          <div className="mt-3 flex items-center justify-between">
+            <div className="flex items-center">
+              {hasRatings ? (
+                <div 
+                  onClick={viewReviews}
+                  className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+                >
+                  <FiStar className="h-4 w-4 text-yellow-400 fill-current mr-1" />
+                  <span className="text-sm text-gray-700 font-medium">
+                    {rating}
+                  </span>
+                  <span className="text-sm text-gray-500 ml-1">
+                    ({reviewCount > 0 ? `${reviewCount} ${reviewCount === 1 ? 'review' : 'reviews'}` : 'No reviews yet'})
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-center text-gray-500">
+                  <FiStar className="h-4 w-4 text-gray-300 mr-1" />
+                  <span className="text-sm">No ratings yet</span>
+                </div>
+              )}
+            </div>
+            
+            {/* View Reviews Button - Show if there are ratings */}
+            {hasRatings && (
+              <button
+                onClick={viewReviews}
+                className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors flex items-center"
+              >
+                View Reviews
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="h-4 w-4 ml-1" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M9 5l7 7-7 7" 
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+
+          {/* No Reviews Message - Show if no ratings but allow navigation */}
+          {!hasRatings && (
+            <div className="mt-2 text-center">
+              <button
+                onClick={viewReviews}
+                className="text-xs text-gray-500 hover:text-orange-500 transition-colors underline"
+              >
+                Be the first to review this item
+              </button>
+            </div>
+          )}
         </div>
       </div>
       
