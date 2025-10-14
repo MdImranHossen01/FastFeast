@@ -102,10 +102,28 @@ const CustomersReview = () => {
                 {textList[headingIndex].split(" ").slice(1).join(" ")}
               </motion.h2>
             </AnimatePresence>
-            <p className="text-lg text-gray-600 max-w-md mt-8">
+            <p className="text-lg text-gray-600 max-w-md my-8">
               Real stories from our happy customers. We always focus on quality,
               fast delivery, and excellent service.
             </p>
+
+             {/* Arrows - Attractive Orange Gradient & Correct Margin */}
+            <div className="w-full max-w-[400px] flex justify-center mt-10 gap-4">
+              <button
+                onClick={prev}
+                // Simple solid orange for balance
+                className="p-4 bg-orange-500 hover:bg-orange-600 rounded-full cursor-pointer transition shadow-lg shadow-orange-300/50"
+              >
+                <FaArrowLeft className="text-white" />
+              </button>
+              <button
+                onClick={next}
+                // Vibrant Linear Gradient: Light orange/yellow to deep orange
+                className="p-4 bg-gradient-to-r from-amber-400 to-orange-600 hover:from-amber-500 hover:to-orange-700 rounded-full transition shadow-lg cursor-pointer shadow-orange-300/50"
+              >
+                <FaArrowRight className="text-white" />
+              </button>
+            </div>
           </div>
 
           {/* Right Reviews Slider (Main Card Container) */}
@@ -151,7 +169,7 @@ const CustomersReview = () => {
                 </div>
 
                 {/* Review Text */}
-                <p className="text-gray-700 w-3/6 text-sm md:text-base mb-5 line-clamp-6">
+                <p className="text-gray-700 w-3/6 text-sm italic font-semibold md:text-base mb-5 line-clamp-6">
                   "{testimonials[reviewIndex].review}"
                 </p>
 
@@ -166,23 +184,7 @@ const CustomersReview = () => {
 
            
           </div>
-           {/* Arrows - Attractive Orange Gradient & Correct Margin */}
-            <div className="w-full max-w-[400px] flex justify-start mt-10 gap-4">
-              <button
-                onClick={prev}
-                // Simple solid orange for balance
-                className="p-4 bg-orange-500 hover:bg-orange-600 rounded-full cursor-pointer transition shadow-lg shadow-orange-300/50"
-              >
-                <FaArrowLeft className="text-white" />
-              </button>
-              <button
-                onClick={next}
-                // Vibrant Linear Gradient: Light orange/yellow to deep orange
-                className="p-4 bg-gradient-to-r from-amber-400 to-orange-600 hover:from-amber-500 hover:to-orange-700 rounded-full transition shadow-lg cursor-pointer shadow-orange-300/50"
-              >
-                <FaArrowRight className="text-white" />
-              </button>
-            </div>
+           
         </div>
       </div>
 

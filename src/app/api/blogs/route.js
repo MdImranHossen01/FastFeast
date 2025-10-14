@@ -2,41 +2,20 @@ import connectMongooseDb from "@/lib/mongoose";
 import Blog from "@/models/blog.model";
 import { NextResponse } from "next/server";
 
+// GET all blogs
 export async function GET() {
   try {
-    const dbRes = await connectMongooseDb();
-    console.log("DB Connection Result:", dbRes);
-
-    const blogs = await Blog.find();
-    console.log("Fetched blogs:", blogs);
-
-    return NextResponse.json(blogs, { status: 200 });
-  } catch (error) {
-    console.error("API Error:", error);
-    return NextResponse.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
-  }
-}
-
-
-// POST: Add a new blog
-export async function POST(req) {
-  try {
+    // Connect to the database
     await connectMongooseDb();
 
-    const data = await req.json();
+    // Fetch all blogs
+    const blogs = await Blog.find();
 
-    // Create a new blog document
-    const newBlog = await Blog.create(data);
-
-    return NextResponse.json(
-      { success: true, message: "Blog created successfully", blog: newBlog },
-      { status: 201 }
-    );
+    // Return blogs with 200 status
+    return NextResponse.json(blogs, { status: 200 });
   } catch (error) {
-    console.error("Error creating blog:", error);
+    // Log the error for debugging
+    console.error("Error fetching blogs:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }

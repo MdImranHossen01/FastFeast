@@ -1,4 +1,5 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+// src/lib/dbConnect.js
+import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
 
 export const collectionsName = {
   usersCollection: "users",
@@ -10,6 +11,7 @@ export const collectionsName = {
   ordersCollection: "orders",
   transactionHistoryCollection: "transactionHistory",
   favoritesCollection: "favorites",
+  favoritesRestCollection: "favRestaurant",
   notificationsCollection: "notifications", // ✅ added
 };
 
@@ -67,3 +69,40 @@ export const dbConnect = async (collectionName) => {
   const { db } = await connectToDatabase();
   return db.collection(collectionName);
 };
+
+// New helper functions for cleaner API routes
+export const getDatabase = async () => {
+  const { db } = await connectToDatabase();
+  return db;
+};
+
+// Helper to convert MongoDB document to JSON-safe object
+export const serializeDocument = (doc) => {
+  if (!doc) return null;
+  
+  // Handle arrays
+  if (Array.isArray(doc)) {
+    return doc.map(serializeDocument);
+  }
+  
+  // Handle objects
+  const result = { ...doc };
+  
+  // Convert ObjectId to string
+  if (result._id) {
+    result._id = result._id.toString();
+    result.id = result._id; // Add id field for consistency
+  }
+  
+  // Convert any nested ObjectIds
+  Object.keys(result).forEach(key => {
+    if (result[key] && typeof result[key] === 'object' && result[key]._id) {
+      result[key] = serializeDocument(result[key]);
+    }
+  });
+  
+  return result;
+};
+
+// Export ObjectId for use in API routes
+export { ObjectId };
