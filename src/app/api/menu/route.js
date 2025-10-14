@@ -11,7 +11,7 @@ export const POST = async (request) => {
 
     // Get the database and collection
     const db = client.db(process.env.DB_NAME);
-    const collection = db.collection("menu"); // Replace with your actual collection name
+    const collection = db.collection("menu"); 
 
     // Parse the incoming data (menu item)
     const newItem = await request.json();
