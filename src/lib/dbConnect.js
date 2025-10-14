@@ -10,6 +10,7 @@ export const collectionsName = {
   ordersCollection: "orders",
   transactionHistoryCollection: "transactionHistory",
   favoritesCollection: "favorites",
+  favoritesRestCollection: "favRestaurant",
   notificationsCollection: "notifications", // ✅ added
 };
 
