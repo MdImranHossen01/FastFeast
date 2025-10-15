@@ -1,0 +1,3782 @@
+[
+  {
+    "_id": "68ec8aa749b6038c242a4f89",
+    "slug": "kacchi-bhai-dhanmondi",
+    "name": "Kacchi Bhai",
+    "bio": "Kacchi Bhai brings authentic Bengali flavors to Dhanmondi with their signature biriyani dishes. Using traditional recipes passed down through generations, they offer perfectly cooked rice with tender meat and aromatic spices. Their commitment to quality ingredients and consistent taste has made them a favorite among locals seeking genuine Bengali cuisine.",
+    "logo": "https://i.ibb.co.com/HfLQnLZF/1.png",
+    "banner": "https://i.ibb.co.com/5hbT9rxs/1.png",
+    "cuisines": ["Bengali", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 12/A, Road 5, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7465,
+        "lng": 90.376
+      }
+    },
+    "contact": {
+      "phone": "01710000001",
+      "email": "info@kacchibhai.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 128,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:14:15.669Z",
+    "updatedAt": "2025-10-13T05:14:15.669Z"
+  },
+  {
+    "_id": "68ec8be949b6038c242a4f8d",
+    "slug": "sultan-dine-dhanmondi",
+    "name": "Sultan's Dine",
+    "bio": "Sultan's Dine offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Located in the heart of Dhanmondi, they combine traditional flavors with modern presentation. Their menu features a wide variety of dishes that celebrate the rich culinary heritage of Bengal, prepared with the finest ingredients and utmost care.",
+    "logo": "https://i.ibb.co.com/q3h2FWPw/2.png",
+    "banner": "https://i.ibb.co.com/tNRH1NM/2.png",
+    "cuisines": ["Bengali", "Kebab"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 8, Road 7, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.747,
+        "lng": 90.377
+      }
+    },
+    "contact": {
+      "phone": "01710000002",
+      "email": "contact@sultans.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:30"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "22:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 215,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T05:19:37.431Z",
+    "updatedAt": "2025-10-13T05:19:37.431Z"
+  },
+  {
+    "_id": "68ec8c2c49b6038c242a4f90",
+    "slug": "burger-lab-dhanmondi",
+    "name": "Burger Lab",
+    "bio": "Burger Lab is where culinary experimentation meets classic American comfort food. In Dhanmondi's bustling food scene, they stand out with their innovative burger creations, using locally sourced ingredients to craft unique flavor combinations. Their casual atmosphere and affordable prices make it a perfect spot for students and young professionals.",
+    "logo": "https://i.ibb.co.com/BHx9QNKh/3.png",
+    "banner": "https://i.ibb.co.com/sJQ8FjHx/3.png",
+    "cuisines": ["American", "Fast Food"],
+    "currency": "BDT",
+    "deliveryFee": 25,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Shop 15, Dhanmondi 27",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.745,
+        "lng": 90.375
+      }
+    },
+    "contact": {
+      "phone": "01710000003",
+      "email": "hello@burgerlab.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:30",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 89,
+    "rating": 4.3,
+    "createdAt": "2025-10-13T05:20:44.836Z",
+    "updatedAt": "2025-10-13T05:20:44.836Z"
+  },
+  {
+    "_id": "68ec8c6149b6038c242a4f92",
+    "slug": "pizza-roma-dhanmondi",
+    "name": "Pizza Roma",
+    "bio": "Pizza Roma brings a slice of Italy to Dhanmondi with authentic wood-fired pizzas and classic Italian dishes. Using traditional techniques and imported ingredients, their chefs create culinary masterpieces that transport diners to the streets of Rome. The warm, inviting atmosphere and attentive service make every visit a memorable experience.",
+    "logo": "https://i.ibb.co.com/prQw0tkc/4.png",
+    "banner": "https://i.ibb.co.com/Fpb0xrC/4.png",
+    "cuisines": ["Italian", "Pizza"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 3, Road 4, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.748,
+        "lng": 90.378
+      }
+    },
+    "contact": {
+      "phone": "01710000004",
+      "email": "info@pizzaroma.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 156,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T05:21:37.568Z",
+    "updatedAt": "2025-10-13T05:21:37.568Z"
+  },
+  {
+    "_id": "68ec8c9049b6038c242a4f94",
+    "slug": "sushi-master-dhanmondi",
+    "name": "Sushi Master",
+    "bio": "Sushi Master offers an authentic Japanese dining experience in the heart of Dhanmondi. Their skilled chefs prepare each dish with precision and artistry, using the freshest ingredients imported directly from Japan. From traditional nigiri to creative specialty rolls, every bite is a testament to their commitment to culinary excellence and Japanese tradition.",
+    "logo": "https://i.ibb.co.com/MxHSM3Vj/5.png",
+    "banner": "https://i.ibb.co.com/GQXdwq1r/5.png",
+    "cuisines": ["Japanese", "Sushi"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Level 5, Dhanmondi City Complex",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.749,
+        "lng": 90.374
+      }
+    },
+    "contact": {
+      "phone": "01710000005",
+      "email": "contact@sushimaster.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 97,
+    "rating": 4.8,
+    "createdAt": "2025-10-13T05:22:24.273Z",
+    "updatedAt": "2025-10-13T05:22:24.273Z"
+  },
+  {
+    "_id": "68ec8cbe49b6038c242a4f96",
+    "slug": "thai-pavilion-dhanmondi",
+    "name": "Thai Pavilion",
+    "bio": "Thai Pavilion invites diners on a culinary journey through the vibrant flavors of Thailand. Located in Dhanmondi, their menu showcases the perfect balance of sweet, sour, salty, and spicy that defines authentic Thai cuisine. Each dish is prepared with traditional techniques and imported Thai spices, creating an unforgettable dining experience.",
+    "logo": "https://i.ibb.co.com/GQLWPYfj/6.png",
+    "banner": "https://i.ibb.co.com/vCZ5HsCj/6.png",
+    "cuisines": ["Thai", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 15, Road 8, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.744,
+        "lng": 90.379
+      }
+    },
+    "contact": {
+      "phone": "01710000006",
+      "email": "info@thaipavilion.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:30",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:30",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:30",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 142,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T05:23:10.537Z",
+    "updatedAt": "2025-10-13T05:23:10.537Z"
+  },
+  {
+    "_id": "68ec8ce649b6038c242a4f98",
+    "slug": "bbq-tonight-dhanmondi",
+    "name": "BBQ Tonight",
+    "bio": "BBQ Tonight is renowned for its succulent grilled meats and authentic Pakistani flavors in Dhanmondi. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following. The restaurant's vibrant atmosphere and exceptional service make it the perfect destination for special occasions and casual dining alike.",
+    "logo": "https://i.ibb.co.com/XxQX5DpR/8.png",
+    "banner": "https://i.ibb.co.com/v6wxdKTF/7.png",
+    "cuisines": ["BBQ", "Pakistani"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 10, Road 6, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7475,
+        "lng": 90.3765
+      }
+    },
+    "contact": {
+      "phone": "01710000007",
+      "email": "contact@bbqtonight.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 203,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:23:50.045Z",
+    "updatedAt": "2025-10-13T05:23:50.045Z"
+  },
+  {
+    "_id": "68ec8d9349b6038c242a4f9c",
+    "slug": "china-town-dhanmondi",
+    "name": "China Town",
+    "bio": "China Town brings the authentic flavors of Chinese cuisine to Dhanmondi with their extensive menu of regional specialties. From Sichuan's spicy dishes to Cantonese dim sum, their chefs recreate traditional recipes using imported ingredients and time-honored cooking techniques. The elegant ambiance and attentive service provide a complete Chinese dining experience.",
+    "logo": "https://i.ibb.co.com/7dZ2NKkR/9.png",
+    "banner": "https://i.ibb.co.com/7J3fgmy0/8.png",
+    "cuisines": ["Chinese", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 7, Road 9, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.743,
+        "lng": 90.377
+      }
+    },
+    "contact": {
+      "phone": "01710000008",
+      "email": "info@chinatown.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 178,
+    "rating": 4.2,
+    "createdAt": "2025-10-13T05:26:43.249Z",
+    "updatedAt": "2025-10-13T05:26:43.249Z"
+  },
+  {
+    "_id": "68ec8dcf49b6038c242a4f9e",
+    "slug": "coffee-house-dhanmondi",
+    "name": "The Coffee House",
+    "bio": "The Coffee House is Dhanmondi's cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans sourced from around the world, while their pastry chefs create delectable treats that pair beautifully with their beverages. The relaxed atmosphere makes it an ideal spot for meetings, study sessions, or simply unwinding with a good book.",
+    "logo": "https://i.ibb.co.com/mCWndQ4X/10.png",
+    "banner": "https://i.ibb.co.com/Rp7X5wH1/9.png",
+    "cuisines": ["Cafe", "Desserts"],
+    "currency": "BDT",
+    "deliveryFee": 20,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Shop 3, Dhanmondi 32",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.746,
+        "lng": 90.375
+      }
+    },
+    "contact": {
+      "phone": "01710000009",
+      "email": "hello@coffeehouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "09:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "09:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "08:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 92,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T05:27:43.106Z",
+    "updatedAt": "2025-10-13T05:27:43.106Z"
+  },
+  {
+    "_id": "68ec8e1449b6038c242a4fa1",
+    "slug": "biryani-house-dhanmondi",
+    "name": "Biryani House",
+    "bio": "Biryani House specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to Dhanmondi. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful. Each biryani is cooked to order, ensuring freshness and authenticity in every bite.",
+    "logo": "https://i.ibb.co.com/x8q44B82/11.png",
+    "banner": "https://i.ibb.co.com/qYwvnbRf/10.png",
+    "cuisines": ["Indian", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 5, Road 3, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7485,
+        "lng": 90.376
+      }
+    },
+    "contact": {
+      "phone": "01710000010",
+      "email": "info@biryanihouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 187,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T05:28:52.395Z",
+    "updatedAt": "2025-10-13T05:28:52.395Z"
+  },
+  {
+    "_id": "68ec8e5549b6038c242a4fa4",
+    "slug": "kacchi-bhai-mirpur",
+    "name": "Kacchi Bhai",
+    "bio": "Kacchi Bhai in Mirpur continues the tradition of serving authentic Bengali biriyani that has made them famous across Dhaka. Their Mirpur location maintains the same high standards of quality and taste, using traditional cooking methods and the finest ingredients to create dishes that celebrate the rich culinary heritage of Bengal.",
+    "logo": "https://i.ibb.co.com/psJWJKg/12.png",
+    "banner": "https://i.ibb.co.com/hRGM1Hbf/11.png",
+    "cuisines": ["Bengali", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Section 10, Mirpur",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8223,
+        "lng": 90.3654
+      }
+    },
+    "contact": {
+      "phone": "01710000011",
+      "email": "mirpur@kacchibhai.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 156,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T05:29:57.652Z",
+    "updatedAt": "2025-10-13T06:37:23.917Z"
+  },
+  {
+    "_id": "68ec8e8049b6038c242a4fa6",
+    "slug": "sultan-dine-mirpur",
+    "name": "Sultan's Dine",
+    "bio": "Sultan's Dine in Mirpur brings their signature royal dining experience to the area with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Mirpur residents seeking authentic flavors and impeccable service.",
+    "logo": "https://i.ibb.co.com/mkjxRqr/13.png",
+    "banner": "https://i.ibb.co.com/ksbVcB8w/12.png",
+    "cuisines": ["Bengali", "Kebab"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 1, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.823,
+        "lng": 90.366
+      }
+    },
+    "contact": {
+      "phone": "01710000012",
+      "email": "mirpur@sultans.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:30"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "22:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 198,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:30:40.364Z",
+    "updatedAt": "2025-10-13T05:30:40.364Z"
+  },
+  {
+    "_id": "68ec8eb249b6038c242a4fa8",
+    "slug": "burger-lab-mirpur",
+    "name": "Burger Lab",
+    "bio": "Burger Lab's Mirpur location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in the area looking for delicious, affordable meals.",
+    "logo": "https://i.ibb.co.com/fYZBDpV8/14.png",
+    "banner": "https://i.ibb.co.com/d0r8JLQ8/13.png",
+    "cuisines": ["American", "Fast Food"],
+    "currency": "BDT",
+    "deliveryFee": 25,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 12, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.821,
+        "lng": 90.364
+      }
+    },
+    "contact": {
+      "phone": "01710000013",
+      "email": "mirpur@burgerlab.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:30",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 76,
+    "rating": 4.2,
+    "createdAt": "2025-10-13T05:31:30.548Z",
+    "updatedAt": "2025-10-13T05:31:30.548Z"
+  },
+  {
+    "_id": "68ec8ed849b6038c242a4faa",
+    "slug": "pizza-roma-mirpur",
+    "name": "Pizza Roma",
+    "bio": "Pizza Roma brings the authentic taste of Italy to Mirpur with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience without leaving their neighborhood.",
+    "logo": "https://i.ibb.co.com/svtQG56T/15.png",
+    "banner": "https://i.ibb.co.com/4nfjj2RM/14.png",
+    "cuisines": ["Italian", "Pizza"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 6, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.824,
+        "lng": 90.367
+      }
+    },
+    "contact": {
+      "phone": "01710000014",
+      "email": "mirpur@pizzaroma.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 134,
+    "rating": 4.3,
+    "createdAt": "2025-10-13T05:32:08.358Z",
+    "updatedAt": "2025-10-13T05:32:08.358Z"
+  },
+  {
+    "_id": "68ec8efb49b6038c242a4fac",
+    "slug": "sushi-master-mirpur",
+    "name": "Sushi Master",
+    "bio": "Sushi Master in Mirpur offers an authentic Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in the area.",
+    "logo": "https://i.ibb.co.com/fZxbLTk/16.png",
+    "banner": "https://i.ibb.co.com/zHJNt9VH/15.png",
+    "cuisines": ["Japanese", "Sushi"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 2, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.822,
+        "lng": 90.363
+      }
+    },
+    "contact": {
+      "phone": "01710000015",
+      "email": "mirpur@sushimaster.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 82,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T05:32:43.773Z",
+    "updatedAt": "2025-10-13T05:32:43.773Z"
+  },
+  {
+    "_id": "68ec8f2b49b6038c242a4fae",
+    "slug": "thai-pavilion-mirpur",
+    "name": "Thai Pavilion",
+    "bio": "Thai Pavilion in Mirpur brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Mirpur.",
+    "logo": "https://i.ibb.co.com/Zpf2nQSn/17.png",
+    "banner": "https://i.ibb.co.com/23nfFt7K/16.png",
+    "cuisines": ["Thai", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 11, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.825,
+        "lng": 90.368
+      }
+    },
+    "contact": {
+      "phone": "01710000016",
+      "email": "mirpur@thaipavilion.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:30",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:30",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:30",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 123,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T05:33:31.013Z",
+    "updatedAt": "2025-10-13T05:33:31.013Z"
+  },
+  {
+    "_id": "68ec8f5549b6038c242a4fb0",
+    "slug": "bbq-tonight-mirpur",
+    "name": "BBQ Tonight",
+    "bio": "BBQ Tonight in Mirpur is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers.",
+    "logo": "https://i.ibb.co.com/3yV3Xrn7/18.png",
+    "banner": "https://i.ibb.co.com/cSBhJ92M/17.png",
+    "cuisines": ["BBQ", "Pakistani"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 13, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8215,
+        "lng": 90.365
+      }
+    },
+    "contact": {
+      "phone": "01710000017",
+      "email": "mirpur@bbqtonight.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 189,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T05:34:13.958Z",
+    "updatedAt": "2025-10-13T05:34:13.958Z"
+  },
+  {
+    "_id": "68ec8f7c49b6038c242a4fb2",
+    "slug": "china-town-mirpur",
+    "name": "China Town",
+    "bio": "China Town in Mirpur offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Mirpur.",
+    "logo": "https://i.ibb.co.com/8ZCLZGJ/19.png",
+    "banner": "https://i.ibb.co.com/FL1HFz52/18.png",
+    "cuisines": ["Chinese", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 14, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8235,
+        "lng": 90.3665
+      }
+    },
+    "contact": {
+      "phone": "01710000018",
+      "email": "mirpur@chinatown.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 165,
+    "rating": 4.1,
+    "createdAt": "2025-10-13T05:34:52.141Z",
+    "updatedAt": "2025-10-13T05:34:52.141Z"
+  },
+  {
+    "_id": "68ec8fb249b6038c242a4fb4",
+    "slug": "coffee-house-mirpur",
+    "name": "The Coffee House",
+    "bio": "The Coffee House in Mirpur is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Mirpur.",
+    "logo": "https://i.ibb.co.com/TMP9MKyd/19.png",
+    "banner": "https://i.ibb.co.com/CpPDfPnc/19.png",
+    "cuisines": ["Cafe", "Desserts"],
+    "currency": "BDT",
+    "deliveryFee": 20,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 10, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.822,
+        "lng": 90.364
+      }
+    },
+    "contact": {
+      "phone": "01710000019",
+      "email": "mirpur@coffeehouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "09:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "09:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "08:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 87,
+    "rating": 4.3,
+    "createdAt": "2025-10-13T05:35:46.165Z",
+    "updatedAt": "2025-10-13T05:35:46.165Z"
+  },
+  {
+    "_id": "68ec8fd749b6038c242a4fb6",
+    "slug": "biryani-house-mirpur",
+    "name": "Biryani House",
+    "bio": "Biryani House in Mirpur specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to the neighborhood. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful.",
+    "logo": "https://i.ibb.co.com/zVTLjDLt/20.png",
+    "banner": "https://i.ibb.co.com/1ffTkDN0/20.png",
+    "cuisines": ["Indian", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 7, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8245,
+        "lng": 90.3655
+      }
+    },
+    "contact": {
+      "phone": "01710000020",
+      "email": "mirpur@biryanihouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 172,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T05:36:23.534Z",
+    "updatedAt": "2025-10-13T05:36:23.534Z"
+  },
+  {
+    "_id": "68ec901049b6038c242a4fb8",
+    "slug": "kacchi-bhai-uttara",
+    "name": "Kacchi Bhai",
+    "bio": "Kacchi Bhai's Uttara location upholds their reputation for serving authentic Bengali biriyani with the same commitment to quality and taste. Using traditional recipes and the finest ingredients, they bring the rich flavors of Bengal to Uttara's discerning diners.",
+    "logo": "https://i.ibb.co.com/C3VJL0vn/21.png",
+    "banner": "https://i.ibb.co.com/chvZtKfN/21.png",
+    "cuisines": ["Bengali", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 3",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8723,
+        "lng": 90.3963
+      }
+    },
+    "contact": {
+      "phone": "01710000021",
+      "email": "uttara@kacchibhai.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 213,
+    "rating": 4.8,
+    "createdAt": "2025-10-13T05:37:20.886Z",
+    "updatedAt": "2025-10-13T05:37:20.886Z"
+  },
+  {
+    "_id": "68ec903e49b6038c242a4fba",
+    "slug": "sultan-dine-uttara",
+    "name": "Sultan's Dine",
+    "bio": "Sultan's Dine in Uttara offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Uttara's residents seeking authentic flavors and impeccable service.",
+    "logo": "https://i.ibb.co.com/TMbG0NWF/22.png",
+    "banner": "https://i.ibb.co.com/S7HH6mV1/22.png",
+    "cuisines": ["Bengali", "Kebab"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 7",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.873,
+        "lng": 90.397
+      }
+    },
+    "contact": {
+      "phone": "01710000022",
+      "email": "uttara@sultans.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:30"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "22:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 187,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T05:38:06.394Z",
+    "updatedAt": "2025-10-13T05:38:06.394Z"
+  },
+  {
+    "_id": "68ec906349b6038c242a4fbc",
+    "slug": "burger-lab-uttara",
+    "name": "Burger Lab",
+    "bio": "Burger Lab's Uttara location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in Uttara.",
+    "logo": "https://i.ibb.co.com/8nNgQZXM/23.png",
+    "banner": "https://i.ibb.co.com/hxGjZ3gk/23.png",
+    "cuisines": ["American", "Fast Food"],
+    "currency": "BDT",
+    "deliveryFee": 25,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 4",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.871,
+        "lng": 90.395
+      }
+    },
+    "contact": {
+      "phone": "01710000023",
+      "email": "uttara@burgerlab.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:30",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 98,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T05:38:43.220Z",
+    "updatedAt": "2025-10-13T05:38:43.220Z"
+  },
+  {
+    "_id": "68ec908949b6038c242a4fbe",
+    "slug": "pizza-roma-uttara",
+    "name": "Pizza Roma",
+    "bio": "Pizza Roma brings the authentic taste of Italy to Uttara with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience in Uttara.",
+    "logo": "https://i.ibb.co.com/GfTqQ1YP/24.png",
+    "banner": "https://i.ibb.co.com/rfH1qkDy/24.png",
+    "cuisines": ["Italian", "Pizza"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 10",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.874,
+        "lng": 90.398
+      }
+    },
+    "contact": {
+      "phone": "01710000024",
+      "email": "uttara@pizzaroma.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 145,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T05:39:21.595Z",
+    "updatedAt": "2025-10-13T05:39:21.595Z"
+  },
+  {
+    "_id": "68ec90aa49b6038c242a4fc0",
+    "slug": "sushi-master-uttara",
+    "name": "Sushi Master",
+    "bio": "Sushi Master in Uttara offers an exceptional Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in Uttara.",
+    "logo": "https://i.ibb.co.com/xtfcfFzS/25.png",
+    "banner": "https://i.ibb.co.com/1J9q07HS/25.png",
+    "cuisines": ["Japanese", "Sushi"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 12",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.872,
+        "lng": 90.394
+      }
+    },
+    "contact": {
+      "phone": "01710000025",
+      "email": "uttara@sushimaster.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 103,
+    "rating": 4.9,
+    "createdAt": "2025-10-13T05:39:54.570Z",
+    "updatedAt": "2025-10-13T05:39:54.570Z"
+  },
+  {
+    "_id": "68ec90ce49b6038c242a4fc2",
+    "slug": "thai-pavilion-uttara",
+    "name": "Thai Pavilion",
+    "bio": "Thai Pavilion in Uttara brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Uttara.",
+    "logo": "https://i.ibb.co.com/MQGdhNC/26.png",
+    "banner": "https://i.ibb.co.com/pvvHYCjK/26.png",
+    "cuisines": ["Thai", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 6",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.875,
+        "lng": 90.399
+      }
+    },
+    "contact": {
+      "phone": "01710000026",
+      "email": "uttara@thaipavilion.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:30",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:30",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:30",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 136,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:40:30.113Z",
+    "updatedAt": "2025-10-13T05:40:30.113Z"
+  },
+  {
+    "_id": "68ec90ef49b6038c242a4fc4",
+    "slug": "bbq-tonight-uttara",
+    "name": "BBQ Tonight",
+    "bio": "BBQ Tonight in Uttara is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers in Uttara.",
+    "logo": "https://i.ibb.co.com/bRRBvT80/27.png",
+    "banner": "https://i.ibb.co.com/CpPDfPnc/27.png",
+    "cuisines": ["BBQ", "Pakistani"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 5",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8715,
+        "lng": 90.3955
+      }
+    },
+    "contact": {
+      "phone": "01710000027",
+      "email": "uttara@bbqtonight.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 201,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T05:41:03.726Z",
+    "updatedAt": "2025-10-13T05:41:03.726Z"
+  },
+  {
+    "_id": "68ec910d49b6038c242a4fc6",
+    "slug": "china-town-uttara",
+    "name": "China Town",
+    "bio": "China Town in Uttara offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Uttara.",
+    "logo": "https://i.ibb.co.com/zVTLjDLt/28.png",
+    "banner": "https://i.ibb.co.com/1ffTkDN0/28.png",
+    "cuisines": ["Chinese", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 11",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8735,
+        "lng": 90.3965
+      }
+    },
+    "contact": {
+      "phone": "01710000028",
+      "email": "uttara@chinatown.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 178,
+    "rating": 4.3,
+    "createdAt": "2025-10-13T05:41:33.679Z",
+    "updatedAt": "2025-10-13T05:41:33.679Z"
+  },
+  {
+    "_id": "68ec913349b6038c242a4fc8",
+    "slug": "coffee-house-uttara",
+    "name": "The Coffee House",
+    "bio": "The Coffee House in Uttara is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Uttara.",
+    "logo": "https://i.ibb.co.com/8ZCLZGJ/29.png",
+    "banner": "https://i.ibb.co.com/TMP9MKyd/29.png",
+    "cuisines": ["Cafe", "Desserts"],
+    "currency": "BDT",
+    "deliveryFee": 20,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 9",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.872,
+        "lng": 90.394
+      }
+    },
+    "contact": {
+      "phone": "01710000029",
+      "email": "uttara@coffeehouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "09:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "09:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "08:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 94,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T05:42:11.996Z",
+    "updatedAt": "2025-10-13T05:42:11.996Z"
+  },
+  {
+    "_id": "68ec915e49b6038c242a4fca",
+    "slug": "biryani-house-uttara",
+    "name": "Biryani House",
+    "bio": "Biryani House in Uttara specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to the neighborhood. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful.",
+    "logo": "https://i.ibb.co.com/GfTqQ1YP/30.png",
+    "banner": "https://i.ibb.co.com/rfH1qkDy/30.png",
+    "cuisines": ["Indian", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 8",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.8745,
+        "lng": 90.3955
+      }
+    },
+    "contact": {
+      "phone": "01710000030",
+      "email": "uttara@biryanihouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 195,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:42:54.686Z",
+    "updatedAt": "2025-10-13T05:42:54.686Z"
+  },
+  {
+    "_id": "68ec919249b6038c242a4fcc",
+    "slug": "ottoman-grill-banani",
+    "name": "The Ottoman Grill",
+    "bio": "The Ottoman Grill brings the rich flavors of Turkish and Mediterranean cuisine to Banani. Their menu features authentic kebabs, mezes, and grilled specialties prepared with traditional techniques and imported spices. The elegant ambiance and attentive service create a dining experience that transports guests to the shores of the Mediterranean.",
+    "logo": "https://i.ibb.co.com/xtfcfFzS/31.png",
+    "banner": "https://i.ibb.co.com/1J9q07HS/31.png",
+    "cuisines": ["Turkish", "Mediterranean"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 12, Road 5, Block C, Banani",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7949,
+        "lng": 90.4042
+      }
+    },
+    "contact": {
+      "phone": "01990000123",
+      "email": "info@ottomangrill.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:30",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:30",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:30",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:30",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "11:30",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "11:30",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "11:30",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 156,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T05:43:46.618Z",
+    "updatedAt": "2025-10-13T05:43:46.618Z"
+  },
+  {
+    "_id": "68ec91bb49b6038c242a4fce",
+    "slug": "kacchi-bhai-banani",
+    "name": "Kacchi Bhai",
+    "bio": "Kacchi Bhai's Banani location upholds their reputation for serving authentic Bengali biriyani with the same commitment to quality and taste. Using traditional recipes and the finest ingredients, they bring the rich flavors of Bengal to Banani's discerning diners.",
+    "logo": "https://i.ibb.co.com/MQGdhNC/32.png",
+    "banner": "https://i.ibb.co.com/pvvHYCjK/32.png",
+    "cuisines": ["Bengali", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 11",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.795,
+        "lng": 90.405
+      }
+    },
+    "contact": {
+      "phone": "01710000032",
+      "email": "banani@kacchibhai.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 189,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T05:44:27.622Z",
+    "updatedAt": "2025-10-13T05:44:27.622Z"
+  },
+  {
+    "_id": "68ec920849b6038c242a4fd0",
+    "slug": "sultan-dine-banani",
+    "name": "Sultan's Dine",
+    "bio": "Sultan's Dine in Banani offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Banani's residents seeking authentic flavors and impeccable service.",
+    "logo": "https://i.ibb.co.com/bRRBvT80/33.png",
+    "banner": "https://i.ibb.co.com/CpPDfPnc/33.png",
+    "cuisines": ["Bengali", "Kebab"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 7",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.794,
+        "lng": 90.403
+      }
+    },
+    "contact": {
+      "phone": "01710000033",
+      "email": "banani@sultans.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:30"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "22:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 201,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:45:44.698Z",
+    "updatedAt": "2025-10-13T05:45:44.698Z"
+  },
+  {
+    "_id": "68ec923649b6038c242a4fd2",
+    "slug": "burger-lab-banani",
+    "name": "Burger Lab",
+    "bio": "Burger Lab's Banani location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in Banani.",
+    "logo": "https://i.ibb.co.com/zVTLjDLt/34.png",
+    "banner": "https://i.ibb.co.com/1ffTkDN0/34.png",
+    "cuisines": ["American", "Fast Food"],
+    "currency": "BDT",
+    "deliveryFee": 25,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 4",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.796,
+        "lng": 90.406
+      }
+    },
+    "contact": {
+      "phone": "01710000034",
+      "email": "banani@burgerlab.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:30",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 112,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T05:46:30.732Z",
+    "updatedAt": "2025-10-13T05:46:30.732Z"
+  },
+  {
+    "_id": "68ec927249b6038c242a4fd4",
+    "slug": "pizza-roma-banani",
+    "name": "Pizza Roma",
+    "bio": "Pizza Roma brings the authentic taste of Italy to Banani with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience in Banani.",
+    "logo": "https://i.ibb.co.com/C3VJL0vn/35.png",
+    "banner": "https://i.ibb.co.com/chvZtKfN/35.png",
+    "cuisines": ["Italian", "Pizza"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 9",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.793,
+        "lng": 90.402
+      }
+    },
+    "contact": {
+      "phone": "01710000035",
+      "email": "banani@pizzaroma.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 167,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:47:30.093Z",
+    "updatedAt": "2025-10-13T05:47:30.093Z"
+  },
+  {
+    "_id": "68ec92c249b6038c242a4fd6",
+    "slug": "sushi-master-banani",
+    "name": "Sushi Master",
+    "bio": "Sushi Master in Banani offers an exceptional Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in Banani.",
+    "logo": "https://i.ibb.co.com/TMbG0NWF/36.png",
+    "banner": "https://i.ibb.co.com/S7HH6mV1/36.png",
+    "cuisines": ["Japanese", "Sushi"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 13",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7955,
+        "lng": 90.4045
+      }
+    },
+    "contact": {
+      "phone": "01710000036",
+      "email": "banani@sushimaster.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 121,
+    "rating": 4.8,
+    "createdAt": "2025-10-13T05:48:50.608Z",
+    "updatedAt": "2025-10-13T05:48:50.608Z"
+  },
+  {
+    "_id": "68ec92e849b6038c242a4fd8",
+    "slug": "thai-pavilion-banani",
+    "name": "Thai Pavilion",
+    "bio": "Thai Pavilion in Banani brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Banani.",
+    "logo": "https://i.ibb.co.com/8nNgQZXM/37.png",
+    "banner": "https://i.ibb.co.com/hxGjZ3gk/37.png",
+    "cuisines": ["Thai", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 6",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7945,
+        "lng": 90.4035
+      }
+    },
+    "contact": {
+      "phone": "01710000037",
+      "email": "banani@thaipavilion.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:30",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:30",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:30",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 149,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T05:49:28.815Z",
+    "updatedAt": "2025-10-13T05:49:28.815Z"
+  },
+  {
+    "_id": "68ec937449b6038c242a4fde",
+    "slug": "bbq-tonight-banani",
+    "name": "BBQ Tonight",
+    "bio": "BBQ Tonight in Banani is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers in Banani.",
+    "logo": "https://i.ibb.co.com/GfTqQ1YP/38.png",
+    "banner": "https://i.ibb.co.com/rfH1qkDy/38.png",
+    "cuisines": ["BBQ", "Pakistani"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 8",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7965,
+        "lng": 90.4055
+      }
+    },
+    "contact": {
+      "phone": "01710000038",
+      "email": "banani@bbqtonight.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 214,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:51:48.046Z",
+    "updatedAt": "2025-10-13T05:51:48.046Z"
+  },
+  {
+    "_id": "68ec93a549b6038c242a4fe1",
+    "slug": "china-town-banani",
+    "name": "China Town",
+    "bio": "China Town in Banani offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Banani.",
+    "logo": "https://i.ibb.co.com/xtfcfFzS/39.png",
+    "banner": "https://i.ibb.co.com/1J9q07HS/39.png",
+    "cuisines": ["Chinese", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 10",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7935,
+        "lng": 90.4025
+      }
+    },
+    "contact": {
+      "phone": "01710000039",
+      "email": "banani@chinatown.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 187,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T05:52:37.530Z",
+    "updatedAt": "2025-10-13T05:52:37.530Z"
+  },
+  {
+    "_id": "68ec93c549b6038c242a4fe3",
+    "slug": "coffee-house-banani",
+    "name": "The Coffee House",
+    "bio": "The Coffee House in Banani is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Banani.",
+    "logo": "https://i.ibb.co.com/MQGdhNC/40.png",
+    "banner": "https://i.ibb.co.com/pvvHYCjK/40.png",
+    "cuisines": ["Cafe", "Desserts"],
+    "currency": "BDT",
+    "deliveryFee": 20,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 12",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.795,
+        "lng": 90.404
+      }
+    },
+    "contact": {
+      "phone": "01710000040",
+      "email": "banani@coffeehouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "09:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "09:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "08:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 103,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T05:53:09.843Z",
+    "updatedAt": "2025-10-13T05:53:09.843Z"
+  },
+  {
+    "_id": "68ec99b249b6038c242a4fe5",
+    "slug": "kacchi-bhai-gulshan",
+    "name": "Kacchi Bhai",
+    "bio": "Kacchi Bhai's Gulshan location upholds their reputation for serving authentic Bengali biriyani with the same commitment to quality and taste. Using traditional recipes and the finest ingredients, they bring the rich flavors of Bengal to Gulshan's discerning diners.",
+    "logo": "https://i.ibb.co.com/bRRBvT80/41.png",
+    "banner": "https://i.ibb.co.com/CpPDfPnc/41.png",
+    "cuisines": ["Bengali", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 1",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7935,
+        "lng": 90.4143
+      }
+    },
+    "contact": {
+      "phone": "01710000041",
+      "email": "gulshan@kacchibhai.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 245,
+    "rating": 4.8,
+    "createdAt": "2025-10-13T06:18:26.022Z",
+    "updatedAt": "2025-10-13T06:18:26.022Z"
+  },
+  {
+    "_id": "68ec99e049b6038c242a4fe7",
+    "slug": "sultan-dine-gulshan",
+    "name": "Sultan's Dine",
+    "bio": "Sultan's Dine in Gulshan offers a royal dining experience with their exquisite Bengali cuisine and succulent kebabs. Their commitment to quality ingredients and traditional cooking techniques has made them a favorite among Gulshan's residents seeking authentic flavors and impeccable service.",
+    "logo": "https://i.ibb.co.com/zVTLjDLt/42.png",
+    "banner": "https://i.ibb.co.com/1ffTkDN0/42.png",
+    "cuisines": ["Bengali", "Kebab"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 2",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.794,
+        "lng": 90.415
+      }
+    },
+    "contact": {
+      "phone": "01710000042",
+      "email": "gulshan@sultans.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:30"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:30"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "22:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 223,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T06:19:12.987Z",
+    "updatedAt": "2025-10-13T06:19:12.987Z"
+  },
+  {
+    "_id": "68ec9a1649b6038c242a4fe9",
+    "slug": "burger-lab-gulshan",
+    "name": "Burger Lab",
+    "bio": "Burger Lab's Gulshan location continues their tradition of culinary innovation with unique burger creations that combine American comfort food with local flavors. Their commitment to using fresh, locally sourced ingredients has made them a popular spot for students and families in Gulshan.",
+    "logo": "https://i.ibb.co.com/C3VJL0vn/43.png",
+    "banner": "https://i.ibb.co.com/chvZtKfN/43.png",
+    "cuisines": ["American", "Fast Food"],
+    "currency": "BDT",
+    "deliveryFee": 25,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 1",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.793,
+        "lng": 90.413
+      }
+    },
+    "contact": {
+      "phone": "01710000043",
+      "email": "gulshan@burgerlab.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:30",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:30",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 134,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T06:20:06.330Z",
+    "updatedAt": "2025-10-13T06:20:06.330Z"
+  },
+  {
+    "_id": "68ec9a3b49b6038c242a4feb",
+    "slug": "pizza-roma-gulshan",
+    "name": "Pizza Roma",
+    "bio": "Pizza Roma brings the authentic taste of Italy to Gulshan with their wood-fired pizzas and classic Italian dishes. Their commitment to traditional cooking methods and quality ingredients has made them a favorite among locals seeking a genuine Italian dining experience in Gulshan.",
+    "logo": "https://i.ibb.co.com/TMbG0NWF/44.png",
+    "banner": "https://i.ibb.co.com/S7HH6mV1/44.png",
+    "cuisines": ["Italian", "Pizza"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 2",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7945,
+        "lng": 90.4145
+      }
+    },
+    "contact": {
+      "phone": "01710000044",
+      "email": "gulshan@pizzaroma.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 189,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T06:20:43.977Z",
+    "updatedAt": "2025-10-13T06:20:43.977Z"
+  },
+  {
+    "_id": "68ec9aaa49b6038c242a4fed",
+    "slug": "sushi-master-gulshan",
+    "name": "Sushi Master",
+    "bio": "Sushi Master in Gulshan offers an exceptional Japanese dining experience with their expertly crafted sushi and traditional dishes. Their skilled chefs use the freshest ingredients to create culinary masterpieces that transport diners to Japan, making it a standout destination for sushi lovers in Gulshan.",
+    "logo": "https://i.ibb.co.com/8nNgQZXM/45.png",
+    "banner": "https://i.ibb.co.com/hxGjZ3gk/45.png",
+    "cuisines": ["Japanese", "Sushi"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 1",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7925,
+        "lng": 90.4125
+      }
+    },
+    "contact": {
+      "phone": "01710000045",
+      "email": "gulshan@sushimaster.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 156,
+    "rating": 4.9,
+    "createdAt": "2025-10-13T06:22:34.411Z",
+    "updatedAt": "2025-10-13T06:22:34.411Z"
+  },
+  {
+    "_id": "68ec9ac649b6038c242a4fef",
+    "slug": "thai-pavilion-gulshan",
+    "name": "Thai Pavilion",
+    "bio": "Thai Pavilion in Gulshan brings the vibrant flavors of Thailand to the neighborhood with their authentic cuisine. Their menu features a perfect balance of sweet, sour, salty, and spicy flavors, prepared using traditional techniques and imported Thai spices, offering a true taste of Thailand in Gulshan.",
+    "logo": "https://i.ibb.co.com/GfTqQ1YP/46.png",
+    "banner": "https://i.ibb.co.com/rfH1qkDy/46.png",
+    "cuisines": ["Thai", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 2",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.795,
+        "lng": 90.415
+      }
+    },
+    "contact": {
+      "phone": "01710000046",
+      "email": "gulshan@thaipavilion.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:30",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:30",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:30",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:30",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 178,
+    "rating": 4.8,
+    "createdAt": "2025-10-13T06:23:02.608Z",
+    "updatedAt": "2025-10-13T06:23:02.608Z"
+  },
+  {
+    "_id": "68ec9b1049b6038c242a4ff1",
+    "slug": "bbq-tonight-gulshan",
+    "name": "BBQ Tonight",
+    "bio": "BBQ Tonight in Gulshan is renowned for its succulent grilled meats and authentic Pakistani flavors. Their master chefs use traditional marinades and grilling techniques to create tender, flavorful dishes that have earned them a loyal following in the area, making it a go-to destination for BBQ lovers in Gulshan.",
+    "logo": "https://i.ibb.co.com/xtfcfFzS/47.png",
+    "banner": "https://i.ibb.co.com/1J9q07HS/47.png",
+    "cuisines": ["BBQ", "Pakistani"],
+    "currency": "BDT",
+    "deliveryFee": 40,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 1",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.793,
+        "lng": 90.414
+      }
+    },
+    "contact": {
+      "phone": "01710000047",
+      "email": "gulshan@bbqtonight.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "13:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "13:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "12:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 234,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T06:24:16.558Z",
+    "updatedAt": "2025-10-13T06:24:16.558Z"
+  },
+  {
+    "_id": "68ec9b5149b6038c242a4ff3",
+    "slug": "china-town-gulshan",
+    "name": "China Town",
+    "bio": "China Town in Gulshan offers an extensive menu of authentic Chinese dishes, bringing the diverse flavors of regional Chinese cuisine to the neighborhood. Their chefs use traditional cooking techniques and imported ingredients to create dishes that provide a genuine taste of China in Gulshan.",
+    "logo": "https://i.ibb.co.com/bRRBvT80/48.png",
+    "banner": "https://i.ibb.co.com/CpPDfPnc/48.png",
+    "cuisines": ["Chinese", "Asian"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 2",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.794,
+        "lng": 90.413
+      }
+    },
+    "contact": {
+      "phone": "01710000048",
+      "email": "gulshan@chinatown.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "22:30"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:30"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:30"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "23:30"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 201,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T06:25:21.212Z",
+    "updatedAt": "2025-10-13T06:25:21.212Z"
+  },
+  {
+    "_id": "68ec9b6949b6038c242a4ff5",
+    "slug": "coffee-house-gulshan",
+    "name": "The Coffee House",
+    "bio": "The Coffee House in Gulshan is a cozy retreat for coffee enthusiasts and dessert lovers. Their expert baristas craft the perfect cup using premium beans, while their pastry chefs create delectable treats that pair beautifully with their beverages, making it a popular spot for relaxation and socializing in Gulshan.",
+    "logo": "https://i.ibb.co.com/zVTLjDLt/49.png",
+    "banner": "https://i.ibb.co.com/1ffTkDN0/49.png",
+    "cuisines": ["Cafe", "Desserts"],
+    "currency": "BDT",
+    "deliveryFee": 20,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 1",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7935,
+        "lng": 90.4145
+      }
+    },
+    "contact": {
+      "phone": "01710000049",
+      "email": "gulshan@coffeehouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "08:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "09:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "09:00",
+        "close": "00:00"
+      },
+      "sun": {
+        "open": "08:00",
+        "close": "00:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "rejected",
+    "reviewsCount": 124,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T06:25:45.202Z",
+    "updatedAt": "2025-10-15T09:28:51.382Z"
+  },
+  {
+    "_id": "68ec9b8349b6038c242a4ff7",
+    "slug": "biryani-house-gulshan",
+    "name": "Biryani House",
+    "bio": "Biryani House in Gulshan specializes in the art of making perfect biryani, bringing the royal flavors of Indian cuisine to the neighborhood. Their chefs masterfully blend aromatic basmati rice with premium meats and traditional spices, creating dishes that are both visually stunning and incredibly flavorful.",
+    "logo": "https://i.ibb.co.com/C3VJL0vn/50.png",
+    "banner": "https://i.ibb.co.com/chvZtKfN/50.png",
+    "cuisines": ["Indian", "Biriyani"],
+    "currency": "BDT",
+    "deliveryFee": 35,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 2",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.7945,
+        "lng": 90.4135
+      }
+    },
+    "contact": {
+      "phone": "01710000050",
+      "email": "gulshan@biryanihouse.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "rejected",
+    "reviewsCount": 218,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T06:26:11.031Z",
+    "updatedAt": "2025-10-15T08:32:20.308Z"
+  },
+  {
+    "_id": "68ec9bbc49b6038c242a4ff9",
+    "slug": "free-delivery-dhanmondi",
+    "name": "Free Delivery Express",
+    "bio": "Free Delivery Express in Dhanmondi offers delicious fast food and burgers with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
+    "logo": "https://i.ibb.co.com/8nNgQZXM/51.png",
+    "banner": "https://i.ibb.co.com/hxGjZ3gk/51.png",
+    "cuisines": ["Fast Food", "Burgers"],
+    "currency": "BDT",
+    "deliveryFee": 30,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "House 6, Road 2, Dhanmondi",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.747,
+        "lng": 90.377
+      }
+    },
+    "contact": {
+      "phone": "01710000051",
+      "email": "contact@freedeliveryexpress.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 78,
+    "rating": 4.3,
+    "createdAt": "2025-10-13T06:27:08.812Z",
+    "updatedAt": "2025-10-13T06:27:08.812Z"
+  },
+  {
+    "_id": "68ec9c1649b6038c242a4ffb",
+    "slug": "zero-fee-dhanmondi",
+    "name": "Zero Fee Kitchen",
+    "bio": "Zero Fee Kitchen in Dhanmondi offers a delightful fusion of Chinese and Thai cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
+    "logo": "https://i.ibb.co.com/GfTqQ1YP/52.png",
+    "banner": "https://i.ibb.co.com/rfH1qkDy/52.png",
+    "cuisines": ["Chinese", "Thai"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Shop 8, Dhanmondi 15",
+      "area": "Dhanmondi",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.746,
+        "lng": 90.376
+      }
+    },
+    "contact": {
+      "phone": "01710000052",
+      "email": "info@zerofeekitchen.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 92,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T06:28:38.687Z",
+    "updatedAt": "2025-10-13T06:28:38.687Z"
+  },
+  {
+    "_id": "68ec9cae49b6038c242a4ffe",
+    "slug": "free-delivery-mirpur",
+    "name": "Free Delivery Express",
+    "bio": "Free Delivery Express in Mirpur offers delicious fast food and pizza with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
+    "logo": "https://i.ibb.co.com/xtfcfFzS/53.png",
+    "banner": "https://i.ibb.co.com/1J9q07HS/53.png",
+    "cuisines": ["Fast Food", "Pizza"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 10, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.822,
+        "lng": 90.364
+      }
+    },
+    "contact": {
+      "phone": "01710000053",
+      "email": "contact@freedeliveryexpress.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 65,
+    "rating": 4.2,
+    "createdAt": "2025-10-13T06:31:10.552Z",
+    "updatedAt": "2025-10-13T06:31:10.552Z"
+  },
+  {
+    "_id": "68ec9cc649b6038c242a5000",
+    "slug": "zero-fee-mirpur",
+    "name": "Zero Fee Kitchen",
+    "bio": "Zero Fee Kitchen in Mirpur offers a delightful fusion of Indian and Bengali cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
+    "logo": "https://i.ibb.co.com/bRRBvT80/54.png",
+    "banner": "https://i.ibb.co.com/CpPDfPnc/54.png",
+    "cuisines": ["Indian", "Bengali"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Mirpur 6, Dhaka",
+      "area": "Mirpur",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.823,
+        "lng": 90.365
+      }
+    },
+    "contact": {
+      "phone": "01710000054",
+      "email": "info@zerofeekitchen.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "rejected",
+    "reviewsCount": 87,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T06:31:34.919Z",
+    "updatedAt": "2025-10-15T10:23:44.193Z"
+  },
+  {
+    "_id": "68ec9ce449b6038c242a5002",
+    "slug": "free-delivery-uttara",
+    "name": "Free Delivery Express",
+    "bio": "Free Delivery Express in Uttara offers delicious fast food and sandwiches with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
+    "logo": "https://i.ibb.co.com/C3VJL0vn/55.png",
+    "banner": "https://i.ibb.co.com/chvZtKfN/55.png",
+    "cuisines": ["Fast Food", "Sandwiches"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 4",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.871,
+        "lng": 90.395
+      }
+    },
+    "contact": {
+      "phone": "01710000055",
+      "email": "contact@freedeliveryexpress.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 82,
+    "rating": 4.4,
+    "createdAt": "2025-10-13T06:32:04.860Z",
+    "updatedAt": "2025-10-13T06:32:04.860Z"
+  },
+  {
+    "_id": "68ec9d0249b6038c242a5004",
+    "slug": "zero-fee-uttara",
+    "name": "Zero Fee Kitchen",
+    "bio": "Zero Fee Kitchen in Uttara offers a delightful fusion of Italian and Continental cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
+    "logo": "https://i.ibb.co.com/TMbG0NWF/56.png",
+    "banner": "https://i.ibb.co.com/S7HH6mV1/56.png",
+    "cuisines": ["Italian", "Continental"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Uttara Sector 7",
+      "area": "Uttara",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.873,
+        "lng": 90.397
+      }
+    },
+    "contact": {
+      "phone": "01710000056",
+      "email": "info@zerofeekitchen.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "rejected",
+    "reviewsCount": 95,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T06:32:34.835Z",
+    "updatedAt": "2025-10-15T10:03:14.018Z"
+  },
+  {
+    "_id": "68ec9d4449b6038c242a5006",
+    "slug": "free-delivery-banani",
+    "name": "Free Delivery Express",
+    "bio": "Free Delivery Express in Banani offers delicious fast food and wraps with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
+    "logo": "https://i.ibb.co.com/8nNgQZXM/57.png",
+    "banner": "https://i.ibb.co.com/hxGjZ3gk/57.png",
+    "cuisines": ["Fast Food", "Wraps"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 3",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.795,
+        "lng": 90.405
+      }
+    },
+    "contact": {
+      "phone": "01710000057",
+      "email": "contact@freedeliveryexpress.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "pending",
+    "reviewsCount": 88,
+    "rating": 4.5,
+    "createdAt": "2025-10-13T06:33:40.714Z",
+    "updatedAt": "2025-10-13T06:33:40.714Z"
+  },
+  {
+    "_id": "68ec9da249b6038c242a5008",
+    "slug": "zero-fee-banani",
+    "name": "Zero Fee Kitchen",
+    "bio": "Zero Fee Kitchen in Banani offers a delightful fusion of Mediterranean and Middle Eastern cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
+    "logo": "https://i.ibb.co.com/GfTqQ1YP/58.png",
+    "banner": "https://i.ibb.co.com/rfH1qkDy/58.png",
+    "cuisines": ["Mediterranean", "Middle Eastern"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Banani Road 8",
+      "area": "Banani",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.794,
+        "lng": 90.404
+      }
+    },
+    "contact": {
+      "phone": "01710000058",
+      "email": "info@zerofeekitchen.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "rejected",
+    "reviewsCount": 103,
+    "rating": 4.7,
+    "createdAt": "2025-10-13T06:35:14.733Z",
+    "updatedAt": "2025-10-15T09:56:30.748Z"
+  },
+  {
+    "_id": "68ec9dc649b6038c242a500a",
+    "slug": "free-delivery-gulshan",
+    "name": "Free Delivery Express",
+    "bio": "Free Delivery Express in Gulshan offers delicious fast food and salads with the added convenience of free delivery. Their menu features a variety of quick, satisfying meals perfect for busy days, all delivered right to your doorstep without any delivery charges.",
+    "logo": "https://i.ibb.co.com/xtfcfFzS/59.png",
+    "banner": "https://i.ibb.co.com/1J9q07HS/59.png",
+    "cuisines": ["Fast Food", "Salads"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 1",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.793,
+        "lng": 90.413
+      }
+    },
+    "contact": {
+      "phone": "01710000059",
+      "email": "contact@freedeliveryexpress.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "tue": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "wed": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "thu": {
+        "open": "10:00",
+        "close": "22:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sun": {
+        "open": "10:00",
+        "close": "23:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "approved",
+    "reviewsCount": 94,
+    "rating": 4.6,
+    "createdAt": "2025-10-13T06:35:50.225Z",
+    "updatedAt": "2025-10-15T09:56:26.763Z"
+  },
+  {
+    "_id": "68ec9dec49b6038c242a500c",
+    "slug": "zero-fee-gulshan",
+    "name": "Zero Fee Kitchen",
+    "bio": "Zero Fee Kitchen in Gulshan offers a delightful fusion of Mexican and Tex-Mex cuisine with the added benefit of free delivery. Their chefs create flavorful dishes using authentic ingredients and traditional cooking techniques, ensuring a delicious dining experience without any delivery fees.",
+    "logo": "https://i.ibb.co.com/bRRBvT80/60.png",
+    "banner": "https://i.ibb.co.com/CpPDfPnc/60.png",
+    "cuisines": ["Mexican", "Tex-Mex"],
+    "currency": "BDT",
+    "deliveryFee": 0,
+    "estimatedDeliveryTime": "30 min",
+    "location": {
+      "address": "Gulshan 2",
+      "area": "Gulshan",
+      "city": "Dhaka",
+      "country": "Bangladesh",
+      "coordinates": {
+        "lat": 23.794,
+        "lng": 90.414
+      }
+    },
+    "contact": {
+      "phone": "01710000060",
+      "email": "info@zerofeekitchen.bd"
+    },
+    "openingHours": {
+      "mon": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "tue": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "wed": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "thu": {
+        "open": "11:00",
+        "close": "23:00"
+      },
+      "fri": {
+        "open": "12:00",
+        "close": "23:00"
+      },
+      "sat": {
+        "open": "12:00",
+        "close": "22:00"
+      },
+      "sun": {
+        "open": "11:00",
+        "close": "22:00"
+      }
+    },
+    "ownerId": "60c72b2f9f1b2c001f3e4d5f",
+    "isActive": true,
+    "status": "rejected",
+    "reviewsCount": 112,
+    "rating": 4.8,
+    "createdAt": "2025-10-13T06:36:28.499Z",
+    "updatedAt": "2025-10-15T10:23:40.416Z"
+  }
+]

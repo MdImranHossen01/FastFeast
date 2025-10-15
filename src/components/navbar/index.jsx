@@ -59,7 +59,7 @@ const Navbar = () => {
           {/* Hamburger Menu Icon */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110"
+            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110 cursor-pointer"
           >
             <FiMenu size={24} />
           </button>
