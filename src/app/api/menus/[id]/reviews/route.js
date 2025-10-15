@@ -1,4 +1,3 @@
-// src/app/api/menu/[id]/reviews/route.js
 import { NextResponse } from 'next/server';
 import { getCollection, serializeDocument, ObjectId } from '@/lib/dbConnect';
 
@@ -10,6 +9,14 @@ export async function GET(req, { params }) {
     if (!menuId) {
       return NextResponse.json(
         { success: false, message: 'Menu ID is required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate if menuId is a valid ObjectId
+    if (!ObjectId.isValid(menuId)) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid menu ID format' },
         { status: 400 }
       );
     }
@@ -55,7 +62,11 @@ export async function GET(req, { params }) {
   } catch (error) {
     console.error('Error fetching menu item reviews:', error);
     return NextResponse.json(
-      { success: false, message: 'Failed to fetch reviews', error: error.message },
+      { 
+        success: false, 
+        message: 'Failed to fetch reviews', 
+        error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+      },
       { status: 500 }
     );
   }

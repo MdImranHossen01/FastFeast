@@ -2,48 +2,46 @@ import { NextResponse } from "next/server";
 import connectMongooseDb from "@/lib/mongoose";
 import Menu from "@/models/menu.model";
 
-// CREATE a new Menu
+// CREATE a new Menu Item (Food Item)
 export async function POST(req) {
   try {
     // Parse the request body
-    const menuData = await req.json();
+    const menuItemData = await req.json();
 
-    // Destructure required fields
+    // Destructure required fields for FOOD ITEMS (not restaurants)
     const {
-      slug,
-      name,
-      bio,
-      logo,
-      banner,
-      cuisines,
-      currency,
-      deliveryFee,
-      estimatedDeliveryTime,
-      location,
-      contact,
-      openingHours,
-      ownerId,
-      isActive,
-      status,
+      title,
+      imageUrl,
+      description,
+      price,
+      cuisine,
+      category,
+      ingredients,
+      dietaryTags,
+      restaurantId,
       reviewsCount,
       rating,
-    } = menuData;
+      availability,
+      isCombo,
+      isSpecialOffer,
+      discountRate,
+      offerPrice
+    } = menuItemData;
 
-    // Basic validation
+    // Basic validation for FOOD ITEMS
     if (
-      !slug ||
-      !name ||
-      !bio ||
-      !logo ||
-      !banner ||
-      !cuisines ||
-      !location ||
-      !contact ||
-      !openingHours ||
-      !ownerId
+      !title ||
+      !imageUrl ||
+      !description ||
+      !price ||
+      !cuisine ||
+      !category ||
+      !ingredients ||
+      !dietaryTags ||
+      !restaurantId
     ) {
       return NextResponse.json(
-        { success: false, message: "Missing required fields" },
+        { success: false, message: "Missing required fields for menu item" },
         { status: 400 }
       );
     }
@@ -51,35 +49,34 @@ export async function POST(req) {
     // Connect to MongoDB
     await connectMongooseDb();
 
-    // Create new menu
-    const newMenu = await Menu.create({
-      slug,
-      name,
-      bio,
-      logo,
-      banner,
-      cuisines,
-      currency,
-      deliveryFee,
-      estimatedDeliveryTime,
-      location,
-      contact,
-      openingHours,
-      ownerId,
-      isActive,
-      status,
+    // Create new menu ITEM (food item)
+    const newMenuItem = await Menu.create({
+      title,
+      imageUrl,
+      description,
+      price,
+      cuisine,
+      category,
+      ingredients,
+      dietaryTags,
+      restaurantId,
       reviewsCount,
       rating,
+      availability,
+      isCombo,
+      isSpecialOffer,
+      discountRate,
+      offerPrice
     });
 
-    // Return the created menu
+    // Return the created menu ITEM
     return NextResponse.json(
-      { success: true, menu: newMenu.toObject() },
+      { success: true, menuItem: newMenuItem },
       { status: 201 }
     );
   } catch (error) {
     // Log the error for debugging
-    console.error("Error creating menu:", error);
+    console.error("Error creating menu item:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
@@ -87,20 +84,29 @@ export async function POST(req) {
   }
 }
 
-// GET all menus
+// GET all menu items (Food Items)
 export async function GET() {
   try {
     // Ensure DB connection
     await connectMongooseDb();
 
-    // Fetch all menus
-    const menus = await Menu.find();
+    // Debug: Log what we're about to fetch
+    console.log('🔍 Fetching ALL menu items from Menu collection...');
 
-    // Return the list of menus
-    return NextResponse.json(menus, { status: 200 });
+    // Fetch all menu ITEMS (food items)
+    const menuItems = await Menu.find();
+
+    // Debug: Log the results
+    console.log(`📊 Found ${menuItems.length} menu items`);
+    menuItems.forEach((item, index) => {
+      console.log(`Item ${index}: ID=${item._id}, Title=${item.title}`);
+    });
+
+    // Return the list of menu ITEMS
+    return NextResponse.json(menuItems, { status: 200 });
   } catch (error) {
     // Log the error for debugging
-    console.error("Error fetching menus:", error);
+    console.error("Error fetching menu items:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
