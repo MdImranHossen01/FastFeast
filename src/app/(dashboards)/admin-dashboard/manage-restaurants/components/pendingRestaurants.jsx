@@ -9,7 +9,7 @@ import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById
 export default function PendingRestaurants({
   restaurants,
   setRestaurants,
-  handleDelete,
+
   handleModal,
 }) {
   // approve and reject button
@@ -23,7 +23,6 @@ export default function PendingRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
-
       if (!res.success) throw new Error("Failed to update");
       // update state
       setRestaurants((prev) =>
@@ -52,7 +51,7 @@ export default function PendingRestaurants({
                 <th className="px-4">#</th>
                 <th className="px-4">RESTAURANT LOGO</th>
                 <th className="px-4">RESTAURANT NAME</th>
-                <th className="px-4">OWNER EMAIL</th>
+
                 <th className="px-4">STATUS</th>
                 <th className="px-4">Active</th>
                 <th className="px-4 text-center w-[150px]">ACTIONS</th>
@@ -93,13 +92,6 @@ export default function PendingRestaurants({
 
                   <td className="px-4 font-medium hidden md:table-cell">
                     {restaurant.name}
-                  </td>
-
-                  <td className="px-4 block md:table-cell py-1">
-                    <span className="md:hidden font-semibold">
-                      Owner Email:{" "}
-                    </span>
-                    {restaurant.ownerEmail}
                   </td>
 
                   <td className="px-4 block md:table-cell py-1">
@@ -157,14 +149,6 @@ export default function PendingRestaurants({
                       >
                         <button className="btn btn-xs md:btn-sm rounded-full bg-red-50 dark:bg-red-900/30 border border-red-500 dark:border-none text-red-500 hover:bg-red-400 hover:text-white flex items-center gap-1 shadow-none">
                           <AiOutlineClose size={16} /> Reject
-                        </button>
-                        <button
-                          onClick={() =>
-                            handleDelete(restaurant._id.toString())
-                          }
-                          className="btn btn-xs md:btn-sm rounded-full flex items-center gap-1 bg-gray-100 dark:bg-gray-800 border border-gray-500 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-500 shadow-none hover:text-white"
-                        >
-                          <MdDeleteOutline size={16} /> Delete
                         </button>
                       </div>
                     </div>
