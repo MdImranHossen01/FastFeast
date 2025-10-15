@@ -4,6 +4,7 @@ import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
 import ViewDetails from "./viewPending";
+import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 
 export default function PendingRestaurants({
   restaurants,
@@ -21,14 +22,8 @@ export default function PendingRestaurants({
         body = { status: "rejected" };
       }
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?id=${id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
+      const res = await updateRestaurantById(id, body);
+
       if (!res.ok) throw new Error("Failed to update");
       // update state
       setRestaurants((prev) =>
