@@ -11,7 +11,9 @@ const MenuItemDetailsPage = () => {
   const router = useRouter();
   const { addToCart } = useCart();
   const [menuItem, setMenuItem] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
@@ -41,6 +43,32 @@ const MenuItemDetailsPage = () => {
     fetchMenuItem();
   }, [params.id]);
 
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (!params.id) return;
+
+      try {
+        setReviewsLoading(true);
+        const response = await fetch(`/api/menu/${params.id}/reviews`);
+        const data = await response.json();
+
+        if (data.success) {
+          setReviews(data.reviews);
+        } else {
+          console.error('Failed to fetch reviews:', data.message);
+        }
+      } catch (err) {
+        console.error('Error fetching reviews:', err);
+      } finally {
+        setReviewsLoading(false);
+      }
+    };
+
+    if (params.id) {
+      fetchReviews();
+    }
+  }, [params.id]);
+
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -59,6 +87,11 @@ const MenuItemDetailsPage = () => {
 
   const increaseQuantity = () => setQuantity(prev => prev + 1);
   const decreaseQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
+
+  // Calculate average rating from reviews
+  const averageRating = reviews.length > 0 
+    ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
+    : null;
 
   if (loading) {
     return (
@@ -98,7 +131,15 @@ const MenuItemDetailsPage = () => {
         {/* Main Image and Basic Info */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="relative h-64 md:h-96 w-full">
-            <Image src={menuItem.imageUrl} alt={menuItem.title} layout="fill" objectFit="cover" />
+            <Image 
+              src={menuItem.imageUrl} 
+              alt={menuItem.title} 
+              fill
+              className="object-cover"
+              onError={(e) => {
+                e.target.src = '/placeholder-image.jpg';
+              }}
+            />
             {menuItem.isSpecialOffer && (
               <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                 {menuItem.discountRate}% OFF
@@ -117,11 +158,11 @@ const MenuItemDetailsPage = () => {
                 </p>
               </div>
               <div className="text-right">
-                {menuItem.rating && (
+                {averageRating && (
                   <div className="flex items-center">
                     <FiStar className="h-5 w-5 text-yellow-400 fill-current" />
-                    <span className="ml-1 text-lg font-semibold">{menuItem.rating}</span>
-                    <span className="text-gray-500 ml-1">({menuItem.reviewCount || 0} reviews)</span>
+                    <span className="ml-1 text-lg font-semibold">{averageRating}</span>
+                    <span className="text-gray-500 ml-1">({reviews.length} reviews)</span>
                   </div>
                 )}
               </div>
@@ -136,16 +177,28 @@ const MenuItemDetailsPage = () => {
             <div className="flex items-center">
               <span className="font-medium text-gray-700 mr-4">Quantity:</span>
               <div className="flex items-center border border-gray-300 rounded-md">
-                <button onClick={decreaseQuantity} className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors" disabled={quantity <= 1}>
+                <button 
+                  onClick={decreaseQuantity} 
+                  className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors" 
+                  disabled={quantity <= 1}
+                >
                   <FiMinus className="h-4 w-4" />
                 </button>
                 <span className="px-4 py-2 font-medium">{quantity}</span>
-                <button onClick={increaseQuantity} className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors">
+                <button 
+                  onClick={increaseQuantity} 
+                  className="p-2 text-gray-600 hover:text-orange-500 hover:bg-orange-50 transition-colors"
+                >
                   <FiPlus className="h-4 w-4" />
                 </button>
               </div>
             </div>
-            <button onClick={handleAddToCart} className={`flex items-center px-6 py-3 rounded-md font-medium transition-all ${addedToCart ? 'bg-green-500 text-white' : 'bg-orange-500 text-white hover:bg-orange-600'}`}>
+            <button 
+              onClick={handleAddToCart} 
+              className={`flex items-center px-6 py-3 rounded-md font-medium transition-all ${
+                addedToCart ? 'bg-green-500 text-white' : 'bg-orange-500 text-white hover:bg-orange-600'
+              }`}
+            >
               {addedToCart ? (
                 <>
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -174,13 +227,20 @@ const MenuItemDetailsPage = () => {
         {/* Reviews Section */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800">Customer Reviews</h3>
+            <h3 className="text-lg font-semibold text-gray-800">
+              Customer Reviews {averageRating && `(${averageRating} ⭐)`}
+            </h3>
           </div>
           <div className="p-6">
-            {menuItem.reviews && menuItem.reviews.length > 0 ? (
-              <div className="space-y-4">
-                {menuItem.reviews.map((review, index) => (
-                  <div key={index} className="border-b border-gray-100 pb-4 last:border-b-0">
+            {reviewsLoading ? (
+              <div className="flex justify-center items-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+                <span className="ml-2 text-gray-600">Loading reviews...</span>
+              </div>
+            ) : reviews.length > 0 ? (
+              <div className="space-y-6">
+                {reviews.map((review, index) => (
+                  <div key={review.reviewId || index} className="border-b border-gray-100 pb-6 last:border-b-0 last:pb-0">
                     <div className="flex items-start">
                       <div className="flex-shrink-0">
                         <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
@@ -194,12 +254,24 @@ const MenuItemDetailsPage = () => {
                           </h4>
                           <div className="flex items-center">
                             {[1, 2, 3, 4, 5].map((star) => (
-                              <FiStar key={star} className={`h-4 w-4 ${star <= review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
+                              <FiStar 
+                                key={star} 
+                                className={`h-4 w-4 ${
+                                  star <= review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                                }`} 
+                              />
                             ))}
+                            <span className="ml-2 text-sm text-gray-500">({review.rating}.0)</span>
                           </div>
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">Reviewed on {formatDate(review.createdAt)}</p>
-                        {review.comment && <p className="mt-2 text-sm text-gray-700">{review.comment}</p>}
+                        <p className="text-sm text-gray-500 mt-1">
+                          Reviewed on {formatDate(review.createdAt)}
+                        </p>
+                        {review.comment && (
+                          <p className="mt-3 text-sm text-gray-700 bg-gray-50 p-3 rounded-md">
+                            {review.comment}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

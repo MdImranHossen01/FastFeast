@@ -6,6 +6,7 @@ import MenuModal from "./MenuModal";
 import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
+import { FiStar } from "react-icons/fi";
 
 const MenuCard = ({ menu, restaurants }) => {
   const { data: session } = useSession();
@@ -13,6 +14,8 @@ const MenuCard = ({ menu, restaurants }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [averageRating, setAverageRating] = useState(null);
+  const [reviewCount, setReviewCount] = useState(0);
 
   // Find the restaurant data based on restaurantId
   useEffect(() => {
@@ -21,6 +24,28 @@ const MenuCard = ({ menu, restaurants }) => {
       setRestaurant(foundRestaurant);
     }
   }, [restaurants, menu.restaurantId]);
+
+  // Fetch average rating and review count for this menu item
+  useEffect(() => {
+    const fetchRating = async () => {
+      if (!menu._id) return;
+
+      try {
+        const response = await fetch(`/api/menu/${menu._id}/reviews`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            setAverageRating(data.averageRating);
+            setReviewCount(data.totalReviews);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching menu item rating:', error);
+      }
+    };
+
+    fetchRating();
+  }, [menu._id]);
 
   // Check if menu is in favorites when component mounts or session changes
   useEffect(() => {
@@ -208,6 +233,19 @@ const MenuCard = ({ menu, restaurants }) => {
               </svg>
             </button>
           </div>
+          
+          {/* Rating Section - Show only if there are reviews */}
+          {averageRating && (
+            <div className="flex items-center mt-1">
+              <div className="flex items-center">
+                <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
+                <span className="ml-1 text-sm font-medium text-gray-900">{averageRating}</span>
+                <span className="mx-1 text-gray-300">•</span>
+                <span className="text-sm text-gray-500">{reviewCount} review{reviewCount !== 1 ? 's' : ''}</span>
+              </div>
+            </div>
+          )}
+
           <p className="mt-1 text-sm text-gray-600 line-clamp-2">
             {menu.description}
           </p>
