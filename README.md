@@ -1259,21 +1259,53 @@ npm run dev
 
 ## 🔑 Test Credentials
 
-### Customer Account
-- **Email**: customer@fastfeast.com
-- **Password**: Customer@123
+### User Account
+- **Email**: demo-user-1@fastfeast.com
+- **Password**: demo-user-1
+- **Email**: demo-user-2@fastfeast.com
+- **Password**: demo-user-2
+- **Email**: demo-user-2@fastfeast.com
+- **Password**: demo-user-2
 
 ### Restaurant Account
-- **Email**: restaurant@fastfeast.com
-- **Password**: Restaurant@123
+- **Email**: demo-restaurantOwner-1@fastfeast.com
+- **Password**: demo-restaurantOwner-1
+- **Email**: demo-restaurantOwner-2@fastfeast.com
+- **Password**: demo-restaurantOwner-2
+- **Email**: demo-restaurantOwner-3@fastfeast.com
+- **Password**: demo-restaurantOwner-3
 
 ### Rider Account
-- **Email**: rider@fastfeast.com
-- **Password**: Rider@123
+- **Email**: demo-rider-1@fastfeast.com
+- **Password**: demo-rider-1
+- **Email**: demo-rider-2@fastfeast.com
+- **Password**: demo-rider-2
+- **Email**: demo-rider-3@fastfeast.com
+- **Password**: demo-rider-3
+
+### moderator Account
+- **Email**: demo-moderator-1@fastfeast.com
+- **Password**: demo-moderator-1
+- **Email**: demo-moderator-2@fastfeast.com
+- **Password**: demo-moderator-2
+- **Email**: demo-moderator-3@fastfeast.com
+- **Password**: demo-moderator-3
 
 ### Admin Account
-- **Email**: admin@fastfeast.com
-- **Password**: Admin@123
+- **Email**: imranshuvo101@gmail.com
+- **Password**: imranshuvo101
+- **Email**: kanakroy835@gmail.com
+- **Password**: kanakroy835
+- **Email**: afrozaakter228@gmail.com
+- **Password**: afrozaakter228
+- **Email**: mahfujapple95@gmail.com
+- **Password**: mahfujapple95
+- **Email**: jerinloncheu@gmail.com
+- **Password**: jerinloncheu
+- **Email**: julkarnainzunayed@gmail.com
+- **Password**: julkarnainzunayed
+- **Email**: nipaayasha05@gmail.com
+- **Password**: nipaayasha05
 
 ### Test Payment (Stripe)
 - **Card Number**: 4242 4242 4242 4242
