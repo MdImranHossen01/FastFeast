@@ -5,7 +5,7 @@ import bannerImage from "../../../assets/blog-page-banner.png";
 import SearchBar from "./SearchBar";
 
 export default function Banner({ blogs, query, setQuery, tag, setTag }) {
-  const allTags = ["All", ...new Set(blogs.flatMap((p) => p.tags || []))];
+  const allTags = ["All", ...new Set(blogs.flatMap((b) => b.tags || []))];
 
   return (
     <header className="mb-12 relative bg-cover bg-center min-h-80 h-120 overflow-hidden">
@@ -19,6 +19,7 @@ export default function Banner({ blogs, query, setQuery, tag, setTag }) {
           priority
         />
       </div>
+
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* Content */}

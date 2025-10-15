@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RestaurantsCard from "./restaurantsCard";
 
 export default function Restaurant({ restaurants }) {
@@ -8,6 +8,7 @@ export default function Restaurant({ restaurants }) {
   const [deliveryPrice, setDeliveryPrice] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
   const [priceRange, setPriceRange] = useState("");
+  const [userLocation, setUserLocation] = useState(null);
 
   // convert min to number
   const foodDelivery = (timeStr) => {
@@ -33,13 +34,13 @@ export default function Restaurant({ restaurants }) {
   });
 
   // sort by delivery price
-  if (deliveryPrice === "Highest") {
-    filteredRestaurants = [...filteredRestaurants].sort(
-      (a, b) => b.deliveryFee - a.deliveryFee
-    );
-  } else if (deliveryPrice === "Lowest") {
+  if (deliveryPrice === "lowest") {
     filteredRestaurants = [...filteredRestaurants].sort(
       (a, b) => a.deliveryFee - b.deliveryFee
+    );
+  } else if (deliveryPrice === "topRating") {
+    filteredRestaurants = [...filteredRestaurants].sort(
+      (a, b) => b.rating - a.rating
     );
   }
 
@@ -65,18 +66,70 @@ export default function Restaurant({ restaurants }) {
       if (priceRange === "High") return restaurant.priceRange === "৳৳৳";
     });
   }
+
+  // user location
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      setUserLocation({
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+      });
+      (err) => {
+        console.error("Location access denied,using fallback", err);
+        // fallback Dhaka
+        setUserLocation({ lat: 23.8103, lng: 90.4125 });
+      };
+    });
+  }, []);
+
+  // coordinate latitude-longitude
+  const getDistance = (lat1, lng1, lat2, lng2) => {
+    const toRad = (value) => (value * Math.PI) / 180;
+    const R = 6371;
+    const dLat = toRad(lat2 - lat1);
+    const dLng = toRad(lng2 - lng1);
+
+    // angular distance
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+
+    // central angle
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
+  // sort by distance
+  if (deliveryPrice === "distance" && userLocation) {
+    filteredRestaurants = [...filteredRestaurants].sort((a, b) => {
+      const distanceA = getDistance(
+        userLocation.lat,
+        userLocation.lng,
+        a.location.coordinates.lat,
+        a.location.coordinates.lng
+      );
+      const distanceB = getDistance(
+        userLocation.lat,
+        userLocation.lng,
+        b.location.coordinates.lat,
+        b.location.coordinates.lng
+      );
+      return distanceA - distanceB;
+    });
+  }
+
   return (
     <div>
-      <div className="flex flex-col sm:justify-between sm:flex-row py-5 gap-5">
+      <div className="flex flex- sm:justify-between sm:flex-row py-5 gap-5">
         <div className="flex  gap-5">
           {/* search */}
-          <input
+          {/* <input
             type="text"
             placeholder="Search Restaurant"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="bg-white  input input-bordered shadow-xs p-2     rounded   lg:w-[170px]  "
-          />
+          /> */}
           {/*sort cuisine  */}
           <select
             value={selectCuisine}
@@ -106,13 +159,16 @@ export default function Restaurant({ restaurants }) {
             className="select select-bordered bg-white rounded cursor-pointer  lg:w-[155px]  text-gray-500 shadow-xs"
           >
             <option value="" className="text-gray-700 bg-white">
+              Sort By
+            </option>
+            <option className="text-gray-700 bg-white" value="lowest">
               Delivery Fee
             </option>
-            <option className="text-gray-700 bg-white" value="Highest">
-              Highest Delivery Fee
+            <option className="text-gray-700 bg-white" value="topRating">
+              Top Rating
             </option>
-            <option className="text-gray-700 bg-white" value="Lowest">
-              Lowest Delivery Fee
+            <option className="text-gray-700 bg-white" value="distance">
+              Nearest
             </option>
           </select>
 
@@ -136,7 +192,7 @@ export default function Restaurant({ restaurants }) {
             </option>
           </select>
           {/* sort by price range */}
-          <select
+          {/* <select
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
             className="select select-bordered  bg-white    rounded  lg:w-[155px] cursor-pointer  text-gray-500 shadow-xs"
@@ -153,7 +209,7 @@ export default function Restaurant({ restaurants }) {
             <option className="text-gray-700 bg-white" value="Low">
               Low(৳)
             </option>
-          </select>
+          </select> */}
         </div>
       </div>
       {/* restaurants card */}

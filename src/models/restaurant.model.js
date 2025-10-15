@@ -125,6 +125,7 @@ const restaurantSchema = new mongoose.Schema(
     },
   },
   {
+    // Add createdAt and updatedAt fields
     timestamps: true,
     versionKey: false,
   }
