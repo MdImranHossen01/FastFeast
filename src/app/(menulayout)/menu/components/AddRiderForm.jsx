@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Form from "next/form";
-import { createRider } from "@/app/actions/rider/createRider";
+import { createRider } from "@/app/actions/riders/createRider";
 
 const AddRiderForm = () => {
   // State for form fields that need special handling

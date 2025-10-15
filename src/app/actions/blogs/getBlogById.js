@@ -3,7 +3,7 @@
 // Action to get a blog by ID
 export default async function getBlogById(id) {
   try {
-    // Fetch blogs from the API
+    // Fetch blog from the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
     const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/blogs/${id}`);
 

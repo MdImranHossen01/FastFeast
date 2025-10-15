@@ -1,10 +1,10 @@
-// src/app/riders/[id]/page.jsx
+// src/app/riders/[id]/page.jsx (updated with reviews section)
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiArrowLeft, FiPhone, FiMapPin, FiTruck, FiMail, FiCalendar, FiStar, FiPackage, FiCheckCircle } from 'react-icons/fi';
-
+import { FiArrowLeft, FiPhone, FiMapPin, FiTruck, FiMail, FiCalendar, FiStar, FiPackage, FiCheckCircle, FiUser } from 'react-icons/fi';
 const RiderDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
@@ -192,7 +192,7 @@ const RiderDetailsPage = () => {
         </div>
 
         {/* Tabs for Orders */}
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px">
               <button
@@ -312,6 +312,64 @@ const RiderDetailsPage = () => {
                   <p className="mt-2 text-sm text-gray-500">No completed orders</p>
                 </div>
               )}
+            </div>
+          )}
+        </div>
+
+        {/* Rider Reviews */}
+        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+            <h3 className="text-lg font-medium text-gray-900">Customer Reviews</h3>
+            <button
+              onClick={() => router.push(`/riders/${params.id}/reviews`)}
+              className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            >
+              View All Reviews
+            </button>
+          </div>
+          
+          {rider.reviews && rider.reviews.length > 0 ? (
+            <div className="divide-y divide-gray-200">
+              {rider.reviews.slice(0, 3).map((review, index) => (
+                <div key={index} className="px-6 py-4">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <div className="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                        <FiUser className="h-6 w-6 text-gray-600" />
+                      </div>
+                    </div>
+                    <div className="ml-4 flex-1">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-medium text-gray-900">
+                          {review.customerEmail ? review.customerEmail.split('@')[0] : 'Anonymous'}
+                        </h4>
+                        <div className="flex items-center">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <FiStar
+                              key={star}
+                              className={`h-4 w-4 ${
+                                star <= review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-1">
+                        Reviewed on {formatDate(review.createdAt)}
+                      </p>
+                      {review.comment && (
+                        <p className="mt-2 text-sm text-gray-700">{review.comment}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="px-6 py-12 text-center">
+              <FiStar className="mx-auto h-12 w-12 text-gray-400" />
+              <h3 className="mt-2 text-sm font-medium text-gray-900">No reviews yet</h3>
+              <p className="mt-1 text-sm text-gray-500">This rider hasn't received any reviews yet.</p>
             </div>
           )}
         </div>

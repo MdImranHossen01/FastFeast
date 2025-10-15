@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { FaHome, FaCalendar, FaTags, FaEye } from "react-icons/fa";
+import { FaHome, FaTags, FaEye } from "react-icons/fa";
 import getBlogs from "@/app/actions/blogs/getBlogs";
 import ReactMarkdown from "react-markdown";
-import RelatedBlogSidebar from "../components/RelatedBlogSlider"; // Retaining user's import path
+import RelatedBlogSidebar from "../components/RelatedBlogSlider";
 import SocialIcons from "../components/SocialIcons";
-
 
 export default async function BlogDetails({ params }) {
   const { slug } = await params;
@@ -40,7 +39,6 @@ export default async function BlogDetails({ params }) {
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-
         {/* Main Blog Content */}
         <article className="md:col-span-8">
           <h1 className="text-3xl md:text-4xl font-extrabold mb-4 leading-snug">
@@ -56,7 +54,9 @@ export default async function BlogDetails({ params }) {
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div className="flex flex-col">
-                <span className="font-semibold text-gray-800">{post.author}</span>
+                <span className="font-semibold text-gray-800">
+                  {post.author}
+                </span>
                 <span className="text-gray-500">
                   {new Date(post.publishDate).toLocaleDateString("en-US", {
                     month: "long",
@@ -70,9 +70,9 @@ export default async function BlogDetails({ params }) {
 
           {/* View Count */}
           <div className="flex items-center gap-1 text-sm text-gray-500 mb-6">
-          <FaEye className="w-5 h-5" /> <span className="font-medium">{post.visitCount || 0}</span> views
+            <FaEye className="w-5 h-5" />{" "}
+            <span className="font-medium">{post.visitCount || 0}</span> views
           </div>
-
 
           <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
             <ReactMarkdown>{post.details}</ReactMarkdown>
@@ -123,7 +123,8 @@ export default async function BlogDetails({ params }) {
                 className="w-20 h-20 rounded-full mb-3 object-cover"
               />
               <p className="text-gray-600 text-sm">
-                Passionate about exploring flavors and sharing stories through food.
+                Passionate about exploring flavors and sharing stories through
+                food.
               </p>
             </div>
           </div>
@@ -151,6 +152,5 @@ export default async function BlogDetails({ params }) {
         </Link>
       </div>
     </main>
-
   );
 }
