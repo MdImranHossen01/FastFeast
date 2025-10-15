@@ -27,41 +27,6 @@ export default function ManageRestaurantsCard({ restaurants }) {
     setIsOpen(_id);
   };
 
-  // delete
-  const handleDelete = async (id) => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-    const result = await swalWithBootstrapButtons.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    });
-    if (result.isConfirmed) {
-      try {
-        const res = await deleteRestaurantById(id);
-        if (!res.ok) {
-          throw new Error("Failed to delete restaurant");
-        }
-
-        // remove delete restaurant
-        setAllRestaurants((prev) =>
-          prev.filter((restaurant) => restaurant._id.toString() !== id)
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
-
   return (
     <div>
       {/* Header */}
@@ -80,7 +45,7 @@ export default function ManageRestaurantsCard({ restaurants }) {
             bg-gray-100 text-gray-800 
             dark:bg-gray-800 dark:text-gray-200 
             border-gray-300 dark:border-gray-600 py-1
-       mt-4"
+       mt-4 md:w-[400px] lg:w-[500px] "
         />
       </div>
 
@@ -92,7 +57,6 @@ export default function ManageRestaurantsCard({ restaurants }) {
         <PendingRestaurants
           restaurants={filteredRestaurants}
           setRestaurants={setAllRestaurants}
-          handleDelete={handleDelete}
           handleModal={handleModal}
         />
       </div>
@@ -105,7 +69,6 @@ export default function ManageRestaurantsCard({ restaurants }) {
         <ApprovedRestaurants
           restaurants={filteredRestaurants}
           setRestaurants={setAllRestaurants}
-          handleDelete={handleDelete}
           handleModal={handleModal}
         />
       </div>
