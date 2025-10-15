@@ -5,28 +5,27 @@ import { NextResponse } from "next/server";
 // GET restaurant by ID
 export async function GET(req, { params }) {
   try {
-    // Extract restaurant ID from params
+    // Extract ID from params
     const { restaurantId: id } = await params;
 
     // Ensure DB connection
     await connectMongooseDb();
 
-    // Fetch restaurant by ID
+    // Find restaurant by ID
     const restaurant = await Restaurant.findById(id);
 
-    // Handle case where restaurant is not found
+    // If restaurant not found, return 404
     if (!restaurant) {
       return NextResponse.json(
-        { success: false, message: "Restaurant not found" },
+        { success: false, message: "Restaurant Not found" },
         { status: 404 }
       );
     }
 
-    // Return the found restaurant
+    // Return restaurant info with 200 status
     return NextResponse.json(restaurant, { status: 200 });
   } catch (error) {
-    // Log the error for debugging
-    console.error("Error fetching restaurant:", error);
+    // Handle errors and return 500 status
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
