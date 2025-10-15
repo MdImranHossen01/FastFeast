@@ -71,16 +71,13 @@ export async function GET(request, { params }) {
   }
 }
 
-// ... (keep PUT and DELETE functions as they are)
 
 export async function PUT(request, { params }) {
   try {
     const { id } = await params;
     const updatedData = await request.json();
     
-    // IMPORTANT: For PUT and DELETE, you still need to use ObjectId
-    // if you plan to perform those operations on documents with string IDs.
-    // However, if your _id is a string, you should query by string here too.
+   
     const menuCollection = await getCollection('menu');
     const result = await menuCollection.updateOne(
       { _id: id }, // Update by string ID
