@@ -2,20 +2,16 @@ import React from "react";
 
 // import { restaurants } from "./restaurants";
 import Restaurant from "./components/restaurant";
+import getRestaurants from "../actions/restaurants/getRestaurant";
 
 export default async function RestaurantsListing() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?status=approved`
-    // {
-    //   next: {
-    //     revalidate: 10,
-    //   },
-    // }
-  );
-  if (!res.ok) {
-    return [];
-  }
-  const restaurants = await res.json();
+  const restaurantsData = await getRestaurants();
+
+  const restaurants = restaurantsData.filter((restaurant) => {
+    return restaurant.status === "approved";
+  });
+
+  // console.log(restaurants);
 
   return (
     <div className=" ">
