@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 // GET menu by ID
 export async function GET(req, { params }) {
   try {
-    // Extract restaurant ID from params
+    // Extract menu ID from params
     const { id } = await params;
 
     // Ensure DB connection
@@ -22,8 +22,14 @@ export async function GET(req, { params }) {
       );
     }
 
-    // Return the found menu
-    return NextResponse.json(menu, { status: 200 });
+    // Return the found menu in the expected format
+    return NextResponse.json(
+      { 
+        success: true, 
+        menuItem: menu 
+      }, 
+      { status: 200 }
+    );
   } catch (error) {
     // Log the error for debugging
     console.error("Error fetching menu:", error);
@@ -62,7 +68,13 @@ export async function PATCH(req, { params }) {
     }
 
     // Return the updated menu
-    return NextResponse.json(updatedMenu, { status: 200 });
+    return NextResponse.json(
+      { 
+        success: true, 
+        menuItem: updatedMenu 
+      }, 
+      { status: 200 }
+    );
   } catch (error) {
     // Log the error for debugging
     console.error("Error updating menu:", error);

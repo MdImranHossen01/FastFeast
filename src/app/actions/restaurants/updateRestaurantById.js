@@ -17,6 +17,8 @@ export default async function updateRestaurantById(id, updatedData) {
       }
     );
 
+    console.log(res);
+
     // always return an object
     if (!res.ok) {
       return {
@@ -28,6 +30,7 @@ export default async function updateRestaurantById(id, updatedData) {
 
     // If response is ok, parse and return the data
     const data = await res.json();
+
     return {
       success: true,
       message: "Restaurant updated successfully.",
