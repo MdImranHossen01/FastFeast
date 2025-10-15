@@ -9,38 +9,107 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
   const [itemRatings, setItemRatings] = useState({});
   const [itemComments, setItemComments] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [menuItemIds, setMenuItemIds] = useState({});
 
-  // Helper function to get a stable item ID
-  const getItemId = (item, index) => {
-    // Try all possible ID fields, fallback to index if none found
-    return item.menuItemId || item._id || item.id || `item-${index}`;
+  // Function to get actual menu item IDs from the database
+  const fetchMenuItemIds = async (itemTitles) => {
+    try {
+      console.log('🔍 Fetching all menu items to find IDs for:', itemTitles);
+      
+      // Fetch all menu items
+      const response = await fetch('/api/menu');
+      const result = await response.json();
+      
+      console.log('📦 Raw API response:', result);
+      
+      // Handle different response formats
+      let menus = [];
+      if (Array.isArray(result)) {
+        // If response is directly an array
+        menus = result;
+        console.log('✅ Response is direct array with', menus.length, 'items');
+      } else if (result.success && Array.isArray(result.menus)) {
+        // If response has success and menus fields
+        menus = result.menus;
+        console.log('✅ Response has success and menus fields with', menus.length, 'items');
+      } else if (Array.isArray(result.data)) {
+        // If response has data field
+        menus = result.data;
+        console.log('✅ Response has data field with', menus.length, 'items');
+      } else {
+        console.error('❌ Unexpected API response format:', result);
+        return {};
+      }
+      
+      const idMap = {};
+      
+      // Create a map of title -> _id
+      menus.forEach(menu => {
+        if (menu.title && menu._id) {
+          idMap[menu.title] = menu._id;
+          console.log(`✅ Mapped "${menu.title}" -> ${menu._id}`);
+        } else {
+          console.warn('❌ Menu item missing title or _id:', menu);
+        }
+      });
+      
+      console.log('✅ Final menu item ID map:', idMap);
+      console.log('🔍 Looking for specific items:');
+      itemTitles.forEach(title => {
+        console.log(`   "${title}": ${idMap[title] || 'NOT FOUND'}`);
+      });
+      
+      return idMap;
+    } catch (error) {
+      console.error('❌ Error fetching menu items:', error);
+      return {};
+    }
+  };
+
+  // Helper function to get the actual menu item ID
+  const getItemId = (item, index, idMap = {}) => {
+    // Try to get the actual menu item ID from our map
+    if (idMap[item.title]) {
+      return idMap[item.title];
+    }
+    
+    // If not found, use title + index as fallback
+    return `${item.title}-${index}`;
   };
 
   // Initialize item ratings when order changes
   useEffect(() => {
-    if (order && order.items) {
-      const initialRatings = {};
-      const initialComments = {};
-      
-      console.log('Order items for review:', order.items); // Debug log
-      
-      order.items.forEach((item, index) => {
-        const itemId = getItemId(item, index);
-        initialRatings[itemId] = 0;
-        initialComments[itemId] = '';
-        console.log(`Initialized item ${itemId}:`, item.name); // Debug log
-      });
-      
-      setItemRatings(initialRatings);
-      setItemComments(initialComments);
-      
-      console.log('Initialized ratings:', initialRatings); // Debug log
+    const initializeReviews = async () => {
+      if (order && order.items) {
+        console.log('📦 Order items:', order.items);
+        
+        // Extract item titles to look up their IDs
+        const itemTitles = order.items.map(item => item.title);
+        console.log('🎯 Item titles to lookup:', itemTitles);
+        
+        const idMap = await fetchMenuItemIds(itemTitles);
+        
+        const initialRatings = {};
+        const initialComments = {};
+        
+        order.items.forEach((item, index) => {
+          const itemId = getItemId(item, index, idMap);
+          initialRatings[itemId] = 0;
+          initialComments[itemId] = '';
+        });
+        
+        setMenuItemIds(idMap);
+        setItemRatings(initialRatings);
+        setItemComments(initialComments);
+      }
+    };
+
+    if (isOpen) {
+      initializeReviews();
     }
-  }, [order]);
+  }, [order, isOpen]);
 
   const handleStarClick = (rating, type, itemId = null) => {
-    console.log('Star clicked:', { rating, type, itemId }); // Debug log
-    
     if (type === 'rider') {
       setRiderRating(rating);
     } else if (type === 'item' && itemId) {
@@ -54,19 +123,9 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Debug: Check current state before validation
-    console.log('Current state before submission:', {
-      riderRating,
-      itemRatings,
-      itemComments,
-      orderItems: order?.items
-    });
-    
     // Validate that at least one rating is provided
     const hasRiderRating = riderRating > 0;
     const hasItemRatings = Object.values(itemRatings).some(rating => rating > 0);
-    
-    console.log('Validation results:', { hasRiderRating, hasItemRatings }); // Debug log
     
     if (!hasRiderRating && !hasItemRatings) {
       toast.error('Please provide at least one rating');
@@ -76,27 +135,21 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
     setIsSubmitting(true);
     
     try {
-      // Prepare item reviews - use the same ID logic as initialization
+      // Prepare item reviews with actual menu item IDs
       const itemReviewsData = order.items.map((item, index) => {
-        const itemId = getItemId(item, index);
+        const itemId = getItemId(item, index, menuItemIds);
         const rating = itemRatings[itemId] || 0;
         const comment = itemComments[itemId] || '';
-        
-        console.log(`Processing item ${itemId} (${item.name}):`, { 
-          rating, 
-          comment,
-          hasRating: rating > 0
-        }); // Debug log
         
         return {
           itemId,
           rating,
           comment,
-          itemName: item.name // Include item name for debugging
+          itemName: item.title
         };
-      }).filter(item => item.rating > 0); // Only include items that were actually rated
+      }).filter(item => item.rating > 0);
 
-      console.log('Final itemReviews to submit:', itemReviewsData); // Debug log
+      console.log('📤 Final itemReviews to submit:', itemReviewsData);
       
       // Prepare review data
       const reviewData = {
@@ -107,39 +160,49 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
         itemReviews: itemReviewsData
       };
       
-      console.log('Complete review data being submitted:', JSON.stringify(reviewData, null, 2)); // Debug log
+      console.log('💾 Complete review data being submitted:', JSON.stringify(reviewData, null, 2));
       
       // Call the onSubmit prop function
-      await onSubmit(reviewData);
-      toast.success('Review submitted successfully!');
+      const result = await onSubmit(reviewData);
       
-      // Reset form
-      setRiderRating(0);
-      setRiderComment('');
+      console.log('📨 Review submission result:', result);
       
-      // Re-initialize item ratings and comments
-      const resetRatings = {};
-      const resetComments = {};
-      order.items.forEach((item, index) => {
-        const itemId = getItemId(item, index);
-        resetRatings[itemId] = 0;
-        resetComments[itemId] = '';
-      });
-      setItemRatings(resetRatings);
-      setItemComments(resetComments);
-      
-      onClose();
+      if (result.success) {
+        toast.success('Review submitted successfully!');
+        
+        // Reset form
+        setRiderRating(0);
+        setRiderComment('');
+        
+        // Re-initialize item ratings and comments
+        const resetRatings = {};
+        const resetComments = {};
+        order.items.forEach((item, index) => {
+          const itemId = getItemId(item, index, menuItemIds);
+          resetRatings[itemId] = 0;
+          resetComments[itemId] = '';
+        });
+        setItemRatings(resetRatings);
+        setItemComments(resetComments);
+        
+        onClose();
+      } else {
+        throw new Error(result.message || 'Failed to submit review');
+      }
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error('❌ Error submitting review:', error);
       toast.error(error.message || 'Failed to submit review');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Helper function to check if an item has a rating
-  const hasItemRating = (itemId) => {
-    return (itemRatings[itemId] || 0) > 0;
+  // Fix image placeholder URL
+  const getImageUrl = (image) => {
+    if (image && (image.startsWith('http') || image.startsWith('/'))) {
+      return image;
+    }
+    return '/placeholder-image.jpg';
   };
 
   if (!isOpen || !order) return null;
@@ -167,8 +230,11 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                 <div className="flex items-center mb-3">
                   <img
                     className="h-10 w-10 rounded-full object-cover mr-3"
-                    src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
+                    src={order.riderInfo.photoUrl || '/placeholder-image.jpg'}
                     alt={order.riderInfo.name}
+                    onError={(e) => {
+                      e.target.src = '/placeholder-image.jpg';
+                    }}
                   />
                   <div>
                     <p className="font-medium text-gray-800">{order.riderInfo.name}</p>
@@ -221,7 +287,7 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
               {order.items && order.items.length > 0 ? (
                 <div className="space-y-4">
                   {order.items.map((item, index) => {
-                    const itemId = getItemId(item, index);
+                    const itemId = getItemId(item, index, menuItemIds);
                     const currentRating = itemRatings[itemId] || 0;
                     
                     return (
@@ -229,14 +295,14 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                         <div className="flex items-center mb-3">
                           <img
                             className="h-12 w-12 rounded-md object-cover mr-3"
-                            src={item.image || 'https://via.placeholder.com/48'}
-                            alt={item.name}
+                            src={getImageUrl(item.image)}
+                            alt={item.title}
                             onError={(e) => {
-                              e.target.src = 'https://via.placeholder.com/48';
+                              e.target.src = '/placeholder-image.jpg';
                             }}
                           />
                           <div className="flex-1">
-                            <p className="font-medium text-gray-800">{item.name}</p>
+                            <p className="font-medium text-gray-800">{item.title}</p>
                             <p className="text-sm text-gray-500">
                               ৳{item.price} {item.quantity > 1 && `× ${item.quantity}`}
                             </p>
