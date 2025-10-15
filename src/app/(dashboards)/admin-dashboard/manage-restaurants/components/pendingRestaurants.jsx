@@ -23,7 +23,6 @@ export default function PendingRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
-
       if (!res.success) throw new Error("Failed to update");
       // update state
       setRestaurants((prev) =>
