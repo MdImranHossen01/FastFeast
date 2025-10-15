@@ -89,10 +89,12 @@ export default function Restaurant({ restaurants }) {
     const dLat = toRad(lat2 - lat1);
     const dLng = toRad(lng2 - lng1);
 
+    // angular distance
     const a =
       Math.sin(dLat / 2) ** 2 +
       Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
 
+    // central angle
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   };
@@ -118,16 +120,16 @@ export default function Restaurant({ restaurants }) {
 
   return (
     <div>
-      <div className="flex flex-col sm:justify-between sm:flex-row py-5 gap-5">
+      <div className="flex flex- sm:justify-between sm:flex-row py-5 gap-5">
         <div className="flex  gap-5">
           {/* search */}
-          <input
+          {/* <input
             type="text"
             placeholder="Search Restaurant"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="bg-white  input input-bordered shadow-xs p-2     rounded   lg:w-[170px]  "
-          />
+          /> */}
           {/*sort cuisine  */}
           <select
             value={selectCuisine}
@@ -190,7 +192,7 @@ export default function Restaurant({ restaurants }) {
             </option>
           </select>
           {/* sort by price range */}
-          <select
+          {/* <select
             value={priceRange}
             onChange={(e) => setPriceRange(e.target.value)}
             className="select select-bordered  bg-white    rounded  lg:w-[155px] cursor-pointer  text-gray-500 shadow-xs"
@@ -207,7 +209,7 @@ export default function Restaurant({ restaurants }) {
             <option className="text-gray-700 bg-white" value="Low">
               Low(৳)
             </option>
-          </select>
+          </select> */}
         </div>
       </div>
       {/* restaurants card */}

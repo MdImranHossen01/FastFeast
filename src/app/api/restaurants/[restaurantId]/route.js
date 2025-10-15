@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   try {
     // Extract restaurant ID from params
-    const { id } = await params;
+    const { restaurantId: id } = await params;
 
     // Ensure DB connection
     await connectMongooseDb();
@@ -38,7 +38,7 @@ export async function GET(req, { params }) {
 export async function PATCH(req, { params }) {
   try {
     // Extract restaurant ID from params
-    const { id } = await params;
+    const { restaurantId: id } = await params;
 
     // Parse the request body to get update data
     const updateData = await req.json();

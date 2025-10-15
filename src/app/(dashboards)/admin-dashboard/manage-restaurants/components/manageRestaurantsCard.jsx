@@ -5,6 +5,7 @@ import ApprovedRestaurants from "./approvedRestaurants";
 import Swal from "sweetalert2";
 import ViewApproved from "./viewModal";
 import ViewModal from "./viewModal";
+import deleteRestaurantById from "@/app/actions/restaurants/deleteMenuById";
 
 export default function ManageRestaurantsCard({ restaurants }) {
   const [allRestaurants, setAllRestaurants] = useState(restaurants);
@@ -46,12 +47,7 @@ export default function ManageRestaurantsCard({ restaurants }) {
     });
     if (result.isConfirmed) {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant?id=${id}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const res = await deleteRestaurantById(id);
         if (!res.ok) {
           throw new Error("Failed to delete restaurant");
         }
