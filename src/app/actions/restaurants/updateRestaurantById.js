@@ -30,6 +30,7 @@ export default async function updateRestaurantById(id, updatedData) {
 
     // If response is ok, parse and return the data
     const data = await res.json();
+
     return {
       success: true,
       message: "Restaurant updated successfully.",
