@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MenuModal from "./MenuModal";
 import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
@@ -33,7 +33,7 @@ const MenuCard = ({ menu, restaurants }) => {
       if (!menu._id) return;
 
       try {
-        const response = await fetch(`/api/menu/${menu._id}/reviews`);
+        const response = await fetch(`/api/menus/${menu._id}/reviews`);
         if (response.ok) {
           const data = await response.json();
           if (data.success) {
@@ -49,44 +49,60 @@ const MenuCard = ({ menu, restaurants }) => {
     fetchRating();
   }, [menu._id]);
 
-  // Check if menu is in favorites when component mounts or session changes
-  useEffect(() => {
-    const checkFavorite = async () => {
-      // Only check if user is logged in and menu has an ID
-      if (!session?.user?.id || !menu._id) {
-        setIsFavorite(false); // Reset to false if no session or menu ID
+  // Check if menu is in favorites - FIXED VERSION
+  const checkFavoriteStatus = useCallback(async () => {
+    // Only check if user is logged in and menu has an ID
+    if (!session?.user?.id || !menu?._id) {
+      setIsFavorite(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/favorites");
+
+      if (!response.ok) {
+        console.error("Failed to fetch favorites, status:", response.status);
         return;
       }
 
-      try {
-        const response = await fetch("/api/favorites");
-        if (response.ok) {
-          const favorites = await response.json();
-          // Convert both IDs to strings for reliable comparison
-          const isFav = favorites.some(
-            (fav) => fav.menuId.toString() === menu._id.toString()
-          );
-          setIsFavorite(isFav);
-        } else {
-          console.error("Failed to check favorite status, response not ok");
-        }
-      } catch (error) {
-        console.error("Error checking favorite status:", error);
-      }
-    };
+      const favorites = await response.json();
 
-    checkFavorite();
-  }, [session, menu._id]);
+      // Add null check for favorites array
+      if (!Array.isArray(favorites)) {
+        console.error("Favorites data is not an array:", favorites);
+        setIsFavorite(false);
+        return;
+      }
+
+      // Safe comparison with null checks
+      const isFav = favorites.some(
+        (fav) => fav?.menuId?.toString() === menu?._id?.toString()
+      );
+      setIsFavorite(isFav);
+    } catch (error) {
+      console.error("Error checking favorite status:", error);
+      // Don't set isFavorite to false here to avoid flickering
+    }
+  }, [session?.user?.id, menu?._id]);
+
+  useEffect(() => {
+    checkFavoriteStatus();
+  }, [checkFavoriteStatus]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Toggle favorite status (add or remove) with enhanced logging
+  // Toggle favorite status (add or remove) with better error handling
   const toggleFavorite = async (e) => {
-    e.stopPropagation(); // Prevent other click events like opening modal
+    e.stopPropagation();
 
     if (!session) {
       alert("Please login to add favorites");
+      return;
+    }
+
+    if (!menu?._id) {
+      console.error("No menu ID available");
       return;
     }
 
@@ -115,8 +131,7 @@ const MenuCard = ({ menu, restaurants }) => {
         // Add to favorites
         console.log("--- Attempting to add to favorites ---");
         console.log("Session User ID:", session.user.id);
-        console.log("Menu Object:", menu);
-        console.log("Restaurant Object:", restaurant);
+        console.log("Menu ID:", menu._id);
 
         const response = await fetch("/api/favorites", {
           method: "POST",
@@ -124,8 +139,8 @@ const MenuCard = ({ menu, restaurants }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            menu: menu,
-            restaurant: restaurant,
+            menuId: menu._id, // Send only the ID, not the entire menu object
+            restaurantId: restaurant?._id,
           }),
         });
 
@@ -142,7 +157,6 @@ const MenuCard = ({ menu, restaurants }) => {
             `Failed to add to favorites: ${errorData.error || "Unknown error"}`
           );
 
-          // If the server says it already exists (status 409), update the UI to reflect that
           if (response.status === 409) {
             setIsFavorite(true);
           }
@@ -174,9 +188,9 @@ const MenuCard = ({ menu, restaurants }) => {
           <Image
             src={menu.imageUrl}
             alt={menu.title}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-xl"
+            fill
+            className="rounded-t-xl object-cover"
+            priority={false}
           />
           {/* Location Badge - Left Side */}
           <div className="absolute top-2 left-2 bg-orange-500 rounded-full px-2 py-1 text-xs font-bold text-white flex items-center">
@@ -286,8 +300,8 @@ const MenuCard = ({ menu, restaurants }) => {
                     <Image
                       src={restaurant.logo}
                       alt={restaurant.name}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <span className="ml-2 text-sm text-gray-700 font-medium hover:text-orange-500 transition-colors">
@@ -300,8 +314,8 @@ const MenuCard = ({ menu, restaurants }) => {
                     <Image
                       src={menu.imageUrl}
                       alt={menu.title}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <span className="ml-2 text-sm text-gray-700 font-medium">
