@@ -9,6 +9,7 @@ import NextThemeProvider from "@/providers/NextThemeProvider";
 import { CartProvider } from "@/lib/cartContext";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "@/lib/StoreProvider"; 
+import Chatbot from "@/components/chatbot"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
                     <Navbar />
                   </header>
                   <main>{children}</main>
+                  <Chatbot />
                   <Toaster position="top-center" />
                   <footer>
                     <Footer />
