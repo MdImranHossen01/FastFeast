@@ -1,123 +1,156 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, FileText, RefreshCcw } from "lucide-react";
+import { ShieldCheck, FileText, Mail, Lock, Cookie } from "lucide-react";
 
-export default function PolicyPage({
+export default function PrivacyPolicy({
   siteName = "FastFeast",
-  effectiveDate = "October 13, 2025",
+  effectiveDate = "October 16, 2025",
   contactEmail = "support@fastfeast.com",
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-base-200 to-base-100">
-      {/*  Hero Section */}
-      <div
-        className="relative bg-cover bg-center h-[300px] md:h-[420px] flex items-center justify-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1605902711622-cfb43c4437b5?auto=format&fit=crop&w=1600&q=80')",
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
-        <div className="relative text-center text-white px-6 fade-up">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-3 drop-shadow-xl">
-            {siteName} Policy Center
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-white text-gray-800">
+      <div className="max-w-5xl mx-auto px-6 py-16">
+        {/* Header Section */}
+        <div className="text-center mb-10">
+          <ShieldCheck className="mx-auto text-orange-500 w-14 h-14 mb-4" />
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            Your Privacy Matters 
           </h1>
-          <p className="text-base md:text-lg text-gray-300">
+          <p className="text-sm text-gray-500">
             Effective Date: {effectiveDate}
           </p>
         </div>
-      </div>
 
-      {/*  Cards Section */}
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-16 grid md:grid-cols-3 gap-8">
-        {/* Privacy Policy */}
-        <div className="group bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-3 transition-all duration-300">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-primary/10 text-primary p-3 rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
-              <ShieldCheck size={26} />
+        {/* Main Card */}
+        <div className="bg-white/80 shadow-xl backdrop-blur-md border border-orange-100 rounded-2xl p-8 space-y-8">
+          {/* Introduction */}
+          <section>
+            <p className="text-lg leading-relaxed">
+              Welcome to <strong>{siteName}</strong> — where good food meets fast
+              delivery! Your privacy is as important to us as your meal reaching
+              you hot and fresh. This Privacy Policy explains how we collect,
+              use, and safeguard your personal information while you enjoy our
+              services.
+            </p>
+          </section>
+
+          {/* Data Collection */}
+          <section>
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="text-orange-500" />
+              <h2 className="text-2xl font-semibold">
+                1. What Information We Collect
+              </h2>
             </div>
-            <h3 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition">
-              Privacy Policy
-            </h3>
-          </div>
-          <p className="text-gray-700 leading-relaxed">
-            We value your privacy and protect your personal information. We only
-            collect necessary details like your name, email, and payment info to
-            process orders and enhance your experience.
-          </p>
-          <p className="text-gray-700 mt-3">
-            Your data is securely stored and never sold to others. For privacy
-            inquiries, contact us at{" "}
-            <a
-              href={`mailto:${contactEmail}`}
-              className="text-primary font-medium hover:underline"
-            >
-              {contactEmail}
-            </a>
-            .
-          </p>
+            <p>
+              When you use {siteName}, we collect basic details such as your
+              name, phone number, delivery address, and payment info to complete
+              your order. We may also collect location data (if allowed), device
+              type, and order preferences to improve your experience.
+            </p>
+          </section>
+
+          {/* Usage of Information */}
+          <section>
+            <div className="flex items-center gap-2 mb-2">
+              <Lock className="text-orange-500" />
+              <h2 className="text-2xl font-semibold">
+                2. How We Use Your Information
+              </h2>
+            </div>
+            <ul className="list-disc ml-6 space-y-2">
+              <li>To deliver your food orders quickly and accurately.</li>
+              <li>To personalize offers, coupons, and recommendations.</li>
+              <li>To send order updates and service notifications.</li>
+              <li>To improve app functionality and customer experience.</li>
+              <li>To ensure account safety and detect fraudulent activity.</li>
+            </ul>
+          </section>
+
+          {/* Cookies & Tracking */}
+          <section>
+            <div className="flex items-center gap-2 mb-2">
+              <Cookie className="text-orange-500" />
+              <h2 className="text-2xl font-semibold">3. Cookies & Tracking</h2>
+            </div>
+            <p>
+              Like most food delivery platforms, {siteName} uses cookies to
+              remember your login details, save your cart, and show personalized
+              offers. You can disable cookies in your browser settings, but some
+              features may not work properly without them.
+            </p>
+          </section>
+
+          {/* Data Protection */}
+          <section>
+            <div className="flex items-center gap-2 mb-2">
+              <ShieldCheck className="text-orange-500" />
+              <h2 className="text-2xl font-semibold">
+                4. How We Protect Your Data
+              </h2>
+            </div>
+            <p>
+              We use secure servers, encrypted transactions, and strict
+              procedures to protect your data. However, no online platform is
+              completely risk-free. We recommend keeping your password private
+              and reporting any suspicious activity immediately.
+            </p>
+          </section>
+
+          {/* Sharing Information */}
+          <section>
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="text-orange-500" />
+              <h2 className="text-2xl font-semibold">
+                5. Sharing Information with Others
+              </h2>
+            </div>
+            <p>
+              We only share essential details (like name, address, contact) with
+              restaurant partners, delivery riders, and payment providers so
+              your food reaches you smoothly. We never sell your personal data
+              to advertisers or third parties.
+            </p>
+          </section>
+
+          {/* Your Rights */}
+          <section>
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="text-orange-500" />
+              <h2 className="text-2xl font-semibold">
+                6. Your Rights & Control
+              </h2>
+            </div>
+            <p>
+              You can access, update, or delete your account anytime through
+              your profile settings. Want to stop receiving promotional emails?
+              Simply click “Unsubscribe” in our messages — easy as that!
+            </p>
+          </section>
+
+          {/* Contact Info */}
+          <section>
+            <div className="flex items-center gap-2 mb-2">
+              <Mail className="text-orange-500" />
+              <h2 className="text-2xl font-semibold">7. Contact Us</h2>
+            </div>
+            <p>
+              Have questions about this policy or your data?  
+              We’d love to hear from you!  
+              Reach us anytime at{" "}
+              <a
+                href={`mailto:${contactEmail}`}
+                className="text-orange-600 font-medium underline"
+              >
+                {contactEmail}
+              </a>
+              .
+            </p>
+          </section>
         </div>
 
-        {/*  Terms & Conditions */}
-        <div className="group bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-3 transition-all duration-300">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-primary/10 text-primary p-3 rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
-              <FileText size={26} />
-            </div>
-            <h3 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition">
-              Terms & Conditions
-            </h3>
-          </div>
-          <p className="text-gray-700 leading-relaxed">
-            By using {siteName}, you agree to our terms. Products, prices, and
-            services are subject to change without prior notice.
-          </p>
-          <p className="text-gray-700 mt-3">
-            Users must provide accurate information when registering or
-            ordering. Fraud or misuse may result in suspension. Updates to these
-            terms will appear here with a new effective date.
-          </p>
-        </div>
-
-        {/*  Return & Refund Policy */}
-        <div className="group bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:-translate-y-3 transition-all duration-300">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-primary/10 text-primary p-3 rounded-full group-hover:bg-primary group-hover:text-white transition-all duration-300">
-              <RefreshCcw size={26} />
-            </div>
-            <h3 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition">
-              Return & Refund Policy
-            </h3>
-          </div>
-          <p className="text-gray-700 leading-relaxed">
-            If you receive a damaged or incorrect item, please contact us within{" "}
-            <strong>7 days</strong> of delivery with valid proof (photo/video).
-          </p>
-          <p className="text-gray-700 mt-3">
-            Approved refunds or replacements are processed within{" "}
-            <strong>5–10 business days</strong>. For hygiene reasons, opened or
-            perishable goods cannot be returned.
-          </p>
-        </div>
-      </div>
-
-      {/*  Buttons */}
-      <div className="flex flex-col md:flex-row justify-center gap-4 pb-12">
-        <button
-          onClick={() => window.print()}
-          className="btn btn-outline btn-accent rounded-full px-6 shadow hover:shadow-md transition"
-        >
-          Print / Save as PDF
-        </button>
-        <a
-          href={`mailto:${contactEmail}?subject=${encodeURIComponent(
-            siteName + " Policy Inquiry"
-          )}`}
-          className="btn btn-accent rounded-full px-6 shadow hover:shadow-md transition"
-        >
-          Contact Support
-        </a>
+       
       </div>
     </div>
   );
