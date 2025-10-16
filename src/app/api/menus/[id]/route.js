@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 // GET menu by ID
 export async function GET(req, { params }) {
   try {
-    // Extract menu ID from params
+    // Extract menu ID from params - MUST USE AWAIT
     const { id } = await params;
 
     // Ensure DB connection
@@ -22,16 +22,13 @@ export async function GET(req, { params }) {
       );
     }
 
-    // Return the found menu in the expected format
-    return NextResponse.json(
-      { 
-        success: true, 
-        menuItem: menu 
-      }, 
-      { status: 200 }
-    );
+    // Return the found menu
+    return NextResponse.json({
+      success: true,
+      menuItem: menu
+    }, { status: 200 });
+    
   } catch (error) {
-    // Log the error for debugging
     console.error("Error fetching menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
@@ -43,7 +40,7 @@ export async function GET(req, { params }) {
 // PATCH (update) menu by ID
 export async function PATCH(req, { params }) {
   try {
-    // Extract menu ID from params
+    // Extract menu ID from params - MUST USE AWAIT
     const { id } = await params;
 
     // Parse the request body to get update data
@@ -68,15 +65,12 @@ export async function PATCH(req, { params }) {
     }
 
     // Return the updated menu
-    return NextResponse.json(
-      { 
-        success: true, 
-        menuItem: updatedMenu 
-      }, 
-      { status: 200 }
-    );
+    return NextResponse.json({
+      success: true,
+      menuItem: updatedMenu
+    }, { status: 200 });
+    
   } catch (error) {
-    // Log the error for debugging
     console.error("Error updating menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
@@ -88,7 +82,7 @@ export async function PATCH(req, { params }) {
 // DELETE menu by ID
 export async function DELETE(req, { params }) {
   try {
-    // Extract menu ID from params
+    // Extract menu ID from params - MUST USE AWAIT
     const { id } = await params;
 
     // Ensure DB connection
@@ -115,7 +109,6 @@ export async function DELETE(req, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    // Log the error for debugging
     console.error("Error deleting menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
