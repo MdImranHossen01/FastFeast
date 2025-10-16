@@ -106,10 +106,10 @@ export default function RestaurantsCard({ restaurant }) {
   };
 
   return (
-    <div className="group bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden rounded-2xl">
-      <div className="p-6  px- relative">
+    <div className="group card  bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden rounded-2xl">
+      <div className=" card-body  relative">
         {/* Logo and Restaurant Info */}
-        <div className=" flex flex-col items-center">
+        <div className="  flex flex-col items-center">
           {/* Larger Circular Logo with Border Animation */}
           <div className="relative mb-4">
             <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
