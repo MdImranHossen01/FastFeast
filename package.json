@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build --turbopack --no-lint",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "next lint",
     "json-server": "json-server --watch db.json --port 5000"
   },
   "dependencies": {
@@ -31,8 +31,9 @@
     "mongoose": "^8.19.1",
     "next": "15.5.3",
     "next-auth": "^4.24.11",
+    "next-pwa": "^5.6.0",
     "next-themes": "^0.4.6",
-    "nodemailer": "^6.6.5",
+    "nodemailer": "^7.0.9",
     "react": "19.1.0",
     "react-compare-image": "^3.5.10",
     "react-countup": "^6.5.3",

@@ -13,6 +13,7 @@ import { IoLocationSharp, IoCall, IoMail } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import NewsletterForm from "@/app/components/NewsLetter";
+import InstallButton from "@/components/pwa/InstallButton";
 
 // --- Reusable Footer Column Component ---
 const FooterColumn = ({ title, links }) => (
@@ -80,6 +81,9 @@ const Footer = () => {
                 />
                 <p className="text-gray-400">123 Gulshan Avenue, Dhaka </p>
               </div>
+              <div>
+                <InstallButton />
+              </div>
               <div className="flex items-center gap-3">
                 <IoCall size={20} className="flex-shrink-0 text-orange-400" />
                 <a
@@ -143,7 +147,7 @@ const Footer = () => {
             <h3 className="mb-4 text-sm font-semibold uppercase text-gray-100">
               Newsletter
             </h3>
-            <NewsletterForm/>
+            <NewsletterForm />
           </div>
         </div>
       </div>
