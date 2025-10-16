@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { getCollection, serializeDocument, ObjectId } from '@/lib/dbConnect';
+import { NextResponse } from "next/server";
+import { getCollection, serializeDocument, ObjectId } from "@/lib/dbConnect";
 
 export async function GET(req, { params }) {
   try {
@@ -8,7 +8,7 @@ export async function GET(req, { params }) {
 
     if (!menuId) {
       return NextResponse.json(
-        { success: false, message: 'Menu ID is required' },
+        { success: false, message: "Menu ID is required" },
         { status: 400 }
       );
     }
@@ -16,25 +16,27 @@ export async function GET(req, { params }) {
     // Validate if menuId is a valid ObjectId
     if (!ObjectId.isValid(menuId)) {
       return NextResponse.json(
-        { success: false, message: 'Invalid menu ID format' },
+        { success: false, message: "Invalid menu ID format" },
         { status: 400 }
       );
     }
 
-    const reviewsCollection = await getCollection('reviews');
+    const reviewsCollection = await getCollection("reviews");
 
     // Find reviews for this menu item
     const reviews = await reviewsCollection
       .find({
-        'itemReviews.itemId': menuId
+        "itemReviews.itemId": menuId,
       })
       .sort({ createdAt: -1 })
       .toArray();
 
     // Extract and format the reviews for this specific menu item
     const itemReviews = [];
-    reviews.forEach(reviewDoc => {
-      const itemReview = reviewDoc.itemReviews.find(item => item.itemId === menuId);
+    reviews.forEach((reviewDoc) => {
+      const itemReview = reviewDoc.itemReviews.find(
+        (item) => item.itemId === menuId
+      );
       if (itemReview) {
         itemReviews.push({
           customerEmail: reviewDoc.customerEmail,
@@ -42,30 +44,36 @@ export async function GET(req, { params }) {
           comment: itemReview.comment,
           createdAt: reviewDoc.createdAt,
           reviewId: reviewDoc._id,
-          orderId: reviewDoc.orderId
+          orderId: reviewDoc.orderId,
         });
       }
     });
 
     // Calculate average rating
-    const averageRating = itemReviews.length > 0 
-      ? (itemReviews.reduce((sum, review) => sum + review.rating, 0) / itemReviews.length).toFixed(1)
-      : null;
+    const averageRating =
+      itemReviews.length > 0
+        ? (
+            itemReviews.reduce((sum, review) => sum + review.rating, 0) /
+            itemReviews.length
+          ).toFixed(1)
+        : null;
 
     return NextResponse.json({
       success: true,
       reviews: serializeDocument(itemReviews),
       averageRating,
-      totalReviews: itemReviews.length
+      totalReviews: itemReviews.length,
     });
-
   } catch (error) {
-    console.error('Error fetching menu item reviews:', error);
+    console.error("Error fetching menu item reviews:", error);
     return NextResponse.json(
-      { 
-        success: false, 
-        message: 'Failed to fetch reviews', 
-        error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+      {
+        success: false,
+        message: "Failed to fetch reviews",
+        error:
+          process.env.NODE_ENV === "development"
+            ? error.message
+            : "Internal server error",
       },
       { status: 500 }
     );
