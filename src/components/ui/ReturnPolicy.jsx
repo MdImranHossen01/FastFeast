@@ -1,142 +1,74 @@
 "use client";
 
 import React from "react";
-import { RotateCcw, Wallet, Smile, Mail, ShieldCheck } from "lucide-react";
 
 export default function ReturnPolicy({
   siteName = "FastFeast",
   effectiveDate = "October 16, 2025",
   contactEmail = "support@fastfeast.com",
 }) {
+  const sections = [
+    {
+      title: "1. Introduction",
+      content: `At ${siteName}, we strive to provide high-quality products and a satisfying experience. Our Return Policy explains how you can return items, request refunds, and what conditions apply.`
+    },
+    {
+      title: "2. Eligibility for Returns",
+      content: `Items must be returned within 7 days of delivery unless specified otherwise. Products must be unused, unopened, and in their original packaging. Perishable items, customized products, or promotional items may not be eligible for return.`
+    },
+    {
+      title: "3. How to Initiate a Return",
+      content: `To request a return, contact our customer support via in-app chat or email at ${contactEmail}. Provide your order number and reason for return. Our support team will guide you through the return process.`
+    },
+    {
+      title: "4. Refunds",
+      content: `Refunds will be issued to the original payment method once the returned item is received and inspected. Processing time may vary between 5–10 business days depending on your bank or payment provider.`
+    },
+    {
+      title: "5. Exchanges",
+      content: `If an exchange is requested, a replacement will be shipped once the original item is returned and inspected. Additional charges may apply if the replacement item costs more.`
+    },
+    {
+      title: "6. Damaged or Defective Items",
+      content: `If you receive a damaged or defective item, contact us immediately. We may ask for photos of the item to verify the issue. Eligible items will be refunded or replaced at no extra cost.`
+    },
+    {
+      title: "7. Non-Returnable Items",
+      content: `Certain items cannot be returned: perishable goods, personalized items, gift cards, and items marked as final sale. Please check product descriptions for return eligibility.`
+    },
+    {
+      title: "8. Contact Us",
+      content: `For any questions regarding returns, refunds, or exchanges, reach out to our support team at ${contactEmail}. We are here to help and ensure a smooth return experience.`
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-white text-gray-800">
-      <div className="max-w-5xl mx-auto px-6 py-16">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <RotateCcw className="mx-auto text-orange-500 w-14 h-14 mb-4" />
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Return & Refund Policy 
+    <div className="min-h-screen text-gray-800">
+      {/* Hero Section */}
+      <div
+        className="relative h-64 md:h-80 flex items-center justify-center text-center bg-cover bg-center"
+        style={{ backgroundImage: `url("/hero-return.jpg")` }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+            Return Policy
           </h1>
-          <p className="text-sm text-gray-500">Effective Date: {effectiveDate}</p>
+          <p className="text-white/90 text-sm md:text-base">
+            Effective Date: {effectiveDate}
+          </p>
         </div>
+      </div>
 
-        {/* Main Card */}
-        <div className="bg-white/80 shadow-xl backdrop-blur-md border border-orange-100 rounded-2xl p-8 space-y-8">
-          {/* Intro */}
-          <section>
-            <p className="text-lg leading-relaxed">
-              At <strong>{siteName}</strong>, your satisfaction is our top
-              priority. We always strive to deliver your food hot, fresh, and on
-              time. However, we understand that sometimes things don’t go as
-              planned. This Return & Refund Policy explains how we handle
-              cancellations, refunds, and order issues — with the same care we
-              put into every meal.
-            </p>
-          </section>
-
-          {/* When Refund Applies */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <Wallet className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                1. When You’re Eligible for a Refund
-              </h2>
-            </div>
-            <ul className="list-disc ml-6 space-y-2">
-              <li>
-                Your order was **not delivered** due to rider or restaurant issues.
-              </li>
-              <li>
-                You received the **wrong items** or an **incomplete order**.
-              </li>
-              <li>
-                You canceled an order **before restaurant confirmation** or before
-                preparation started.
-              </li>
-              <li>
-                Your payment was deducted, but the order did not go through.
-              </li>
-            </ul>
-          </section>
-
-          {/* When Refund Does Not Apply */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <ShieldCheck className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                2. When Refund May Not Be Possible
-              </h2>
-            </div>
-            <p>
-              Refunds may not be available in cases where:
-            </p>
-            <ul className="list-disc ml-6 space-y-2">
-              <li>
-                The food was prepared and delivered as per your order but didn’t
-                meet personal taste expectations.
-              </li>
-              <li>
-                The wrong address or contact details were provided by the customer.
-              </li>
-              <li>
-                Orders were placed using a promotional code or offer marked as
-                “non-refundable.”
-              </li>
-            </ul>
-          </section>
-
-          {/* Refund Process */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <RotateCcw className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">3. How Refunds Work</h2>
-            </div>
-            <p>
-              Once your refund request is approved, the amount will be credited
-              back to your original payment method. Refunds are typically
-              processed within **3–7 business days**, depending on your bank or
-              payment provider.
-            </p>
-          </section>
-
-          {/* Cancellation Policy */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <Smile className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                4. Order Cancellation Policy
-              </h2>
-            </div>
-            <p>
-              You can cancel your order directly from the app or website before
-              the restaurant starts preparing it.  
-              Once food preparation has started, cancellation or refund may not
-              be possible as the restaurant has already incurred costs.
-            </p>
-          </section>
-
-          {/* Contact Info */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <Mail className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">5. Contact Us</h2>
-            </div>
-            <p>
-              If you face any issues or have questions about refunds or
-              cancellations, please reach out to our support team at{" "}
-              <a
-                href={`mailto:${contactEmail}`}
-                className="text-orange-600 font-medium underline"
-              >
-                {contactEmail}
-              </a>
-              .  
-              We’re here to help you with a quick resolution and a smile 
-            </p>
-          </section>
-        </div>
-
-       
+      {/* Content Section */}
+      <div className="max-w-5xl mx-auto px-6 py-12 space-y-12">
+        {sections.map((section, idx) => (
+          <div key={idx} className="space-y-4">
+            <h2 className="text-2xl font-semibold text-gray-900">{section.title}</h2>
+            <p className="text-gray-700 leading-relaxed whitespace-pre-line">{section.content}</p>
+            {idx < sections.length - 1 && <hr className="border-gray-200 mt-4 mb-6" />}
+          </div>
+        ))}
       </div>
     </div>
   );
