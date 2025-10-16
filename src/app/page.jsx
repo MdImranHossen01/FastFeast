@@ -16,6 +16,7 @@ import RestaurantSection from "./components/RestaurantSection";
 import FoodCompare from "./components/FoodCompare";
 import PrivacyPolicy from "@/components/ui/PrivacyPolicy";
 import ReturnPolicy from "@/components/ui/ReturnPolicy";
+import TermsAndConditions from "@/components/ui/TermsAndConditions";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
       <CustomersReview />
       <PrivacyPolicy/>
 <ReturnPolicy></ReturnPolicy>
+<TermsAndConditions></TermsAndConditions>
       {/* <NewsLetter /> */}
     </div>
   );
