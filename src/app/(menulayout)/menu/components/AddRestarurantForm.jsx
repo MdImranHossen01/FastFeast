@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Form from "next/form";
-import { createRestaurant } from "@/app/actions/restaurant/createRestaurant";
+import { createRestaurant } from "@/app/actions/restaurants/createRestaurant";
 
 const AddRestaurantForm = () => {
   // State for form fields that need special handling

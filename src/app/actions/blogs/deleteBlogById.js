@@ -3,7 +3,7 @@
 // Action to delete a blog by ID
 export default async function deleteBlogById(id) {
   try {
-    // Fetch blogs from the API
+    // Delete blog to the API
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
 
     const res = await fetch(
@@ -16,11 +16,7 @@ export default async function deleteBlogById(id) {
 
     // always return an object
     if (!res.ok) {
-      return {
-        success: false,
-        message: `Failed to delete blog. Status: ${res.status}`,
-        data: null,
-      };
+      return {};
     }
 
     // If response is ok, parse and return the data
@@ -36,7 +32,7 @@ export default async function deleteBlogById(id) {
     return {
       success: false,
       message: error.message || "Unexpected server error",
-      data: null,
+      data: {},
     };
   }
 }

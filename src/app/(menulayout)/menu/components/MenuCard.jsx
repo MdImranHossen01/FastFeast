@@ -1,24 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MenuModal from "./MenuModal";
 import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
 import { FiStar } from "react-icons/fi";
-import { useRouter } from "next/navigation";
 
 const MenuCard = ({ menu, restaurants }) => {
   const { data: session } = useSession();
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [restaurant, setRestaurant] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [rating, setRating] = useState(null);
+  const [averageRating, setAverageRating] = useState(null);
   const [reviewCount, setReviewCount] = useState(0);
-  const [ratingLoading, setRatingLoading] = useState(false); // Set to false since we have direct rating
 
   // Find the restaurant data based on restaurantId
   useEffect(() => {
@@ -28,54 +25,82 @@ const MenuCard = ({ menu, restaurants }) => {
     }
   }, [restaurants, menu.restaurantId]);
 
-  // Check if menu is in favorites when component mounts or session changes
+  // Fetch average rating and review count for this menu item
   useEffect(() => {
-    const checkFavorite = async () => {
-      // Only check if user is logged in and menu has an ID
-      if (!session?.user?.id || !menu._id) {
-        setIsFavorite(false); // Reset to false if no session or menu ID
-        return;
-      }
-      
+    const fetchRating = async () => {
+      if (!menu._id) return;
+
       try {
-        const response = await fetch('/api/favorites');
+        const response = await fetch(`/api/menus/${menu._id}/reviews`);
         if (response.ok) {
-          const favorites = await response.json();
-          // Convert both IDs to strings for reliable comparison
-          const isFav = favorites.some(fav => fav.menuId.toString() === menu._id.toString());
-          setIsFavorite(isFav);
-        } else {
-          console.error('Failed to check favorite status, response not ok');
+          const data = await response.json();
+          if (data.success) {
+            setAverageRating(data.averageRating);
+            setReviewCount(data.totalReviews);
+          }
         }
       } catch (error) {
-        console.error('Error checking favorite status:', error);
+        console.error('Error fetching menu item rating:', error);
       }
     };
 
-    checkFavorite();
-  }, [session, menu._id]);
+    fetchRating();
+  }, [menu._id]);
 
-  // Use direct rating from menu data instead of fetching from API
-  useEffect(() => {
-    // Use the rating directly from the menu object
-    if (menu.rating !== undefined) {
-      setRating(menu.rating);
+  // Check if menu is in favorites - FIXED VERSION
+  const checkFavoriteStatus = useCallback(async () => {
+    // Only check if user is logged in and menu has an ID
+    if (!session?.user?.id || !menu?._id) {
+      setIsFavorite(false);
+      return;
     }
     
-    // If you need to fetch review count separately, you can do it here
-    // But for now, we'll use a placeholder or fetch it if needed
-    setReviewCount(menu.reviewCount || 0); // You can add reviewCount to your menu data if available
-  }, [menu]);
+    try {
+      const response = await fetch('/api/favorites');
+      
+      if (!response.ok) {
+        console.error('Failed to fetch favorites, status:', response.status);
+        return;
+      }
+      
+      const favorites = await response.json();
+      
+      // Add null check for favorites array
+      if (!Array.isArray(favorites)) {
+        console.error('Favorites data is not an array:', favorites);
+        setIsFavorite(false);
+        return;
+      }
+      
+      // Safe comparison with null checks
+      const isFav = favorites.some(fav => 
+        fav?.menuId?.toString() === menu?._id?.toString()
+      );
+      setIsFavorite(isFav);
+    } catch (error) {
+      console.error('Error checking favorite status:', error);
+      // Don't set isFavorite to false here to avoid flickering
+    }
+  }, [session?.user?.id, menu?._id]);
+
+  useEffect(() => {
+    checkFavoriteStatus();
+  }, [checkFavoriteStatus]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Toggle favorite status (add or remove) with enhanced logging
+  // Toggle favorite status (add or remove) with better error handling
   const toggleFavorite = async (e) => {
-    e.stopPropagation(); // Prevent other click events like opening modal
+    e.stopPropagation();
     
     if (!session) {
       alert('Please login to add favorites');
+      return;
+    }
+
+    if (!menu?._id) {
+      console.error('No menu ID available');
       return;
     }
 
@@ -100,8 +125,7 @@ const MenuCard = ({ menu, restaurants }) => {
         // Add to favorites
         console.log('--- Attempting to add to favorites ---');
         console.log('Session User ID:', session.user.id);
-        console.log('Menu Object:', menu);
-        console.log('Restaurant Object:', restaurant);
+        console.log('Menu ID:', menu._id);
         
         const response = await fetch('/api/favorites', {
           method: 'POST',
@@ -109,8 +133,8 @@ const MenuCard = ({ menu, restaurants }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            menu: menu,
-            restaurant: restaurant
+            menuId: menu._id, // Send only the ID, not the entire menu object
+            restaurantId: restaurant?._id
           }),
         });
 
@@ -125,7 +149,6 @@ const MenuCard = ({ menu, restaurants }) => {
           console.error('Server Response:', errorData);
           alert(`Failed to add to favorites: ${errorData.error || 'Unknown error'}`);
           
-          // If the server says it already exists (status 409), update the UI to reflect that
           if (response.status === 409) {
             setIsFavorite(true);
           }
@@ -140,23 +163,8 @@ const MenuCard = ({ menu, restaurants }) => {
     }
   };
 
-  // Navigate to reviews page
-  const viewReviews = (e) => {
-    if (e) e.stopPropagation(); // Prevent opening modal
-    router.push(`/menu/${menu._id}/reviews`);
-  };
-
-  // Navigate to reviews when clicking on rating badge
-  const handleRatingClick = (e) => {
-    e.stopPropagation();
-    viewReviews();
-  };
-
   // Generate restaurant slug if restaurant exists
   const restaurantSlug = restaurant ? generateSlug(restaurant.name, restaurant.location?.area) : "";
-
-  // Check if menu has ratings (rating exists and is greater than 0)
-  const hasRatings = rating !== null && rating !== undefined && rating > 0;
 
   return (
     <div>
@@ -168,9 +176,9 @@ const MenuCard = ({ menu, restaurants }) => {
           <Image
             src={menu.imageUrl}
             alt={menu.title}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-t-xl"
+            fill
+            className="rounded-t-xl object-cover"
+            priority={false}
           />
           {/* Location Badge - Left Side */}
           <div className="absolute top-2 left-2 bg-orange-500 rounded-full px-2 py-1 text-xs font-bold text-white flex items-center">
@@ -206,24 +214,13 @@ const MenuCard = ({ menu, restaurants }) => {
               {menu.discountRate}% OFF
             </div>
           )}
-          {/* Rating Badge - Show if rating exists */}
-          {hasRatings && (
-            <button
-              onClick={handleRatingClick}
-              className={`absolute bottom-2 left-2 bg-white rounded-full px-2 py-1 text-xs font-bold flex items-center shadow-md transition-all duration-200 ${
-                'hover:shadow-lg hover:scale-105 cursor-pointer'
-              }`}
-            >
-              <FiStar className="h-3 w-3 text-yellow-400 fill-current mr-1" />
-              {rating}
-            </button>
-          )}
         </div>
         <div className="p-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-orange-500">
+            {/* Made the title clickable with Link component */}
+            <Link href={`/menu/${menu._id}`} className="text-lg font-semibold text-orange-500 hover:text-orange-600 transition-colors">
               {menu.title}
-            </h3>
+            </Link>
             {/* Heart Icon - filled if favorite, outlined if not */}
             <button
               onClick={toggleFavorite}
@@ -252,6 +249,19 @@ const MenuCard = ({ menu, restaurants }) => {
               </svg>
             </button>
           </div>
+          
+          {/* Rating Section - Show only if there are reviews */}
+          {averageRating && (
+            <div className="flex items-center mt-1">
+              <div className="flex items-center">
+                <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
+                <span className="ml-1 text-sm font-medium text-gray-900">{averageRating}</span>
+                <span className="mx-1 text-gray-300">•</span>
+                <span className="text-sm text-gray-500">{reviewCount} review{reviewCount !== 1 ? 's' : ''}</span>
+              </div>
+            </div>
+          )}
+
           <p className="mt-1 text-sm text-gray-600 line-clamp-2">
             {menu.description}
           </p>
@@ -266,8 +276,8 @@ const MenuCard = ({ menu, restaurants }) => {
                     <Image
                       src={restaurant.logo}
                       alt={restaurant.name}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <span className="ml-2 text-sm text-gray-700 font-medium hover:text-orange-500 transition-colors">
@@ -280,8 +290,8 @@ const MenuCard = ({ menu, restaurants }) => {
                     <Image
                       src={menu.imageUrl}
                       alt={menu.title}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <span className="ml-2 text-sm text-gray-700 font-medium">
@@ -312,67 +322,6 @@ const MenuCard = ({ menu, restaurants }) => {
               </svg>
             </button>
           </div>
-
-          {/* Reviews Section */}
-          <div className="mt-3 flex items-center justify-between">
-            <div className="flex items-center">
-              {hasRatings ? (
-                <div 
-                  onClick={viewReviews}
-                  className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
-                >
-                  <FiStar className="h-4 w-4 text-yellow-400 fill-current mr-1" />
-                  <span className="text-sm text-gray-700 font-medium">
-                    {rating}
-                  </span>
-                  <span className="text-sm text-gray-500 ml-1">
-                    ({reviewCount > 0 ? `${reviewCount} ${reviewCount === 1 ? 'review' : 'reviews'}` : 'No reviews yet'})
-                  </span>
-                </div>
-              ) : (
-                <div className="flex items-center text-gray-500">
-                  <FiStar className="h-4 w-4 text-gray-300 mr-1" />
-                  <span className="text-sm">No ratings yet</span>
-                </div>
-              )}
-            </div>
-            
-            {/* View Reviews Button - Show if there are ratings */}
-            {hasRatings && (
-              <button
-                onClick={viewReviews}
-                className="text-sm text-orange-500 hover:text-orange-600 font-medium transition-colors flex items-center"
-              >
-                View Reviews
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-4 w-4 ml-1" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M9 5l7 7-7 7" 
-                  />
-                </svg>
-              </button>
-            )}
-          </div>
-
-          {/* No Reviews Message - Show if no ratings but allow navigation */}
-          {!hasRatings && (
-            <div className="mt-2 text-center">
-              <button
-                onClick={viewReviews}
-                className="text-xs text-gray-500 hover:text-orange-500 transition-colors underline"
-              >
-                Be the first to review this item
-              </button>
-            </div>
-          )}
         </div>
       </div>
       

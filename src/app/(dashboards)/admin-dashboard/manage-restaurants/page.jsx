@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import PendingRestaurants from "./components/pendingRestaurants";
 import ApprovedRestaurants from "./components/approvedRestaurants";
 import ManageRestaurantsCard from "./components/manageRestaurantsCard";
+import getRestaurants from "@/app/actions/restaurants/getRestaurant";
 
 export default function ManageRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
@@ -13,15 +14,7 @@ export default function ManageRestaurants() {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurant`
-        );
-
-        if (!res.ok) {
-          throw new Error(`Error: ${res.status} ${res.statusText}`);
-        }
-
-        const data = await res.json();
+        const data = await getRestaurants();
 
         if (!Array.isArray(data)) {
           throw new Error("Invalid data format received");

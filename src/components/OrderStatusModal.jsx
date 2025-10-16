@@ -162,14 +162,23 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
     router.push(`/riders/${riderId}`);
   };
 
+  // UPDATED: This function now correctly passes the riderId
   const handleReviewSubmit = async (reviewData) => {
     try {
+      // Add riderId and orderId to the review data from the selected order
+      const fullReviewData = {
+        ...reviewData,
+        orderId: orderToReview.id,
+        customerEmail: orderToReview.customerInfo?.email,
+        riderId: orderToReview.riderInfo?.id, // CRITICAL: Add riderId
+      };
+
       const response = await fetch('/api/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(reviewData),
+        body: JSON.stringify(fullReviewData),
       });
       
       const data = await response.json();

@@ -9,10 +9,9 @@ export default function JobsContainer() {
       <JobsBanner/>
       <Dropdown/>
       <JobList/>
-      <JobList/>
+      
 
-      search dropdown
-      jobs wrapper
+      
     </main>
   )
 }
