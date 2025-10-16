@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect, useMemo } from "react";
 import ThaiFood from "./components/ThaiFood";
 import ChineseFood from "./components/ChineseFood";
@@ -7,27 +8,28 @@ import ItalianFood from "./components/ItalianFood";
 import JapaneseFood from "./components/JapaneseFood";
 import KoreanFood from "./components/KoreanFood";
 import TurkishFood from "./components/TurkishFood";
-import getMenu from "@/app/actions/menus/getMenus";
-import getRestaurant from "@/app/actions/restaurants/getRestaurant";
 import { useSelector } from "react-redux";
 import MenuCard from "./components/MenuCard";
+import getMenus from "@/app/actions/menus/getMenus";
+import getRestaurants from "@/app/actions/restaurants/getRestaurant";
 
 const MenuPage = () => {
   const [allMenus, setAllMenus] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // Get filters from Redux
   const filters = useSelector((state) => state.filters);
 
+  // Fetch data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [menusData, restaurantsData] = await Promise.all([
-          getMenu(),
-          getRestaurant()
+          getMenus(),
+          getRestaurants(),
         ]);
-        
+
         console.log("Restaurants data sample:", restaurantsData.slice(0, 2)); // Debug first 2 restaurants
         setAllMenus(menusData);
         setAllRestaurants(restaurantsData);
@@ -44,7 +46,7 @@ const MenuPage = () => {
   // Create a map of restaurant IDs to restaurant details for quick lookup
   const restaurantMap = useMemo(() => {
     const map = {};
-    allRestaurants.forEach(restaurant => {
+    allRestaurants.forEach((restaurant) => {
       if (restaurant && restaurant._id) {
         map[restaurant._id] = restaurant;
       }
@@ -54,90 +56,130 @@ const MenuPage = () => {
 
   // Helper function to extract location string from restaurant object
   const getRestaurantLocation = (restaurant) => {
-    if (!restaurant || !restaurant.location) return '';
-    
+    if (!restaurant || !restaurant.location) return "";
+
     // If location is a string, return it directly
-    if (typeof restaurant.location === 'string') {
+    if (typeof restaurant.location === "string") {
       return restaurant.location.toLowerCase();
     }
-    
+
     // If location is an object, try to extract the area/city
-    if (typeof restaurant.location === 'object') {
+    if (typeof restaurant.location === "object") {
       // Common field names for location in objects
-      const possibleFields = ['area', 'city', 'name', 'address', 'deliveryArea', 'region'];
-      
+      const possibleFields = [
+        "address",
+        "area",
+        "city",
+        "country",
+        "coordinates",
+      ];
+
       for (let field of possibleFields) {
-        if (restaurant.location[field] && typeof restaurant.location[field] === 'string') {
+        if (
+          restaurant.location[field] &&
+          typeof restaurant.location[field] === "string"
+        ) {
           return restaurant.location[field].toLowerCase();
         }
       }
-      
+
       // If no specific field found, try to stringify and extract
       const locationString = JSON.stringify(restaurant.location).toLowerCase();
       return locationString;
     }
-    
-    return '';
+
+    return "";
   };
 
   // Filter all menus based on search criteria including restaurant names AND location
   const filteredMenus = useMemo(() => {
     if (!allMenus.length) return [];
 
-    return allMenus.filter(menu => {
+    return allMenus.filter((menu) => {
       const restaurant = restaurantMap[menu.restaurantId];
-      const restaurantName = restaurant?.name || '';
-      
+      const restaurantName = restaurant?.name || "";
+
       // Safely get restaurant location using helper function
       const restaurantLocation = getRestaurantLocation(restaurant);
-      
+
       // Filter by search query - includes restaurant name
-      const searchMatch = !filters.searchQuery || 
-        (menu.title && menu.title.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
-        (menu.cuisine && menu.cuisine.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
-        (menu.description && menu.description.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
-        (menu.category && menu.category.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
-        restaurantName.toLowerCase().includes(filters.searchQuery.toLowerCase());
+      const searchMatch =
+        !filters.searchQuery ||
+        (menu.title &&
+          menu.title
+            .toLowerCase()
+            .includes(filters.searchQuery.toLowerCase())) ||
+        (menu.cuisine &&
+          menu.cuisine
+            .toLowerCase()
+            .includes(filters.searchQuery.toLowerCase())) ||
+        (menu.description &&
+          menu.description
+            .toLowerCase()
+            .includes(filters.searchQuery.toLowerCase())) ||
+        (menu.category &&
+          menu.category
+            .toLowerCase()
+            .includes(filters.searchQuery.toLowerCase())) ||
+        restaurantName
+          .toLowerCase()
+          .includes(filters.searchQuery.toLowerCase());
 
       // Filter by location - CRITICAL FIX: Only show items from selected location
-      const locationMatch = !filters.location || 
-        (restaurantLocation && restaurantLocation.includes(filters.location.toLowerCase()));
+      const locationMatch =
+        !filters.location ||
+        (restaurantLocation &&
+          restaurantLocation.includes(filters.location.toLowerCase()));
 
       // Filter by cuisine
-      const cuisineMatch = filters.selectedCuisines.length === 0 || 
+      const cuisineMatch =
+        filters.selectedCuisines.length === 0 ||
         (menu.cuisine && filters.selectedCuisines.includes(menu.cuisine));
 
       // Filter by rating
-      const ratingMatch = !filters.selectedRating || 
+      const ratingMatch =
+        !filters.selectedRating ||
         (menu.rating && menu.rating >= filters.selectedRating);
 
       // Filter by price
-      const priceMatch = !filters.selectedPrice || 
+      const priceMatch =
+        !filters.selectedPrice ||
         (filters.selectedPrice === "$" && menu.price < 300) ||
-        (filters.selectedPrice === "$$" && menu.price >= 300 && menu.price < 500) ||
-        (filters.selectedPrice === "$$$" && menu.price >= 500 && menu.price < 700) ||
+        (filters.selectedPrice === "$$" &&
+          menu.price >= 300 &&
+          menu.price < 500) ||
+        (filters.selectedPrice === "$$$" &&
+          menu.price >= 500 &&
+          menu.price < 700) ||
         (filters.selectedPrice === "$$$$" && menu.price >= 700);
 
       // Filter by special offers
-      const specialOfferMatch = !filters.isSpecialOfferSelected || 
-        menu.isSpecialOffer;
+      const specialOfferMatch =
+        !filters.isSpecialOfferSelected || menu.isSpecialOffer;
 
       // Filter by combo
-      const comboMatch = !filters.isComboSelected || 
-        menu.isCombo;
+      const comboMatch = !filters.isComboSelected || menu.isCombo;
 
-      return searchMatch && locationMatch && cuisineMatch && ratingMatch && 
-             priceMatch && specialOfferMatch && comboMatch;
+      return (
+        searchMatch &&
+        locationMatch &&
+        cuisineMatch &&
+        ratingMatch &&
+        priceMatch &&
+        specialOfferMatch &&
+        comboMatch
+      );
     });
   }, [allMenus, filters, restaurantMap]);
 
   // Check if we have active filters
-  const hasActiveFilters = filters.searchQuery || 
+  const hasActiveFilters =
+    filters.searchQuery ||
     filters.location ||
-    filters.selectedCuisines.length > 0 || 
-    filters.selectedRating > 0 || 
-    filters.selectedPrice || 
-    filters.isSpecialOfferSelected || 
+    filters.selectedCuisines.length > 0 ||
+    filters.selectedRating > 0 ||
+    filters.selectedPrice ||
+    filters.isSpecialOfferSelected ||
     filters.isComboSelected;
 
   if (loading) {
@@ -172,28 +214,25 @@ const MenuPage = () => {
               )}
             </div>
           </div>
-          
+
           {/* Display filtered results in horizontal scroll for mobile, grid for desktop */}
           {filteredMenus.length > 0 ? (
             <div>
               {/* Mobile: Horizontal Scroll */}
               <div className="md:hidden flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-                {filteredMenus.map(menu => (
+                {filteredMenus.map((menu) => (
                   <div key={menu._id} className="flex-shrink-0 w-64">
-                    <MenuCard 
-                      menu={menu} 
-                      restaurants={allRestaurants}
-                    />
+                    <MenuCard menu={menu} restaurants={allRestaurants} />
                   </div>
                 ))}
               </div>
-              
+
               {/* Desktop: Grid Layout */}
               <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredMenus.map(menu => (
-                  <MenuCard 
-                    key={menu._id} 
-                    menu={menu} 
+                {filteredMenus.map((menu) => (
+                  <MenuCard
+                    key={menu._id}
+                    menu={menu}
                     restaurants={allRestaurants}
                   />
                 ))}
@@ -201,10 +240,13 @@ const MenuPage = () => {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">No items found matching your criteria.</p>
+              <p className="text-gray-500 text-lg">
+                No items found matching your criteria.
+              </p>
               {filters.location && (
                 <p className="text-gray-400 mt-2">
-                  No "{filters.searchQuery || 'items'}" found in {filters.location}. Try a different location or search term.
+                  No "{filters.searchQuery || "items"}" found in{" "}
+                  {filters.location}. Try a different location or search term.
                 </p>
               )}
             </div>

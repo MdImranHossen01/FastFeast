@@ -35,7 +35,7 @@ const MenuCard = ({ menu, restaurants }) => {
       try {
         const response = await fetch(`/api/menus/${menu._id}/reviews`);
         if (response.ok) {
-          const data = await response.json();
+          const data = await response.json();g
           if (data.success) {
             setAverageRating(data.averageRating);
             setReviewCount(data.totalReviews);

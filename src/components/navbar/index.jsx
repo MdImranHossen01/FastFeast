@@ -9,11 +9,7 @@ import Logo from "../logo";
 import OrderStatusModal from "../OrderStatusModal";
 import MobileDrawer from "./MobileDrawer";
 import RightIcons from "./RightIcons";
-import { 
-  useScroll, 
-  useClickOutside, 
-  useNotifications 
-} from "./hooks";
+import { useScroll, useClickOutside, useNotifications } from "./hooks";
 import { useCart } from "@/lib/cartContext";
 
 const Navbar = () => {
@@ -21,25 +17,24 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
+  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
+    useState(false);
   const [isOrderStatusModalOpen, setIsOrderStatusModalOpen] = useState(false);
-  
+
   const isScrolled = useScroll();
   const { cartCount } = useCart();
-  
+
   const userMenuRef = useClickOutside(() => setIsUserMenuOpen(false));
-  const notificationRef = useClickOutside(() => setIsNotificationDropdownOpen(false));
-  
-  const {
-    notifications,
-    unreadCount,
-    markAsRead,
-    markAllAsRead
-  } = useNotifications(session);
+  const notificationRef = useClickOutside(() =>
+    setIsNotificationDropdownOpen(false)
+  );
+
+  const { notifications, unreadCount, markAsRead, markAllAsRead } =
+    useNotifications(session);
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/menu", label: "Menu" },
+    { href: "/menus", label: "Menus" },
     { href: "/restaurants", label: "Restaurants" },
     { href: "/blogs", label: "Blogs" },
     { href: "/about", label: "About" },
