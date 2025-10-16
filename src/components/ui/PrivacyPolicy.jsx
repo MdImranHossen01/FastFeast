@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, FileText, Mail, Lock, Cookie } from "lucide-react";
+import heroImg from "../../../public/hero-privacy.jpg";
 
 export default function PrivacyPolicy({
   siteName = "FastFeast",
@@ -9,146 +9,87 @@ export default function PrivacyPolicy({
   contactEmail = "support@fastfeast.com",
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-white text-gray-800">
-      <div className="max-w-5xl mx-auto px-6 py-16">
-        {/* Header Section */}
-        <div className="text-center mb-10">
-          <ShieldCheck className="mx-auto text-orange-500 w-14 h-14 mb-4" />
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Your Privacy Matters 
+    <div className="min-h-screen text-gray-800">
+      {/* Hero Section */}
+      <div
+        className="relative h-64 md:h-80 flex items-center justify-center text-center bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroImg.src})` }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+            Privacy Policy
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-white/90 text-sm md:text-base">
             Effective Date: {effectiveDate}
           </p>
         </div>
+      </div>
 
-        {/* Main Card */}
-        <div className="bg-white/80 shadow-xl backdrop-blur-md border border-orange-100 rounded-2xl p-8 space-y-8">
-          {/* Introduction */}
-          <section>
-            <p className="text-lg leading-relaxed">
-              Welcome to <strong>{siteName}</strong> — where good food meets fast
-              delivery! Your privacy is as important to us as your meal reaching
-              you hot and fresh. This Privacy Policy explains how we collect,
-              use, and safeguard your personal information while you enjoy our
-              services.
-            </p>
-          </section>
+      {/* Content Section */}
+      <div className="max-w-5xl mx-auto px-6 py-12 space-y-8">
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          This policy explains how we, <span className="font-semibold">{siteName}</span>, use your 
+          <span className="font-semibold"> personal information</span> which you provide to us when using our service, 
+          including but not limited to our website and mobile applications (<span className="italic">apps</span>).
+        </p>
 
-          {/* Data Collection */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <FileText className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                1. What Information We Collect
-              </h2>
-            </div>
-            <p>
-              When you use {siteName}, we collect basic details such as your
-              name, phone number, delivery address, and payment info to complete
-              your order. We may also collect location data (if allowed), device
-              type, and order preferences to improve your experience.
-            </p>
-          </section>
+        <p className="text-gray-700 font-semibold">What information we collect about you?</p>
 
-          {/* Usage of Information */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <Lock className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                2. How We Use Your Information
-              </h2>
-            </div>
-            <ul className="list-disc ml-6 space-y-2">
-              <li>To deliver your food orders quickly and accurately.</li>
-              <li>To personalize offers, coupons, and recommendations.</li>
-              <li>To send order updates and service notifications.</li>
-              <li>To improve app functionality and customer experience.</li>
-              <li>To ensure account safety and detect fraudulent activity.</li>
-            </ul>
-          </section>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          We collect <span className="font-semibold">personal information</span> from you when you order goods or services 
+          from us or use our website. We also collect information when you complete any <span className="font-semibold">customer survey</span>. 
+          Website usage information may also be collected using <span className="font-semibold">cookies</span>.
+        </p>
 
-          {/* Cookies & Tracking */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <Cookie className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">3. Cookies & Tracking</h2>
-            </div>
-            <p>
-              Like most food delivery platforms, {siteName} uses cookies to
-              remember your login details, save your cart, and show personalized
-              offers. You can disable cookies in your browser settings, but some
-              features may not work properly without them.
-            </p>
-          </section>
+        <p className="text-gray-700 font-semibold">Cookies and Google Analytics</p>
 
-          {/* Data Protection */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <ShieldCheck className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                4. How We Protect Your Data
-              </h2>
-            </div>
-            <p>
-              We use secure servers, encrypted transactions, and strict
-              procedures to protect your data. However, no online platform is
-              completely risk-free. We recommend keeping your password private
-              and reporting any suspicious activity immediately.
-            </p>
-          </section>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          <span className="font-semibold">Cookies</span> are small text files placed on your computer by websites you visit. 
+          They help websites work efficiently and provide information to site owners.
+        </p>
 
-          {/* Sharing Information */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <FileText className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                5. Sharing Information with Others
-              </h2>
-            </div>
-            <p>
-              We only share essential details (like name, address, contact) with
-              restaurant partners, delivery riders, and payment providers so
-              your food reaches you smoothly. We never sell your personal data
-              to advertisers or third parties.
-            </p>
-          </section>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          This website uses <span className="font-semibold text-blue-600">Google Analytics</span>, a web analytics service by Google, Inc. ("Google"). 
+          Google Analytics uses <span className="font-semibold">cookies</span> to analyze how you use the site. Data may be transmitted to and stored by Google on servers in the United States. You may refuse cookies via your browser settings, but some features may not work properly.
+        </p>
 
-          {/* Your Rights */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <FileText className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">
-                6. Your Rights & Control
-              </h2>
-            </div>
-            <p>
-              You can access, update, or delete your account anytime through
-              your profile settings. Want to stop receiving promotional emails?
-              Simply click “Unsubscribe” in our messages — easy as that!
-            </p>
-          </section>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          For more on managing cookies, visit <span className="text-blue-600">www.allaboutcookies.org</span>.
+        </p>
 
-          {/* Contact Info */}
-          <section>
-            <div className="flex items-center gap-2 mb-2">
-              <Mail className="text-orange-500" />
-              <h2 className="text-2xl font-semibold">7. Contact Us</h2>
-            </div>
-            <p>
-              Have questions about this policy or your data?  
-              We’d love to hear from you!  
-              Reach us anytime at{" "}
-              <a
-                href={`mailto:${contactEmail}`}
-                className="text-orange-600 font-medium underline"
-              >
-                {contactEmail}
-              </a>
-              .
-            </p>
-          </section>
-        </div>
+        <p className="text-gray-700 font-semibold">How will we use the information we collect from you?</p>
+
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          Information we collect is used to process your orders and manage your account. We may also email you about other products or services that may interest you. 
+          Your data may be sent to <span className="font-semibold">credit reference</span> and <span className="font-semibold">fraud prevention agencies</span>.
+        </p>
+
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          From time to time, information may be shared with third parties offering goods or services that may interest you. 
+          Contact us via our <span className="font-semibold">in-app customer support chat</span> if you do not wish to be contacted.
+        </p>
+
+        <p className="text-gray-700 font-semibold">Access to your information</p>
+
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          You can request a copy of the information we hold about you anytime. Contact us through the in-app customer support chat. 
+          A small processing fee may apply.
+        </p>
+
+        <p className="text-gray-700 font-semibold">Fraud detection, prevention and security of our platform</p>
+
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          We continuously monitor our websites and apps to prevent attacks and ensure safe ordering. Suspicious behavior is detected early using technical measures. Automated decisions may affect your account; if you disagree, contact us via <span className="font-semibold">Help Center</span>.
+        </p>
+
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          Categories of personal data: <span className="font-semibold">Location data, Profile data (master data), Device information, Payment data, Order data, Voucher information</span>.
+        </p>
+
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          Other Websites: Our website may link to other sites. This policy applies only to this website. Read other websites' privacy policies when using them.
+        </p>
 
        
       </div>
