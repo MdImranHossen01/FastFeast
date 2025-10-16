@@ -15,6 +15,7 @@ import HowWeWork from "./components/HowWeWork";
 import RestaurantSection from "./components/RestaurantSection";
 import FoodCompare from "./components/FoodCompare";
 import PrivacyPolicy from "@/components/ui/PrivacyPolicy";
+import CareerOpportunities from "./components/CareerOpportunities";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
       <Services />
 
       <OurPartner />
+      <CareerOpportunities/>
       <CustomersReview />
       <PrivacyPolicy/>
 
