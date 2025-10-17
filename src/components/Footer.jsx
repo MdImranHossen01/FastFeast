@@ -51,9 +51,10 @@ const footerData = [
     // ✅ Combined partner links for a cleaner look
     title: "Our Partners",
     links: [
-      { name: "For Restaurants", href: "/signup/restaurant" },
-      { name: "For Riders", href: "/signup/rider" },
-      { name: "Partner Hub", href: "/partner-hub" },
+      { name: "Privacy Policy", href: "/PrivacyPolicy" },
+      { name: "Return Policy", href: "/ReturnPolicy" },
+      { name: "Terms And Conditions", href: "/TermsAndConditions" },
+      { name: "Developer Info", href: "/DeveloperInfo" },
     ],
   },
 ];
