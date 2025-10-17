@@ -45,11 +45,11 @@ export default function Restaurant({ restaurants }) {
   }
 
   // sort by delivery time
-  if (deliveryTime === "25min") {
+  if (deliveryTime === "30min") {
     filteredRestaurants = filteredRestaurants.filter(
       (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 30
     );
-  } else if (deliveryTime === "40min") {
+  } else if (deliveryTime === "45min") {
     filteredRestaurants = filteredRestaurants.filter(
       (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 45
     );
@@ -125,7 +125,7 @@ export default function Restaurant({ restaurants }) {
         </div>
       </div>
       {/* sort cuisine,delivery time and others */}
-      <div className="flex  md:mr-8 sm:justify-end sm:flex-row py-5 gap-5 overflow-x-auto scrollbar-hide sm:overflow-visible">
+      <div className="flex md:mr-3  sm:justify-end sm:flex-row py-5 gap-5 overflow-x-auto scrollbar-hide sm:overflow-visible">
         {/*sort cuisine  */}
         <select
           value={selectCuisine}
@@ -171,10 +171,10 @@ export default function Restaurant({ restaurants }) {
           <option value="" className="text-gray-700 bg-white">
             Delivery Time
           </option>
-          <option className="text-gray-700 bg-white" value="25min">
+          <option className="text-gray-700 bg-white" value="30min">
             Within 30 min
           </option>
-          <option className="text-gray-700 bg-white" value="40min">
+          <option className="text-gray-700 bg-white" value="45min">
             Within 45 min
           </option>
           <option className=" text-gray-700 bg-white" value="any">
