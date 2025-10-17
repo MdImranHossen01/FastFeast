@@ -1,18 +1,19 @@
-import React from 'react'
-import JobsBanner from './JobsBanner'
-import JobList from './JobList'
-import Dropdown from './Dropdown'
+import JobsBanner from './JobsBanner';
+import JobList from './JobList';
+import Dropdown from './Dropdown';
 
-export default function JobsContainer() {
+
+export default function JobsContainer({jobs}) {
+ 
+
+  
+
   return (
     <main>
-      <JobsBanner/>
-      <Dropdown/>
-      <JobList/>
-      
-
-      
+      <JobsBanner />
+      <Dropdown jobs={jobs} />
+      <JobList jobs={jobs} />
     </main>
-  )
+  );
 }
 

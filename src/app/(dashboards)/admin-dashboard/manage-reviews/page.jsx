@@ -1,19 +1,22 @@
 import React from "react";
-import { reviews } from "./reviews";
 import ManageReviewHeader from "./components/ManageReviewHeader";
 import ReviewCards from "./components/ReviewCardContainer";
 import ReviewCardContainer from "./components/ReviewCardContainer";
+import ReviewTable from "./components/ReviewTable";
+import getReviews from "@/app/actions/reviews/getReviews";
 
 export default async function ManageReviews({ searchParams }) {
-  const { search } = await searchParams;
-  const data = reviews.filter((d) =>
-    search === "All-reviews" ? true : d.targetType === search
-  );
+  const { search, ratings } = await searchParams;
+
+
+  const {reviews} = await getReviews(search, ratings);
+  console.log(reviews)
 
   return (
     <div className="px-6">
       <ManageReviewHeader />
-      <ReviewCardContainer reviews={data} />
+      <ReviewTable reviews={reviews} />
+      {/* <ReviewCardContainer reviews={data} /> */}
     </div>
   );
 }
