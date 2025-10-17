@@ -80,7 +80,7 @@ const PWAInstaller = () => {
   if (isInstalled || !showPrompt) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center sm:p-0 bg-black bg-opacity-50 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 sm:items-center sm:p-0 bg-black/30  animate-fade-in">
       <div className="relative bg-white rounded-2xl shadow-xl max-w-sm w-full mx-auto overflow-hidden animate-slide-up">
         {/* Header */}
         <div className="bg-gradient-to-r from-orange-400 to-orange-500 p-6 text-white text-center">
