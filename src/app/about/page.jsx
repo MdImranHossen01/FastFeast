@@ -27,7 +27,7 @@ const AboutPage = async () => {
           style={{
             backgroundImage: `linear-gradient(to bottom, #00000099 , #000000), url(/coffee_and_assorted.webp)`,
           }}
-          className="bg-center bg-cover bg-no-repeat py-10 pt-32 px-2 min-h-[600px] bg-fixed"
+          className="bg-center bg-cover bg-no-repeat py-10 pt-32 px-2 min-h-[600px] md:min-h-screen bg-fixed"
         >
           <div className="container mx-auto justify-between ">
             <h1 className={`font-bold text-6xl lg:text-7xl bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent my-14 text-center ${rakkas.className}`}>
