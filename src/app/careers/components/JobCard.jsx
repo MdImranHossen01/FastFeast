@@ -37,12 +37,12 @@ export default function JobCard({ job }) {
 
       {/* Salary */}
       <div className="flex items-center gap-2 text-gray-800 font-semibold mb-4">
-  <DollarSign size={18} className="text-green-600" />
-  <span>
-    {job.salaryRange.min.toLocaleString()} – {job.salaryRange.max.toLocaleString()}{" "}
-    {job.salaryRange.currency.toUpperCase()}
-  </span>
-</div>
+        <DollarSign size={18} className="text-green-600" />
+        <span>
+          {job.salaryRange.min.toLocaleString()} – {job.salaryRange.max.toLocaleString()}{" "}
+          {job.salaryRange.currency.toUpperCase()}
+        </span>
+      </div>
 
       {/* Description */}
       <p className="text-sm text-gray-600 line-clamp-3 mb-4">
@@ -50,9 +50,10 @@ export default function JobCard({ job }) {
       </p>
 
       {/* Button */}
-      <button className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition">
+      <button className="w-full py-2 bg-gradient-to-r from-green-600 via-lime-500 to-yellow-400 hover:from-green-700 hover:via-lime-600 hover:to-yellow-500 text-white font-medium rounded-xl transition duration-300 shadow-md hover:shadow-lg">
         Apply Now
       </button>
+
     </div>
   );
 }

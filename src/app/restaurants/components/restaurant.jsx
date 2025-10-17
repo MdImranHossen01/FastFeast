@@ -47,15 +47,15 @@ export default function Restaurant({ restaurants }) {
   // sort by delivery time
   if (deliveryTime === "25min") {
     filteredRestaurants = filteredRestaurants.filter(
-      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 25
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 30
     );
   } else if (deliveryTime === "40min") {
     filteredRestaurants = filteredRestaurants.filter(
-      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 40
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 45
     );
   } else if (deliveryTime === "any") {
     filteredRestaurants = filteredRestaurants.filter(
-      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) > 40
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) > 45
     );
   }
 
@@ -113,16 +113,17 @@ export default function Restaurant({ restaurants }) {
   return (
     <div>
       {/* search */}
-      <div className=" flex justify-center items-center">
-        <input
-          type="text"
-          placeholder="Search Restaurant"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="bg-white  input input-bordered shadow-xs p-4  w-5/6 lg:w-1/2 "
-        />
+      <div>
+        <div className=" flex justify-center items-center">
+          <input
+            type="text"
+            placeholder="Search Restaurant"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="bg-white  input input-bordered shadow-xs p-4  w-5/6 lg:w-1/2 "
+          />
+        </div>
       </div>
-
       {/* sort cuisine,delivery time and others */}
       <div className="flex  md:mr-8 sm:justify-end sm:flex-row py-5 gap-5 overflow-x-auto scrollbar-hide sm:overflow-visible">
         {/*sort cuisine  */}
@@ -171,10 +172,10 @@ export default function Restaurant({ restaurants }) {
             Delivery Time
           </option>
           <option className="text-gray-700 bg-white" value="25min">
-            Within 25 min
+            Within 30 min
           </option>
           <option className="text-gray-700 bg-white" value="40min">
-            Within 40 min
+            Within 45 min
           </option>
           <option className=" text-gray-700 bg-white" value="any">
             Any time
