@@ -69,7 +69,7 @@ export default function DashboardLinks() {
           </li>
           <li>
             <Link
-              href="/manage-orders"
+              href="/restaurant-dashboard/manage-orders"
               className={linkStyle("/manage-orders")}
             >
               Manage Ordres
@@ -77,7 +77,7 @@ export default function DashboardLinks() {
           </li>
           <li>
             <Link
-              href="/MyFavouriteMenu"
+              href="/user-dashboard/MyFavouriteMenu"
               className={linkStyle("/MyFavouriteMenu")}
             >
               My Favourite Menus

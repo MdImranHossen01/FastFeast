@@ -7,7 +7,7 @@ export default function Restaurant({ restaurants }) {
   const [selectCuisine, setSelectCuisine] = useState("");
   const [deliveryPrice, setDeliveryPrice] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
-  const [priceRange, setPriceRange] = useState("");
+
   const [userLocation, setUserLocation] = useState(null);
 
   // convert min to number
@@ -47,24 +47,16 @@ export default function Restaurant({ restaurants }) {
   // sort by delivery time
   if (deliveryTime === "25min") {
     filteredRestaurants = filteredRestaurants.filter(
-      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 25
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 30
     );
   } else if (deliveryTime === "40min") {
     filteredRestaurants = filteredRestaurants.filter(
-      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 40
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) <= 45
     );
   } else if (deliveryTime === "any") {
     filteredRestaurants = filteredRestaurants.filter(
-      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) > 40
+      (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) > 45
     );
-  }
-  // sort by price range
-  if (priceRange) {
-    filteredRestaurants = filteredRestaurants.filter((restaurant) => {
-      if (priceRange === "Low") return restaurant.priceRange === "৳";
-      if (priceRange === "Medium") return restaurant.priceRange === "৳৳";
-      if (priceRange === "High") return restaurant.priceRange === "৳৳৳";
-    });
   }
 
   // user location
@@ -120,97 +112,75 @@ export default function Restaurant({ restaurants }) {
 
   return (
     <div>
-      <div className="flex flex- sm:justify-between sm:flex-row py-5 gap-5">
-        <div className="flex  gap-5">
-          {/* search */}
-          {/* <input
+      {/* search */}
+      <div>
+        <div className=" flex justify-center items-center">
+          <input
             type="text"
             placeholder="Search Restaurant"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-white  input input-bordered shadow-xs p-2     rounded   lg:w-[170px]  "
-          /> */}
-          {/*sort cuisine  */}
-          <select
-            value={selectCuisine}
-            onChange={(e) => setSelectCuisine(e.target.value)}
-            className="select bg-white select-bordered  p-2    rounded   lg:w-[155px]  text-gray-500 shadow-xs cursor-pointer"
-          >
-            <option className="bg-white" value="">
-              All Cuisines
-            </option>
-            {allCuisine.map((cuisine, i) => (
-              <option
-                key={i}
-                value={cuisine}
-                className="text-gray-700 bg-white"
-              >
-                {cuisine}
-              </option>
-            ))}
-          </select>
+            className="bg-white  input input-bordered shadow-xs p-4  w-5/6 lg:w-1/2 "
+          />
         </div>
+      </div>
+      {/* sort cuisine,delivery time and others */}
+      <div className="flex  md:mr-8 sm:justify-end sm:flex-row py-5 gap-5 overflow-x-auto scrollbar-hide sm:overflow-visible">
+        {/*sort cuisine  */}
+        <select
+          value={selectCuisine}
+          onChange={(e) => setSelectCuisine(e.target.value)}
+          className="select bg-white select-bordered  p-2    rounded   min-w-[130px] md:w-[150px]  text-gray-500 shadow-xs cursor-pointer"
+        >
+          <option className="bg-white" value="">
+            All Cuisines
+          </option>
+          {allCuisine.map((cuisine, i) => (
+            <option key={i} value={cuisine} className="text-gray-700 bg-white">
+              {cuisine}
+            </option>
+          ))}
+        </select>
 
-        <div className="flex gap-5 ">
-          {/* sort by delivery price */}
-          <select
-            value={deliveryPrice}
-            onChange={(e) => setDeliveryPrice(e.target.value)}
-            className="select select-bordered bg-white rounded cursor-pointer  lg:w-[155px]  text-gray-500 shadow-xs"
-          >
-            <option value="" className="text-gray-700 bg-white">
-              Sort By
-            </option>
-            <option className="text-gray-700 bg-white" value="lowest">
-              Delivery Fee
-            </option>
-            <option className="text-gray-700 bg-white" value="topRating">
-              Top Rating
-            </option>
-            <option className="text-gray-700 bg-white" value="distance">
-              Nearest
-            </option>
-          </select>
+        {/* sort by delivery price */}
+        <select
+          value={deliveryPrice}
+          onChange={(e) => setDeliveryPrice(e.target.value)}
+          className="select select-bordered bg-white rounded cursor-pointer  min-w-[130px] md:w-[150px] text-gray-500 shadow-xs"
+        >
+          <option value="" className="text-gray-700 bg-white">
+            Sort By
+          </option>
+          <option className="text-gray-700 bg-white" value="lowest">
+            Delivery Fee
+          </option>
+          <option className="text-gray-700 bg-white" value="topRating">
+            Top Rating
+          </option>
+          <option className="text-gray-700 bg-white" value="distance">
+            Nearest
+          </option>
+        </select>
 
-          {/* sort by delivery time */}
-          <select
-            value={deliveryTime}
-            onChange={(e) => setDeliveryTime(e.target.value)}
-            className="select select-bordered rounded bg-white lg:w-[155px] cursor-pointer  text-gray-500 shadow-xs"
-          >
-            <option value="" className="text-gray-700 bg-white">
-              Delivery Time
-            </option>
-            <option className="text-gray-700 bg-white" value="25min">
-              Within 25 min
-            </option>
-            <option className="text-gray-700 bg-white" value="40min">
-              Within 40 min
-            </option>
-            <option className=" text-gray-700 bg-white" value="any">
-              Any time
-            </option>
-          </select>
-          {/* sort by price range */}
-          {/* <select
-            value={priceRange}
-            onChange={(e) => setPriceRange(e.target.value)}
-            className="select select-bordered  bg-white    rounded  lg:w-[155px] cursor-pointer  text-gray-500 shadow-xs"
-          >
-            <option className="text-gray-700 bg-white" value="">
-              Price Range
-            </option>
-            <option className="text-gray-700 bg-white" value="High">
-              High(৳৳৳)
-            </option>
-            <option className="text-gray-700 bg-white" value="Medium">
-              Medium(৳৳)
-            </option>
-            <option className="text-gray-700 bg-white" value="Low">
-              Low(৳)
-            </option>
-          </select> */}
-        </div>
+        {/* sort by delivery time */}
+        <select
+          value={deliveryTime}
+          onChange={(e) => setDeliveryTime(e.target.value)}
+          className="select select-bordered rounded bg-white min-w-[130px] md:w-[150px] cursor-pointer  text-gray-500 shadow-xs"
+        >
+          <option value="" className="text-gray-700 bg-white">
+            Delivery Time
+          </option>
+          <option className="text-gray-700 bg-white" value="25min">
+            Within 30 min
+          </option>
+          <option className="text-gray-700 bg-white" value="40min">
+            Within 45 min
+          </option>
+          <option className=" text-gray-700 bg-white" value="any">
+            Any time
+          </option>
+        </select>
       </div>
       {/* restaurants card */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  justify-items-center">
