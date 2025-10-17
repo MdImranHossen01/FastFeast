@@ -131,12 +131,17 @@ export const OurTeam = () => {
         },
     ]
     return (
-        <section className="py-16 px-4">
+        <section
+            style={{
+                backgroundImage: `linear-gradient(to bottom, #00000085 , #000000), url(/team_working_together.webp)`,
+            }}
+            className="bg-center bg-cover bg-no-repeat pt-32 min-h-[600px] md:min-h-screen bg-fixed py-16 px-4"
+        >
             <div className="container mx-auto">
                 <h3 className="text-xl font-bold text-center text-gray-400">
                     MEET OUR BEST EMPLOYEES
                 </h3>
-                <h1 className='text-center text-3xl md:text-4xl font-semibold my-5 mb-14'>
+                <h1 className='text-center text-gray-200 text-3xl md:text-4xl font-semibold my-5 mb-14'>
                     <span className="text-orange-600">
                         EMPLOYEES {" "}
                     </span>
