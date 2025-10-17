@@ -34,9 +34,9 @@ export default function Home() {
       <Services />
 
       <OurPartner />
-      <CareerOpportunities/>
+      {/* <CareerOpportunities/> */}
       <CustomersReview />
-      <PrivacyPolicy/>
+      {/* <PrivacyPolicy/> */}
 
       {/* <NewsLetter /> */}
     </div>
