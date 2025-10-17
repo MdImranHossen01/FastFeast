@@ -25,7 +25,7 @@ const CheckOutPage = () => {
   const [showStripeModal, setShowStripeModal] = useState(false);
   const [paymentIntentId, setPaymentIntentId] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
-  
+
   // Initialize form data with empty values
   const [formData, setFormData] = useState({
     fullName: '',
@@ -34,7 +34,7 @@ const CheckOutPage = () => {
     address: '',
     city: '',
     postalCode: '',
-    paymentMethod: 'cash'
+    paymentMethod: 'sslcommerz' // Defaulting to SSLCommerz for demonstration
   });
 
   // Populate form with user data when session changes
@@ -61,19 +61,23 @@ const CheckOutPage = () => {
     }
   }, [status, tranId, orderIdFromQuery, clearCart]);
 
+  // 🎯 FIXED: handlePayment now sends cartItems and full customer object
   const handlePayment = async () => {
     try {
-      const totalAmount = calculateTotal(cartItems); // existing function
       const customer = {
-        name: formData.fullName || user?.name,
+        fullName: formData.fullName || user?.name,
         email: formData.email || user?.email,
         phone: formData.phone || user?.phone,
+        address: formData.address || user?.address,
+        city: formData.city || user?.city,
+        postalCode: formData.postalCode || user?.postalCode,
       };
 
       const res = await fetch("/api/sslcommerz/initiate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ totalAmount, customer }),
+        // FIX: Send the cartItems array and the customer object for server-side processing
+        body: JSON.stringify({ cartItems, customer }),
       });
 
       const data = await res.json();
@@ -81,11 +85,11 @@ const CheckOutPage = () => {
         window.location.href = data.GatewayPageURL;
       } else {
         console.error("SSLCommerz Error:", data);
-        alert("Failed to initialize payment.");
+        setPaymentError(data.message || "Failed to initialize payment."); // Display error to user
       }
     } catch (err) {
       console.error("Payment error:", err);
-      alert("Something went wrong!");
+      setPaymentError("Something went wrong with the payment process!");
     }
   };
 
@@ -110,71 +114,76 @@ const CheckOutPage = () => {
 
   const validateForm = () => {
     const { fullName, email, phone, address, city, postalCode } = formData;
-    
+
     // Check if all fields are filled
     if (!fullName || !email || !phone || !address || !city || !postalCode) {
       setPaymentError('Please fill in all required fields');
       return false;
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setPaymentError('Please enter a valid email address');
       return false;
     }
-    
+
     // Phone validation (simple check for numbers and optional +)
     const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
     if (!phoneRegex.test(phone)) {
       setPaymentError('Please enter a valid phone number');
       return false;
     }
-    
+
     // Postal code validation (alphanumeric, 3-10 characters)
     const postalRegex = /^[a-zA-Z0-9]{3,10}$/;
     if (!postalRegex.test(postalCode)) {
       setPaymentError('Please enter a valid postal code');
       return false;
     }
-    
+
     return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setPaymentError(null);
-    
+    setIsSubmitting(true); // Start submitting process early
+
     // Validate form
     if (!validateForm()) {
-      return;
-    }
-    
-    // If payment method is card, show Stripe modal instead of submitting directly
-    if (formData.paymentMethod === 'card') {
-      setShowStripeModal(true);
+      setIsSubmitting(false);
       return;
     }
 
-    if (formData.paymentMethod === "sslcommerz") {
-      await handlePayment();
+    // If payment method is card, show Stripe modal
+    if (formData.paymentMethod === 'card') {
+      setShowStripeModal(true);
+      setIsSubmitting(false); // Stripe modal handles its own submitting state
       return;
     }
-    
+
+    // If payment method is SSLCommerz, call handlePayment
+    if (formData.paymentMethod === "sslcommerz") {
+      await handlePayment();
+      setIsSubmitting(false); // This will only be reached if handlePayment fails to redirect
+      return;
+    }
+
     // For cash on delivery, proceed with normal order submission
-    submitOrder();
+    await submitOrder();
+    setIsSubmitting(false);
   };
 
   const submitOrder = async (paymentIntentId = null) => {
-    setIsSubmitting(true);
-    
+    // This function is primarily for Cash on Delivery or successful Stripe payments
     try {
       // Calculate total amount
       const subtotal = getCartTotal();
       const deliveryFee = 50;
       const tax = Math.round(subtotal * 0.1);
       const total = subtotal + deliveryFee + tax;
-      
+
       // Create order object
       const orderData = {
         customerInfo: {
@@ -193,19 +202,19 @@ const CheckOutPage = () => {
           specialInstructions: item.specialInstructions
         })),
         paymentMethod: formData.paymentMethod,
-        paymentIntentId: paymentIntentId, // Add payment intent ID for card payments
+        paymentIntentId: paymentIntentId,
         pricing: {
           subtotal,
           deliveryFee,
           tax,
           total
         },
-        status: paymentIntentId ? 'paid' : 'pending', // Set status based on payment
+        status: paymentIntentId ? 'paid' : 'pending',
         orderDate: new Date().toISOString(),
-        estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString(), // 45 minutes from now
-        userId: user?.id || null // Include user ID if logged in
+        estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString(),
+        userId: user?.id || null
       };
-      
+
       // Save order to backend
       const response = await fetch('/api/orders', {
         method: 'POST',
@@ -214,15 +223,15 @@ const CheckOutPage = () => {
         },
         body: JSON.stringify(orderData),
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to place order');
       }
-      
+
       const data = await response.json();
       setOrderId(data.orderId);
-      
+
       // Clear the cart and show success message
       clearCart();
       setOrderPlaced(true);
@@ -230,11 +239,12 @@ const CheckOutPage = () => {
       console.error('Error placing order:', error);
       setPaymentError(error.message || 'Failed to place order. Please try again.');
     } finally {
-      setIsSubmitting(false);
+
     }
   };
 
   const handlePaymentSuccess = (paymentIntent) => {
+    setShowStripeModal(false);
     setPaymentIntentId(paymentIntent.id);
     submitOrder(paymentIntent.id);
   };
@@ -295,7 +305,7 @@ const CheckOutPage = () => {
               </div>
             )}
           </div>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/menu"
@@ -324,7 +334,7 @@ const CheckOutPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-gray-900">Checkout</h1>
-      
+
       {/* Display payment error if any */}
       {paymentError && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-start">
@@ -334,13 +344,13 @@ const CheckOutPage = () => {
           <span className="text-sm">{paymentError}</span>
         </div>
       )}
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Order Summary - Now on the left */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4 text-gray-900">Order Summary</h2>
-            
+
             <div className="space-y-3 mb-4 max-h-96 overflow-y-auto">
               {cartItems.map((item) => (
                 <div key={item.cartItemId} className="flex items-center gap-3 pb-3 border-b border-gray-100 last:border-0">
@@ -361,7 +371,7 @@ const CheckOutPage = () => {
                 </div>
               ))}
             </div>
-            
+
             <div className="border-t pt-4 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Subtotal</span>
@@ -382,21 +392,21 @@ const CheckOutPage = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Checkout Form - Now on the right */}
         <div className="lg:col-span-1">
           <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold mb-4 text-gray-900">Delivery Information</h2>
-            
+
             {user && (
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-sm text-blue-700">
-                  You're logged in as <span className="font-semibold">{user.name}</span>. 
+                  You're logged in as <span className="font-semibold">{user.name}</span>.
                   Your information has been pre-filled below, but you can edit it if needed.
                 </p>
               </div>
             )}
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
                 <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -413,7 +423,7 @@ const CheckOutPage = () => {
                   placeholder="John Doe"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                   Email <span className="text-red-500">*</span>
@@ -430,7 +440,7 @@ const CheckOutPage = () => {
                 />
               </div>
             </div>
-            
+
             <div className="mb-4">
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                 Phone Number <span className="text-red-500">*</span>
@@ -446,7 +456,7 @@ const CheckOutPage = () => {
                 placeholder="+880 1XXX XXXXXX"
               />
             </div>
-            
+
             <div className="mb-4">
               <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
                 Delivery Address <span className="text-red-500">*</span>
@@ -462,7 +472,7 @@ const CheckOutPage = () => {
                 placeholder="123 Main Street"
               />
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <div>
                 <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
@@ -479,7 +489,7 @@ const CheckOutPage = () => {
                   placeholder="Dhaka"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-1">
                   Postal Code <span className="text-red-500">*</span>
@@ -496,9 +506,9 @@ const CheckOutPage = () => {
                 />
               </div>
             </div>
-            
+
             <h2 className="text-xl font-semibold mb-4 text-gray-900">Payment Method</h2>
-            
+
             <div className="mb-6 space-y-3">
               <label className="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                 <input
@@ -516,7 +526,7 @@ const CheckOutPage = () => {
                   <span className="text-gray-700">Cash on Delivery</span>
                 </div>
               </label>
-              
+
               <label className="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                 <input
                   type="radio"
@@ -530,12 +540,12 @@ const CheckOutPage = () => {
                   <svg className="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
-                  <span className="text-gray-700">Credit/Debit Card</span>
+                  <span className="text-gray-700">Credit/Debit Card (Stripe)</span>
                 </div>
               </label>
             </div>
-            
-            <label className="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 mb-2">
+
+            <label className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${formData.paymentMethod === "sslcommerz" ? "border-orange-500 bg-orange-50" : "border-gray-200 hover:bg-gray-50"} mb-6`}>
               <input
                 type="radio"
                 name="paymentMethod"
@@ -544,9 +554,9 @@ const CheckOutPage = () => {
                 onChange={handleChange}
                 className="mr-3 text-orange-500 focus:ring-orange-500"
               />
-              <span className="text-gray-700">Online Payment (SSLCommerz)</span>
+              <span className="text-gray-700 font-medium">Online Payment (SSLCommerz)</span>
             </label>
-            
+
             <button
               type="submit"
               disabled={isSubmitting}
@@ -558,11 +568,11 @@ const CheckOutPage = () => {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Placing Order...
+                  {formData.paymentMethod === 'sslcommerz' ? "Redirecting to Payment..." : "Placing Order..."}
                 </>
               ) : (
                 <>
-                  Place Order
+                  {formData.paymentMethod === 'sslcommerz' ? "Proceed to Payment" : "Place Order"}
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -572,7 +582,7 @@ const CheckOutPage = () => {
           </form>
         </div>
       </div>
-      
+
       {/* Stripe Payment Modal */}
       <StripePaymentModal
         isOpen={showStripeModal}

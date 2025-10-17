@@ -9,33 +9,29 @@ import Logo from "../logo";
 import OrderStatusModal from "../OrderStatusModal";
 import MobileDrawer from "./MobileDrawer";
 import RightIcons from "./RightIcons";
-import { 
-  useScroll, 
-  useClickOutside, 
-  useNotifications 
-} from "./hooks";
+import { useScroll, useClickOutside, useNotifications } from "./hooks";
 import { useCart } from "@/lib/cartContext";
+// import InstallButton from "@/components/pwa/InstallButton";
 
 const Navbar = () => {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
+  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] =
+    useState(false);
   const [isOrderStatusModalOpen, setIsOrderStatusModalOpen] = useState(false);
-  
+
   const isScrolled = useScroll();
   const { cartCount } = useCart();
-  
+
   const userMenuRef = useClickOutside(() => setIsUserMenuOpen(false));
-  const notificationRef = useClickOutside(() => setIsNotificationDropdownOpen(false));
-  
-  const {
-    notifications,
-    unreadCount,
-    markAsRead,
-    markAllAsRead
-  } = useNotifications(session);
+  const notificationRef = useClickOutside(() =>
+    setIsNotificationDropdownOpen(false)
+  );
+
+  const { notifications, unreadCount, markAsRead, markAllAsRead } =
+    useNotifications(session);
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -63,7 +59,8 @@ const Navbar = () => {
           >
             <FiMenu size={24} />
           </button>
-
+          {/* Add this where you want the install button to appear */}
+          {/* <InstallButton /> */}
           {/* Logo - Centered, Hidden when scrolled */}
           {!isScrolled && (
             <div className="absolute left-1/2 transform -translate-x-1/2">

@@ -216,7 +216,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-70 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-black/30  flex items-center justify-center p-4" onClick={onClose}>
         <div 
           className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full max-h-[90vh] flex flex-col"
           onClick={handleModalContentClick}
