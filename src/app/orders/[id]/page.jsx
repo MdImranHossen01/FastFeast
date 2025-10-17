@@ -3,13 +3,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FiArrowLeft, FiPackage, FiClock, FiCheck, FiTruck, FiMapPin, FiPhone, FiUser, FiCalendar, FiDollarSign } from 'react-icons/fi';
+import {
+  FiArrowLeft, FiPackage, FiClock, FiCheck, FiTruck, FiMapPin,
+  FiPhone, FiUser, FiCalendar, FiDollarSign, FiDownload
+} from 'react-icons/fi';
 
 const OrderDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [invoiceLoading, setInvoiceLoading] = useState(false); // NEW
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -81,6 +85,45 @@ const OrderDetailsPage = () => {
     return <span className={`px-3 py-1 text-sm font-medium rounded-full ${cls}`}>{label}</span>;
   };
 
+  // NEW: Download invoice handler
+  const handleDownloadInvoice = async () => {
+    try {
+      setInvoiceLoading(true);
+      const res = await fetch(`/api/orders/${params.id}/invoice`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/pdf'
+        }
+      });
+
+      if (!res.ok) {
+        // চেষ্টা: যদি API JSON এরর দেয়
+        try {
+          const err = await res.json();
+          throw new Error(err?.message || 'Failed to download invoice');
+        } catch {
+          throw new Error('Failed to download invoice');
+        }
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      const fileName = `invoice-${order?.id || params.id}.pdf`;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      alert(e.message || 'Could not download invoice. Please try again later.');
+    } finally {
+      setInvoiceLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -116,6 +159,8 @@ const OrderDetailsPage = () => {
           <button
             onClick={() => router.back()}
             className="mr-4 p-2 rounded-full hover:bg-gray-200 transition-colors"
+            aria-label="Go back"
+            title="Go back"
           >
             <FiArrowLeft className="h-5 w-5 text-gray-600" />
           </button>
@@ -124,13 +169,28 @@ const OrderDetailsPage = () => {
 
         {/* Order Status Card */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex justify-between items-start mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">Order #{order.id}</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-1">Order #{order.id}</h2>
               <p className="text-sm text-gray-500">Placed on {formatDate(order.orderDate)}</p>
             </div>
-            <div>
+
+            <div className="flex items-center gap-3">
               {getStatusBadge(order.status)}
+
+              {/* NEW: Download Invoice Button */}
+              <button
+                onClick={handleDownloadInvoice}
+                disabled={invoiceLoading}
+                className={`inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${invoiceLoading ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-orange-500 text-white hover:bg-orange-600'}
+                `}
+                title="Download Invoice (PDF)"
+                aria-label="Download Invoice"
+              >
+                <FiDownload className="h-4 w-4" />
+                {invoiceLoading ? 'Preparing…' : 'Download Invoice'}
+              </button>
             </div>
           </div>
 
