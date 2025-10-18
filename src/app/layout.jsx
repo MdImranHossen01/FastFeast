@@ -12,7 +12,8 @@ import StoreProvider from "@/lib/StoreProvider";
 import Chatbot from "@/components/chatbot"; 
 import PWAInstaller from "@/components/pwa/PWAInstaller";
 import OfflineIndicator from "@/components/pwa/OfflineIndicator";
-import ServiceWorker from "@/components/pwa/ServiceWorker"; // ✅ ADD THIS IMPORT
+import ServiceWorker from "@/components/pwa/ServiceWorker";
+import LiveTraffic from "@/components/LiveTraffic"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -75,7 +76,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ServiceWorker /> {/* ✅ ADD THIS COMPONENT HERE */}
+        <ServiceWorker /> 
         <SessionWrapper>
           <NextThemeProvider>
             <AOSProvider>
@@ -88,6 +89,7 @@ export default function RootLayout({ children }) {
                   <main>{children}</main>
                   <Chatbot />
                   <PWAInstaller />
+                  <LiveTraffic /> 
                   <Toaster position="top-center" />
                   <footer>
                     <Footer />
