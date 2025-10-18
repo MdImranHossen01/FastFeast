@@ -1,7 +1,7 @@
 const rawProducts = [
   {
     _id: "60c72b2f9f1b2c001f3e4d5e",
-    imageUrl: "https://i.ibb.co/WNrqbBhy/Classic-Tom-Yum-Soup.jpg",
+    imageUrl: "https://i.ibb.co.com/WNrqbBhy/Classic-Tom-Yum-Soup.jpg",
     title: "Classic Tom Yum Soup",
     description:
       "Traditional Thai hot and sour soup with shrimp, mushrooms, lemongrass, and kaffir lime leaves.",
@@ -27,7 +27,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d5f",
-    imageUrl: "https://i.ibb.co/FLv26TdP/Authentic-Pad-Thai.jpg",
+    imageUrl: "https://i.ibb.co.com/FLv26TdP/Authentic-Pad-Thai.jpg",
     title: "Authentic Pad Thai",
     description:
       "Stir-fried rice noodles with tofu, shrimp, bean sprouts, peanuts, and tamarind sauce.",
@@ -53,7 +53,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d61",
-    imageUrl: "https://i.ibb.co/5XJ2tZdQ/Thai-Green-Curry.jpg",
+    imageUrl: "https://i.ibb.co.com/5XJ2tZdQ/Thai-Green-Curry.jpg",
     title: "Thai Green Curry",
     description:
       "Aromatic curry with coconut milk, Thai basil, eggplant, and your choice of protein.",
@@ -79,7 +79,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d62",
-    imageUrl: "https://i.ibb.co/4zHZ6SN/Mango-Sticky-Rice.jpg",
+    imageUrl: "https://i.ibb.co.com/4zHZ6SN/Mango-Sticky-Rice.jpg",
     title: "Mango Sticky Rice",
     description:
       "Sweet coconut sticky rice topped with fresh mango slices and sesame seeds.",
@@ -104,7 +104,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d63",
-    imageUrl: "https://i.ibb.co/GX35bJf/Som-Tum-Papaya-Salad.jpg",
+    imageUrl: "https://i.ibb.co.com/GX35bJf/Som-Tum-Papaya-Salad.jpg",
     title: "Som Tum (Papaya Salad)",
     description:
       "Spicy green papaya salad with tomatoes, beans, peanuts, and lime dressing.",
@@ -130,7 +130,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d64",
-    imageUrl: "https://i.ibb.co/Psx2Jg93/Massaman-Curry.jpg",
+    imageUrl: "https://i.ibb.co.com/Psx2Jg93/Massaman-Curry.jpg",
     title: "Massaman Curry",
     description:
       "Rich and mild curry with potatoes, onions, peanuts, and tender beef.",
@@ -156,7 +156,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d65",
-    imageUrl: "https://i.ibb.co/7NXyKkbz/Fresh-Spring-Rolls.jpg",
+    imageUrl: "https://i.ibb.co.com/7NXyKkbz/Fresh-Spring-Rolls.jpg",
     title: "Fresh Spring Rolls",
     description:
       "Rice paper rolls filled with vegetables, herbs, and served with sweet chili sauce.",
@@ -182,7 +182,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d66",
-    imageUrl: "https://i.ibb.co/ksdjTGD2/Chicken-Satay.jpg",
+    imageUrl: "https://i.ibb.co.com/ksdjTGD2/Chicken-Satay.jpg",
     title: "Chicken Satay",
     description:
       "Grilled chicken skewers marinated in Thai spices, served with peanut sauce.",
@@ -208,7 +208,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d67",
-    imageUrl: "https://i.ibb.co/2QMCJ1J/Thai-Fish-Cakes.jpg",
+    imageUrl: "https://i.ibb.co.com/2QMCJ1J/Thai-Fish-Cakes.jpg",
     title: "Thai Fish Cakes",
     description:
       "Crispy fish cakes with red curry paste, green beans, and sweet chili sauce.",
@@ -234,7 +234,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d68",
-    imageUrl: "https://i.ibb.co/YFcKX1dz/Coconut-Chicken-Soup.jpg",
+    imageUrl: "https://i.ibb.co.com/YFcKX1dz/Coconut-Chicken-Soup.jpg",
     title: "Coconut Chicken Soup",
     description:
       "Creamy coconut soup with chicken, mushrooms, galangal, and lime juice.",
@@ -260,7 +260,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d69",
-    imageUrl: "https://i.ibb.co/bjdpDMqm/Spaghetti-Carbonara.jpg",
+    imageUrl: "https://i.ibb.co.com/bjdpDMqm/Spaghetti-Carbonara.jpg",
     title: "Spaghetti Carbonara",
     description: "Creamy pasta with eggs, cheese, pancetta, and black pepper.",
     price: 420,
@@ -284,7 +284,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d6a",
-    imageUrl: "https://i.ibb.co/sdMs3yGQ/Classic-Tiramisu.jpg",
+    imageUrl: "https://i.ibb.co.com/sdMs3yGQ/Classic-Tiramisu.jpg",
     title: "Classic Tiramisu",
     description:
       "Traditional Italian dessert with coffee-soaked ladyfingers and mascarpone cream.",
@@ -310,7 +310,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d6b",
-    imageUrl: "https://i.ibb.co/WNrqbBhy/Classic-Tom-Yum-Soup.jpg",
+    imageUrl: "https://i.ibb.co.com/WNrqbBhy/Classic-Tom-Yum-Soup.jpg",
     title: "Classic Tom Yum Soup",
     description:
       "Traditional Thai hot and sour soup with shrimp, mushrooms, lemongrass, and kaffir lime leaves.",
@@ -336,7 +336,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d6c",
-    imageUrl: "https://i.ibb.co/FLv26TdP/Authentic-Pad-Thai.jpg",
+    imageUrl: "https://i.ibb.co.com/FLv26TdP/Authentic-Pad-Thai.jpg",
     title: "Authentic Pad Thai",
     description:
       "Stir-fried rice noodles with tofu, shrimp, bean sprouts, peanuts, and tamarind sauce.",
@@ -362,7 +362,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d6d",
-    imageUrl: "https://i.ibb.co/5XJ2tZdQ/Thai-Green-Curry.jpg",
+    imageUrl: "https://i.ibb.co.com/5XJ2tZdQ/Thai-Green-Curry.jpg",
     title: "Thai Green Curry",
     description:
       "Aromatic curry with coconut milk, Thai basil, eggplant, and your choice of protein.",
@@ -388,7 +388,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d6e",
-    imageUrl: "https://i.ibb.co/4zHZ6SN/Mango-Sticky-Rice.jpg",
+    imageUrl: "https://i.ibb.co.com/4zHZ6SN/Mango-Sticky-Rice.jpg",
     title: "Mango Sticky Rice",
     description:
       "Sweet coconut sticky rice topped with fresh mango slices and sesame seeds.",
@@ -413,7 +413,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d6f",
-    imageUrl: "https://i.ibb.co/GX35bJf/Som-Tum-Papaya-Salad.jpg",
+    imageUrl: "https://i.ibb.co.com/GX35bJf/Som-Tum-Papaya-Salad.jpg",
     title: "Som Tum (Papaya Salad)",
     description:
       "Spicy green papaya salad with tomatoes, beans, peanuts, and lime dressing.",
@@ -439,7 +439,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d70",
-    imageUrl: "https://i.ibb.co/Psx2Jg93/Massaman-Curry.jpg",
+    imageUrl: "https://i.ibb.co.com/Psx2Jg93/Massaman-Curry.jpg",
     title: "Massaman Curry",
     description:
       "Rich and mild curry with potatoes, onions, peanuts, and tender beef.",
@@ -465,7 +465,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d71",
-    imageUrl: "https://i.ibb.co/7NXyKkbz/Fresh-Spring-Rolls.jpg",
+    imageUrl: "https://i.ibb.co.com/7NXyKkbz/Fresh-Spring-Rolls.jpg",
     title: "Fresh Spring Rolls",
     description:
       "Rice paper rolls filled with vegetables, herbs, and served with sweet chili sauce.",
@@ -491,7 +491,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d72",
-    imageUrl: "https://i.ibb.co/ksdjTGD2/Chicken-Satay.jpg",
+    imageUrl: "https://i.ibb.co.com/ksdjTGD2/Chicken-Satay.jpg",
     title: "Chicken Satay",
     description:
       "Grilled chicken skewers marinated in Thai spices, served with peanut sauce.",
@@ -517,7 +517,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d73",
-    imageUrl: "https://i.ibb.co/2QMCJ1J/Thai-Fish-Cakes.jpg",
+    imageUrl: "https://i.ibb.co.com/2QMCJ1J/Thai-Fish-Cakes.jpg",
     title: "Thai Fish Cakes",
     description:
       "Crispy fish cakes with red curry paste, green beans, and sweet chili sauce.",
@@ -543,7 +543,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d74",
-    imageUrl: "https://i.ibb.co/YFcKX1dz/Coconut-Chicken-Soup.jpg",
+    imageUrl: "https://i.ibb.co.com/YFcKX1dz/Coconut-Chicken-Soup.jpg",
     title: "Coconut Chicken Soup",
     description:
       "Creamy coconut soup with chicken, mushrooms, galangal, and lime juice.",
@@ -569,7 +569,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d75",
-    imageUrl: "https://i.ibb.co/bjdpDMqm/Spaghetti-Carbonara.jpg",
+    imageUrl: "https://i.ibb.co.com/bjdpDMqm/Spaghetti-Carbonara.jpg",
     title: "Spaghetti Carbonara",
     description: "Creamy pasta with eggs, cheese, pancetta, and black pepper.",
     price: 420,
@@ -593,7 +593,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d76",
-    imageUrl: "https://i.ibb.co/sdMs3yGQ/Classic-Tiramisu.jpg",
+    imageUrl: "https://i.ibb.co.com/sdMs3yGQ/Classic-Tiramisu.jpg",
     title: "Classic Tiramisu",
     description:
       "Traditional Italian dessert with coffee-soaked ladyfingers and mascarpone cream.",
@@ -619,7 +619,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d77",
-    imageUrl: "https://i.ibb.co/WNrqbBhy/Classic-Tom-Yum-Soup.jpg",
+    imageUrl: "https://i.ibb.co.com/WNrqbBhy/Classic-Tom-Yum-Soup.jpg",
     title: "Classic Tom Yum Soup",
     description:
       "Traditional Thai hot and sour soup with shrimp, mushrooms, lemongrass, and kaffir lime leaves.",
@@ -645,7 +645,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d78",
-    imageUrl: "https://i.ibb.co/FLv26TdP/Authentic-Pad-Thai.jpg",
+    imageUrl: "https://i.ibb.co.com/FLv26TdP/Authentic-Pad-Thai.jpg",
     title: "Authentic Pad Thai",
     description:
       "Stir-fried rice noodles with tofu, shrimp, bean sprouts, peanuts, and tamarind sauce.",
@@ -671,7 +671,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d79",
-    imageUrl: "https://i.ibb.co/5XJ2tZdQ/Thai-Green-Curry.jpg",
+    imageUrl: "https://i.ibb.co.com/5XJ2tZdQ/Thai-Green-Curry.jpg",
     title: "Thai Green Curry",
     description:
       "Aromatic curry with coconut milk, Thai basil, eggplant, and your choice of protein.",
@@ -697,7 +697,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d7a",
-    imageUrl: "https://i.ibb.co/4zHZ6SN/Mango-Sticky-Rice.jpg",
+    imageUrl: "https://i.ibb.co.com/4zHZ6SN/Mango-Sticky-Rice.jpg",
     title: "Mango Sticky Rice",
     description:
       "Sweet coconut sticky rice topped with fresh mango slices and sesame seeds.",
@@ -722,7 +722,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d7b",
-    imageUrl: "https://i.ibb.co/GX35bJf/Som-Tum-Papaya-Salad.jpg",
+    imageUrl: "https://i.ibb.co.com/GX35bJf/Som-Tum-Papaya-Salad.jpg",
     title: "Som Tum (Papaya Salad)",
     description:
       "Spicy green papaya salad with tomatoes, beans, peanuts, and lime dressing.",
@@ -748,7 +748,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d7c",
-    imageUrl: "https://i.ibb.co/Psx2Jg93/Massaman-Curry.jpg",
+    imageUrl: "https://i.ibb.co.com/Psx2Jg93/Massaman-Curry.jpg",
     title: "Massaman Curry",
     description:
       "Rich and mild curry with potatoes, onions, peanuts, and tender beef.",
@@ -774,7 +774,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d7d",
-    imageUrl: "https://i.ibb.co/7NXyKkbz/Fresh-Spring-Rolls.jpg",
+    imageUrl: "https://i.ibb.co.com/7NXyKkbz/Fresh-Spring-Rolls.jpg",
     title: "Fresh Spring Rolls",
     description:
       "Rice paper rolls filled with vegetables, herbs, and served with sweet chili sauce.",
@@ -800,7 +800,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d7e",
-    imageUrl: "https://i.ibb.co/ksdjTGD2/Chicken-Satay.jpg",
+    imageUrl: "https://i.ibb.co.com/ksdjTGD2/Chicken-Satay.jpg",
     title: "Chicken Satay",
     description:
       "Grilled chicken skewers marinated in Thai spices, served with peanut sauce.",
@@ -826,7 +826,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d7f",
-    imageUrl: "https://i.ibb.co/2QMCJ1J/Thai-Fish-Cakes.jpg",
+    imageUrl: "https://i.ibb.co.com/2QMCJ1J/Thai-Fish-Cakes.jpg",
     title: "Thai Fish Cakes",
     description:
       "Crispy fish cakes with red curry paste, green beans, and sweet chili sauce.",
@@ -852,7 +852,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d80",
-    imageUrl: "https://i.ibb.co/YFcKX1dz/Coconut-Chicken-Soup.jpg",
+    imageUrl: "https://i.ibb.co.com/YFcKX1dz/Coconut-Chicken-Soup.jpg",
     title: "Coconut Chicken Soup",
     description:
       "Creamy coconut soup with chicken, mushrooms, galangal, and lime juice.",
@@ -878,7 +878,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d81",
-    imageUrl: "https://i.ibb.co/bjdpDMqm/Spaghetti-Carbonara.jpg",
+    imageUrl: "https://i.ibb.co.com/bjdpDMqm/Spaghetti-Carbonara.jpg",
     title: "Spaghetti Carbonara",
     description: "Creamy pasta with eggs, cheese, pancetta, and black pepper.",
     price: 420,
@@ -902,7 +902,7 @@ const rawProducts = [
   },
   {
     _id: "60c72b2f9f1b2c001f3e4d82",
-    imageUrl: "https://i.ibb.co/sdMs3yGQ/Classic-Tiramisu.jpg",
+    imageUrl: "https://i.ibb.co.com/sdMs3yGQ/Classic-Tiramisu.jpg",
     title: "Classic Tiramisu",
     description:
       "Traditional Italian dessert with coffee-soaked ladyfingers and mascarpone cream.",

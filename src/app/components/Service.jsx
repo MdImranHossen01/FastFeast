@@ -12,28 +12,28 @@ import { motion } from "framer-motion";
 const servicesData = [
   {
     id: "01",
-    icon: "https://i.ibb.co/4nD9P4ct/Navigation-amico.png",
+    icon: "https://i.ibb.co.com/4nD9P4ct/Navigation-amico.png",
     title: "Real-Time Order Tracking",
     description:
       "Track your food live with GPS and get real-time updates from kitchen to doorstep, knowing exactly when your meal will arrive.",
   },
   {
     id: "02",
-    icon: "https://i.ibb.co/gMrpH4ds/Take-Away-pana.png",
+    icon: "https://i.ibb.co.com/gMrpH4ds/Take-Away-pana.png",
     title: "Fast Delivery by Riders",
     description:
       "Experience speedy, reliable delivery handled by trained riders who ensure your food arrives hot, fresh, and right on schedule.",
   },
   {
     id: "03",
-    icon: "https://i.ibb.co/gZ4RTFpj/Order-food-pana.png",
+    icon: "https://i.ibb.co.com/gZ4RTFpj/Order-food-pana.png",
     title: "Online Food Ordering",
     description:
       "Easily browse restaurants, explore diverse menus, customize your dishes, and place secure orders within just a few quick taps.",
   },
   {
     id: "04",
-    icon: "https://i.ibb.co/5g4RzxQC/Business-deal-bro.png",
+    icon: "https://i.ibb.co.com/5g4RzxQC/Business-deal-bro.png",
     title: "Restaurant Partnership",
     description:
       "Expand your restaurant’s reach, manage orders efficiently, update menus anytime, and grow your sales with our trusted platform.",

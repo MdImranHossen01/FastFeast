@@ -60,7 +60,7 @@ const SpecialOffers = () => {
             className="w-full lg:w-1/2 rounded-xl overflow-hidden min-h-[400px] lg:h-[calc(100vh-2rem)] bg-cover bg-center mb-8 lg:mb-0 relative lg:sticky lg:top-4"
             style={{
               backgroundImage:
-                "url('https://i.ibb.co/S4pQbgpq/fried-chicken-in-orange-background.jpg')",
+                "url('https://i.ibb.co.com/S4pQbgpq/fried-chicken-in-orange-background.jpg')",
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>

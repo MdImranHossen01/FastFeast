@@ -7,11 +7,11 @@ import React, { useState, useEffect } from 'react';
 const RestaurantSection = () => {
   // Image URLs for the slider
   const imageUrls = [
-    "https://i.ibb.co/C5zrpF2T/1.png",
-    "https://i.ibb.co/5xFXDwxQ/2.png",
-    "https://i.ibb.co/N2rR1sJ9/3.png",
-    "https://i.ibb.co/wh4942Td/4.png",
-    "https://i.ibb.co/WWyddxWk/5.png",
+    "https://i.ibb.co.com/C5zrpF2T/1.png",
+    "https://i.ibb.co.com/5xFXDwxQ/2.png",
+    "https://i.ibb.co.com/N2rR1sJ9/3.png",
+    "https://i.ibb.co.com/wh4942Td/4.png",
+    "https://i.ibb.co.com/WWyddxWk/5.png",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);

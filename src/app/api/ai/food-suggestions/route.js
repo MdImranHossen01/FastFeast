@@ -53,11 +53,11 @@ export async function POST(req) {
         )
       );
     } else {
-      filteredMenus = allMenus.slice(0, 6);
+      filteredMenus = allMenus.slice(0, 8); // CHANGED: 6 to 8
     }
 
-    // Randomize and limit
-    filteredMenus = filteredMenus.sort(() => 0.5 - Math.random()).slice(0, 6);
+    // Randomize and limit to 8 items
+    filteredMenus = filteredMenus.sort(() => 0.5 - Math.random()).slice(0, 8); // CHANGED: 6 to 8
 
     // ✅ Add menuId compatibility for frontend
     const suggestions = filteredMenus.map((item) => ({

@@ -48,19 +48,19 @@ const CategorySection = () => {
         {/* Row 1 */}
         <CategoryTile
           title="Chicken"
-          imageUrl="https://i.ibb.co/dwsf56Wd/Chicken-Drums.jpg"
+          imageUrl="https://i.ibb.co.com/dwsf56Wd/Chicken-Drums.jpg"
           bgColor="bg-pink-100"
           url="/friedchicken"
         />
         <CategoryTile
           title="Burgers"
-          imageUrl="https://i.ibb.co/jZBvwWF7/Crispy-Chicken-Sandwich.jpg"
+          imageUrl="https://i.ibb.co.com/jZBvwWF7/Crispy-Chicken-Sandwich.jpg"
           bgColor="bg-gray-100"
           url="/burgers"
         />
         <CategoryTile
           title="Pizza"
-          imageUrl="https://i.ibb.co/zTvN3vSk/Pizza.jpg"
+          imageUrl="https://i.ibb.co.com/zTvN3vSk/Pizza.jpg"
           bgColor="bg-pink-100"
           url="/pizza"
         />
@@ -68,19 +68,19 @@ const CategorySection = () => {
         {/* Row 2 */}
         <CategoryTile
           title="Kebab"
-          imageUrl="https://i.ibb.co/HD7LD1Jr/kebab.jpg"
+          imageUrl="https://i.ibb.co.com/HD7LD1Jr/kebab.jpg"
           bgColor="bg-purple-900"
           url="/kebab"  
         />
         <CategoryTile
           title="Cakes"
-          imageUrl="https://i.ibb.co/zHx1wnyV/Tiramisu-Cake.jpg"
+          imageUrl="https://i.ibb.co.com/zHx1wnyV/Tiramisu-Cake.jpg"
           bgColor="bg-orange-500"
           url="/cakes"
         />
         <CategoryTile
           title="Pasta"
-          imageUrl="https://i.ibb.co/sxMDMFm/Pasta.jpg"
+          imageUrl="https://i.ibb.co.com/sxMDMFm/Pasta.jpg"
           bgColor="bg-purple-900"
           url="/pasta"
         />

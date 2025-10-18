@@ -108,7 +108,7 @@ export async function getFoodSuggestions(userInput, context = {}) {
     }
 
     // --- LLM prompt ---
-    const prompt = `As a food recommendation expert for FastFeast, suggest 3-5 food items from this menu data.
+    const prompt = `As a food recommendation expert for FastFeast, suggest 5-8 food items from this menu data.
 
 USER REQUEST: "${userInput}"
 CONTEXT:
@@ -139,13 +139,13 @@ CRITICAL: Reply with ONLY valid JSON in this exact format:
     }
   ],
   "summary": {
-    "totalSuggestions": 3,
+    "totalSuggestions": 8,
     "bestMatch": "Food Name",
     "reasoning": "Brief explanation"
   }
 }
 
-IMPORTANT: Use only menu IDs and restaurant names that exist in the provided data.`;
+IMPORTANT: Use only menu IDs and restaurant names that exist in the provided data. Aim for 8 suggestions when possible.`;
 
     const completion = await openai.chat.completions.create({
       model: 'z-ai/glm-4.5-air:free',
@@ -153,7 +153,7 @@ IMPORTANT: Use only menu IDs and restaurant names that exist in the provided dat
         {
           role: 'system',
           content:
-            'You are a food recommendation assistant. You MUST respond with ONLY valid JSON in the exact format provided. Use only the menu data provided. Do not invent new dishes or restaurants.'
+            'You are a food recommendation assistant. You MUST respond with ONLY valid JSON in the exact format provided. Use only the menu data provided. Do not invent new dishes or restaurants. Aim to provide 8 suggestions when sufficient data is available.'
         },
         { role: 'user', content: prompt }
       ],
@@ -258,7 +258,7 @@ function createEnhancedSuggestions(userInput, availableFoods, context) {
   const sorted = scored
     .filter(f => f.calculatedScore > 15)
     .sort((a, b) => b.calculatedScore - a.calculatedScore)
-    .slice(0, 6);
+    .slice(0, 8); // CHANGED: 6 to 8
 
   const suggestions = sorted.map((food, idx) => ({
     menuId: food.id,
@@ -325,6 +325,56 @@ function createSampleSuggestion(availableFoods) {
   };
 }
 
+function createTimeBasedSuggestions(timeOfDay, suggestionType, availableFoods) {
+  let filteredMenus = [];
+  
+  switch (suggestionType) {
+    case 'breakfast':
+      filteredMenus = availableFoods.filter(food => 
+        food.category === 'Cakes' ||
+        food.title?.toLowerCase().includes('pancake') ||
+        food.title?.toLowerCase().includes('breakfast') ||
+        (food.category === 'Snacks' && food.price < 300)
+      );
+      break;
+    case 'lunch':
+      filteredMenus = availableFoods.filter(food => 
+        ['Biryani', 'Noodles', 'Pasta'].includes(food.category) ||
+        (food.category === 'Snacks' && food.price >= 300 && food.price <= 600)
+      );
+      break;
+    case 'dinner':
+      filteredMenus = availableFoods.filter(food => 
+        ['Kebab', 'Pizza', 'Sushi'].includes(food.category) ||
+        (food.category === 'Snacks' && food.price > 400)
+      );
+      break;
+    default:
+      filteredMenus = availableFoods.filter(food => food.isSpecialOffer || food.rating >= 4.0);
+  }
+  
+  const suggestions = filteredMenus
+    .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+    .slice(0, 8) // CHANGED: 6 to 8
+    .map((food, idx) => ({
+      menuId: food.id,
+      title: food.title,
+      reason: `Perfect ${suggestionType} option for ${timeOfDay}`,
+      matchScore: 80 - (idx * 5),
+      perfectFor: [suggestionType, 'popular'],
+      restaurantInfo: food.restaurant
+    }));
+
+  return {
+    suggestions,
+    summary: {
+      totalSuggestions: suggestions.length,
+      bestMatch: suggestions[0]?.title || 'Popular dishes',
+      reasoning: `Great ${suggestionType} options for ${timeOfDay}`
+    }
+  };
+}
+
 function createEmergencyFallback() {
   return {
     suggestions: [
@@ -351,8 +401,52 @@ function createEmergencyFallback() {
         matchScore: 70,
         perfectFor: ['popular', 'comfort', 'spicy'],
         restaurantInfo: { name: 'Biryani House', estimatedDeliveryTime: '30-40 min', deliveryFee: 35 }
+      },
+      {
+        menuId: 'emergency-4',
+        title: 'Vegetable Fried Rice',
+        reason: 'Quick and delicious Asian-inspired rice dish with fresh vegetables',
+        matchScore: 72,
+        perfectFor: ['quick', 'vegetarian', 'healthy'],
+        restaurantInfo: { name: 'Asian Wok', estimatedDeliveryTime: '25-35 min', deliveryFee: 25 }
+      },
+      {
+        menuId: 'emergency-5',
+        title: 'Beef Burger',
+        reason: 'Juicy beef patty with fresh vegetables and special sauce',
+        matchScore: 68,
+        perfectFor: ['comfort', 'quick', 'satisfying'],
+        restaurantInfo: { name: 'Burger King', estimatedDeliveryTime: '20-30 min', deliveryFee: 40 }
+      },
+      {
+        menuId: 'emergency-6',
+        title: 'Caesar Salad',
+        reason: 'Fresh crisp salad with Caesar dressing and croutons',
+        matchScore: 65,
+        perfectFor: ['healthy', 'light', 'vegetarian'],
+        restaurantInfo: { name: 'Healthy Bites', estimatedDeliveryTime: '15-25 min', deliveryFee: 20 }
+      },
+      {
+        menuId: 'emergency-7',
+        title: 'Chicken Tikka',
+        reason: 'Grilled chicken pieces with authentic spices and flavors',
+        matchScore: 73,
+        perfectFor: ['spicy', 'protein', 'popular'],
+        restaurantInfo: { name: 'Spice Garden', estimatedDeliveryTime: '30-40 min', deliveryFee: 35 }
+      },
+      {
+        menuId: 'emergency-8',
+        title: 'Chocolate Brownie',
+        reason: 'Rich and decadent chocolate dessert for sweet cravings',
+        matchScore: 60,
+        perfectFor: ['dessert', 'sweet', 'comfort'],
+        restaurantInfo: { name: 'Sweet Treats', estimatedDeliveryTime: '20-30 min', deliveryFee: 25 }
       }
     ],
-    summary: { totalSuggestions: 3, bestMatch: 'Chicken Biryani', reasoning: 'Popular dishes that most customers enjoy' }
+    summary: { 
+      totalSuggestions: 8, // CHANGED: 3 to 8
+      bestMatch: 'Chicken Biryani', 
+      reasoning: 'Popular dishes that most customers enjoy' 
+    }
   };
 }

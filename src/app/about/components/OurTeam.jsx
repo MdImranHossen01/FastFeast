@@ -7,13 +7,13 @@ import { IoIosMail } from "react-icons/io";
 
 
 //bg-linear-to-l from-gray-500 from-50% to-orange-600 to-50% bg-size-[500%_100%] hover:bg-right transition-all rounded-lg duration-1000 ease-in-out bg-left bg-clip-text text-transparen
-// https://i.ibb.co/rG7Hm5XB/compressed-2.webp
-// https://i.ibb.co/F49j3q8N/compressed-3.webp
-// https://i.ibb.co/mr36pQzQ/compressed-4.webp
-// https://i.ibb.co/60W92FYx/compressed-1.webp
-// https://i.ibb.co/4nwy593V/compressed-5.webp
-// https://i.ibb.co/7thh7Lfq/compressed-6.webp
-// https://i.ibb.co/Xr7Hc2gf/compressed-7.webp
+// https://i.ibb.co.com/rG7Hm5XB/compressed-2.webp
+// https://i.ibb.co.com/F49j3q8N/compressed-3.webp
+// https://i.ibb.co.com/mr36pQzQ/compressed-4.webp
+// https://i.ibb.co.com/60W92FYx/compressed-1.webp
+// https://i.ibb.co.com/4nwy593V/compressed-5.webp
+// https://i.ibb.co.com/7thh7Lfq/compressed-6.webp
+// https://i.ibb.co.com/Xr7Hc2gf/compressed-7.webp
 
 export const OurTeam = () => {
     // const teamData = [
@@ -49,7 +49,7 @@ export const OurTeam = () => {
     //     },
     //     {
     //         id: 4,
-    //         image: 'https://i.ibb.co/BHtGjH0k/profile-by-canva-blue-shadow.png',
+    //         image: 'https://i.ibb.co.com/BHtGjH0k/profile-by-canva-blue-shadow.png',
     //         name: 'Julkarnain Zunayed',
     //         position: 'Full-stack Developer',
     //         linkedInLink: 'https://www.linkedin.com/in/julkarzunayed/',
@@ -91,7 +91,7 @@ export const OurTeam = () => {
     const teamData = [
         {
             id: 1,
-            image: "https://i.ibb.co/4nwy593V/compressed-5.webp",
+            image: "https://i.ibb.co.com/4nwy593V/compressed-5.webp",
             name: 'Md Imran Hossen',
             position: 'Full-stack Developer',
             linkedInLink: '',
@@ -101,7 +101,7 @@ export const OurTeam = () => {
         },
         {
             id: 2,
-            image: "https://i.ibb.co/7thh7Lfq/compressed-6.webp",
+            image: "https://i.ibb.co.com/7thh7Lfq/compressed-6.webp",
             name: 'Md Rezwan Hossen',
             position: 'Full-stack Developer',
             linkedInLink: '',
@@ -111,7 +111,7 @@ export const OurTeam = () => {
         },
         {
             id: 3,
-            image: "https://i.ibb.co/Xr7Hc2gf/compressed-7.webp",
+            image: "https://i.ibb.co.com/Xr7Hc2gf/compressed-7.webp",
             name: 'Md Jaber Ali',
             position: 'Full-stack Developer',
             linkedInLink: '',
@@ -121,7 +121,7 @@ export const OurTeam = () => {
         },
         {
             id: 4,
-            image: 'https://i.ibb.co/60W92FYx/compressed-1.webp',
+            image: 'https://i.ibb.co.com/60W92FYx/compressed-1.webp',
             name: 'Mst Tasnim Jara',
             position: 'Full-stack Developer',
             linkedInLink: 'https://www.linkedin.com/in/julkarzunayed/',
