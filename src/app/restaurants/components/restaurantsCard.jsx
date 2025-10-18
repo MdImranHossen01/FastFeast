@@ -197,6 +197,7 @@ export default function RestaurantsCard({ restaurant }) {
             </button>
           </Link>
         </div>
+        {/*  */}
         {/* add to favorite and remove to favorite */}
         <button
           onClick={handleToggle}
