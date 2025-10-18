@@ -271,35 +271,7 @@ const AiDrivenFoodSuggestion = () => {
     "Vegetarian picks",
   ];
 
-  const moodOptions = [
-    { value: "", label: "Any Mood" },
-    { value: "happy", label: "😊 Happy" },
-    { value: "sad", label: "😢 Sad" },
-    { value: "stressed", label: "😫 Stressed" },
-    { value: "energetic", label: "⚡ Energetic" },
-    { value: "relaxed", label: "😌 Relaxed" },
-    { value: "celebratory", label: "🎉 Celebratory" },
-    { value: "tired", label: "😴 Tired" },
-  ];
 
-  const budgetOptions = [
-    { value: "", label: "Any Budget" },
-    { value: "low", label: "💰 Low (Under ৳300)" },
-    { value: "medium", label: "💰💰 Medium (৳300-600)" },
-    { value: "high", label: "💰💰💰 High (৳600+)" },
-  ];
-
-  const cuisineOptions = [
-    { value: "", label: "Any Cuisine" },
-    { value: "bengali", label: "🍛 Bengali" },
-    { value: "indian", label: "🍛 Indian" },
-    { value: "thai", label: "🍜 Thai" },
-    { value: "italian", label: "🍝 Italian" },
-    { value: "chinese", label: "🥡 Chinese" },
-    { value: "japanese", label: "🍣 Japanese" },
-    { value: "korean", label: "🍚 Korean" },
-    { value: "turkish", label: "🥙 Turkish" },
-  ];
 
   // Display current suggestions (either auto or search results)
   const displaySuggestions = suggestions;
@@ -385,49 +357,7 @@ const AiDrivenFoodSuggestion = () => {
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="max-w-4xl mx-auto mb-8">
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-orange-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Refine Your Search</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <select
-                value={context.mood}
-                onChange={(e) => handleContextChange("mood", e.target.value)}
-                className="px-4 py-3 text-base bg-gray-50 rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all"
-              >
-                {moodOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                value={context.budget}
-                onChange={(e) => handleContextChange("budget", e.target.value)}
-                className="px-4 py-3 text-base bg-gray-50 rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all"
-              >
-                {budgetOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-
-              <select
-                value={context.cuisinePreference}
-                onChange={(e) => handleContextChange("cuisinePreference", e.target.value)}
-                className="px-4 py-3 text-base bg-gray-50 rounded-xl border border-gray-200 focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all"
-              >
-                {cuisineOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
+    
 
         {/* Results Section */}
         <div className="max-w-7xl mx-auto">

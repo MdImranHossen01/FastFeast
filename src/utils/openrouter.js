@@ -51,7 +51,7 @@ export async function getFoodSuggestions(userInput, context = {}) {
 
     const baseUrl = process.env.NEXT_PUBLIC_SERVER_ADDRESS || 'https://fast-feast-nine.vercel.app';
 
-    // Fetch menu + restaurant data from internal APIs
+    // Fetch menu + restaurant data
     const [menusResponse, restaurantsResponse] = await Promise.all([
       fetch(`${baseUrl}/api/menus`, { cache: 'no-store' }),
       fetch(`${baseUrl}/api/restaurants`, { cache: 'no-store' })
@@ -178,7 +178,6 @@ IMPORTANT: Use only menu IDs and restaurant names that exist in the provided dat
       return createEnhancedSuggestions(userInput, availableFoods, context);
     }
   } catch (error) {
-    // Final fallback
     try {
       const baseUrl = process.env.NEXT_PUBLIC_SERVER_ADDRESS || 'https://fast-feast-nine.vercel.app';
       const menusResponse = await fetch(`${baseUrl}/api/menus`, { cache: 'no-store' });
@@ -190,84 +189,7 @@ IMPORTANT: Use only menu IDs and restaurant names that exist in the provided dat
   }
 }
 
-// ---------- time-based suggestions ----------
-function createTimeBasedSuggestions(timeOfDay, suggestionType, availableFoods) {
-  let timeBasedFoods = [];
-  switch (suggestionType) {
-    case 'breakfast':
-      timeBasedFoods = availableFoods.filter(
-        f => f.category === 'Cakes' ||
-             f.title.toLowerCase().includes('pancake') ||
-             f.title.toLowerCase().includes('breakfast') ||
-             (f.category === 'Snacks' && f.price < 300)
-      );
-      break;
-    case 'lunch':
-      timeBasedFoods = availableFoods.filter(
-        f => ['Biryani', 'Noodles', 'Pasta'].includes(f.category) ||
-             (f.category === 'Snacks' && f.price >= 300 && f.price <= 600)
-      );
-      break;
-    case 'dinner':
-      timeBasedFoods = availableFoods.filter(
-        f => ['Kebab', 'Pizza', 'Sushi'].includes(f.category) ||
-             (f.category === 'Snacks' && f.price > 400)
-      );
-      break;
-    default:
-      timeBasedFoods = availableFoods.filter(f => f.isSpecialOffer || f.rating >= 4.0);
-  }
-
-  const suggestions = timeBasedFoods
-    .sort((a, b) => (b.rating || 0) - (a.rating || 0))
-    .slice(0, 6)
-    .map((food, idx) => ({
-      menuId: food.id,
-      title: food.title,
-      reason: getTimeBasedReason(food, suggestionType),
-      matchScore: 80 - (idx * 5),
-      perfectFor: [suggestionType, (food.cuisine || '').toLowerCase(), 'popular'].filter(Boolean),
-      restaurantInfo: food.restaurant
-    }));
-
-  return {
-    suggestions,
-    summary: {
-      totalSuggestions: suggestions.length,
-      bestMatch: suggestions[0]?.title || 'Popular dishes',
-      reasoning: `Perfect ${suggestionType} options for ${timeOfDay}`
-    }
-  };
-}
-
-function getTimeBasedReason(food, suggestionType) {
-  const reasons = {
-    breakfast: [
-      `Great way to start your day with this delicious ${food.cuisine} option`,
-      `Perfect breakfast choice to energize your morning`,
-      `Light and satisfying ${suggestionType} option`
-    ],
-    lunch: [
-      `Ideal ${suggestionType} option that will keep you satisfied`,
-      `Perfect midday meal to fuel your afternoon`,
-      `Popular ${suggestionType} choice among our customers`
-    ],
-    dinner: [
-      `Wonderful ${suggestionType} option to end your day`,
-      `Perfect evening meal for a satisfying dinner`,
-      `Customer favorite for ${suggestionType} time`
-    ]
-  };
-  const def = [
-    `Delicious ${food.cuisine} option perfect for ${suggestionType}`,
-    `Popular choice for ${suggestionType} with great flavors`,
-    `Excellent ${suggestionType} option that many customers enjoy`
-  ];
-  const list = reasons[suggestionType] || def;
-  return list[Math.floor(Math.random() * list.length)];
-}
-
-// ---------- enhanced + emergency fallbacks ----------
+// ---------- fallback enhancement ----------
 function createEnhancedSuggestions(userInput, availableFoods, context) {
   if (!availableFoods || availableFoods.length === 0) return createEmergencyFallback();
 
@@ -284,6 +206,29 @@ function createEnhancedSuggestions(userInput, availableFoods, context) {
       if (food.category?.toLowerCase().includes(query)) { score += 25; factors.push('category match'); }
       if (food.ingredients?.some(ing => ing.toLowerCase().includes(query))) { score += 20; factors.push('ingredient match'); }
     }
+
+    // 🌶️ Theme / Mood-based keyword logic (NEW)
+    const themeKeywords = {
+      'light': ['salad', 'soup', 'roll', 'fruit', 'juice', 'smoothie', 'grill'],
+      'healthy': ['salad', 'grill', 'boiled', 'baked', 'veg', 'protein', 'low-fat'],
+      'spicy': ['curry', 'chili', 'masala', 'hot', 'szechuan'],
+      'comfort': ['burger', 'pasta', 'biryani', 'fried', 'noodles', 'rice'],
+      'quick': ['sandwich', 'wrap', 'snack', 'fast', 'roll'],
+      'vegetarian': ['veg', 'tofu', 'paneer', 'mushroom', 'vegetable']
+    };
+
+    Object.keys(themeKeywords).forEach(key => {
+      if (query.includes(key)) {
+        if (themeKeywords[key].some(word =>
+          food.title?.toLowerCase().includes(word) ||
+          food.description?.toLowerCase().includes(word) ||
+          food.category?.toLowerCase().includes(word)
+        )) {
+          score += 40;
+          factors.push(`${key} theme`);
+        }
+      }
+    });
 
     if (context.cuisinePreference && food.cuisine?.toLowerCase().includes(context.cuisinePreference.toLowerCase())) {
       score += 30; factors.push('cuisine preference');
@@ -305,8 +250,6 @@ function createEnhancedSuggestions(userInput, availableFoods, context) {
     }
 
     if (food.rating >= 4.0) { score += 30; factors.push('high rating'); }
-    else if (food.rating >= 3.0) { score += 15; }
-
     if (food.isSpecialOffer) { score += 25; factors.push('special offer'); }
 
     return { ...food, calculatedScore: score, matchFactors: factors.length ? factors : ['popular choice'] };
@@ -315,7 +258,7 @@ function createEnhancedSuggestions(userInput, availableFoods, context) {
   const sorted = scored
     .filter(f => f.calculatedScore > 15)
     .sort((a, b) => b.calculatedScore - a.calculatedScore)
-    .slice(0, 5);
+    .slice(0, 6);
 
   const suggestions = sorted.map((food, idx) => ({
     menuId: food.id,
@@ -336,13 +279,14 @@ function createEnhancedSuggestions(userInput, availableFoods, context) {
   };
 }
 
+// ---------- fallback helpers ----------
 function generateEnhancedReason(food, context, query) {
   const reasons = [];
   if (food.rating >= 4.0) reasons.push('highly rated');
   if (food.isSpecialOffer) reasons.push('great deal');
   if (context.cuisinePreference) reasons.push(`perfect ${context.cuisinePreference} cuisine`);
   if (query && food.title?.toLowerCase().includes(query)) reasons.push('matches your craving');
-  if (food.dietaryTags && food.dietaryTags.length > 0) reasons.push('dietary friendly');
+  if (food.dietaryTags?.length > 0) reasons.push('dietary friendly');
   if ((food.offerPrice ?? food.price) < (food.price ?? 0)) reasons.push('discounted price');
 
   const intro = reasons.length
