@@ -42,70 +42,70 @@ const favoriteFoodCategories = [
   {
     id: "fav07",
     name: "Pasta",
-    imageUrl: "https://i.ibb.co.com/sxMDMFm/Pasta.jpg", 
+    imageUrl: "https://i.ibb.co/sxMDMFm/Pasta.jpg", 
   },
   {
     id: "fav08",
     name: "Snacks",
-    imageUrl: "https://i.ibb.co.com/XkL6XQDv/Snacks.jpg", 
+    imageUrl: "https://i.ibb.co/XkL6XQDv/Snacks.jpg", 
   },
   {
     id: "fav09",
     name: "Noodles",
     imageUrl:
-      "https://i.ibb.co.com/FqHZcYX1/noodles-in-orange-background-1.jpg", 
+      "https://i.ibb.co/FqHZcYX1/noodles-in-orange-background-1.jpg", 
   },
   {
     id: "fav10",
     name: "Fried Chicken",
     imageUrl:
-      "https://i.ibb.co.com/S4pQbgpq/fried-chicken-in-orange-background.jpg", 
+      "https://i.ibb.co/S4pQbgpq/fried-chicken-in-orange-background.jpg", 
   },
   {
     id: "fav11",
     name: "Sushi",
-    imageUrl: "https://i.ibb.co.com/0j2RNP8V/sushi-in-orange-background.jpg", 
+    imageUrl: "https://i.ibb.co/0j2RNP8V/sushi-in-orange-background.jpg", 
   },
   {
     id: "fav12",
     name: "Soups",
-    imageUrl: "https://i.ibb.co.com/YFkxHZnF/soup-in-orange-background.jpg", 
+    imageUrl: "https://i.ibb.co/YFkxHZnF/soup-in-orange-background.jpg", 
   },
   {
     id: "fav01",
     name: "Pizza",
-    imageUrl: "https://i.ibb.co.com/zTvN3vSk/Pizza.jpg", 
+    imageUrl: "https://i.ibb.co/zTvN3vSk/Pizza.jpg", 
   },
   {
     id: "fav02",
     name: "Biryani",
     imageUrl:
-      "https://i.ibb.co.com/KcyNS5wF/Biryani-in-orange-background-for-round-profile-picture.jpg", 
+      "https://i.ibb.co/KcyNS5wF/Biryani-in-orange-background-for-round-profile-picture.jpg", 
   },
   {
     id: "fav03",
     name: "Cakes",
-    imageUrl: "https://i.ibb.co.com/GQc0p6qx/Cakes.jpg",
+    imageUrl: "https://i.ibb.co/GQc0p6qx/Cakes.jpg",
   },
   {
     id: "fav04",
     name: "Burgers",
-    imageUrl: "https://i.ibb.co.com/XrDjBLcW/Burgers.jpg", 
+    imageUrl: "https://i.ibb.co/XrDjBLcW/Burgers.jpg", 
   },
   {
     id: "fav05",
     name: "Shawarma",
-    imageUrl: "https://i.ibb.co.com/B2R3qXw1/shawarma-in-orange-background.jpg", 
+    imageUrl: "https://i.ibb.co/B2R3qXw1/shawarma-in-orange-background.jpg", 
   },
   {
     id: "fav06",
     name: "Khichuri",
-    imageUrl: "https://i.ibb.co.com/kgFdYnyX/Khichuri.jpg", 
+    imageUrl: "https://i.ibb.co/kgFdYnyX/Khichuri.jpg", 
   },
   {
     id: "fav13",
     name: "Kebab",
-    imageUrl: "https://i.ibb.co.com/HD7LD1Jr/kebab.jpg", 
+    imageUrl: "https://i.ibb.co/HD7LD1Jr/kebab.jpg", 
   },
 ];
 

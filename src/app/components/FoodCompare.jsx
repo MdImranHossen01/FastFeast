@@ -20,8 +20,8 @@ export default function FoodCompare() {
         {/* Right Side Compare Slider */}
         <div className="relative w-full h-full shadow-md rounded-lg overflow-hidden">
           <ReactCompareImage
-            leftImage="https://i.ibb.co.com/jvm9VWcv/raw-meet-in-bowl-with-some-spices-prepared-for-cook-in-white-background.jpg"
-            rightImage="https://i.ibb.co.com/5hNKqbQc/mutton-curry-in-bowl-in-white-background-upper-view.jpg"
+            leftImage="https://i.ibb.co/jvm9VWcv/raw-meet-in-bowl-with-some-spices-prepared-for-cook-in-white-background.jpg"
+            rightImage="https://i.ibb.co/5hNKqbQc/mutton-curry-in-bowl-in-white-background-upper-view.jpg"
             sliderLineColor="#ffffff"
             handleSize={40}
             sliderPositionPercentage={0.5}

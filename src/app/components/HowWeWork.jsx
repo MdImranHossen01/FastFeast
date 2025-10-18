@@ -42,7 +42,7 @@ const HowWeWork = () => {
               className="transition-transform duration-500 ease-in-out bg-cover bg-center h-full group-hover:scale-110"
               style={{
                 backgroundImage:
-                  "url(https://i.ibb.co.com/yFW7fFLf/Secure-Payments-sytem.jpg)",
+                  "url(https://i.ibb.co/yFW7fFLf/Secure-Payments-sytem.jpg)",
               }}
             >
               {/* Image div is empty */}

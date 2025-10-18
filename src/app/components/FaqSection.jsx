@@ -92,7 +92,7 @@ export default function FAQSection() {
           {/* Right: Image - Responsive for mobile and desktop */}
           <div className="relative h-64 md:h-96 lg:h-[500px] w-full rounded-lg overflow-hidden shadow-xl"> 
             <Image
-              src="https://i.ibb.co.com/jZ5HNJ7s/FAQ-in-orange-for-food-quary-in-a-website-faq-section-1.jpg"
+              src="https://i.ibb.co/jZ5HNJ7s/FAQ-in-orange-for-food-quary-in-a-website-faq-section-1.jpg"
               alt="FAQ Illustration"
               fill
               className="object-cover"

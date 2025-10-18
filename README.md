@@ -1,6 +1,6 @@
 # FastFeast - Fast Food Delivery Application
 
-![FastFeast Home Page](https://i.ibb.co.com/SwNXTRVB/fastfesthome.png)
+![FastFeast Home Page](https://i.ibb.co/SwNXTRVB/fastfesthome.png)
 
 ## 📋 Table of Contents
 
