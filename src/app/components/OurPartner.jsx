@@ -10,13 +10,13 @@ import "swiper/css";
 
 // Your partner logos array
 const partnerLogos = [
-  { src: "https://i.ibb.co/VcC54xRN/1.png", alt: "Partner Logo 1" },
-  { src: "https://i.ibb.co/fm2tYG4/2.png", alt: "Partner Logo 2" },
-  { src: "https://i.ibb.co/tTzpTRXx/3.png", alt: "Partner Logo 3" },
-  { src: "https://i.ibb.co/8Dtwjvjn/4.png", alt: "Partner Logo 4" },
-  { src: "https://i.ibb.co/LXJM9jKV/5.png", alt: "Partner Logo 5" },
-  { src: "https://i.ibb.co/sppkFvDq/6.png", alt: "Partner Logo 6" },
-  { src: "https://i.ibb.co/j9cR6QFK/7.png", alt: "Partner Logo 7" },
+  { src: "https://i.ibb.co.com/VcC54xRN/1.png", alt: "Partner Logo 1" },
+  { src: "https://i.ibb.co.com/fm2tYG4/2.png", alt: "Partner Logo 2" },
+  { src: "https://i.ibb.co.com/tTzpTRXx/3.png", alt: "Partner Logo 3" },
+  { src: "https://i.ibb.co.com/8Dtwjvjn/4.png", alt: "Partner Logo 4" },
+  { src: "https://i.ibb.co.com/LXJM9jKV/5.png", alt: "Partner Logo 5" },
+  { src: "https://i.ibb.co.com/sppkFvDq/6.png", alt: "Partner Logo 6" },
+  { src: "https://i.ibb.co.com/j9cR6QFK/7.png", alt: "Partner Logo 7" },
 ];
 
 
