@@ -2,16 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import Logo from "./logo";
-import {
-  FaFacebook,
-  FaGithub,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaFacebook, FaGithub, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoLocationSharp, IoCall, IoMail } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import NewsletterForm from "@/app/components/NewsLetter";
+import InstallButton from "@/components/pwa/InstallButton";
 
 // --- Reusable Footer Column Component ---
 const FooterColumn = ({ title, links }) => (
@@ -47,16 +44,7 @@ const footerData = [
     ],
   },
   {
-    title: "Our Partners",
-    links: [
-      { name: "For Restaurants", href: "/signup/restaurant" },
-      { name: "For Riders", href: "/signup/rider" },
-      // IMPORTANT: keep this label+href stable on both server & client
-      { name: "Partner With Us", href: "/partners" },
-    ],
-  },
-  {
-    title: "Support",
+    title: "Support & Polcy",
     links: [
       { name: "Privacy Policy", href: "/PrivacyPolicy" },
       { name: "Return Policy", href: "/ReturnPolicy" },
@@ -89,7 +77,7 @@ const Footer = () => {
           <div>
             {/* If your Logo uses next/image with fill, ensure it sets `sizes` internally */}
             <Logo />
-
+            
             <div className="space-y-2 mt-4 text-sm">
               <div className="flex items-start gap-2">
                 <IoLocationSharp
@@ -120,7 +108,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="mt-6 flex space-x-4">
+            <div className="mt-6 flex space-x-4 pb-6">
               <a
                 href="#"
                 className="text-gray-400 transition-colors hover:text-orange-400"
@@ -149,6 +137,9 @@ const Footer = () => {
               >
                 <FaGithub size={24} />
               </a>
+            </div>
+            <div>
+              <InstallButton />
             </div>
           </div>
 
