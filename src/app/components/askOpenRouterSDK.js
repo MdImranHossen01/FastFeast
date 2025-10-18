@@ -6,6 +6,10 @@ import OpenAI from 'openai';
 // Keep it unused or delete in production.
 
 export async function demoAskLLM(question = 'What is the meaning of life?') {
+  if (!process.env.OPENROUTER_API_KEY) {
+    throw new Error('Missing OPENROUTER_API_KEY in environment variables.');
+  }
+
   const openai = new OpenAI({
     baseURL: 'https://openrouter.ai/api/v1',
     apiKey: process.env.OPENROUTER_API_KEY,
@@ -15,10 +19,15 @@ export async function demoAskLLM(question = 'What is the meaning of life?') {
     },
   });
 
-  const completion = await openai.chat.completions.create({
-    model: 'openai/gpt-4o', // or any available model on OpenRouter
-    messages: [{ role: 'user', content: question }],
-  });
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'z-ai/glm-4.5-air:free', // ✅ আপনার নির্বাচিত OpenRouter মডেল
+      messages: [{ role: 'user', content: question }],
+    });
 
-  return completion?.choices?.[0]?.message || null;
+    return completion?.choices?.[0]?.message?.content || null;
+  } catch (error) {
+    console.error('OpenRouter Error:', error);
+    return `Error: ${error.message}`;
+  }
 }
