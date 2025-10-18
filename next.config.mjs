@@ -1,13 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // ✅ Use only remotePatterns (domains is deprecated)
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "i.ibb.co",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
-    domains: ["i.ibb.co", "images.unsplash.com"],
   },
 };
 

@@ -13,29 +13,28 @@ import HowWeWork from "./components/HowWeWork";
 
 import RestaurantSection from "./components/RestaurantSection";
 import FoodCompare from "./components/FoodCompare";
-
+import AiDrivenFoodSuggestion from "./components/AiDrivenFoodSuggession";
 
 export default function Home() {
   return (
     <div>
       <Banner />
+      <AiDrivenFoodSuggestion />
       <SpecialOffers />
-      <FoodCompare/>
+      <FoodCompare />
       <TraditionalBeersSection></TraditionalBeersSection>
       <CategorySection />
       <PopularBlogs />
-      <RestaurantSection/>
+      <RestaurantSection />
       <CTASection />
       <Stats />
       <HowWeWork />
       <FAQSection />
       <Services />
-
       <OurPartner />
       {/* <CareerOpportunities/> */}
       <CustomersReview />
       {/* <PrivacyPolicy/> */}
-
       {/* <NewsLetter /> */}
     </div>
   );
