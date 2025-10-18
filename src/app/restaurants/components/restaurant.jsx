@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import RestaurantsCard from "./restaurantsCard";
+import banner from "../../../assets/restaurantsPage/abendbrot-939435.jpg";
+import Image from "next/image";
 
 export default function Restaurant({ restaurants }) {
   const [search, setSearch] = useState("");
@@ -58,6 +60,16 @@ export default function Restaurant({ restaurants }) {
       (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) > 45
     );
   }
+  // scroll detection
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // user location
   useEffect(() => {
@@ -112,18 +124,68 @@ export default function Restaurant({ restaurants }) {
 
   return (
     <div>
-      {/* search */}
-      <div>
-        <div className=" flex justify-center items-center">
+      <header className="mb-12 relative bg-cover h-120 bg-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src={banner}
+            alt="fastFeast restaurants banner"
+            fill
+            className="object-cover bg-black/50"
+          />
+        </div>
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 flex flex-col justify-center items-center z-10  px-4">
+          {/* title */}
+          <div className="max-w-5xl text-center ">
+            <h3 className="text-3xl sm:text-5xl  uppercase  font-extrabold text-center bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent pt-5">
+              Restaurant Listings
+            </h3>
+            <p className="mx-auto text-center text-gray-100 pb-3 sm:pb-5 text-lg pt-1 sm:pt-3 mb-4 m-3">
+              Discover our trusted partner restaurants offering a wide variety
+              of cuisines. Choose your favorite place and order delicious meals
+              delivered right to your doorstep.
+            </p>
+          </div>
+          {/* search */}
+
+          <div
+            className={`w-full  max-w-3xl bg-orange-500/30 shadow-lg z-10 border border-orange-500/30 rounded-full px-4   ${
+              scrolled
+                ? "opacity-0 h-0 overflow-hidden transition-all transform duration-300"
+                : "opacity-100 h-auto transition-all transform duration-300"
+            }`}
+          >
+            <input
+              type="text"
+              placeholder="Search Restaurant"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="bg-transparent text-sm text-white   shadow-xs p-4 outline-none  w-full placeholder:text-white"
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* fixed searchbar  */}
+
+      <div
+        className={`fixed top-0 w-full px-4 z-50 transition-all duration-300 ${
+          scrolled
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="w-full max-w-3xl mx-auto mt-3">
           <input
             type="text"
             placeholder="Search Restaurant"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="bg-white  input input-bordered shadow-xs p-4  w-5/6 lg:w-1/2 "
+            className="w-full p-4 rounded-full bg-orange-500/50 text-white placeholder-white outline-none shadow-md"
           />
         </div>
       </div>
+
       {/* sort cuisine,delivery time and others */}
       <div className="flex md:mr-3  sm:justify-end sm:flex-row py-5 gap-5 overflow-x-auto scrollbar-hide sm:overflow-visible">
         {/*sort cuisine  */}
@@ -183,7 +245,7 @@ export default function Restaurant({ restaurants }) {
         </select>
       </div>
       {/* restaurants card */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  justify-items-center">
+      <section className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  justify-items-center">
         {filteredRestaurants.length === 0 ? (
           <div className="text-gray-500">No posts found.</div>
         ) : (
