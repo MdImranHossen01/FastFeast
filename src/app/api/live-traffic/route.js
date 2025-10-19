@@ -8,7 +8,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const cacheBuster = searchParams.get('t');
     
-    // Get active orders (placed in last 1 hour for faster updates)
+    // Get active orders (placed in last 1 hour)
     const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
     
     const [activeOrders, activeLoggedInUsers, activeAnonymousUsers, activeDeliveries] = await Promise.all([
@@ -18,7 +18,7 @@ export async function GET(request) {
         status: { $in: ['pending', 'paid', 'processing', 'out-for-delivery'] }
       }),
       
-      // Active logged-in users (last 15 minutes for faster updates)
+      // Active logged-in users (last 15 minutes)
       User.countDocuments({
         lastActive: { $gte: new Date(Date.now() - 15 * 60 * 1000) }
       }),
@@ -35,7 +35,7 @@ export async function GET(request) {
       })
     ]);
 
-    // Get popular items (cached approach for performance)
+    // Get popular items
     const popularItems = await getPopularItems();
 
     // Total active users (logged-in + anonymous)
@@ -56,16 +56,16 @@ export async function GET(request) {
   } catch (error) {
     console.error('Live traffic error:', error);
     
-    // Return cached/fallback data instead of error
+    // Return REAL zero data instead of fake demo data
     return NextResponse.json({
       success: true,
       data: {
-        activeUsers: 15,
-        loggedInUsers: 8,
-        anonymousUsers: 7,
-        ordersInProgress: 12,
-        deliveriesActive: 5,
-        popularItems: ['Pizza', 'Burger', 'Sushi'],
+        activeUsers: 0,
+        loggedInUsers: 0,
+        anonymousUsers: 0,
+        ordersInProgress: 0,
+        deliveriesActive: 0,
+        popularItems: [],
         timestamp: Date.now(),
         isFallback: true
       }
@@ -73,20 +73,10 @@ export async function GET(request) {
   }
 }
 
-// Cache popular items for 2 minutes
-let popularItemsCache = null;
-let cacheTimestamp = 0;
-
 async function getPopularItems() {
-  const now = Date.now();
-  // Return cached data if less than 2 minutes old
-  if (popularItemsCache && (now - cacheTimestamp) < 2 * 60 * 1000) {
-    return popularItemsCache;
-  }
-
   try {
-    // Get popular items from recent orders (last 3 hours for freshness)
-    const threeHoursAgo = new Date(now - 3 * 60 * 60 * 1000);
+    // Get popular items from recent orders (last 3 hours)
+    const threeHoursAgo = new Date(Date.now() - 3 * 60 * 60 * 1000);
     
     const popularOrders = await Order.aggregate([
       {
@@ -106,20 +96,9 @@ async function getPopularItems() {
       { $limit: 4 }
     ]);
 
-    const items = popularOrders.map(item => item._id);
-    
-    // Fallback if no recent orders
-    if (items.length === 0) {
-      items.push('Pizza', 'Burger', 'Sushi', 'Pasta');
-    }
-    
-    // Update cache
-    popularItemsCache = items;
-    cacheTimestamp = now;
-    
-    return items;
+    return popularOrders.map(item => item._id);
   } catch (error) {
     console.error('Error getting popular items:', error);
-    return ['Pizza', 'Burger', 'Sushi', 'Pasta']; // Fallback items
+    return []; // Return empty array instead of fake items
   }
 }
