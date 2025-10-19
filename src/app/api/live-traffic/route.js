@@ -6,7 +6,6 @@ import Traffic from '@/models/traffic.model';
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const cacheBuster = searchParams.get('t');
     
     // Get active orders (placed in last 1 hour)
     const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
@@ -18,14 +17,14 @@ export async function GET(request) {
         status: { $in: ['pending', 'paid', 'processing', 'out-for-delivery'] }
       }),
       
-      // Active logged-in users (last 15 minutes)
+      // Active logged-in users (last 15 minutes) - using lastActive field
       User.countDocuments({
         lastActive: { $gte: new Date(Date.now() - 15 * 60 * 1000) }
       }),
       
-      // Active anonymous users (sessions in last 10 minutes)
+      // Active anonymous users (sessions in last 5 minutes for more accuracy)
       Traffic.countDocuments({
-        lastActivity: { $gte: new Date(Date.now() - 10 * 60 * 1000) },
+        lastActivity: { $gte: new Date(Date.now() - 5 * 60 * 1000) },
         isActive: true
       }),
       
@@ -40,6 +39,14 @@ export async function GET(request) {
 
     // Total active users (logged-in + anonymous)
     const totalActiveUsers = activeLoggedInUsers + activeAnonymousUsers;
+
+    console.log('Live Traffic Stats:', {
+      totalActiveUsers,
+      loggedInUsers: activeLoggedInUsers,
+      anonymousUsers: activeAnonymousUsers,
+      orders: activeOrders,
+      deliveries: activeDeliveries
+    });
 
     return NextResponse.json({
       success: true,
@@ -56,9 +63,9 @@ export async function GET(request) {
   } catch (error) {
     console.error('Live traffic error:', error);
     
-    // Return REAL zero data instead of fake demo data
+    // Return zeros instead of any fake data
     return NextResponse.json({
-      success: true,
+      success: false,
       data: {
         activeUsers: 0,
         loggedInUsers: 0,
@@ -66,8 +73,7 @@ export async function GET(request) {
         ordersInProgress: 0,
         deliveriesActive: 0,
         popularItems: [],
-        timestamp: Date.now(),
-        isFallback: true
+        timestamp: Date.now()
       }
     });
   }
@@ -99,6 +105,6 @@ async function getPopularItems() {
     return popularOrders.map(item => item._id);
   } catch (error) {
     console.error('Error getting popular items:', error);
-    return []; // Return empty array instead of fake items
+    return [];
   }
 }
