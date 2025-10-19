@@ -133,11 +133,11 @@ export const OurTeam = () => {
     return (
         <section
             style={{
-                backgroundImage: `linear-gradient(to bottom, #00000085 , #000000), url(/team_working_together.webp)`,
+                backgroundImage: `linear-gradient(to bottom, #00000085 , #00000099), url(/team_working_together.webp)`,
             }}
-            className="bg-center bg-cover bg-no-repeat pt-32 min-h-[600px] md:min-h-screen bg-fixed py-16 px-4"
+            className="flex justify-center items-center bg-center bg-cover bg-no-repeat min-h-[600px] md:min-h-screen bg-fixed px-4"
         >
-            <div className="container mx-auto">
+            <div className="container mx-auto py-24">
                 <h3 className="text-xl font-bold text-center text-gray-400">
                     MEET OUR BEST EMPLOYEES
                 </h3>
