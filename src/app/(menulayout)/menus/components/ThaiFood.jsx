@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "./MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurants/getRestaurant";
 import { useSelector } from "react-redux";
 
-const JapaneseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
-  const [japaneseMenus, setJapaneseMenus] = useState([]);
+const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
+  const [thaiMenus, setThaiMenus] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,8 +24,8 @@ const JapaneseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   useEffect(() => {
     // If props are provided, use them (for better performance)
     if (propMenus && propRestaurants) {
-      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Japanese");
-      setJapaneseMenus(filteredMenus);
+      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Thai");
+      setThaiMenus(filteredMenus);
       setRestaurants(propRestaurants);
       setLoading(false);
       return;
@@ -38,10 +38,10 @@ const JapaneseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
           getMenu(),
           getRestaurant()
         ]);
-        
-        // Filter Japanese cuisine menus
-        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Japanese");
-        setJapaneseMenus(filteredMenus);
+
+        // Filter Thai cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Thai");
+        setThaiMenus(filteredMenus);
         setRestaurants(restaurantsData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -63,9 +63,9 @@ const JapaneseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       <section className="mb-12 relative">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900">
-            Discover the Art of Japan 🇯🇵
+            Taste of Thailand 🇹🇭
           </h2>
-          <Link href={"/japanesefood"}>
+          <Link href={"/thaifood"}>
             <button className="text-orange-500 cursor-pointer font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
               See More
               <svg
@@ -86,23 +86,23 @@ const JapaneseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
           </Link>
         </div>
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Loading Japanese cuisine...</p>
+          <p className="text-gray-500 text-lg">Loading Thai cuisine...</p>
         </div>
       </section>
     );
   }
 
-  if (japaneseMenus.length === 0) {
-    return null; // Don't show section if no Japanese food available
+  if (thaiMenus.length === 0) {
+    return null; // Don't show section if no Thai food available
   }
 
   return (
     <section className="mb-12 relative">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-gray-900">
-          Discover the Art of Japan 🇯🇵
+          Taste of Thailand 🇹🇭
         </h2>
-        <Link href={"/japanesefood"}>
+        <Link href={"/thaifood"}>
           <button className="text-orange-500 cursor-pointer font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
             See More
             <svg
@@ -124,7 +124,7 @@ const JapaneseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {japaneseMenus.map((menu) => (
+        {thaiMenus.map((menu) => (
           <div key={menu?._id} className="flex-shrink-0 w-64">
             <MenuCard menu={menu} restaurants={restaurants} />
           </div>
@@ -145,4 +145,4 @@ const JapaneseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   );
 };
 
-export default JapaneseFood;
+export default ThaiFood;

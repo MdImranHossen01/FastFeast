@@ -1,4 +1,4 @@
-import AddRiderForm from '@/app/(menulayout)/menu/components/AddRiderForm';
+import AddRiderForm from '@/app/(menulayout)/menus/components/AddRiderForm';
 import React from 'react';
 
 const RiderRegisterPage = () => {
