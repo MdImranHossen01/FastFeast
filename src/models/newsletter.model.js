@@ -19,4 +19,3 @@ if (mongoose.models.Newsletter) {
 const Newsletter = mongoose.model("Newsletter", newsletterSchema);
 
 export default Newsletter;
-

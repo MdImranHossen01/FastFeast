@@ -7,6 +7,7 @@ import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
 import { FiStar } from "react-icons/fi";
+import getReviews from "@/app/actions/reviews/getReviews";
 
 const MenuCard = ({ menu, restaurants }) => {
   const { data: session } = useSession();
@@ -14,8 +15,11 @@ const MenuCard = ({ menu, restaurants }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [averageRating, setAverageRating] = useState(null);
-  const [reviewCount, setReviewCount] = useState(0);
+  // const [averageRating, setAverageRating] = useState(null);
+  // const [reviewCount, setReviewCount] = useState(0);
+  const [reviews, setReviews] = useState([]);
+
+  // console.log("FROM MENU CARD", reviews);
 
   // Find the restaurant data based on restaurantId
   useEffect(() => {
@@ -29,25 +33,35 @@ const MenuCard = ({ menu, restaurants }) => {
 
   // Fetch average rating and review count for this menu item
   useEffect(() => {
-    const fetchRating = async () => {
-      if (!menu._id) return;
-
+    const fetchReviews = async () => {
       try {
-        const response = await fetch(`/api/menus/${menu._id}/reviews`);
-        if (response.ok) {
-          const data = await response.json();g
-          if (data.success) {
-            setAverageRating(data.averageRating);
-            setReviewCount(data.totalReviews);
-          }
-        }
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/reviews`
+        );
+        const data = await res.json();
+        setReviews(Array.isArray(data) ? data : []);
       } catch (error) {
-        console.error("Error fetching menu item rating:", error);
+        console.error("Error fetching reviews:", error);
       }
     };
 
-    fetchRating();
-  }, [menu._id]);
+    fetchReviews();
+  }, []);
+
+  // Flatten all item reviews belonging to this menu item
+  const itemRatings = reviews.flatMap((r) =>
+    r.itemReviews.filter((ir) => ir.itemId === menu._id)
+  );
+
+  // Calculate average + count
+  const averageRating = itemRatings.length
+    ? (
+        itemRatings.reduce((acc, curr) => acc + curr.rating, 0) /
+        itemRatings.length
+      ).toFixed(1)
+    : null;
+
+  const reviewCount = itemRatings.length;
 
   // Check if menu is in favorites - FIXED VERSION
   const checkFavoriteStatus = useCallback(async () => {
@@ -184,6 +198,7 @@ const MenuCard = ({ menu, restaurants }) => {
         key={menu._id || menu.id}
         className="flex-shrink-0 w-full transform rounded-xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
       >
+        {/* image section */}
         <div className="relative h-40 w-full">
           <Image
             src={menu.imageUrl}
@@ -227,11 +242,13 @@ const MenuCard = ({ menu, restaurants }) => {
             </div>
           )}
         </div>
+
+        {/* content section */}
         <div className="p-4">
           <div className="flex items-center justify-between">
             {/* Made the title clickable with Link component */}
             <Link
-              href={`/menu/${menu._id}`}
+              href={`/menus/${menu._id}`}
               className="text-lg font-semibold text-orange-500 hover:text-orange-600 transition-colors"
             >
               {menu.title}
@@ -270,16 +287,14 @@ const MenuCard = ({ menu, restaurants }) => {
           {/* Rating Section - Show only if there are reviews */}
           {averageRating && (
             <div className="flex items-center mt-1">
-              <div className="flex items-center">
-                <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
-                <span className="ml-1 text-sm font-medium text-gray-900">
-                  {averageRating}
-                </span>
-                <span className="mx-1 text-gray-300">•</span>
-                <span className="text-sm text-gray-500">
-                  {reviewCount} review{reviewCount !== 1 ? "s" : ""}
-                </span>
-              </div>
+              <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
+              <span className="ml-1 text-sm font-medium text-gray-900">
+                {averageRating}
+              </span>
+              <span className="mx-1 text-gray-300">•</span>
+              <span className="text-sm text-gray-500">
+                {reviewCount} review{reviewCount !== 1 ? "s" : ""}
+              </span>
             </div>
           )}
 

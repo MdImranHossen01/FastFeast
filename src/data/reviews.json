@@ -1,35 +1,29 @@
 [
   {
-    "_id": "68ef437b26b83a7449da507f",
     "orderId": "68ef398d26b83a7449da5078",
-    "customerEmail": "demo-user-1@fastfeast.com",
-    "riderId": "65a7b2c3d4e5f6789012345b",
+    "userId": "68ef398d26b83a7449da5078",
     "riderReview": {
+      "riderId": "68ef398d26b83a7449da5078",
       "rating": 5,
       "comment": "Excellent service, arrived early and was very polite"
     },
     "itemReviews": [
       {
-        "itemId": "60c72b2f9f1b2c001f3e4d5e",
+        "itemId": "68f09b69b43773ea7c5016c8",
         "rating": 5,
-        "comment": "Amazing Tom Yum soup, perfect balance of flavors",
-        "itemName": "Classic Tom Yum Soup"
+        "comment": "Amazing Tom Yum soup, perfect balance of flavors"
       },
       {
         "itemId": "60c72b2f9f1b2c001f3e4d5f",
         "rating": 4,
-        "comment": "Pad Thai was good but could use more peanuts",
-        "itemName": "Authentic Pad Thai"
+        "comment": "Pad Thai was good but could use more peanuts"
       },
       {
         "itemId": "60c72b2f9f1b2c001f3e4d61",
         "rating": 5,
-        "comment": "Green curry was absolutely delicious and aromatic",
-        "itemName": "Thai Green Curry"
+        "comment": "Green curry was absolutely delicious and aromatic"
       }
-    ],
-    "createdAt": "2025-10-15T06:47:23.298+00:00",
-    "updatedAt": "2025-10-15T06:47:23.298+00:00"
+    ]
   },
   {
     "_id": "68ef437b26b83a7449da5080",
