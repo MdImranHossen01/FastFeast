@@ -13,7 +13,7 @@ const HowWeWork = () => {
             className="transition-transform duration-500 ease-in-out bg-cover bg-center h-full group-hover:scale-110"
             style={{
               backgroundImage:
-                "url(https://i.ibb.co/ZphjWJyY/Real-Time-food-Order-Tracking.jpg)",
+                "url(https://i.ibb.co.com/ZphjWJyY/Real-Time-food-Order-Tracking.jpg)",
             }}
           >
             {/* Image div is empty */}
@@ -71,7 +71,7 @@ const HowWeWork = () => {
                 className="transition-transform duration-500 ease-in-out bg-cover bg-center h-full group-hover:scale-110"
                 style={{
                   backgroundImage:
-                    "url(https://i.ibb.co/C3XF1vBG/Online-Food-Ordering.jpg)",
+                    "url(https://i.ibb.co.com/C3XF1vBG/Online-Food-Ordering.jpg)",
                 }}
               >
                 {/* Image div is empty */}
@@ -95,7 +95,7 @@ const HowWeWork = () => {
                 className="transition-transform duration-500 ease-in-out bg-cover bg-center h-full group-hover:scale-110"
                 style={{
                   backgroundImage:
-                    "url(https://i.ibb.co/pBzygjYG/Restaurant-Partnership.jpg)",
+                    "url(https://i.ibb.co.com/pBzygjYG/Restaurant-Partnership.jpg)",
                 }}
               >
                 {/* Image div is empty */}

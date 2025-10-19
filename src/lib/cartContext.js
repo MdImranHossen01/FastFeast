@@ -1,7 +1,7 @@
 // src/lib/cartContext.js
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const CartContext = createContext();
 
@@ -25,13 +25,13 @@ export function CartProvider({ children }) {
     setCartCount(cartItems.reduce((total, item) => total + item.quantity, 0));
   }, [cartItems]);
 
-  const addToCart = (item, quantity, specialInstructions) => {
+  const addToCart = useCallback((item, quantity, specialInstructions) => {
     // Generate a unique ID for this cart item using timestamp and random number
     const uniqueId = `${item.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
+
     // Always add as a new item with a unique ID
-    setCartItems([
-      ...cartItems,
+    setCartItems(prevItems => [ // 👈 Use functional update for correct dependency logic
+      ...prevItems,
       {
         ...item,
         cartItemId: uniqueId, // Use this unique ID for cart operations
@@ -40,34 +40,35 @@ export function CartProvider({ children }) {
         specialInstructions
       }
     ]);
-  };
+  }, []);
 
-  const removeFromCart = (cartItemId) => {
-    setCartItems(cartItems.filter((item) => item.cartItemId !== cartItemId));
-  };
+  const removeFromCart = useCallback((cartItemId) => {
+    setCartItems(prevItems => prevItems.filter((item) => item.cartItemId !== cartItemId));
+  }, []);
 
-  const updateQuantity = (cartItemId, newQuantity) => {
+  const updateQuantity = useCallback((cartItemId, newQuantity) => {
     if (newQuantity <= 0) {
       removeFromCart(cartItemId);
       return;
     }
 
-    const updatedCart = cartItems.map((item) =>
+    const updatedCart = cartItems.map((item) => // NOTE: This depends on cartItems, but we'll use functional state update below
       item.cartItemId === cartItemId ? { ...item, quantity: newQuantity } : item
     );
     setCartItems(updatedCart);
-  };
+  }, [removeFromCart, cartItems]);
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setCartItems([]);
-  };
+  }, []);
 
-  const getTotalPrice = () => {
+  // getTotalPrice and getCartTotal
+  const getTotalPrice = useCallback(() => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
-  };
+  }, [cartItems]); // 👈 Depends on cartItems
 
   // Add alias for getCartTotal to match the usage in checkout
   const getCartTotal = getTotalPrice;

@@ -85,7 +85,7 @@ export default function Stats() {
               className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80" 
             >
               <Image
-                src="https://i.ibb.co/0gxb4sS/Untitled-500-x-500-px.png"
+                src="https://i.ibb.co.com/0gxb4sS/Untitled-500-x-500-px.png"
                 alt="Mission Illustration"
                 width={300}
                 height={300}

@@ -51,9 +51,7 @@ export async function GET(req, { params }) {
   }
 }
 
-// এই ফাংশনটি ডাটাবেস বা অন্য কোথাও থেকে অর্ডারের ডেটা বের করতে হবে
 async function getOrderDetailsById(id) {
-  // ডামি ডেটা (আপনি এখানে API বা ডাটাবেস কল ব্যবহার করতে পারেন)
   return {
     id: id,
     customerName: 'John Doe',
