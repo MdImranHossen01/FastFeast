@@ -7,7 +7,6 @@ import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
 import { FiStar } from "react-icons/fi";
-import getReviews from "@/app/actions/reviews/getReviews";
 
 const MenuCard = ({ menu, restaurants }) => {
   const { data: session } = useSession();
@@ -15,8 +14,8 @@ const MenuCard = ({ menu, restaurants }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const [averageRating, setAverageRating] = useState(null);
-  // const [reviewCount, setReviewCount] = useState(0);
+  const [averageRating, setAverageRating] = useState(null);
+  const [reviewCount, setReviewCount] = useState(0);
   const [reviews, setReviews] = useState([]);
 
   // console.log("FROM MENU CARD", reviews);
@@ -33,16 +32,17 @@ const MenuCard = ({ menu, restaurants }) => {
 
   // Fetch average rating and review count for this menu item
   useEffect(() => {
-    const fetchRating = async () => {
+    const fetchRatingAndReviews = async () => {
       if (!menu?._id) return;
 
       try {
-        const response = await fetch(`/api/menus/${menu._id}/reviews`);
+        const response = await fetch(`/api/reviews?menuId=${menu._id}`);
         if (response.ok) {
           const data = await response.json();
           if (data?.success) {
             setAverageRating(data.averageRating);
             setReviewCount(data.totalReviews);
+            setReviews(data.reviews || []);
           }
         }
       } catch (error) {
@@ -50,7 +50,7 @@ const MenuCard = ({ menu, restaurants }) => {
       }
     };
 
-    fetchRating();
+    fetchRatingAndReviews();
   }, [menu?._id]);
 
   // Check if menu is in favorites - FIXED VERSION
@@ -267,7 +267,7 @@ const MenuCard = ({ menu, restaurants }) => {
           </div>
 
           {/* Rating */}
-          {averageRating && (
+          {averageRating !== null && (
             <div className="flex items-center mt-1">
               <div className="flex items-center">
                 <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
@@ -279,6 +279,35 @@ const MenuCard = ({ menu, restaurants }) => {
                   {reviewCount} review{reviewCount !== 1 ? "s" : ""}
                 </span>
               </div>
+            </div>
+          )}
+
+          {/* ⭐ Reviews Preview */}
+          {reviewCount > 0 && reviews.length > 0 && (
+            <div className="mt-2 space-y-1">
+              {reviews.slice(0, 2).map((rev, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-start text-xs text-gray-600"
+                >
+                  <FiStar className="h-3 w-3 text-yellow-400 mr-1" />
+                  <p className="leading-tight">
+                    <span className="font-medium">
+                      {rev.customerEmail || "User"}
+                    </span>
+                    : {rev.comment || "No comment"}
+                  </p>
+                </div>
+              ))}
+
+              {reviewCount > 2 && (
+                <Link
+                  href={`/menu/${menu._id}#reviews`}
+                  className="text-xs text-orange-500 hover:underline block mt-1"
+                >
+                  View all {reviewCount} reviews →
+                </Link>
+              )}
             </div>
           )}
 

@@ -11,15 +11,15 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [menuItemIds, setMenuItemIds] = useState({});
 
-  console.log(order);
-
   // Function to get actual menu item IDs from the database
   const fetchMenuItemIds = async (itemTitles) => {
     try {
       console.log("🔍 Fetching all menu items to find IDs for:", itemTitles);
 
       // Fetch all menu items
-      const response = await fetch("/api/menus");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/menus`
+      );
       const result = await response.json();
 
       console.log("📦 Raw API response:", result);
