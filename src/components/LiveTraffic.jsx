@@ -5,7 +5,7 @@ import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 const LiveTraffic = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [trafficData, setTrafficData] = useState({
-    activeUsers: 0,
+    activeUsers: 0, // Start with real zero values
     loggedInUsers: 0,
     anonymousUsers: 0,
     ordersInProgress: 0,
@@ -22,13 +22,20 @@ const LiveTraffic = () => {
   const dragStartPos = useRef({ x: 0, y: 0 });
   const buttonRef = useRef(null);
 
-  // Fetch live data
+  // Fetch live data - ONLY REAL DATA
   const fetchTrafficData = async () => {
     if (!isOnline) return;
+    
     setIsLoading(true);
     try {
       const response = await fetch(`/api/live-traffic?t=${Date.now()}`);
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      
       const result = await response.json();
+      
       if (result.success) {
         setTrafficData(result.data);
         setLastUpdate(new Date());
@@ -36,6 +43,7 @@ const LiveTraffic = () => {
       }
     } catch (error) {
       console.error('Failed to fetch traffic data:', error);
+      // Keep current data, don't set any fake numbers
     } finally {
       setIsLoading(false);
     }
@@ -46,8 +54,7 @@ const LiveTraffic = () => {
     try {
       let sessionId = localStorage.getItem('sessionId');
       if (!sessionId) {
-        sessionId =
-          'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        sessionId = 'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
         localStorage.setItem('sessionId', sessionId);
       }
       await fetch('/api/track-session', {
@@ -63,11 +70,11 @@ const LiveTraffic = () => {
   // ✅ Initial position before first paint (no flicker)
   useLayoutEffect(() => {
     const setInitialPosition = () => {
-      const buttonWidth = 56;
-      const margin = 30;
+      const buttonWidth = 40; // w-10 = 40px
+      const margin = 20;
       const navbarHeight = 64;
       setPosition({
-        x: Math.max(0, window.innerWidth - buttonWidth - margin -10),
+        x: window.innerWidth - buttonWidth - margin,
         y: navbarHeight + margin
       });
       setIsReady(true);
@@ -93,9 +100,9 @@ const LiveTraffic = () => {
     const newX = e.clientX - dragStartPos.current.x;
     const newY = e.clientY - dragStartPos.current.y;
 
-    const buttonWidth = buttonRef.current?.offsetWidth || 56;
-    const buttonHeight = buttonRef.current?.offsetHeight || 56;
-    const maxX = window.innerWidth - buttonWidth -10;
+    const buttonWidth = buttonRef.current?.offsetWidth || 40;
+    const buttonHeight = buttonRef.current?.offsetHeight || 40;
+    const maxX = window.innerWidth - buttonWidth;
     const maxY = window.innerHeight - buttonHeight;
     const navbarHeight = 64;
 
@@ -113,13 +120,13 @@ const LiveTraffic = () => {
       document.addEventListener('mouseup', handleMouseUp);
       document.body.style.userSelect = 'none';
       document.body.style.cursor = 'grabbing';
-    } else {
-      document.body.style.userSelect = '';
-      document.body.style.cursor = '';
     }
+
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
     };
   }, [isDragging]);
 
@@ -164,7 +171,7 @@ const LiveTraffic = () => {
       {isReady && (
         <div
           ref={buttonRef}
-          className="fixed z-[60] cursor-move px-4"
+          className="fixed z-[60] cursor-move"
           style={{
             left: `${position.x}px`,
             top: `${position.y}px`,
@@ -199,16 +206,27 @@ const LiveTraffic = () => {
               ></span>
             </span>
 
-            {/* Active Users */}
+            {/* Drag handle icon */}
+            <div className={`absolute -bottom-1 -left-1 text-white opacity-60 transition-opacity ${
+              isDragging ? 'opacity-100' : 'group-hover:opacity-100 opacity-0'
+            }`}>
+              <svg className="w-2 h-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"/>
+              </svg>
+            </div>
+
+            {/* Active Users - REAL DATA ONLY */}
             <div className="text-center">
               <div
-                className={`text-lg font-bold ${
+                className={`text-sm font-bold ${
                   isLoading ? 'animate-pulse' : ''
                 }`}
               >
                 {isLoading ? '...' : trafficData.activeUsers}
               </div>
-             
+              <div className="text-[8px] leading-tight mt-[-1px] opacity-90">
+                Online
+              </div>
             </div>
 
             {/* Tooltip */}
@@ -221,7 +239,7 @@ const LiveTraffic = () => {
 
           {/* Full Traffic Panel */}
           {isOpen && (
-            <div className="absolute top-16 right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-200 animate-in slide-in-from-top-2 duration-300">
+            <div className="absolute top-12 right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-200 animate-in slide-in-from-top-2 duration-300">
               {/* Header */}
               <div className="bg-gradient-to-r from-green-500 to-blue-500 p-4 rounded-t-lg text-white">
                 <div className="flex justify-between items-center">
