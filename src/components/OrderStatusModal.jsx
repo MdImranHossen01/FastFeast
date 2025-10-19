@@ -213,7 +213,6 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
       const fullReviewData = {
         ...reviewData,
         orderId: orderToReview.id,
-        customerEmail: orderToReview.customerInfo?.email,
         riderId: orderToReview.riderInfo?.id, // CRITICAL: Add riderId
       };
 

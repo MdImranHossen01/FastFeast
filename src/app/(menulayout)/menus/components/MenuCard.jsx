@@ -1,386 +1,202 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import MenuModal from "./MenuModal";
 import Link from "next/link";
 import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
 import { FiStar } from "react-icons/fi";
 
-const MenuCard = ({ menu, restaurants }) => {
+const MenuCard = ({ menu, restaurant }) => {
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [restaurant, setRestaurant] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [averageRating, setAverageRating] = useState(null);
-  const [reviewCount, setReviewCount] = useState(0);
-  const [reviews, setReviews] = useState([]);
+  const [ratingData, setRatingData] = useState({ avg: null, count: 0 });
+  const [loadingFavorite, setLoadingFavorite] = useState(false);
+  const mountedRef = useRef(true);
 
-  // console.log("FROM MENU CARD", reviews);
+  const restaurantSlug = useMemo(() => {
+    if (!restaurant?.name) return "";
+    return generateSlug(restaurant.name, restaurant.location?.area);
+  }, [restaurant]);
 
-  // Find the restaurant data based on restaurantId
+  /** ✅ Fetch Reviews (cached per menu ID) */
   useEffect(() => {
-    if (restaurants && menu?.restaurantId) {
-      const foundRestaurant = restaurants.find(
-        (r) => r?._id === menu.restaurantId
-      );
-      setRestaurant(foundRestaurant || null);
+    mountedRef.current = true;
+    if (!menu?._id) return;
+    const cached = sessionStorage.getItem(`rating-${menu._id}`);
+    if (cached) {
+      const data = JSON.parse(cached);
+      setRatingData(data);
+      return;
     }
-  }, [restaurants, menu?.restaurantId]);
 
-  // Fetch average rating and review count for this menu item
-  useEffect(() => {
-    const fetchRatingAndReviews = async () => {
-      if (!menu?._id) return;
-
-      try {
-        const response = await fetch(`/api/reviews?menuId=${menu._id}`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data?.success) {
-            setAverageRating(data.averageRating);
-            setReviewCount(data.totalReviews);
-            setReviews(data.reviews || []);
-          }
+    fetch(`/api/menus/${menu._id}/reviews`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (mountedRef.current && data?.success) {
+          const payload = {
+            avg: data.averageRating,
+            count: data.totalReviews,
+          };
+          setRatingData(payload);
+          sessionStorage.setItem(`rating-${menu._id}`, JSON.stringify(payload));
         }
-      } catch (error) {
-        console.error("Error fetching menu item rating:", error);
-      }
-    };
+      })
+      .catch((err) => console.error("Review fetch failed:", err));
 
-    fetchRatingAndReviews();
+    return () => {
+      mountedRef.current = false;
+    };
   }, [menu?._id]);
 
-  // Check if menu is in favorites - FIXED VERSION
-  const checkFavoriteStatus = useCallback(async () => {
-    if (!session?.user?.id || !menu?._id) {
-      setIsFavorite(false);
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/favorites");
-      if (!response.ok) {
-        console.error("Failed to fetch favorites, status:", response.status);
-        return;
-      }
-
-      const favorites = await response.json();
-      if (!Array.isArray(favorites)) {
-        console.error("Favorites data is not an array:", favorites);
-        setIsFavorite(false);
-        return;
-      }
-
-      const isFav = favorites.some(
-        (fav) => fav?.menuId?.toString() === menu?._id?.toString()
-      );
-      setIsFavorite(isFav);
-    } catch (error) {
-      console.error("Error checking favorite status:", error);
-    }
+  /** ✅ Fetch Favorite Status */
+  useEffect(() => {
+    if (!session?.user?.id || !menu?._id) return;
+    fetch(`/api/favorites?menuId=${menu._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (mountedRef.current) setIsFavorite(Boolean(data?.isFavorite));
+      })
+      .catch(() => setIsFavorite(false));
   }, [session?.user?.id, menu?._id]);
 
-  useEffect(() => {
-    checkFavoriteStatus();
-  }, [checkFavoriteStatus]);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  // Toggle favorite status (add or remove) with better error handling
+  /** ✅ Toggle Favorite (Optimistic UI) */
   const toggleFavorite = async (e) => {
     e.stopPropagation();
+    if (!session) return alert("Please login to manage favorites");
+    if (loadingFavorite) return;
 
-    if (!session) {
-      alert("Please login to add favorites");
-      return;
-    }
-
-    if (!menu?._id) {
-      console.error("No menu ID available");
-      return;
-    }
-
-    setIsLoading(true);
+    setLoadingFavorite(true);
+    const newState = !isFavorite;
+    setIsFavorite(newState); // optimistic UI
 
     try {
-      if (isFavorite) {
-        const response = await fetch(`/api/favorites/${menu._id}`, {
-          method: "DELETE",
-        });
+      const res = await fetch("/api/favorites", {
+        method: newState ? "POST" : "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          menuId: menu._id,
+          restaurantId: restaurant?._id,
+        }),
+      });
 
-        if (response.ok) {
-          setIsFavorite(false);
-          console.log(`Successfully removed "${menu.title}" from favorites.`);
-        } else {
-          const errorData = await response.json().catch(() => ({}));
-          console.error("Failed to remove from favorites:", errorData);
-          alert(
-            `Failed to remove from favorites: ${
-              errorData.error || "Unknown error"
-            }`
-          );
-        }
-      } else {
-        console.log("--- Attempting to add to favorites ---");
-        console.log("Session User ID:", session.user.id);
-        console.log("Menu ID:", menu._id);
-
-        const response = await fetch("/api/favorites", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            menuId: menu._id, // Send only the ID, not the entire menu object
-            restaurantId: restaurant?._id,
-          }),
-        });
-
-        console.log("Received response status:", response.status);
-
-        if (response.ok) {
-          setIsFavorite(true);
-          console.log(`Successfully added "${menu.title}" to favorites.`);
-        } else {
-          const errorData = await response.json().catch(() => ({}));
-          console.error("--- Failed to add to favorites ---");
-          console.error("Server Response:", errorData);
-          alert(
-            `Failed to add to favorites: ${errorData.error || "Unknown error"}`
-          );
-
-          if (response.status === 409) {
-            setIsFavorite(true);
-          }
-        }
-      }
-    } catch (error) {
-      console.error("--- Network or client-side error in toggleFavorite ---");
-      console.error(error);
-      alert(
-        "A network error occurred. Please check your connection and try again."
-      );
+      if (!res.ok) throw new Error("Failed to update favorite");
+    } catch (err) {
+      console.error("Favorite toggle failed:", err);
+      setIsFavorite(!newState); // revert on error
     } finally {
-      setIsLoading(false);
+      setLoadingFavorite(false);
     }
   };
 
-  const restaurantSlug = restaurant
-    ? generateSlug(restaurant.name, restaurant.location?.area)
-    : "";
-
   return (
-    <div>
-      <div
-        key={menu._id || menu.id}
-        className="flex-shrink-0 w-full transform rounded-xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-      >
-        {/* image section */}
-        <div className="relative h-40 w-full">
-          <Image
-            src={menu.imageUrl}
-            alt={menu.title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="rounded-t-xl object-cover"
-            priority={false}
-          />
-          {/* Location Badge - Left Side */}
-          <div className="absolute top-2 left-2 bg-orange-500 rounded-full px-2 py-1 text-xs font-bold text-white flex items-center">
+    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all">
+      {/* Image */}
+      <div className="relative h-40 w-full">
+        <Image
+          src={menu.imageUrl || "/images/placeholder-food.jpg"}
+          alt={menu.title}
+          fill
+          className="rounded-t-xl object-cover"
+          unoptimized
+        />
+        <div className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+          {restaurant?.location?.area || "Unknown"}
+        </div>
+        <div className="absolute top-2 right-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+          ৳{menu.price}
+        </div>
+        {menu.isSpecialOffer && (
+          <div className="absolute bottom-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            {menu.discountRate}% OFF
+          </div>
+        )}
+      </div>
+
+      {/* Details */}
+      <div className="p-4">
+        <div className="flex justify-between items-center">
+          <Link
+            href={`/menu/${menu._id}`}
+            className="text-orange-500 font-semibold hover:text-orange-600"
+          >
+            {menu.title}
+          </Link>
+
+          <button
+            onClick={toggleFavorite}
+            disabled={loadingFavorite}
+            aria-label="toggle favorite"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-3 w-3 mr-1"
-              fill="none"
+              className={`h-5 w-5 transition-all duration-200 ${
+                isFavorite
+                  ? "text-red-500 fill-red-500 scale-110"
+                  : "text-gray-400 hover:text-red-500"
+              }`}
               viewBox="0 0 24 24"
-              stroke="currentColor"
+              strokeWidth={2}
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               />
             </svg>
-            {restaurant?.location?.area || "Location"}
-          </div>
-          {/* Price Badge - Right Side */}
-          <div className="absolute top-2 right-2 bg-orange-500 rounded-full px-2 py-1 text-xs font-bold text-white">
-            ৳{menu.price}
-          </div>
-          {/* Special Offer Badge */}
-          {menu.isSpecialOffer && (
-            <div className="absolute bottom-2 right-2 bg-red-500 rounded-full px-2 py-1 text-xs font-bold text-white">
-              {menu.discountRate}% OFF
-            </div>
-          )}
+          </button>
         </div>
 
-        <div className="p-4">
-          <div className="flex items-center justify-between">
-            {/* Title link */}
+        {/* Ratings */}
+        {ratingData.avg !== null && ratingData.count > 0 ? (
+          <div className="flex items-center mt-1 text-sm text-gray-700">
+            <FiStar className="text-yellow-400 mr-1" />
+            {ratingData.avg.toFixed(1)} ({ratingData.count})
+          </div>
+        ) : (
+          <p className="text-sm text-gray-400 mt-1">No ratings yet</p>
+        )}
+
+        {/* Description */}
+        <p className="text-sm text-gray-600 line-clamp-2 mt-1">
+          {menu.description}
+        </p>
+
+        {/* Restaurant Info */}
+        <div className="flex justify-between items-center mt-3">
+          {restaurant && (
             <Link
-              href={`/menu/${menu._id}`}
-              className="text-lg font-semibold text-orange-500 hover:text-orange-600 transition-colors"
+              href={`/restaurants/${restaurantSlug}`}
+              className="flex items-center"
             >
-              {menu.title}
+              <Image
+                src={restaurant.logo || "/images/placeholder-restaurant.jpg"}
+                alt={restaurant.name}
+                width={28}
+                height={28}
+                className="rounded-full object-cover"
+              />
+              <span className="ml-2 text-sm text-gray-700 font-medium hover:text-orange-500">
+                {restaurant.name}
+              </span>
             </Link>
-
-            {/* Favorite toggle */}
-            <button
-              onClick={toggleFavorite}
-              disabled={isLoading}
-              className={`h-5 w-5 ml-2 transition-colors ${
-                isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-              }`}
-              aria-label={
-                isFavorite ? "Remove from favorites" : "Add to favorites"
-              }
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`h-5 w-5 transition-colors ${
-                  isFavorite
-                    ? "text-red-500 fill-red-500"
-                    : "text-gray-400 fill-none hover:text-red-500 hover:fill-red-500"
-                }`}
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </button>
-          </div>
-
-          {/* Rating */}
-          {averageRating !== null && (
-            <div className="flex items-center mt-1">
-              <div className="flex items-center">
-                <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
-                <span className="ml-1 text-sm font-medium text-gray-900">
-                  {averageRating}
-                </span>
-                <span className="mx-1 text-gray-300">•</span>
-                <span className="text-sm text-gray-500">
-                  {reviewCount} review{reviewCount !== 1 ? "s" : ""}
-                </span>
-              </div>
-            </div>
           )}
 
-          {/* ⭐ Reviews Preview */}
-          {reviewCount > 0 && reviews.length > 0 && (
-            <div className="mt-2 space-y-1">
-              {reviews.slice(0, 2).map((rev, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-start text-xs text-gray-600"
-                >
-                  <FiStar className="h-3 w-3 text-yellow-400 mr-1" />
-                  <p className="leading-tight">
-                    <span className="font-medium">
-                      {rev.customerEmail || "User"}
-                    </span>
-                    : {rev.comment || "No comment"}
-                  </p>
-                </div>
-              ))}
-
-              {reviewCount > 2 && (
-                <Link
-                  href={`/menu/${menu._id}#reviews`}
-                  className="text-xs text-orange-500 hover:underline block mt-1"
-                >
-                  View all {reviewCount} reviews →
-                </Link>
-              )}
-            </div>
-          )}
-
-          <p className="mt-1 text-sm text-gray-600 line-clamp-2">
-            {menu.description}
-          </p>
-
-          {/* Restaurant Info + Add to Cart */}
-          <div className="mt-3 flex items-center justify-between">
-            <div className="flex items-center">
-              {restaurant ? (
-                <Link
-                  href={`/restaurants/${restaurantSlug}`}
-                  className="flex items-center hover:opacity-80 transition-opacity"
-                >
-                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-200">
-                    <Image
-                      src={restaurant.logo}
-                      alt={restaurant.name}
-                      fill
-                      sizes="32px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <span className="ml-2 text-sm text-gray-700 font-medium hover:text-orange-500 transition-colors">
-                    {restaurant.name}
-                  </span>
-                </Link>
-              ) : (
-                <div className="flex items-center">
-                  <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-200">
-                    <Image
-                      src={menu.imageUrl}
-                      alt={menu.title}
-                      fill
-                      sizes="32px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <span className="ml-2 text-sm text-gray-700 font-medium">
-                    Restaurant
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Large Circular Add to Cart Button */}
-            <button
-              onClick={openModal}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-500 text-white transition-all duration-300 hover:bg-orange-600 hover:scale-110 shadow-md"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-            </button>
-          </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="w-10 h-10 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center text-white shadow-md transition-transform hover:scale-105"
+          >
+            +
+          </button>
         </div>
       </div>
 
+      {/* Modal */}
       <MenuModal
         isOpen={isModalOpen}
-        onClose={closeModal}
+        onClose={() => setIsModalOpen(false)}
         menu={menu}
         restaurant={restaurant}
       />

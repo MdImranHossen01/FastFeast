@@ -17,11 +17,9 @@ const MenuPage = () => {
   const [allMenus, setAllMenus] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Get filters from Redux
   const filters = useSelector((state) => state.filters);
 
-  // Fetch data on component mount
+  // ✅ Cache data locally to avoid refetch on re-render
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,120 +27,64 @@ const MenuPage = () => {
           getMenus(),
           getRestaurants(),
         ]);
-
-        console.log("Restaurants data sample:", restaurantsData.slice(0, 2)); // Debug first 2 restaurants
-        setAllMenus(menusData);
-        setAllRestaurants(restaurantsData);
+        setAllMenus(menusData || []);
+        setAllRestaurants(restaurantsData || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
-  // Create a map of restaurant IDs to restaurant details for quick lookup
+  // ✅ Create restaurant lookup map once
   const restaurantMap = useMemo(() => {
-    const map = {};
-    allRestaurants.forEach((restaurant) => {
-      if (restaurant && restaurant._id) {
-        map[restaurant._id] = restaurant;
-      }
+    const map = Object.create(null);
+    allRestaurants.forEach((r) => {
+      if (r?._id) map[r._id] = r;
     });
     return map;
   }, [allRestaurants]);
 
-  // Helper function to extract location string from restaurant object
+  // ✅ Simplified location extractor
   const getRestaurantLocation = (restaurant) => {
-    if (!restaurant || !restaurant.location) return "";
-
-    // If location is a string, return it directly
-    if (typeof restaurant.location === "string") {
-      return restaurant.location.toLowerCase();
-    }
-
-    // If location is an object, try to extract the area/city
-    if (typeof restaurant.location === "object") {
-      // Common field names for location in objects
-      const possibleFields = [
-        "address",
-        "area",
-        "city",
-        "country",
-        "coordinates",
-      ];
-
-      for (let field of possibleFields) {
-        if (
-          restaurant.location[field] &&
-          typeof restaurant.location[field] === "string"
-        ) {
-          return restaurant.location[field].toLowerCase();
-        }
-      }
-
-      // If no specific field found, try to stringify and extract
-      const locationString = JSON.stringify(restaurant.location).toLowerCase();
-      return locationString;
-    }
-
+    const loc = restaurant?.location;
+    if (!loc) return "";
+    if (typeof loc === "string") return loc.toLowerCase();
+    if (typeof loc === "object")
+      return (
+        loc.area ||
+        loc.city ||
+        loc.address ||
+        loc.country ||
+        JSON.stringify(loc)
+      ).toLowerCase();
     return "";
   };
 
-  // Filter all menus based on search criteria including restaurant names AND location
+  // ✅ Filter menus efficiently
   const filteredMenus = useMemo(() => {
-    if (!allMenus.length) return [];
+    if (!allMenus?.length) return [];
+    const query = filters.searchQuery?.toLowerCase() || "";
+    const locationFilter = filters.location?.toLowerCase() || "";
 
     return allMenus.filter((menu) => {
       const restaurant = restaurantMap[menu.restaurantId];
-      const restaurantName = restaurant?.name || "";
+      const rName = restaurant?.name?.toLowerCase() || "";
+      const rLoc = getRestaurantLocation(restaurant);
 
-      // Safely get restaurant location using helper function
-      const restaurantLocation = getRestaurantLocation(restaurant);
-
-      // Filter by search query - includes restaurant name
-      const searchMatch =
-        !filters.searchQuery ||
-        (menu.title &&
-          menu.title
-            .toLowerCase()
-            .includes(filters.searchQuery.toLowerCase())) ||
-        (menu.cuisine &&
-          menu.cuisine
-            .toLowerCase()
-            .includes(filters.searchQuery.toLowerCase())) ||
-        (menu.description &&
-          menu.description
-            .toLowerCase()
-            .includes(filters.searchQuery.toLowerCase())) ||
-        (menu.category &&
-          menu.category
-            .toLowerCase()
-            .includes(filters.searchQuery.toLowerCase())) ||
-        restaurantName
-          .toLowerCase()
-          .includes(filters.searchQuery.toLowerCase());
-
-      // Filter by location - CRITICAL FIX: Only show items from selected location
-      const locationMatch =
-        !filters.location ||
-        (restaurantLocation &&
-          restaurantLocation.includes(filters.location.toLowerCase()));
-
-      // Filter by cuisine
-      const cuisineMatch =
-        filters.selectedCuisines.length === 0 ||
-        (menu.cuisine && filters.selectedCuisines.includes(menu.cuisine));
-
-      // Filter by rating
-      const ratingMatch =
-        !filters.selectedRating ||
-        (menu.rating && menu.rating >= filters.selectedRating);
-
-      // Filter by price
-      const priceMatch =
+      // Combined string search
+      const searchString =
+        `${menu.title} ${menu.cuisine} ${menu.description} ${menu.category} ${rName}`.toLowerCase();
+      const matchesSearch = !query || searchString.includes(query);
+      const matchesLocation = !locationFilter || rLoc.includes(locationFilter);
+      const matchesCuisine =
+        !filters.selectedCuisines?.length ||
+        filters.selectedCuisines.includes(menu.cuisine);
+      const matchesRating =
+        !filters.selectedRating || menu.rating >= filters.selectedRating;
+      const matchesPrice =
         !filters.selectedPrice ||
         (filters.selectedPrice === "$" && menu.price < 300) ||
         (filters.selectedPrice === "$$" &&
@@ -152,108 +94,63 @@ const MenuPage = () => {
           menu.price >= 500 &&
           menu.price < 700) ||
         (filters.selectedPrice === "$$$$" && menu.price >= 700);
-
-      // Filter by special offers
-      const specialOfferMatch =
+      const matchesOffer =
         !filters.isSpecialOfferSelected || menu.isSpecialOffer;
-
-      // Filter by combo
-      const comboMatch = !filters.isComboSelected || menu.isCombo;
+      const matchesCombo = !filters.isComboSelected || menu.isCombo;
 
       return (
-        searchMatch &&
-        locationMatch &&
-        cuisineMatch &&
-        ratingMatch &&
-        priceMatch &&
-        specialOfferMatch &&
-        comboMatch
+        matchesSearch &&
+        matchesLocation &&
+        matchesCuisine &&
+        matchesRating &&
+        matchesPrice &&
+        matchesOffer &&
+        matchesCombo
       );
     });
   }, [allMenus, filters, restaurantMap]);
 
-  // Check if we have active filters
-  const hasActiveFilters =
-    filters.searchQuery ||
-    filters.location ||
-    filters.selectedCuisines.length > 0 ||
-    filters.selectedRating > 0 ||
-    filters.selectedPrice ||
-    filters.isSpecialOfferSelected ||
-    filters.isComboSelected;
+  const hasActiveFilters = Object.values({
+    query: filters.searchQuery,
+    location: filters.location,
+    cuisines: filters.selectedCuisines?.length,
+    rating: filters.selectedRating,
+    price: filters.selectedPrice,
+    offer: filters.isSpecialOfferSelected,
+    combo: filters.isComboSelected,
+  }).some(Boolean);
 
-  if (loading) {
+  if (loading)
     return (
-      <div className="py-4">
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Loading menu...</p>
-        </div>
+      <div className="text-center py-12 text-gray-500 text-lg">
+        Loading menu...
       </div>
     );
-  }
 
   return (
     <div className="py-4">
-      {/* Show search results when filters are active */}
       {hasActiveFilters ? (
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">
-              Search Results ({filteredMenus.length} items found)
-            </h2>
-            <div className="text-right">
-              {filters.searchQuery && (
-                <p className="text-gray-600 text-sm">
-                  Searching for: "{filters.searchQuery}"
-                </p>
-              )}
-              {filters.location && (
-                <p className="text-gray-600 text-sm">
-                  Location: {filters.location}
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Display filtered results in horizontal scroll for mobile, grid for desktop */}
-          {filteredMenus.length > 0 ? (
-            <div>
-              {/* Mobile: Horizontal Scroll */}
-              <div className="md:hidden flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-                {filteredMenus.map((menu) => (
-                  <div key={menu._id} className="flex-shrink-0 w-64">
-                    <MenuCard menu={menu} restaurants={allRestaurants} />
-                  </div>
-                ))}
-              </div>
-
-              {/* Desktop: Grid Layout */}
-              <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredMenus.map((menu) => (
-                  <MenuCard
-                    key={menu._id}
-                    menu={menu}
-                    restaurants={allRestaurants}
-                  />
-                ))}
-              </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-6">
+            Search Results ({filteredMenus.length})
+          </h2>
+          {filteredMenus.length ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredMenus.map((menu) => (
+                <MenuCard
+                  key={menu._id}
+                  menu={menu}
+                  restaurant={restaurantMap[menu.restaurantId]}
+                />
+              ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">
-                No items found matching your criteria.
-              </p>
-              {filters.location && (
-                <p className="text-gray-400 mt-2">
-                  No "{filters.searchQuery || "items"}" found in{" "}
-                  {filters.location}. Try a different location or search term.
-                </p>
-              )}
-            </div>
+            <p className="text-center text-gray-500 py-12">
+              No items found matching your criteria.
+            </p>
           )}
         </div>
       ) : (
-        /* Show regular cuisine sections when no filters are active */
         <>
           <ThaiFood menus={allMenus} restaurants={allRestaurants} />
           <ChineseFood menus={allMenus} restaurants={allRestaurants} />
@@ -264,17 +161,6 @@ const MenuPage = () => {
           <TurkishFood menus={allMenus} restaurants={allRestaurants} />
         </>
       )}
-
-      {/* Custom scrollbar styles */}
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 };

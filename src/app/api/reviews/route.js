@@ -7,12 +7,11 @@ import Review from "@/models/review.model";
 export async function POST(req) {
   try {
     const reviewData = await req.json();
-    const { orderId, userId, customerEmail, riderReview, itemReviews } =
-      reviewData;
+    const { orderId, userId, riderReview, itemReviews } = reviewData;
 
-    if (!orderId || !customerEmail) {
+    if (!orderId || !userId) {
       return NextResponse.json(
-        { success: false, message: "Order ID and customer email are required" },
+        { success: false, message: "Order ID and userId are required" },
         { status: 400 }
       );
     }
@@ -32,7 +31,6 @@ export async function POST(req) {
     const newReview = await Review.create({
       orderId,
       userId,
-      customerEmail,
       riderReview: riderReview || null,
       itemReviews: itemReviews || [],
     });
