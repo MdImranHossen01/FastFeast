@@ -9,7 +9,7 @@ export async function POST(request) {
     const headersList = await headers();
     const session = await getServerSession();
     
-    const { sessionId } = await request.json();
+    const { sessionId, timestamp } = await request.json();
     
     if (!sessionId) {
       return NextResponse.json({ success: false }, { status: 400 });
@@ -27,13 +27,15 @@ export async function POST(request) {
       const user = await User.findOne({ email: session.user.email });
       if (user) {
         userId = user._id;
-        // Update user's lastActive timestamp
-        await User.findByIdAndUpdate(user._id, { lastActive: new Date() });
+        // Update user's lastActive timestamp (non-blocking)
+        User.findByIdAndUpdate(user._id, { 
+          lastActive: new Date() 
+        }).catch(console.error);
       }
     }
 
-    // Update or create traffic session
-    await Traffic.findOneAndUpdate(
+    // Update traffic session (non-blocking for performance)
+    Traffic.findOneAndUpdate(
       { sessionId },
       {
         userId,
@@ -44,9 +46,12 @@ export async function POST(request) {
         $inc: { pageViews: 1 }
       },
       { upsert: true, new: true }
-    );
+    ).catch(console.error);
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ 
+      success: true,
+      trackedAt: new Date().toISOString()
+    });
   } catch (error) {
     console.error('Track session error:', error);
     return NextResponse.json({ success: false }, { status: 500 });
