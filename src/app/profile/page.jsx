@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import bg from "../../assets/ProfilePage/profile-cover.jpg";
 import {
@@ -18,6 +19,7 @@ import {
 
 export default function ProfilePage() {
   const { data: session, update: updateSession } = useSession();
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [profileData, setProfileData] = useState({
     name: "",
@@ -28,7 +30,24 @@ export default function ProfilePage() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [orderCount, setOrderCount] = useState(0);
 
+  // Fetch user’s total orders dynamically
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (!session?.user?.email) return;
+      try {
+        const res = await fetch(`/api/orders?userEmail=${session.user.email}`);
+        const data = await res.json();
+        setOrderCount(data?.orders?.length || 0);
+      } catch (error) {
+        console.error("Error fetching order count:", error);
+      }
+    };
+    fetchOrders();
+  }, [session]);
+
+  // Load session data into profile
   useEffect(() => {
     if (session?.user) {
       setProfileData({
@@ -41,6 +60,7 @@ export default function ProfilePage() {
     }
   }, [session]);
 
+  // GPS Detection
   const detectLocation = () => {
     if (!navigator.geolocation) {
       Swal.fire("Error", "Geolocation not supported!", "error");
@@ -136,17 +156,17 @@ export default function ProfilePage() {
   };
 
   const stats = [
-    { icon: <FaShoppingBag className="text-orange-600" />, label: "Orders", value: 24 },
+    { icon: <FaShoppingBag className="text-orange-600" />, label: "Orders", value: orderCount },
     { icon: <FaStar className="text-orange-600" />, label: "Reviews", value: 7 },
     { icon: <FaHeart className="text-orange-600" />, label: "Favorites", value: 5 },
   ];
 
   const quickLinks = [
-    { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders" },
-    { icon: <FaWallet />, title: "Transaction History", desc: "Track your payments & wallet usage" },
-    { icon: <FaComments />, title: "Message Rider", desc: "Chat with delivery partner in real time" },
-    { icon: <FaHeart />, title: "Saved Restaurants", desc: "Manage your favorite spots" },
-    { icon: <FaHistory />, title: "Order Activity", desc: "See your delivery history and logs" },
+    { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders", link: "/orders" },
+    { icon: <FaWallet />, title: "Transaction History", desc: "Track your payments & wallet usage", link: "/transactions" },
+    { icon: <FaComments />, title: "Message Rider", desc: "Chat with your delivery partner", link: "/messages" },
+    { icon: <FaHeart />, title: "Saved Restaurants", desc: "Manage your favorite spots", link: "/favorites" },
+    { icon: <FaHistory />, title: "Order Activity", desc: "See delivery history & updates", link: "/order-activity" },
   ];
 
   return (
@@ -202,7 +222,8 @@ export default function ProfilePage() {
         {quickLinks.map((q, i) => (
           <div
             key={i}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer"
+            onClick={() => router.push(q.link)}
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 hover:shadow-orange-600/40 hover:-translate-y-1 transition cursor-pointer"
           >
             <div className="flex items-center gap-3 mb-2 text-orange-600 text-2xl">
               {q.icon}

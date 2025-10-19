@@ -1,25 +1,22 @@
 "use server";
 
-export default async function getReviews() {
+export default async function getReviews(search, ratings) {
   try {
-    // Fetch reviews
     const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-
-    const res = await fetch(
-      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/reviews`
+    const result = await fetch(
+      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/reviews?search=${
+        search === "All-reviews" ? "" : search || ""
+      }&ratings=${ratings || ""}`
     );
 
-    // always return an array
-    if (!res.ok) {
-      console.error("Failed to fetch reviews:", res.statusText);
+    if (!result?.ok) {
       return [];
     }
 
-    // If response is ok, parse and return the data
-    const data = await res.json();
+    const data = await result.json();
     return data;
   } catch (error) {
-    console.error("Error fetching reviews:", error);
-    return null;
+    console.error("Review data fetching error", error.message);
+    return [];
   }
 }

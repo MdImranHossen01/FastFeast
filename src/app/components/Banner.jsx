@@ -80,6 +80,19 @@ const ScrollDownIcon = () => (
   </svg>
 );
 
+// Voice Search Icons
+const MicIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="18" height="18" viewBox="0 0 24 24" className="flex-shrink-0">
+    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+  </svg>
+);
+
+const ListeningIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="#4CAF50" width="18" height="18" viewBox="0 0 24 24" className="flex-shrink-0 animate-pulse">
+    <path d="M12 2C13.1 2 14 2.9 14 4V12C14 13.1 13.1 14 12 14S10 13.1 10 12V4C10 2.9 10.9 2 12 2ZM17 12C17 14.8 14.8 17 12 17S7 14.8 7 12H5C5 15.9 8.1 19 12 19S19 15.9 19 12H17Z"/>
+  </svg>
+);
+
 // Slider videos & content
 const sliderContent = [
   {
@@ -122,6 +135,10 @@ const Banner = () => {
   const { searchQuery, location } = useSelector((state) => state.filters);
 
   const [isLocationOpen, setIsLocationOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeechSupported, setIsSpeechSupported] = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const recognitionRef = useRef(null);
   const locationDropdownRef = useRef(null);
 
   const availableLocations = [
@@ -131,6 +148,44 @@ const Banner = () => {
     "Banani",
     "Gulshan",
   ];
+
+  // Check if speech recognition is supported
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    setIsSpeechSupported(!!SpeechRecognition);
+    
+    if (SpeechRecognition) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = true;
+      recognitionRef.current.lang = 'en-US';
+
+      recognitionRef.current.onresult = (event) => {
+        const currentTranscript = Array.from(event.results)
+          .map(result => result[0].transcript)
+          .join('');
+        setTranscript(currentTranscript);
+        dispatch(setSearchQuery(currentTranscript));
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+        setTranscript("");
+      };
+
+      recognitionRef.current.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        setTranscript("");
+      };
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, [dispatch]);
 
   const handleLocationSelect = (selectedLocation) => {
     dispatch(setLocation(selectedLocation));
@@ -158,6 +213,35 @@ const Banner = () => {
 
   const handleClearLocation = () => {
     dispatch(setLocation(""));
+  };
+
+  // Voice search functions
+  const startListening = () => {
+    if (recognitionRef.current && !isListening) {
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+        setTranscript("");
+      } catch (error) {
+        console.error('Error starting speech recognition:', error);
+        setIsListening(false);
+      }
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
   };
 
   useEffect(() => {
@@ -290,6 +374,22 @@ const Banner = () => {
                       onKeyDown={handleSearch}
                       className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white"
                     />
+                    
+                    {/* Voice Search Button - Only icon in search bar */}
+                    {isSpeechSupported && (
+                      <button
+                        onClick={toggleListening}
+                        className={`ml-2 p-1 rounded-full transition-all duration-300 ${
+                          isListening 
+                            ? 'bg-green-500 hover:bg-green-600' 
+                            : 'bg-white/20 hover:bg-white/30'
+                        }`}
+                        aria-label={isListening ? "Stop listening" : "Start voice search"}
+                        title={isListening ? "Stop listening" : "Start voice search"}
+                      >
+                        {isListening ? <ListeningIcon /> : <MicIcon />}
+                      </button>
+                    )}
                   </div>
 
                   {/* Clear Filters Button */}
@@ -306,8 +406,39 @@ const Banner = () => {
                   )}
                 </div>
 
+                {/* Voice Search Status */}
+                {isListening && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="mt-2 text-center"
+                  >
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-500/30">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <p className="text-green-300 text-sm font-medium">
+                        Listening... {transcript && `"${transcript}"`}
+                      </p>
+                      <button
+                        onClick={stopListening}
+                        className="text-green-300 hover:text-white text-xs underline"
+                      >
+                        Stop
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Speech Recognition Not Supported Message */}
+                {!isSpeechSupported && (
+                  <div className="mt-2 text-center">
+                    <p className="text-orange-300 text-sm opacity-80">
+                      Voice search is not supported in your browser. Try Chrome or Edge.
+                    </p>
+                  </div>
+                )}
+
                 {/* Search Hint */}
-                {(searchQuery || location) && (
+                {(searchQuery || location) && !isListening && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -323,7 +454,7 @@ const Banner = () => {
                 )}
 
                 {/* Active Filters Display */}
-                {hasActiveFilters && (
+                {hasActiveFilters && !isListening && (
                   <div className="mt-3 flex flex-wrap gap-2 justify-center">
                     {searchQuery && (
                       <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-white text-sm">

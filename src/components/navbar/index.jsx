@@ -11,6 +11,7 @@ import MobileDrawer from "./MobileDrawer";
 import RightIcons from "./RightIcons";
 import { useScroll, useClickOutside, useNotifications } from "./hooks";
 import { useCart } from "@/lib/cartContext";
+// import InstallButton from "@/components/pwa/InstallButton";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -58,7 +59,8 @@ const Navbar = () => {
           >
             <FiMenu size={24} />
           </button>
-
+          {/* Add this where you want the install button to appear */}
+          {/* <InstallButton /> */}
           {/* Logo - Centered, Hidden when scrolled */}
           {!isScrolled && (
             <div className="absolute left-1/2 transform -translate-x-1/2">

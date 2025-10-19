@@ -23,49 +23,38 @@ const MenuCard = ({ menu, restaurants }) => {
 
   // Find the restaurant data based on restaurantId
   useEffect(() => {
-    if (restaurants && menu.restaurantId) {
+    if (restaurants && menu?.restaurantId) {
       const foundRestaurant = restaurants.find(
-        (r) => r._id === menu.restaurantId
+        (r) => r?._id === menu.restaurantId
       );
-      setRestaurant(foundRestaurant);
+      setRestaurant(foundRestaurant || null);
     }
-  }, [restaurants, menu.restaurantId]);
+  }, [restaurants, menu?.restaurantId]);
 
   // Fetch average rating and review count for this menu item
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchRating = async () => {
+      if (!menu?._id) return;
+
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/moderator/reviews`
-        );
-        const data = await res.json();
-        setReviews(Array.isArray(data) ? data : []);
+        const response = await fetch(`/api/menus/${menu._id}/reviews`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data?.success) {
+            setAverageRating(data.averageRating);
+            setReviewCount(data.totalReviews);
+          }
+        }
       } catch (error) {
-        console.error("Error fetching reviews:", error);
+        console.error("Error fetching menu item rating:", error);
       }
     };
 
-    fetchReviews();
-  }, []);
-
-  // Flatten all item reviews belonging to this menu item
-  const itemRatings = reviews.flatMap((r) =>
-    r.itemReviews.filter((ir) => ir.itemId === menu._id)
-  );
-
-  // Calculate average + count
-  const averageRating = itemRatings.length
-    ? (
-        itemRatings.reduce((acc, curr) => acc + curr.rating, 0) /
-        itemRatings.length
-      ).toFixed(1)
-    : null;
-
-  const reviewCount = itemRatings.length;
+    fetchRating();
+  }, [menu?._id]);
 
   // Check if menu is in favorites - FIXED VERSION
   const checkFavoriteStatus = useCallback(async () => {
-    // Only check if user is logged in and menu has an ID
     if (!session?.user?.id || !menu?._id) {
       setIsFavorite(false);
       return;
@@ -73,29 +62,24 @@ const MenuCard = ({ menu, restaurants }) => {
 
     try {
       const response = await fetch("/api/favorites");
-
       if (!response.ok) {
         console.error("Failed to fetch favorites, status:", response.status);
         return;
       }
 
       const favorites = await response.json();
-
-      // Add null check for favorites array
       if (!Array.isArray(favorites)) {
         console.error("Favorites data is not an array:", favorites);
         setIsFavorite(false);
         return;
       }
 
-      // Safe comparison with null checks
       const isFav = favorites.some(
         (fav) => fav?.menuId?.toString() === menu?._id?.toString()
       );
       setIsFavorite(isFav);
     } catch (error) {
       console.error("Error checking favorite status:", error);
-      // Don't set isFavorite to false here to avoid flickering
     }
   }, [session?.user?.id, menu?._id]);
 
@@ -124,7 +108,6 @@ const MenuCard = ({ menu, restaurants }) => {
 
     try {
       if (isFavorite) {
-        // Remove from favorites
         const response = await fetch(`/api/favorites/${menu._id}`, {
           method: "DELETE",
         });
@@ -133,7 +116,7 @@ const MenuCard = ({ menu, restaurants }) => {
           setIsFavorite(false);
           console.log(`Successfully removed "${menu.title}" from favorites.`);
         } else {
-          const errorData = await response.json();
+          const errorData = await response.json().catch(() => ({}));
           console.error("Failed to remove from favorites:", errorData);
           alert(
             `Failed to remove from favorites: ${
@@ -142,7 +125,6 @@ const MenuCard = ({ menu, restaurants }) => {
           );
         }
       } else {
-        // Add to favorites
         console.log("--- Attempting to add to favorites ---");
         console.log("Session User ID:", session.user.id);
         console.log("Menu ID:", menu._id);
@@ -164,7 +146,7 @@ const MenuCard = ({ menu, restaurants }) => {
           setIsFavorite(true);
           console.log(`Successfully added "${menu.title}" to favorites.`);
         } else {
-          const errorData = await response.json();
+          const errorData = await response.json().catch(() => ({}));
           console.error("--- Failed to add to favorites ---");
           console.error("Server Response:", errorData);
           alert(
@@ -187,7 +169,6 @@ const MenuCard = ({ menu, restaurants }) => {
     }
   };
 
-  // Generate restaurant slug if restaurant exists
   const restaurantSlug = restaurant
     ? generateSlug(restaurant.name, restaurant.location?.area)
     : "";
@@ -204,6 +185,7 @@ const MenuCard = ({ menu, restaurants }) => {
             src={menu.imageUrl}
             alt={menu.title}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="rounded-t-xl object-cover"
             priority={false}
           />
@@ -235,7 +217,7 @@ const MenuCard = ({ menu, restaurants }) => {
           <div className="absolute top-2 right-2 bg-orange-500 rounded-full px-2 py-1 text-xs font-bold text-white">
             ৳{menu.price}
           </div>
-          {/* Special Offer Badge - Only show if it's a special offer */}
+          {/* Special Offer Badge */}
           {menu.isSpecialOffer && (
             <div className="absolute bottom-2 right-2 bg-red-500 rounded-full px-2 py-1 text-xs font-bold text-white">
               {menu.discountRate}% OFF
@@ -243,17 +225,17 @@ const MenuCard = ({ menu, restaurants }) => {
           )}
         </div>
 
-        {/* content section */}
         <div className="p-4">
           <div className="flex items-center justify-between">
-            {/* Made the title clickable with Link component */}
+            {/* Title link */}
             <Link
-              href={`/menus/${menu._id}`}
+              href={`/menu/${menu._id}`}
               className="text-lg font-semibold text-orange-500 hover:text-orange-600 transition-colors"
             >
               {menu.title}
             </Link>
-            {/* Heart Icon - filled if favorite, outlined if not */}
+
+            {/* Favorite toggle */}
             <button
               onClick={toggleFavorite}
               disabled={isLoading}
@@ -284,17 +266,19 @@ const MenuCard = ({ menu, restaurants }) => {
             </button>
           </div>
 
-          {/* Rating Section - Show only if there are reviews */}
+          {/* Rating */}
           {averageRating && (
             <div className="flex items-center mt-1">
-              <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
-              <span className="ml-1 text-sm font-medium text-gray-900">
-                {averageRating}
-              </span>
-              <span className="mx-1 text-gray-300">•</span>
-              <span className="text-sm text-gray-500">
-                {reviewCount} review{reviewCount !== 1 ? "s" : ""}
-              </span>
+              <div className="flex items-center">
+                <FiStar className="h-4 w-4 text-yellow-400 fill-current" />
+                <span className="ml-1 text-sm font-medium text-gray-900">
+                  {averageRating}
+                </span>
+                <span className="mx-1 text-gray-300">•</span>
+                <span className="text-sm text-gray-500">
+                  {reviewCount} review{reviewCount !== 1 ? "s" : ""}
+                </span>
+              </div>
             </div>
           )}
 
@@ -302,10 +286,9 @@ const MenuCard = ({ menu, restaurants }) => {
             {menu.description}
           </p>
 
-          {/* Restaurant Info with Add to Cart Button */}
+          {/* Restaurant Info + Add to Cart */}
           <div className="mt-3 flex items-center justify-between">
             <div className="flex items-center">
-              {/* Make restaurant logo and name clickable */}
               {restaurant ? (
                 <Link
                   href={`/restaurants/${restaurantSlug}`}
@@ -316,6 +299,7 @@ const MenuCard = ({ menu, restaurants }) => {
                       src={restaurant.logo}
                       alt={restaurant.name}
                       fill
+                      sizes="32px"
                       className="object-cover"
                     />
                   </div>
@@ -330,6 +314,7 @@ const MenuCard = ({ menu, restaurants }) => {
                       src={menu.imageUrl}
                       alt={menu.title}
                       fill
+                      sizes="32px"
                       className="object-cover"
                     />
                   </div>
@@ -364,7 +349,6 @@ const MenuCard = ({ menu, restaurants }) => {
         </div>
       </div>
 
-      {/* Menu Modal */}
       <MenuModal
         isOpen={isModalOpen}
         onClose={closeModal}
