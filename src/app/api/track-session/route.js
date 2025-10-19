@@ -9,7 +9,7 @@ export async function POST(request) {
     const headersList = await headers();
     const session = await getServerSession();
     
-    const { sessionId, timestamp } = await request.json();
+    const { sessionId } = await request.json();
     
     if (!sessionId) {
       return NextResponse.json({ success: false }, { status: 400 });
@@ -24,29 +24,42 @@ export async function POST(request) {
     
     // If user is logged in, get their user ID and update lastActive
     if (session?.user?.email) {
-      const user = await User.findOne({ email: session.user.email });
-      if (user) {
-        userId = user._id;
-        // Update user's lastActive timestamp (non-blocking)
-        User.findByIdAndUpdate(user._id, { 
-          lastActive: new Date() 
-        }).catch(console.error);
+      try {
+        const user = await User.findOne({ email: session.user.email });
+        if (user) {
+          userId = user._id;
+          // Update user's lastActive timestamp
+          await User.findByIdAndUpdate(user._id, { 
+            lastActive: new Date() 
+          });
+        }
+      } catch (userError) {
+        console.error('Error updating user lastActive:', userError);
       }
     }
 
-    // Update traffic session (non-blocking for performance)
-    Traffic.findOneAndUpdate(
-      { sessionId },
-      {
-        userId,
-        userAgent,
-        ipAddress,
-        lastActivity: new Date(),
-        isActive: true,
-        $inc: { pageViews: 1 }
-      },
-      { upsert: true, new: true }
-    ).catch(console.error);
+    // Update or create traffic session with shorter TTL (10 minutes)
+    try {
+      await Traffic.findOneAndUpdate(
+        { sessionId },
+        {
+          userId,
+          userAgent,
+          ipAddress,
+          lastActivity: new Date(),
+          isActive: true,
+          $inc: { pageViews: 1 }
+        },
+        { 
+          upsert: true, 
+          new: true,
+          // Set TTL to 10 minutes for more accurate real-time tracking
+          setDefaultsOnInsert: true 
+        }
+      );
+    } catch (trafficError) {
+      console.error('Error updating traffic session:', trafficError);
+    }
 
     return NextResponse.json({ 
       success: true,
