@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 const LiveTraffic = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,17 +14,25 @@ const LiveTraffic = () => {
   });
   const [isOnline, setIsOnline] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const updateCountRef = useRef(0);
+  const dragStartPos = useRef({ x: 0, y: 0 });
+  const buttonRef = useRef(null);
 
+  // Fetch live data
   const fetchTrafficData = async () => {
     if (!isOnline) return;
-    
     setIsLoading(true);
     try {
-      const response = await fetch('/api/live-traffic');
+      const response = await fetch(`/api/live-traffic?t=${Date.now()}`);
       const result = await response.json();
-      
       if (result.success) {
         setTrafficData(result.data);
+        setLastUpdate(new Date());
+        updateCountRef.current += 1;
       }
     } catch (error) {
       console.error('Failed to fetch traffic data:', error);
@@ -33,201 +41,398 @@ const LiveTraffic = () => {
     }
   };
 
-  // Track user session
+  // Track user session heartbeat
   const trackSession = async () => {
     try {
-      // Generate or get session ID
       let sessionId = localStorage.getItem('sessionId');
       if (!sessionId) {
-        sessionId = 'session_' + Math.random().toString(36).substr(2, 9);
+        sessionId =
+          'session_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
         localStorage.setItem('sessionId', sessionId);
       }
-
       await fetch('/api/track-session', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ sessionId }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, timestamp: Date.now() })
       });
     } catch (error) {
       console.error('Failed to track session:', error);
     }
   };
 
+  // ✅ Initial position before first paint (no flicker)
+  useLayoutEffect(() => {
+    const setInitialPosition = () => {
+      const buttonWidth = 56;
+      const margin = 30;
+      const navbarHeight = 64;
+      setPosition({
+        x: Math.max(0, window.innerWidth - buttonWidth - margin -10),
+        y: navbarHeight + margin
+      });
+      setIsReady(true);
+    };
+    setInitialPosition();
+    window.addEventListener('resize', setInitialPosition);
+    return () => window.removeEventListener('resize', setInitialPosition);
+  }, []);
+
+  // --- Dragging Logic ---
+  const handleMouseDown = (e) => {
+    if (e.button !== 0) return;
+    setIsDragging(true);
+    dragStartPos.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    };
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const newX = e.clientX - dragStartPos.current.x;
+    const newY = e.clientY - dragStartPos.current.y;
+
+    const buttonWidth = buttonRef.current?.offsetWidth || 56;
+    const buttonHeight = buttonRef.current?.offsetHeight || 56;
+    const maxX = window.innerWidth - buttonWidth -10;
+    const maxY = window.innerHeight - buttonHeight;
+    const navbarHeight = 64;
+
+    setPosition({
+      x: Math.max(0, Math.min(newX, maxX)),
+      y: Math.max(navbarHeight + 10, Math.min(newY, maxY))
+    });
+  };
+
+  const handleMouseUp = () => setIsDragging(false);
+
   useEffect(() => {
-    // Initial fetch
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'grabbing';
+    } else {
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+    }
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
+  // --- Data updates ---
+  useEffect(() => {
     fetchTrafficData();
     trackSession();
-
-    // Set up interval for real-time updates
-    const trafficInterval = setInterval(fetchTrafficData, 30000); // Update every 30 seconds
-    const sessionInterval = setInterval(trackSession, 60000); // Track session every 60 seconds
-
+    const trafficInterval = setInterval(fetchTrafficData, 10000);
+    const sessionInterval = setInterval(trackSession, 30000);
+    const handleVisibilityChange = () => {
+      if (!document.hidden && isOpen) fetchTrafficData();
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => {
       clearInterval(trafficInterval);
       clearInterval(sessionInterval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [isOnline]);
+  }, [isOnline, isOpen]);
 
-  // Check online status
+  useEffect(() => {
+    if (isOpen) fetchTrafficData();
+  }, [isOpen]);
+
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
-      fetchTrafficData(); // Refresh data when coming online
+      fetchTrafficData();
     };
     const handleOffline = () => setIsOnline(false);
-
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
-
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
 
+  // --- Render ---
   return (
-    <div className="fixed top-20 right-6 z-40"> {/* Changed to top-right below navbar */}
-      {/* Floating Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`relative flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 ${
-          isOpen ? 'bg-red-500' : 'bg-green-500 hover:bg-green-600'
-        } text-white`}
-        disabled={isLoading}
-      >
-        {/* Live indicator */}
-        <span className="absolute -top-1 -right-1 flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-        </span>
-        
-        {isLoading ? (
-          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-        ) : (
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+    <>
+      {isReady && (
+        <div
+          ref={buttonRef}
+          className="fixed z-[60] cursor-move px-4"
+          style={{
+            left: `${position.x}px`,
+            top: `${position.y}px`,
+            transform: isDragging ? 'scale(1.1)' : 'scale(1)',
+            transition: isDragging
+              ? 'none'
+              : 'transform 0.2s ease, left 0.2s ease, top 0.2s ease'
+          }}
+        >
+          {/* Floating Button */}
+          <button
+            onMouseDown={handleMouseDown}
+            onClick={() => {
+              if (!isDragging) {
+                setIsOpen(!isOpen);
+                if (!isOpen) fetchTrafficData();
+              }
+            }}
+            className={`relative flex items-center justify-center w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
+              isOpen ? 'bg-red-500' : 'bg-green-500 hover:bg-green-600'
+            } ${
+              isDragging ? 'shadow-2xl cursor-grabbing' : 'cursor-pointer'
+            } text-white group`}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-            />
-          </svg>
-        )}
-      </button>
+            {/* Live indicator */}
+            <span className="absolute -top-1 -right-1 flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span
+                className={`relative inline-flex rounded-full h-3 w-3 ${
+                  isLoading ? 'bg-yellow-500' : 'bg-red-500'
+                }`}
+              ></span>
+            </span>
 
-      {/* Traffic Panel - Opens downward */}
-      {isOpen && (
-        <div className="absolute top-14 right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-200">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-green-500 to-blue-500 p-4 rounded-t-lg text-white">
-            <div className="flex justify-between items-center">
-              <h3 className="font-bold text-lg">Live Traffic</h3>
-              <div className="flex items-center space-x-2">
-                <span className={`w-2 h-2 rounded-full ${isOnline ? 'bg-green-300' : 'bg-red-300'}`}></span>
-                <span className="text-sm">{isOnline ? 'Live' : 'Offline'}</span>
+            {/* Active Users */}
+            <div className="text-center">
+              <div
+                className={`text-lg font-bold ${
+                  isLoading ? 'animate-pulse' : ''
+                }`}
+              >
+                {isLoading ? '...' : trafficData.activeUsers}
+              </div>
+             
+            </div>
+
+            {/* Tooltip */}
+            <div className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+              {isDragging
+                ? 'Dragging...'
+                : `Click to ${isOpen ? 'close' : 'open'} • Drag to move`}
+            </div>
+          </button>
+
+          {/* Full Traffic Panel */}
+          {isOpen && (
+            <div className="absolute top-16 right-0 w-80 bg-white rounded-lg shadow-xl border border-gray-200 animate-in slide-in-from-top-2 duration-300">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-green-500 to-blue-500 p-4 rounded-t-lg text-white">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="font-bold text-lg">Live Traffic</h3>
+                    <p className="text-sm opacity-90 mt-1">
+                      Real-time platform activity
+                    </p>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={fetchTrafficData}
+                      className={`p-1 hover:bg-white/20 rounded transition-colors ${
+                        isLoading ? 'animate-spin' : ''
+                      }`}
+                      title="Refresh data"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
+                      </svg>
+                    </button>
+                    <div className="flex items-center space-x-2">
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          isLoading
+                            ? 'bg-yellow-300'
+                            : isOnline
+                            ? 'bg-green-300'
+                            : 'bg-red-300'
+                        }`}
+                      ></span>
+                      <span className="text-sm">
+                        {isLoading
+                          ? 'Updating...'
+                          : isOnline
+                          ? 'Live'
+                          : 'Offline'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-4 space-y-4 max-h-96 overflow-y-auto">
+                {/* Active Users */}
+                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="font-bold text-lg text-blue-800">
+                      Active Users
+                    </h4>
+                    <div className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-blue-600">Live</span>
+                    </div>
+                  </div>
+                  <div className="text-center mb-4">
+                    <div className="text-3xl font-bold text-blue-700 mb-1">
+                      {isLoading ? '...' : trafficData.activeUsers}
+                    </div>
+                    <div className="text-sm text-blue-600">
+                      Currently Online
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 text-center">
+                    <div className="bg-white rounded-lg p-2 border border-blue-100">
+                      <div className="text-lg font-bold text-green-600">
+                        {isLoading ? '...' : trafficData.loggedInUsers}
+                      </div>
+                      <div className="text-xs text-gray-600">Logged In</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-2 border border-blue-100">
+                      <div className="text-lg font-bold text-purple-600">
+                        {isLoading ? '...' : trafficData.anonymousUsers}
+                      </div>
+                      <div className="text-xs text-gray-600">Guest Users</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Platform Activity */}
+                <div className="space-y-3">
+                  <h4 className="font-bold text-gray-700 text-sm uppercase tracking-wide">
+                    Platform Activity
+                  </h4>
+                  <div className="flex items-center justify-between p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                        <span className="text-lg">📦</span>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-600">
+                          Orders in Progress
+                        </div>
+                        <div className="text-xl font-bold text-orange-700">
+                          {isLoading ? '...' : trafficData.ordersInProgress}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-orange-600 bg-orange-100 px-2 py-1 rounded-full">
+                      Active
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <span className="text-lg">🚚</span>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-600">
+                          Active Deliveries
+                        </div>
+                        <div className="text-xl font-bold text-green-700">
+                          {isLoading ? '...' : trafficData.deliveriesActive}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">
+                      On Route
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trending */}
+                <div className="pt-3 border-t border-gray-200">
+                  <div className="flex justify-between items-center mb-3">
+                    <h4 className="font-bold text-gray-700 text-sm uppercase tracking-wide">
+                      Trending Now
+                    </h4>
+                    <span
+                      className={`text-xs ${
+                        isLoading
+                          ? 'text-yellow-500 animate-pulse'
+                          : 'text-gray-500'
+                      }`}
+                    >
+                      {isLoading ? 'Updating...' : 'Live'}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {trafficData.popularItems.map((item, index) => (
+                      <span
+                        key={index}
+                        className={`px-3 py-2 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 rounded-lg text-sm font-medium border border-purple-200 ${
+                          isLoading ? 'opacity-70' : ''
+                        }`}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                    {trafficData.popularItems.length === 0 && (
+                      <span className="text-sm text-gray-500">
+                        No trending items
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Footer Stats */}
+                <div className="pt-3 border-t border-gray-200">
+                  <div className="flex justify-between items-center text-xs text-gray-500">
+                    <span>
+                      {isLoading
+                        ? 'Updating...'
+                        : `Updated ${lastUpdate.toLocaleTimeString()}`}
+                    </span>
+                    <span>Update #{updateCountRef.current}</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mt-3 text-center">
+                    <div className="bg-gray-50 rounded p-2">
+                      <div className="text-xs text-gray-500">Users</div>
+                      <div className="text-sm font-bold text-gray-700">
+                        {isLoading ? '...' : trafficData.activeUsers}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 rounded p-2">
+                      <div className="text-xs text-gray-500">Orders</div>
+                      <div className="text-sm font-bold text-gray-700">
+                        {isLoading ? '...' : trafficData.ordersInProgress}
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 rounded p-2">
+                      <div className="text-xs text-gray-500">Deliveries</div>
+                      <div className="text-sm font-bold text-gray-700">
+                        {isLoading ? '...' : trafficData.deliveriesActive}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-2 text-center">
+                    <span className="text-xs text-gray-400">
+                      💡 Drag the button to move it anywhere
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-            <p className="text-sm opacity-90 mt-1">Real-time platform activity</p>
-          </div>
-
-          {/* Content */}
-          <div className="p-4 space-y-4">
-            {/* Total Active Users */}
-            <TrafficItem
-              icon={
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              }
-              label="Total Active Users"
-              value={trafficData.activeUsers}
-              color="blue"
-              subtext={`${trafficData.loggedInUsers} logged-in, ${trafficData.anonymousUsers} guests`}
-            />
-
-            {/* Orders in Progress */}
-            <TrafficItem
-              icon={
-                <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-              }
-              label="Orders in Progress"
-              value={trafficData.ordersInProgress}
-              color="orange"
-            />
-
-            {/* Active Deliveries */}
-            <TrafficItem
-              icon={
-                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              }
-              label="Active Deliveries"
-              value={trafficData.deliveriesActive}
-              color="green"
-            />
-
-            {/* Popular Items */}
-            <div className="pt-3 border-t border-gray-200">
-              <p className="text-sm font-medium text-gray-600 mb-2">Trending Now</p>
-              <div className="flex flex-wrap gap-2">
-                {trafficData.popularItems.map((item, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium"
-                  >
-                    {item}
-                  </span>
-                ))}
-                {trafficData.popularItems.length === 0 && (
-                  <span className="text-sm text-gray-500">No trending items</span>
-                )}
-              </div>
-            </div>
-
-            {/* Last Updated */}
-            <div className="text-xs text-gray-500 text-center pt-2 border-t border-gray-200">
-              Updated {new Date().toLocaleTimeString()}
-              {isLoading && ' (Updating...)'}
-            </div>
-          </div>
+          )}
         </div>
       )}
-    </div>
-  );
-};
-
-// Helper component for traffic items
-const TrafficItem = ({ icon, label, value, color = 'blue', subtext }) => {
-  const colorClasses = {
-    blue: 'bg-blue-100 text-blue-600',
-    orange: 'bg-orange-100 text-orange-600',
-    green: 'bg-green-100 text-green-600',
-    purple: 'bg-purple-100 text-purple-600'
-  };
-
-  return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-3">
-        <div className={`w-10 h-10 ${colorClasses[color]} rounded-full flex items-center justify-center`}>
-          {icon}
-        </div>
-        <div>
-          <p className="text-sm text-gray-600">{label}</p>
-          <p className="font-bold text-xl">{value}</p>
-          {subtext && <p className="text-xs text-gray-500 mt-1">{subtext}</p>}
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
