@@ -5,37 +5,48 @@ import Traffic from '@/models/traffic.model';
 
 export async function GET(request) {
   try {
-    // Get active orders (placed in last 2 hours)
-    const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
+    const { searchParams } = new URL(request.url);
     
-    const activeOrders = await Order.countDocuments({
-      createdAt: { $gte: twoHoursAgo },
-      status: { $in: ['pending', 'paid', 'processing', 'out-for-delivery'] }
-    });
+    // Get active orders (placed in last 1 hour)
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+    
+    const [activeOrders, activeLoggedInUsers, activeAnonymousUsers, activeDeliveries] = await Promise.all([
+      // Active orders
+      Order.countDocuments({
+        createdAt: { $gte: oneHourAgo },
+        status: { $in: ['pending', 'paid', 'processing', 'out-for-delivery'] }
+      }),
+      
+      // Active logged-in users (last 15 minutes) - using lastActive field
+      User.countDocuments({
+        lastActive: { $gte: new Date(Date.now() - 15 * 60 * 1000) }
+      }),
+      
+      // Active anonymous users (sessions in last 5 minutes for more accuracy)
+      Traffic.countDocuments({
+        lastActivity: { $gte: new Date(Date.now() - 5 * 60 * 1000) },
+        isActive: true
+      }),
+      
+      // Active deliveries
+      Order.countDocuments({
+        status: 'out-for-delivery'
+      })
+    ]);
 
-    // Get active logged-in users (last active in last 30 minutes)
-    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
-    const activeLoggedInUsers = await User.countDocuments({
-      lastActive: { $gte: thirtyMinutesAgo }
-    });
-
-    // Get active anonymous users (sessions in last 15 minutes)
-    const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000);
-    const activeAnonymousUsers = await Traffic.countDocuments({
-      lastActivity: { $gte: fifteenMinutesAgo },
-      isActive: true
-    });
+    // Get popular items
+    const popularItems = await getPopularItems();
 
     // Total active users (logged-in + anonymous)
     const totalActiveUsers = activeLoggedInUsers + activeAnonymousUsers;
 
-    // Get deliveries in progress
-    const activeDeliveries = await Order.countDocuments({
-      status: 'out-for-delivery'
+    console.log('Live Traffic Stats:', {
+      totalActiveUsers,
+      loggedInUsers: activeLoggedInUsers,
+      anonymousUsers: activeAnonymousUsers,
+      orders: activeOrders,
+      deliveries: activeDeliveries
     });
-
-    // Get popular items (based on recent orders)
-    const popularItems = await getPopularItems();
 
     return NextResponse.json({
       success: true,
@@ -45,27 +56,39 @@ export async function GET(request) {
         anonymousUsers: activeAnonymousUsers,
         ordersInProgress: activeOrders,
         deliveriesActive: activeDeliveries,
-        popularItems
+        popularItems,
+        timestamp: Date.now()
       }
     });
   } catch (error) {
     console.error('Live traffic error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to fetch traffic data' },
-      { status: 500 }
-    );
+    
+    // Return zeros instead of any fake data
+    return NextResponse.json({
+      success: false,
+      data: {
+        activeUsers: 0,
+        loggedInUsers: 0,
+        anonymousUsers: 0,
+        ordersInProgress: 0,
+        deliveriesActive: 0,
+        popularItems: [],
+        timestamp: Date.now()
+      }
+    });
   }
 }
 
 async function getPopularItems() {
   try {
-    // Get popular items from recent orders (last 24 hours)
-    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    // Get popular items from recent orders (last 3 hours)
+    const threeHoursAgo = new Date(Date.now() - 3 * 60 * 60 * 1000);
     
     const popularOrders = await Order.aggregate([
       {
         $match: {
-          createdAt: { $gte: oneDayAgo }
+          createdAt: { $gte: threeHoursAgo },
+          status: { $in: ['paid', 'processing', 'out-for-delivery', 'delivered'] }
         }
       },
       { $unwind: '$items' },
@@ -76,12 +99,12 @@ async function getPopularItems() {
         }
       },
       { $sort: { count: -1 } },
-      { $limit: 3 }
+      { $limit: 4 }
     ]);
 
     return popularOrders.map(item => item._id);
   } catch (error) {
     console.error('Error getting popular items:', error);
-    return ['Pizza', 'Burger', 'Sushi']; // Fallback items
+    return [];
   }
 }

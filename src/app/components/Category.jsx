@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 
-
 // A reusable component for each category tile
 const CategoryTile = ({ title, imageUrl, bgColor, textColor, url }) => {
   const defaultBgColor = "bg-gray-200"; // Fallback background if none is provided
@@ -70,7 +69,7 @@ const CategorySection = () => {
           title="Kebab"
           imageUrl="https://i.ibb.co.com/HD7LD1Jr/kebab.jpg"
           bgColor="bg-purple-900"
-          url="/kebab"  
+          url="/kebab"
         />
         <CategoryTile
           title="Cakes"

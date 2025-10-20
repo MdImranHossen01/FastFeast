@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "./MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurants/getRestaurant";
 import { useSelector } from "react-redux";
 
-const ItalianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
-  const [italianMenus, setItalianMenus] = useState([]);
+const ChineseFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
+  const [chineseMenus, setChineseMenus] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,8 +24,8 @@ const ItalianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   useEffect(() => {
     // If props are provided, use them (for better performance)
     if (propMenus && propRestaurants) {
-      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Italian");
-      setItalianMenus(filteredMenus);
+      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Chinese");
+      setChineseMenus(filteredMenus);
       setRestaurants(propRestaurants);
       setLoading(false);
       return;
@@ -39,9 +39,9 @@ const ItalianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
           getRestaurant()
         ]);
         
-        // Filter Italian cuisine menus
-        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Italian");
-        setItalianMenus(filteredMenus);
+        // Filter Chinese cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Chinese");
+        setChineseMenus(filteredMenus);
         setRestaurants(restaurantsData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -63,9 +63,9 @@ const ItalianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       <section className="mb-12 relative">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900">
-            Taste the Tradition of Italy 🇮🇹
+            Savor the Flavors of China 🇨🇳
           </h2>
-          <Link href={"/italianfood"}>
+          <Link href={"/chinesefood"}>
             <button className="text-orange-500 cursor-pointer font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
               See More
               <svg
@@ -86,23 +86,23 @@ const ItalianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
           </Link>
         </div>
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Loading Italian cuisine...</p>
+          <p className="text-gray-500 text-lg">Loading Chinese cuisine...</p>
         </div>
       </section>
     );
   }
 
-  if (italianMenus.length === 0) {
-    return null; // Don't show section if no Italian food available
+  if (chineseMenus.length === 0) {
+    return null; // Don't show section if no Chinese food available
   }
 
   return (
     <section className="mb-12 relative">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-gray-900">
-          Taste the Tradition of Italy 🇮🇹
+          Savor the Flavors of China 🇨🇳
         </h2>
-        <Link href={"/italianfood"}>
+        <Link href={"/chinesefood"}>
           <button className="text-orange-500 cursor-pointer font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
             See More
             <svg
@@ -124,7 +124,7 @@ const ItalianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {italianMenus.map((menu) => (
+        {chineseMenus.map((menu) => (
           <div key={menu?._id} className="flex-shrink-0 w-64">
             <MenuCard menu={menu} restaurants={restaurants} />
           </div>
@@ -145,4 +145,4 @@ const ItalianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   );
 };
 
-export default ItalianFood;
+export default ChineseFood;

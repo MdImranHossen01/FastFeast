@@ -8,39 +8,74 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { 
-  setSearchQuery, 
-  setLocation, 
-  clearFilters 
+import {
+  setSearchQuery,
+  setLocation,
+  clearFilters,
 } from "@/lib/features/filtersSlice";
 
 // SVG Icons
 const LocationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="#FF7E8B" width="20" height="20" viewBox="0 0 20 20" className="mr-2 flex-shrink-0">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#FF7E8B"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    className="mr-2 flex-shrink-0"
+  >
     <path d="M10.2 0.42c-4.5 0-8.2 3.7-8.2 8.3 0 6.2 7.5 11.3 7.8 11.6 0.2 0.1 0.3 0.1 0.4 0.1s0.3 0 0.4-0.1c0.3-0.2 7.8-5.3 7.8-11.6 0.1-4.6-3.6-8.3-8.2-8.3zM10.2 11.42c-1.7 0-3-1.3-3-3s1.3-3 3-3c1.7 0 3 1.3 3 3s-1.3 3-3 3z"></path>
   </svg>
 );
 
 const CaretDownIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="#4F4F4F" width="12" height="12" viewBox="0 0 20 20" className="flex-shrink-0">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#4F4F4F"
+    width="12"
+    height="12"
+    viewBox="0 0 20 20"
+    className="flex-shrink-0"
+  >
     <path d="M20 5.42l-10 10-10-10h20z"></path>
   </svg>
 );
 
 const SearchIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="#828282" width="18" height="18" viewBox="0 0 20 20" className="mr-2 flex-shrink-0">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#828282"
+    width="18"
+    height="18"
+    viewBox="0 0 20 20"
+    className="mr-2 flex-shrink-0"
+  >
     <path d="M19.78 19.12l-3.88-3.9c1.28-1.6 2.080-3.6 2.080-5.8 0-5-3.98-9-8.98-9s-9 4-9 9c0 5 4 9 9 9 2.2 0 4.2-0.8 5.8-2.1l3.88 3.9c0.1 0.1 0.3 0.2 0.5 0.2s0.4-0.1 0.5-0.2c0.4-0.3 0.4-0.8 0.1-1.1zM1.5 9.42c0-4.1 3.4-7.5 7.5-7.5s7.48 3.4 7.48 7.5-3.38 7.5-7.48 7.5c-4.1 0-7.5-3.4-7.5-7.5z"></path>
   </svg>
 );
 
 const ClearIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="16" height="16" viewBox="0 0 20 20" className="flex-shrink-0">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#FFFFFF"
+    width="16"
+    height="16"
+    viewBox="0 0 20 20"
+    className="flex-shrink-0"
+  >
     <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"></path>
   </svg>
 );
 
 const ScrollDownIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="24" height="24" viewBox="0 0 24 24" className="ml-2 flex-shrink-0">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="white"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    className="ml-2 flex-shrink-0"
+  >
     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
   </svg>
 );
@@ -63,37 +98,42 @@ const sliderContent = [
   {
     video: "/video1.mp4",
     title: "Gourmet Burgers",
-    description: "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
+    description:
+      "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
   },
   {
     video: "/video2.mp4",
     title: "Artisan Pizzas",
-    description: "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
+    description:
+      "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
   },
   {
     video: "/video3.mp4",
     title: "Fresh Sushi",
-    description: "Expertly crafted rolls with the finest fish, delivered right to your door.",
+    description:
+      "Expertly crafted rolls with the finest fish, delivered right to your door.",
   },
   {
     video: "/video4.mp4",
     title: "Delicious Tacos",
-    description: "Authentic Mexican flavors with fresh ingredients and homemade tortillas.",
+    description:
+      "Authentic Mexican flavors with fresh ingredients and homemade tortillas.",
   },
   {
     video: "/video5.mp4",
     title: "Refreshing Drinks",
-    description: "Quench your thirst with our signature beverages and freshly squeezed juices.",
+    description:
+      "Quench your thirst with our signature beverages and freshly squeezed juices.",
   },
 ];
 
 const Banner = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  
+
   // Get filters from Redux to sync state
   const { searchQuery, location } = useSelector((state) => state.filters);
-  
+
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isSpeechSupported, setIsSpeechSupported] = useState(false);
@@ -101,7 +141,13 @@ const Banner = () => {
   const recognitionRef = useRef(null);
   const locationDropdownRef = useRef(null);
 
-  const availableLocations = ["Dhanmondi", "Mirpur", "Uttara", "Banani", "Gulshan"];
+  const availableLocations = [
+    "Dhanmondi",
+    "Mirpur",
+    "Uttara",
+    "Banani",
+    "Gulshan",
+  ];
 
   // Check if speech recognition is supported
   useEffect(() => {
@@ -148,16 +194,16 @@ const Banner = () => {
 
   // Handle search submission
   const handleSearch = (e) => {
-    if (e.type === 'keydown' && e.key !== 'Enter') return;
-    
+    if (e.type === "keydown" && e.key !== "Enter") return;
+
     // Redirect to menu page with filters applied
-    router.push('/menu');
+    router.push("/menu");
   };
 
   // Clear search and redirect to menu
   const handleExploreMenu = () => {
     dispatch(clearFilters());
-    router.push('/menu');
+    router.push("/menu");
   };
 
   // Clear individual filters
@@ -200,7 +246,10 @@ const Banner = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (locationDropdownRef.current && !locationDropdownRef.current.contains(event.target)) {
+      if (
+        locationDropdownRef.current &&
+        !locationDropdownRef.current.contains(event.target)
+      ) {
         setIsLocationOpen(false);
       }
     };
@@ -236,7 +285,14 @@ const Banner = () => {
           <SwiperSlide key={index} className="relative">
             {/* Background video with zoom effect */}
             <div className="absolute inset-0 overflow-hidden">
-              <video src={slide.video} autoPlay loop muted playsInline className="slide-video w-full h-full object-cover" />
+              <video
+                src={slide.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="slide-video w-full h-full object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/20"></div>
             </div>
@@ -273,7 +329,10 @@ const Banner = () => {
                 <div className="flex w-full items-center rounded-lg bg-orange-500/50 backdrop-blur-sm p-3 shadow-lg">
                   {/* Location Input */}
                   <div className="relative w-2/5" ref={locationDropdownRef}>
-                    <div className="flex items-center pr-2 cursor-pointer" onClick={() => setIsLocationOpen(!isLocationOpen)}>
+                    <div
+                      className="flex items-center pr-2 cursor-pointer"
+                      onClick={() => setIsLocationOpen(!isLocationOpen)}
+                    >
                       <LocationIcon />
                       <input
                         type="text"
@@ -386,8 +445,9 @@ const Banner = () => {
                     className="mt-2 text-center"
                   >
                     <p className="text-white text-sm opacity-80">
-                      Press Enter to search {searchQuery && `for "${searchQuery}"`} 
-                      {searchQuery && location && ' in '} 
+                      Press Enter to search{" "}
+                      {searchQuery && `for "${searchQuery}"`}
+                      {searchQuery && location && " in "}
                       {location && `📍 ${location}`}
                     </p>
                   </motion.div>
@@ -433,16 +493,16 @@ const Banner = () => {
               >
                 {/* Search Button (visible when there's a search query) */}
                 {(searchQuery || location) && (
-                  <button 
+                  <button
                     onClick={handleSearch}
                     className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
                   >
                     Search Now
                   </button>
                 )}
-                
+
                 {/* Regular Explore Menu Button */}
-                <button 
+                <button
                   onClick={handleExploreMenu}
                   className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
                 >

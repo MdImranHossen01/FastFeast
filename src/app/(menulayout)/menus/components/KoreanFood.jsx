@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "./MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurants/getRestaurant";
 import { useSelector } from "react-redux";
 
-const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
-  const [thaiMenus, setThaiMenus] = useState([]);
+const KoreanFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
+  const [koreanMenus, setKoreanMenus] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,8 +24,8 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   useEffect(() => {
     // If props are provided, use them (for better performance)
     if (propMenus && propRestaurants) {
-      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Thai");
-      setThaiMenus(filteredMenus);
+      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Korean");
+      setKoreanMenus(filteredMenus);
       setRestaurants(propRestaurants);
       setLoading(false);
       return;
@@ -38,10 +38,10 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
           getMenu(),
           getRestaurant()
         ]);
-
-        // Filter Thai cuisine menus
-        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Thai");
-        setThaiMenus(filteredMenus);
+        
+        // Filter Korean cuisine menus
+        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Korean");
+        setKoreanMenus(filteredMenus);
         setRestaurants(restaurantsData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -63,9 +63,9 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       <section className="mb-12 relative">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900">
-            Taste of Thailand 🇹🇭
+            Spice Up Your Day with Korea 🇰🇷
           </h2>
-          <Link href={"/thaifood"}>
+          <Link href={"/koreanfood"}>
             <button className="text-orange-500 cursor-pointer font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
               See More
               <svg
@@ -86,23 +86,23 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
           </Link>
         </div>
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Loading Thai cuisine...</p>
+          <p className="text-gray-500 text-lg">Loading Korean cuisine...</p>
         </div>
       </section>
     );
   }
 
-  if (thaiMenus.length === 0) {
-    return null; // Don't show section if no Thai food available
+  if (koreanMenus.length === 0) {
+    return null; // Don't show section if no Korean food available
   }
 
   return (
     <section className="mb-12 relative">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-gray-900">
-          Taste of Thailand 🇹🇭
+          Spice Up Your Day with Korea 🇰🇷
         </h2>
-        <Link href={"/thaifood"}>
+        <Link href={"/koreanfood"}>
           <button className="text-orange-500 cursor-pointer font-medium text-sm flex items-center hover:text-orange-600 transition-colors">
             See More
             <svg
@@ -124,7 +124,7 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       </div>
 
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
-        {thaiMenus.map((menu) => (
+        {koreanMenus.map((menu) => (
           <div key={menu?._id} className="flex-shrink-0 w-64">
             <MenuCard menu={menu} restaurants={restaurants} />
           </div>
@@ -145,4 +145,4 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   );
 };
 
-export default ThaiFood;
+export default KoreanFood;

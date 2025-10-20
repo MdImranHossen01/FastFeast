@@ -2,8 +2,8 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import MenuCard from "@/app/(menulayout)/menu/components/MenuCard";
 import { getTimeBasedSuggestions } from "@/utils/timeOfDay";
+import MenuCard from "../(menulayout)/menus/components/MenuCard";
 
 const AiDrivenFoodSuggestion = () => {
   const [userInput, setUserInput] = useState("");
@@ -327,7 +327,6 @@ const AiDrivenFoodSuggestion = () => {
           {/* Summary */}
           {displaySummary && (
             <div className="text-center mb-8">
-            
               <p className="text-gray-600">
                 {displaySummary.reasoning} • {displaySummary.totalSuggestions}{" "}
                 suggestions found

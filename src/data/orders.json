@@ -1,0 +1,44 @@
+[
+  {
+    "customerInfo": {
+      "fullName": "Kanak Ray",
+      "email": "kanakroy835@gmail.com",
+      "phone": "01704210835",
+      "address": "Barabari, Lalmonirhat",
+      "city": "Lalmonirhat",
+      "postalCode": "5500"
+    },
+    "items": [
+      {
+        "title": "Classic Tom Yum Soup",
+        "price": { "$numberInt": "320" },
+        "quantity": { "$numberInt": "1" },
+        "specialInstructions": ""
+      },
+      {
+        "title": "Authentic Pad Thai",
+        "price": { "$numberInt": "380" },
+        "quantity": { "$numberInt": "1" },
+        "specialInstructions": ""
+      },
+      {
+        "title": "Thai Green Curry",
+        "price": { "$numberInt": "420" },
+        "quantity": { "$numberInt": "1" },
+        "specialInstructions": ""
+      }
+    ],
+    "paymentMethod": "cash",
+    "paymentIntentId": null,
+    "pricing": {
+      "subtotal": { "$numberInt": "1120" },
+      "deliveryFee": { "$numberInt": "50" },
+      "tax": { "$numberInt": "112" },
+      "total": { "$numberInt": "1282" }
+    },
+    "status": "cancelled",
+    "orderDate": "2025-10-16T19:31:16.362Z",
+    "estimatedDelivery": "2025-10-16T20:16:16.363Z",
+    "userId": null
+  }
+]
