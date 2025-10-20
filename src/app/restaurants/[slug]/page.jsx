@@ -20,7 +20,7 @@ import {
   FaShippingFast,
 } from "react-icons/fa";
 import { TbCurrencyTaka } from "react-icons/tb";
-import MenuCard from "@/app/(menulayout)/menu/components/MenuCard";
+import MenuCard from "@/app/(menulayout)/menus/components/MenuCard";
 import FavRestaurant from "../components/favRestaurant";
 
 export default async function RestaurantDetails({ params }) {

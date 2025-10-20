@@ -1,80 +1,63 @@
+// src/app/api/reviews/route.js
 import { NextResponse } from "next/server";
-import { getCollection, serializeDocument, ObjectId } from "@/lib/dbConnect";
+import connectMongooseDb from "@/lib/mongoose";
+import Review from "@/models/review.model";
 
-export async function GET(req, { params }) {
+// ✅ CREATE a new Review
+export async function POST(req) {
   try {
-    const param = await params;
-    const menuId = param.id;
+    const reviewData = await req.json();
+    const { orderId, userId, riderReview, itemReviews } = reviewData;
 
-    if (!menuId) {
+    if (!orderId || !userId) {
       return NextResponse.json(
-        { success: false, message: "Menu ID is required" },
+        { success: false, message: "Order ID and userId are required" },
         { status: 400 }
       );
     }
 
-    // Validate if menuId is a valid ObjectId
-    if (!ObjectId.isValid(menuId)) {
+    await connectMongooseDb();
+
+    // ✅ Prevent duplicate reviews per order
+    const existingReview = await Review.findOne({ orderId });
+    if (existingReview) {
       return NextResponse.json(
-        { success: false, message: "Invalid menu ID format" },
-        { status: 400 }
+        { success: false, message: "You have already reviewed this order" },
+        { status: 409 }
       );
     }
 
-    const reviewsCollection = await getCollection("reviews");
-
-    // Find reviews for this menu item
-    const reviews = await reviewsCollection
-      .find({
-        "itemReviews.itemId": menuId,
-      })
-      .sort({ createdAt: -1 })
-      .toArray();
-
-    // Extract and format the reviews for this specific menu item
-    const itemReviews = [];
-    reviews.forEach((reviewDoc) => {
-      const itemReview = reviewDoc.itemReviews.find(
-        (item) => item.itemId === menuId
-      );
-      if (itemReview) {
-        itemReviews.push({
-          customerEmail: reviewDoc.customerEmail,
-          rating: itemReview.rating,
-          comment: itemReview.comment,
-          createdAt: reviewDoc.createdAt,
-          reviewId: reviewDoc._id,
-          orderId: reviewDoc.orderId,
-        });
-      }
+    // ✅ Create review
+    const newReview = await Review.create({
+      orderId,
+      userId,
+      riderReview: riderReview || null,
+      itemReviews: itemReviews || [],
     });
 
-    // Calculate average rating
-    const averageRating =
-      itemReviews.length > 0
-        ? (
-            itemReviews.reduce((sum, review) => sum + review.rating, 0) /
-            itemReviews.length
-          ).toFixed(1)
-        : null;
-
-    return NextResponse.json({
-      success: true,
-      reviews: serializeDocument(itemReviews),
-      averageRating,
-      totalReviews: itemReviews.length,
-    });
-  } catch (error) {
-    console.error("Error fetching menu item reviews:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch reviews",
-        error:
-          process.env.NODE_ENV === "development"
-            ? error.message
-            : "Internal server error",
-      },
+      { success: true, review: newReview.toObject() },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error creating review:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+// ✅ GET all reviews (optionally with filters later)
+export async function GET() {
+  try {
+    await connectMongooseDb();
+    const reviews = await Review.find();
+    return NextResponse.json(reviews, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
       { status: 500 }
     );
   }

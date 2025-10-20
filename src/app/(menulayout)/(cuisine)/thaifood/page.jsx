@@ -1,7 +1,7 @@
 import React from "react";
 
 import getMenu from "@/app/actions/menus/getMenus";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "../../menus/components/MenuCard";
 
 const ThaiFoodPage = async () => {
   const menus = await getMenu();

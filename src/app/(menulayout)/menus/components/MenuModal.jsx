@@ -30,7 +30,7 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
 
   const handleAddToCart = () => {
     addToCart(menu, quantity, specialInstructions);
-    
+
     // Show toast notification
     toast.success(
       <div className="flex items-center">
@@ -45,7 +45,8 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
           color: "#333",
           border: "1px solid #e5e7eb",
           borderRadius: "0.5rem",
-          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+          boxShadow:
+            "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
         },
         iconTheme: {
           primary: "#f97316",
@@ -53,7 +54,7 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
         },
       }
     );
-    
+
     onClose();
   };
 
@@ -67,8 +68,11 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      <div className="bg-white text-gray-800 w-full max-w-md mx-auto rounded-lg shadow-2xl max-h-[90vh] overflow-hidden grid grid-rows-[auto_1fr_auto]" onClick={(e) => e.stopPropagation()}>
-          {/* Image */}
+      <div
+        className="bg-white text-gray-800 w-full max-w-md mx-auto rounded-lg shadow-2xl max-h-[90vh] overflow-hidden grid grid-rows-[auto_1fr_auto]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Image */}
 
         <div className="relative h-48 sm:h-64 overflow-hidden">
           <Image
