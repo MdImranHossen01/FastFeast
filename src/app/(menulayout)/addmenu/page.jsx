@@ -1,4 +1,4 @@
-import AddMenuForm from "@/app/(menulayout)/menu/components/AddMenuForm";
+import AddMenuForm from "@/app/(menulayout)/menus/components/AddMenuForm";
 import React from "react";
 
 

@@ -10,37 +10,35 @@ export async function POST(req) {
 
     // Destructure required fields
     const {
-      slug,
-      name,
-      bio,
-      logo,
-      banner,
-      cuisines,
-      currency,
-      deliveryFee,
-      estimatedDeliveryTime,
-      location,
-      contact,
-      openingHours,
-      ownerId,
-      isActive,
-      status,
+      title,
+      imageUrl,
+      description,
+      price,
+      cuisine,
+      category,
+      ingredients,
+      dietaryTags,
+      restaurantId,
+      availability,
+      isCombo,
+      isSpecialOffer,
+      discountRate,
+      offerPrice,
       reviewsCount,
       rating,
     } = menuData;
 
     // Basic validation
     if (
-      !slug ||
-      !name ||
-      !bio ||
-      !logo ||
-      !banner ||
-      !cuisines ||
-      !location ||
-      !contact ||
-      !openingHours ||
-      !ownerId
+      !title ||
+      !imageUrl ||
+      !description ||
+      !price ||
+      !cuisine ||
+      !category ||
+      !ingredients ||
+      !dietaryTags ||
+      !restaurantId
     ) {
       return NextResponse.json(
         { success: false, message: "Missing required fields" },
@@ -53,21 +51,20 @@ export async function POST(req) {
 
     // Create new menu
     const newMenu = await Menu.create({
-      slug,
-      name,
-      bio,
-      logo,
-      banner,
-      cuisines,
-      currency,
-      deliveryFee,
-      estimatedDeliveryTime,
-      location,
-      contact,
-      openingHours,
-      ownerId,
-      isActive,
-      status,
+      title,
+      imageUrl,
+      description,
+      price,
+      cuisine,
+      category,
+      ingredients,
+      dietaryTags,
+      restaurantId,
+      availability,
+      isCombo,
+      isSpecialOffer,
+      discountRate,
+      offerPrice,
       reviewsCount,
       rating,
     });

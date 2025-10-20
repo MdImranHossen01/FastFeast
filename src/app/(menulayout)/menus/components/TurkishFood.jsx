@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "./MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurants/getRestaurant";
 import { useSelector } from "react-redux";

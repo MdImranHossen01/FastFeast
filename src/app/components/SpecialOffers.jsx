@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import MenuCard from "../(menulayout)/menu/components/MenuCard";
+import MenuCard from "../(menulayout)/menus/components/MenuCard";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
