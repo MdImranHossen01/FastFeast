@@ -176,6 +176,17 @@ const CheckOutPage = () => {
     setIsSubmitting(false);
   };
 
+  const generateOrderId = () => {
+    // Get current timestamp
+    const timestamp = Date.now().toString(36); // Convert to base36 for shorter length
+
+    // Generate random part
+    const randomPart = Math.random().toString(36).substring(2, 8); // 6 random chars
+
+    // Combine both for unique order ID
+    return `ORD-${timestamp}-${randomPart}`.toUpperCase();
+  };
+
   const submitOrder = async (paymentIntentId = null) => {
     // This function is primarily for Cash on Delivery or successful Stripe payments
     try {
@@ -187,6 +198,7 @@ const CheckOutPage = () => {
 
       // Create order object
       const orderData = {
+        orderId: generateOrderId(),
         customerInfo: {
           fullName: formData.fullName,
           email: formData.email,
@@ -196,7 +208,7 @@ const CheckOutPage = () => {
           postalCode: formData.postalCode,
         },
         items: cartItems.map((item) => ({
-          id: item.originalId || item.id,
+          itemId: item._id,
           title: item.title,
           price: item.price,
           quantity: item.quantity,
@@ -210,10 +222,9 @@ const CheckOutPage = () => {
           tax,
           total,
         },
-        status: paymentIntentId ? "paid" : "pending",
-        orderDate: new Date().toISOString(),
+        paymentStatus: paymentIntentId ? "paid" : "unpaid",
         estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString(),
-        userId: user?.id || null,
+        userId: "68f09b69b43773ea7c5016c8",
       };
 
       // Save order to backend

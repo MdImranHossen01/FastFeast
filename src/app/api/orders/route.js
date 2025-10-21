@@ -1,71 +1,70 @@
-import { NextResponse } from "next/server";
-import Order from "@/models/order.model";
 import connectMongooseDb from "@/lib/mongoose";
+import Order from "@/models/order.model";
+import { NextResponse } from "next/server";
 
-// 🟢 GET all orders or filter by user email
-export async function GET(request) {
+export async function POST(req) {
   try {
+    // Parse the request body
+    const orderData = await req.json();
+
+    // Destructure required fields
+    const {
+      orderId,
+      customerInfo,
+      items,
+      paymentMethod,
+      paymentIntentId,
+      pricing,
+      status,
+      estimatedDelivery,
+      userId,
+      riderInfo,
+    } = orderData;
+
+    // Ensure DB connection
     await connectMongooseDb();
 
-    const { searchParams } = new URL(request.url);
-    const userEmail = searchParams.get("userEmail");
+    // Create a new order
+    const newOrder = await Order.create({
+      orderId,
+      customerInfo,
+      items,
+      paymentMethod,
+      paymentIntentId,
+      pricing,
+      status,
+      estimatedDelivery,
+      userId,
+      riderInfo,
+    });
 
-    // Build dynamic query
-    const query = userEmail ? { "customerInfo.email": userEmail } : {};
-
-    // Fetch orders (newest first)
-    const orders = await Order.find(query).sort({ createdAt: -1 }).lean();
-
-    return NextResponse.json({ success: true, orders });
+    // Return the created order
+    return NextResponse.json(newOrder, { status: 201 });
   } catch (error) {
-    console.error("❌ Error fetching orders:", error);
+    // Log the error for debugging
+    console.error("Error creating order:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch orders",
-        error: error.message,
-      },
+      { success: false, message: error.message },
       { status: 500 }
     );
   }
 }
 
-// 🟠 Create new order
-export async function POST(request) {
+export async function GET() {
   try {
+    // Ensure DB connection
     await connectMongooseDb();
 
-    const body = await request.json();
+    // Fetch all orders
+    const orders = await Order.find();
 
-    // Basic validation (optional but recommended)
-    if (!body?.customerInfo?.email || !body?.items?.length) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid order data: missing customer or items.",
-        },
-        { status: 400 }
-      );
-    }
-
-    // Create and save new order
-    const newOrder = await Order.create(body);
-
-    return NextResponse.json(
-      {
-        success: true,
-        order: newOrder,
-      },
-      { status: 201 }
-    );
+    // Return the list of orders
+    return NextResponse.json(orders, { status: 200 });
   } catch (error) {
-    console.error("❌ Error creating order:", error);
+    // Log the error for debugging
+    console.log(error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to create order",
-        error: error.message,
-      },
+      { success: false, message: error.message },
       { status: 500 }
     );
   }
