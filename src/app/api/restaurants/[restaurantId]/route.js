@@ -8,6 +8,8 @@ export async function GET(req, { params }) {
     // Extract ID from params
     const { restaurantId: id } = await params;
 
+    console.log(id);
+
     // Ensure DB connection
     await connectMongooseDb();
 

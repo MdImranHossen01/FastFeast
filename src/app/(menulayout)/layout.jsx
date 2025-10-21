@@ -1,8 +1,8 @@
 // src/app/(menulayout)/menu/layout.jsx
 "use client"
-import Banner from "./menu/components/banner";
-import FavouriteFood from "./menu/components/FavouriteFood";
-import SidebarComponent from "./menu/components/SidebarComponent";
+import Banner from "./menus/components/banner";
+import FavouriteFood from "./menus/components/FavouriteFood";
+import SidebarComponent from "./menus/components/SidebarComponent";
 import StoreProvider from "@/lib/StoreProvider";
 import { useState } from "react";
 import { FiFilter, FiX } from "react-icons/fi";

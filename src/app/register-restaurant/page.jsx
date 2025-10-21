@@ -1,5 +1,5 @@
 import React from 'react';
-import AddRestaurantForm from '../(menulayout)/menu/components/AddRestarurantForm';
+import AddRestaurantForm from '../(menulayout)/menus/components/AddRestarurantForm';
 
 
 const AddRestaurantPage = () => {

@@ -43,16 +43,6 @@ const menuSchema = mongoose.Schema(
       ref: "Restaurant",
       required: true,
     },
-    reviewsCount: {
-      type: Number,
-      default: 0,
-    },
-    rating: {
-      type: Number,
-      default: 0,
-      min: 0,
-      max: 5,
-    },
     availability: {
       type: Boolean,
       default: true,
@@ -76,6 +66,16 @@ const menuSchema = mongoose.Schema(
       default: function () {
         return this.price - (this.price * this.discountRate) / 100;
       },
+    },
+    reviewsCount: {
+      type: Number,
+      default: 0,
+    },
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
     },
   },
   {

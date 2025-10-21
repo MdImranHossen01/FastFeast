@@ -6,11 +6,11 @@ import { useCart } from "@/lib/cartContext";
 import UserMenu from "./UserMenu";
 import NotificationDropdown from "./NotificationDropdown";
 
-const RightIcons = ({ 
-  cartCount, 
-  isUserMenuOpen, 
-  setIsUserMenuOpen, 
-  isNotificationDropdownOpen, 
+const RightIcons = ({
+  cartCount,
+  isUserMenuOpen,
+  setIsUserMenuOpen,
+  isNotificationDropdownOpen,
   setIsNotificationDropdownOpen,
   setIsOrderStatusModalOpen,
   userMenuRef,
@@ -19,7 +19,7 @@ const RightIcons = ({
   unreadCount,
   markAsRead,
   markAllAsRead,
-  session
+  session,
 }) => {
   return (
     <div className="flex gap-2 items-center">
@@ -37,18 +37,20 @@ const RightIcons = ({
       </Link>
 
       {/* Notifications */}
-      <NotificationDropdown
-        isOpen={isNotificationDropdownOpen}
-        setIsOpen={setIsNotificationDropdownOpen}
-        notifications={notifications}
-        unreadCount={unreadCount}
-        markAsRead={markAsRead}
-        markAllAsRead={markAllAsRead}
-        dropdownRef={notificationRef}
-      />
+      <div className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 cursor-pointer">
+        <NotificationDropdown
+          isOpen={isNotificationDropdownOpen}
+          setIsOpen={setIsNotificationDropdownOpen}
+          notifications={notifications}
+          unreadCount={unreadCount}
+          markAsRead={markAsRead}
+          markAllAsRead={markAllAsRead}
+          dropdownRef={notificationRef}
+        />
+      </div>
 
       {/* Email Icon */}
-      <div className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105">
+      <div className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 cursor-pointer">
         <MdOutlineEmail size={25} />
       </div>
 

@@ -32,7 +32,7 @@ const MobileDrawer = ({ isOpen, setIsMenuOpen, session, navItems }) => {
               <Logo />
               <button
                 onClick={() => setIsMenuOpen(false)}
-                className="p-2 text-gray-700 transition-all duration-300 hover:text-orange-500"
+                className="p-2 text-gray-700 transition-all duration-300 hover:text-orange-500 cursor-pointer"
               >
                 <FiX size={24} />
               </button>

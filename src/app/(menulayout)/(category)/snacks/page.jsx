@@ -1,5 +1,5 @@
 import React from "react";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "../../menus/components/MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
 
 const SnacksPage = async () => {
