@@ -93,38 +93,13 @@ const ListeningIcon = () => (
   </svg>
 );
 
-// Slider videos & content
+// Single video content
 const sliderContent = [
   {
-    video: "/video1.mp4",
-    title: "Gourmet Burgers",
-    description:
-      "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
-  },
-  {
-    video: "/video2.mp4",
-    title: "Artisan Pizzas",
-    description:
-      "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
-  },
-  {
-    video: "/video3.mp4",
-    title: "Fresh Sushi",
-    description:
-      "Expertly crafted rolls with the finest fish, delivered right to your door.",
-  },
-  {
-    video: "/video4.mp4",
-    title: "Delicious Tacos",
-    description:
-      "Authentic Mexican flavors with fresh ingredients and homemade tortillas.",
-  },
-  {
     video: "/video5.mp4",
-    title: "Refreshing Drinks",
-    description:
-      "Quench your thirst with our signature beverages and freshly squeezed juices.",
-  },
+    title: "Explore a kingdom of flavors",
+    description: "Journey through a royal feast of taste and aroma. At FastFeast, every meal is a crown jewel—fresh, delicious, and delivered right to your door.",
+  }
 ];
 
 const Banner = () => {
@@ -283,7 +258,7 @@ const Banner = () => {
       >
         {sliderContent.map((slide, index) => (
           <SwiperSlide key={index} className="relative">
-            {/* Background video with zoom effect */}
+            {/* Background video without zoom effect */}
             <div className="absolute inset-0 overflow-hidden">
               <video
                 src={slide.video}
@@ -528,16 +503,10 @@ const Banner = () => {
         </div>
       </motion.div>
 
-      {/* Global Styles */}
+      {/* Global Styles - Zoom effect removed */}
       <style jsx global>{`
         .slide-video {
           transform: scale(1);
-          transition: none;
-        }
-
-        .swiper-slide-active .slide-video {
-          transform: scale(1.1);
-          transition: transform 10s ease-out;
         }
       `}</style>
     </section>
