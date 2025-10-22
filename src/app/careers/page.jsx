@@ -1,6 +1,9 @@
-import JobsBanner from './JobsBanner';
-import JobList from './JobList';
-import Dropdown from './Dropdown';
+"use client"
+
+import Dropdown from "./components/Dropdown";
+import JobList from "./components/JobList";
+import JobsBanner from "./components/JobsBanner";
+
 
 
 export default function JobsContainer({jobs}) {
@@ -16,4 +19,3 @@ export default function JobsContainer({jobs}) {
     </main>
   );
 }
-

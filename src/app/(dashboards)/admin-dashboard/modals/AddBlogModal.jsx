@@ -36,7 +36,7 @@ export default function AddBlogModal({ onSave }) {
   });
 
   
-  // ✅ Handle text input
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -47,14 +47,14 @@ export default function AddBlogModal({ onSave }) {
 
     try {
       const url = await uploadToImgBB(file);
-      setFormData((prev) => ({ ...prev, coverImage: url })); // store hosted URL
+      setFormData((prev) => ({ ...prev, coverImage: url })); 
     } catch (error) {
       console.error(error);
       alert("Cover image upload failed!");
     }
   };
 
-  // ✅ Handle multiple image uploads (gallery)
+  
   const handleGallery = async (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
@@ -68,7 +68,7 @@ export default function AddBlogModal({ onSave }) {
       // Save uploaded URLs into formData.gallery
       setFormData((prev) => ({
         ...prev,
-        gallery: [...prev.gallery, ...uploadedUrls], // ✅ append, not overwrite
+        gallery: [...prev.gallery, ...uploadedUrls], 
       }));
     } catch (error) {
       console.error(error);

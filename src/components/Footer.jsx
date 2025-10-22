@@ -59,7 +59,11 @@ const footerData = [
 ];
 
 const Footer = () => {
+
+
   const pathname = usePathname();
+
+
 
   if (pathname.includes("dashboard")) {
     return null;
@@ -84,7 +88,7 @@ const Footer = () => {
                 />
                 <p className="text-gray-400">123 Gulshan Avenue, Dhaka </p>
               </div>
-              
+
               <div className="flex items-center gap-3">
                 <IoCall size={20} className="flex-shrink-0 text-orange-400" />
                 <a
@@ -154,13 +158,9 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright Section */}
-      <div className="border-t border-slate-800 bg-slate-900 pt-6">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()}{" "}
-          <span className="font-semibold text-orange-400">FastFeast</span>. All
-          rights reserved.
-        </div>
-      </div>
+      {/* Bottom Copyright Section */} 
+      <div className="border-t border-slate-800 bg-slate-900 pt-6"> 
+        <div className="container mx-auto px-4 text-center text-sm text-gray-500"> © {new Date().getFullYear()}{" "} <span className="font-semibold text-orange-400">FastFeast</span>. All rights reserved. </div> </div>
     </footer>
   );
 };
