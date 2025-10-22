@@ -11,7 +11,7 @@ export default function Restaurant({ restaurants }) {
   const [deliveryTime, setDeliveryTime] = useState("");
 
   const [userLocation, setUserLocation] = useState(null);
-
+  console.log(restaurants);
   // convert min to number
   const foodDelivery = (timeStr) => {
     if (!timeStr || typeof timeStr !== "string") return Infinity;
@@ -60,16 +60,6 @@ export default function Restaurant({ restaurants }) {
       (restaurant) => foodDelivery(restaurant.estimatedDeliveryTime) > 45
     );
   }
-  // // scroll detection
-  // const [scrolled, setScrolled] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setScrolled(window.scrollY > 200);
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
 
   // user location
   useEffect(() => {
