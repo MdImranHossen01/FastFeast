@@ -22,12 +22,12 @@ const partnerLogos = [
 
 const OurPartner = () => {
   return (
-    <section className="bg-orange-600 w-full">
+    <section className="bg-gray-100 w-full">
       <div className="container mx-auto py-24 px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="mb-4 text-4xl font-bold text-white">
-           Our Partners
+          <h2 className="mb-4 text-4xl font-bold text-gray-800">
+           Our <span className="text-orange-600">Partners</span>
           </h2>
           
         </div>
