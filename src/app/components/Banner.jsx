@@ -29,7 +29,7 @@ const CaretDownIcon = () => (
 
 const SearchIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="#828282" width="18" height="18" viewBox="0 0 20 20" className="mr-2 flex-shrink-0">
-    <path d="M19.78 19.12l-3.88-3.9c1.28-1.6 2.080-3.6 2.080-5.8 0-5-3.98-9-8.98-9s-9 4-9 9c0 5 4 9 9 9 2.2 0 4.2-0.8 5.8-2.1l3.88 3.9c0.1 0.1 0.3 0.2 0.5 0.2s0.4-0.1 0.5-0.2c0.4-0.3 0.4-0.8 0.1-1.1zM1.5 9.42c0-4.1 3.4-7.5 7.5-7.5s7.48 3.4 7.48 7.5-3.38 7.5-7.48 7.5c-4.1 0-7.5-3.4-7.5-7.5z"></path>
+    <path d="M19.78 19.12l-3.88-3.9c1.28-1.6 2.080-3.6 2.080-5.8 0-5-3.98-9-8.98-9s-9 4-9 9c0 5 4 9 9 9 2.2 0 4.2-0.8 5.8-2.1l3.88 3.9c0.1 0.1 0.3 0.2 0.5 0.2s0.4-0.1 0.5-0.2c0.4-0.3 0.4-0.8 0.1-0.1zM1.5 9.42c0-4.1 3.4-7.5 7.5-7.5s7.48 3.4 7.48 7.5-3.38 7.5-7.48 7.5c-4.1 0-7.5-3.4-7.5-7.5z"></path>
   </svg>
 );
 
@@ -151,13 +151,13 @@ const Banner = () => {
     if (e.type === 'keydown' && e.key !== 'Enter') return;
     
     // Redirect to menu page with filters applied
-    router.push('/menu');
+    router.push('/menus');
   };
 
   // Clear search and redirect to menu
   const handleExploreMenu = () => {
     dispatch(clearFilters());
-    router.push('/menu');
+    router.push('/menus');
   };
 
   // Clear individual filters
@@ -234,7 +234,7 @@ const Banner = () => {
       >
         {sliderContent.map((slide, index) => (
           <SwiperSlide key={index} className="relative">
-            {/* Background video with zoom effect */}
+            {/* Background video without zoom effect */}
             <div className="absolute inset-0 overflow-hidden">
               <video src={slide.video} autoPlay loop muted playsInline className="slide-video w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
@@ -468,16 +468,14 @@ const Banner = () => {
         </div>
       </motion.div>
 
-      {/* Global Styles */}
+      {/* Global Styles - Zoom effect removed */}
       <style jsx global>{`
         .slide-video {
-          transform: scale(1);
-          transition: none;
+          /* Zoom effect removed - video will remain at normal scale */
         }
 
         .swiper-slide-active .slide-video {
-          transform: scale(1.1);
-          transition: transform 10s ease-out;
+          /* Zoom effect removed - no scale transformation on active slide */
         }
       `}</style>
     </section>
