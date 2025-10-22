@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
@@ -13,14 +12,51 @@ import {
 } from "@/components/ui/dialog";
 import { uploadToImgBB } from "@/utils/imageUpload";
 import { FaPenFancy } from "react-icons/fa";
-import { useSession } from "next-auth/react";
+import addBlog from "@/app/actions/blogs/addBlog";
+import ReactQuill from "react-quill-new";
+
+
+
+
+const imageHandler = function () {
+  const input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.setAttribute("accept", "image/*");
+  input.click();
+
+  input.onchange = async () => {
+    const file = input.files[0];
+    if (file) {
+      try {
+        const url = await uploadToImgBB(file);
+        const range = this.quill.getSelection();
+        this.quill.insertEmbed(range.index, "image", url);
+      } catch (error) {
+        console.error("Image upload failed:", error);
+        alert("Image upload failed!");
+      }
+    }
+  };
+};
+
+const modules = {
+  toolbar: {
+    container: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image"],
+      ["clean"],
+    ],
+    handlers: {
+      image: imageHandler, // ✅ now imageHandler is defined
+    },
+  },
+};
+
+
 
 export default function AddBlogModal({ onSave }) {
-  const { data: session } = useSession();
-  // console.log(session.user)
-  const userName = session?.user?.name;
-  const userEmail = session?.user?.email;
-  const userPhoto = session?.user?.image;
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     slug: "",
@@ -29,102 +65,58 @@ export default function AddBlogModal({ onSave }) {
     details: "",
     coverImage: "",
     gallery: [],
-    author: "",
-    publishDate: "",
+    author: "68c991e89e31b26271cf8510",
     category: "",
     tags: "",
   });
 
-  
-  
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleCoverImage = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     try {
       const url = await uploadToImgBB(file);
-      setFormData((prev) => ({ ...prev, coverImage: url })); 
-    } catch (error) {
-      console.error(error);
-      alert("Cover image upload failed!");
+      setFormData((prev) => ({ ...prev, coverImage: url }));
+    } catch {
+      Swal.fire("Error", "Cover image upload failed!", "error");
     }
   };
 
-  
   const handleGallery = async (e) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
-
     try {
-      // Upload all images in parallel
       const uploadedUrls = await Promise.all(
         files.map((file) => uploadToImgBB(file))
       );
-
-      // Save uploaded URLs into formData.gallery
       setFormData((prev) => ({
         ...prev,
-        gallery: [...prev.gallery, ...uploadedUrls], 
+        gallery: [...prev.gallery, ...uploadedUrls],
       }));
-    } catch (error) {
-      console.error(error);
-      alert("Gallery upload failed!");
+    } catch {
+      Swal.fire("Error", "Gallery upload failed!", "error");
     }
   };
 
-  // ✅ Submit
   const handleSubmit = async () => {
     const blogData = {
       ...formData,
-      slug: formData.title.toLowerCase().replace(/\s+/g, "-"), // auto slug
+      slug: formData.title.toLowerCase().replace(/\s+/g, "-"),
       tags: formData.tags.split(",").map((t) => t.trim()),
-      publishDate: formData.publishDate
-        ? new Date(formData.publishDate).toISOString() // ✅ ISO format save
-        : null,
-      visitCount: 0,
-      author: userName || "Anonymous",
-      authorEmail: userEmail || "",
-      authorPhoto: userPhoto || "/user.png",
     };
-
     try {
-      const res = await fetch("/api/blogs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(blogData),
-      });
-
-      if (!res.ok) throw new Error("Failed to save blog");
-
-      const result = await res.json();
-      console.log("✅ Blog saved:", result);
-
-      // ✅ SweetAlert success
+      await addBlog(blogData);
       Swal.fire({
         icon: "success",
-        title: "Blog Added!",
-        text: `New blog "${formData.title}" added successfully 🎉`,
+        title: "🎉 Blog Added Successfully!",
         confirmButtonColor: "#f97316",
       });
-
-      // Optional: refresh parent state
-      if (onSave) onSave(blogData);
-
+      onSave?.(blogData);
       setOpen(false);
-    } catch (error) {
-      console.error("❌ Error saving blogs:", error);
-
-      // ❌ SweetAlert error
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Failed to save blog. Please try again!",
-        confirmButtonColor: "#ef4444", // red
-      });
+    } catch {
+      Swal.fire("Oops!", "Something went wrong, try again!", "error");
     }
   };
 
@@ -132,143 +124,154 @@ export default function AddBlogModal({ onSave }) {
     <>
       <Button
         onClick={() => setOpen(true)}
-        className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white flex items-center gap-2 shadow-md px-4 py-2 rounded-lg"
+        className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-medium flex items-center gap-2 px-5 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-[1.02]"
       >
-        <FaPenFancy />
-        Add Blog
+        <FaPenFancy /> Add Blog
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg">
-          <DialogHeader className="space-y-1">
-            <DialogTitle className="text-2xl font-semibold">
-              Create New Blog
+        <DialogContent className="max-w-3xl bg-gradient-to-br from-white to-orange-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl border border-orange-100 dark:border-gray-700 shadow-xl overflow-y-auto max-h-[90vh] p-6">
+          {/* Header */}
+          <DialogHeader className="border-b border-orange-100 dark:border-gray-700 pb-4 mb-4">
+            <DialogTitle className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+              ✍️ Create New Blog Post
             </DialogTitle>
             <DialogDescription className="text-sm text-gray-500 dark:text-gray-400">
-              Provide the details below to publish your blog post.
+              Share your ideas, stories, or updates with the world 🌍
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-1 gap-4">
+          {/* Form */}
+          <div className="space-y-5">
             {/* Title */}
-            <label className="flex flex-col gap-1">
-              <span className="text-sm font-medium">Title</span>
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                Blog Title
+              </label>
               <input
                 name="title"
-                className="w-full px-3 py-2 rounded-lg border bg-gray-50 dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-orange-500"
-                placeholder="Enter blog title"
+                type="text"
+                placeholder="Enter your blog title"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
                 onChange={handleChange}
               />
-            </label>
+            </div>
 
             {/* Excerpt */}
-            <label className="flex flex-col gap-1">
-              <span className="text-sm font-medium">Excerpt</span>
-              <input
-                name="excerpt"
-                className="w-full px-3 py-2 rounded-lg border bg-gray-50 dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-orange-500"
-                placeholder="Short summary of the blog"
-                onChange={handleChange}
-              />
-            </label>
-
-            {/* Details */}
-            <label className="flex flex-col gap-1">
-              <span className="text-sm font-medium">Content</span>
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                Short Excerpt
+              </label>
               <textarea
-                name="details"
-                className="w-full px-3 py-2 rounded-lg border bg-gray-50 dark:bg-gray-800 dark:border-gray-700 h-28 focus:ring-2 focus:ring-orange-500"
-                placeholder="Write your full blog content here..."
+                name="excerpt"
+                placeholder="Write a short summary..."
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
+                rows={2}
                 onChange={handleChange}
-              />
-            </label>
+              ></textarea>
+            </div>
 
-            {/* Cover Image Upload */}
-            <div className="space-y-2">
-              <span className="text-sm font-medium">Cover Image</span>
+            {/* Rich Text Editor */}
+            <div>
+              <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
+                Blog Content
+              </label>
+              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden">
+                <ReactQuill
+                  theme="snow"
+                  value={formData.details}
+                  onChange={(value) => setFormData((prev) => ({ ...prev, details: value }))}
+                  modules={modules} // 👈 add this
+                  className="bg-white dark:bg-gray-800 rounded-lg min-h-[200px]"
+                  placeholder="Write your full blog content here..."
+                />
+
+              </div>
+            </div>
+
+            {/* Cover Image */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Cover Image
+              </label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleCoverImage}
-                className="text-sm"
+                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
               />
               {formData.coverImage && (
                 <img
                   src={formData.coverImage}
                   alt="Preview"
-                  className="mt-2 w-32 h-32 object-cover rounded-lg border shadow"
+                  className="mt-2 w-40 h-28 object-cover rounded-xl border border-orange-200 shadow-md"
                 />
               )}
             </div>
 
-            {/* Gallery Image Upload */}
-            <div className="space-y-2">
-              <span className="text-sm font-medium">Gallery Images</span>
+            {/* Gallery */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                Gallery Images
+              </label>
               <input
                 type="file"
                 accept="image/*"
                 multiple
                 onChange={handleGallery}
-                className="text-sm"
+                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
               />
-              <div className="flex gap-2 mt-2 flex-wrap">
-                {formData.gallery.map((img, idx) => (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {formData.gallery.map((img, i) => (
                   <img
-                    key={idx}
+                    key={i}
                     src={img}
-                    alt={`Preview ${idx}`}
-                    className="w-20 h-20 object-cover rounded-lg border shadow"
+                    alt=""
+                    className="w-20 h-20 rounded-lg object-cover border shadow-sm"
                   />
                 ))}
               </div>
             </div>
 
-            {/* Author */}
-            <label className="flex flex-col gap-1">
-              <span className="text-sm font-medium">Author</span>
-              <input
-                name="author"
-                className="w-full px-3 py-2 rounded-lg border bg-gray-200 dark:bg-gray-700 cursor-not-allowed"
-                value={userName}
-                readOnly
-              />
-            </label>
-
-            {/* Publish Date, Category, Tags */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <input
-                name="publishDate"
-                type="date"
-                className="px-3 py-2 rounded-lg border bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
-                onChange={handleChange}
-              />
-              <input
-                name="category"
-                placeholder="Category"
-                className="px-3 py-2 rounded-lg border bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
-                onChange={handleChange}
-              />
-              <input
-                name="tags"
-                placeholder="Tags (comma separated)"
-                className="px-3 py-2 rounded-lg border bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
-                onChange={handleChange}
-              />
+            {/* Category & Tags */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  Category
+                </label>
+                <input
+                  name="category"
+                  placeholder="e.g., Food, Travel, Health"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  Tags
+                </label>
+                <input
+                  name="tags"
+                  placeholder="comma separated tags"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
+                  onChange={handleChange}
+                />
+              </div>
             </div>
           </div>
 
           {/* Footer */}
-          <div className="flex justify-end gap-3 mt-6">
+          <div className="flex justify-end gap-3 mt-8 border-t border-orange-100 dark:border-gray-700 pt-4">
             <Button
               variant="outline"
               onClick={() => setOpen(false)}
-              className="dark:bg-gray-800 dark:text-gray-200 rounded-lg"
+              className="rounded-full border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
-              className="bg-orange-500 hover:bg-orange-600 text-white rounded-lg shadow-md"
+              className="rounded-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold shadow-lg hover:scale-[1.03] transition-transform"
             >
               Save Blog
             </Button>

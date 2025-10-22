@@ -60,19 +60,9 @@ const Footer = () => {
   const pathname = usePathname();
   const [isDashboard, setIsDashboard] = useState(false);
 
-<<<<<<< HEAD
 
 
   if (pathname.includes("dashboard")) {
-=======
-  // Only reads pathname on client; render-null pattern avoids hydration mismatch
-  useEffect(() => {
-    setIsDashboard(pathname?.includes("dashboard") || false);
-  }, [pathname]);
-
-  // Don't render footer on dashboard pages
-  if (isDashboard) {
->>>>>>> 49dc90ff544bc2798b228c54cd9a033d232f326a
     return null;
   }
 

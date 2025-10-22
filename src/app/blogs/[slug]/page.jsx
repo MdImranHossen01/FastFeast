@@ -4,6 +4,7 @@ import getBlogs from "@/app/actions/blogs/getBlogs";
 import ReactMarkdown from "react-markdown";
 import RelatedBlogSidebar from "../components/RelatedBlogSlider";
 import SocialIcons from "../components/SocialIcons";
+import DOMPurify from "dompurify";
 
 export default async function BlogDetails({ params }) {
   const { slug } = await params;
@@ -58,7 +59,7 @@ export default async function BlogDetails({ params }) {
                   {post.author}
                 </span>
                 <span className="text-gray-500">
-                  {new Date(post.publishDate).toLocaleDateString("en-US", {
+                  {new Date(post.createdAt).toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
                     year: "numeric",
@@ -74,9 +75,22 @@ export default async function BlogDetails({ params }) {
             <span className="font-medium">{post.visitCount || 0}</span> views
           </div>
 
-          <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
+          {/* <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
             <ReactMarkdown>{post.details}</ReactMarkdown>
-          </div>
+          </div> */}
+          {/* <div
+            className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.details) }}
+          ></div> */}
+
+          <div
+            className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10"
+            dangerouslySetInnerHTML={{ __html: post.details }}
+          ></div>
+
+
+
+
 
           {/* Tags */}
           <div className="flex items-center flex-wrap gap-3 mt-6">
