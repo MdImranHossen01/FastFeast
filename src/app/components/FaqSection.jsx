@@ -33,44 +33,30 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  // Set the first item (index 0) to be open by default
-  const [openIndex, setOpenIndex] = useState(0); 
-
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const [openIndex, setOpenIndex] = useState(0);
+  const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
 
   return (
-    <section className="w-full bg-orange-600 py-12 md:py-16">
+    <section className="w-full bg-gray-100 py-12 md:py-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
-          {/* Accordion Section (Left Column) */}
+          {/* Left Column */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-6">
-              Frequently Asked Questions
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 mb-6">
+              Frequently Asked <span className="text-orange-600">Questions</span>
             </h2>
-            
-            {/* FAQ List Container */}
-            <div className="space-y-2"> 
+
+            <div className="space-y-2">
               {faqs.map((faq, index) => (
-                <div
-                  key={index}
-                  className="transition-all duration-300 hover:shadow-md  rounded-lg overflow-hidden"
-                >
+                <div key={index} className="transition-all duration-300 hover:shadow-md rounded-lg overflow-hidden bg-white">
                   <button
-                    className="w-full flex justify-between items-center p-4 sm:p-5 text-left font-medium text-white"
+                    className="w-full flex justify-between items-center p-4 sm:p-5 text-left font-medium text-gray-800"
                     onClick={() => toggleFAQ(index)}
                   >
-                    <span
-                      className={`text-base sm:text-lg ${
-                        openIndex === index ? "text-white" : ""
-                      }`}
-                    >
-                      {faq.question}
-                    </span>
+                    <span className="text-base sm:text-lg">{faq.question}</span>
                     <IoChevronForward
-                      className={`h-5 w-5 text-white transition-transform duration-300 ${
+                      className={`h-5 w-5 text-gray-800 transition-transform duration-300 ${
                         openIndex === index ? "rotate-90" : ""
                       }`}
                     />
@@ -80,8 +66,8 @@ export default function FAQSection() {
                       openIndex === index ? "max-h-96" : "max-h-0"
                     }`}
                   >
-                    <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-white text-sm sm:text-base">
-                      <p>{faq.answer}</p>
+                    <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-gray-600 text-sm sm:text-base">
+                      {faq.answer}
                     </div>
                   </div>
                 </div>
@@ -89,13 +75,14 @@ export default function FAQSection() {
             </div>
           </div>
 
-          {/* Right: Image - Responsive for mobile and desktop */}
-          <div className="relative h-64 md:h-96 lg:h-[500px] w-full rounded-lg overflow-hidden shadow-xl"> 
+          {/* Right Column - Full Height Image */}
+          <div className="relative w-full h-full min-h-[400px] md:min-h-[600px] rounded-lg overflow-hidden shadow-xl flex">
             <Image
-              src="https://i.ibb.co.com/jZ5HNJ7s/FAQ-in-orange-for-food-quary-in-a-website-faq-section-1.jpg"
+              src="https://i.ibb.co/jZ5HNJ7s/FAQ-in-orange-for-food-quary-in-a-website-faq-section-1.jpg"
               alt="FAQ Illustration"
               fill
-              className="object-cover"
+              className="object-cover object-center w-full h-full"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
         </div>
