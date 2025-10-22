@@ -1,14 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "./logo";
-import {
-  FaFacebook,
-  FaGithub,
-  FaYoutube,
-  FaRegPaperPlane,
-} from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6"; // Using the newer FaXTwitter icon from react-icons/fa6
+import { FaFacebook, FaGithub, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { IoLocationSharp, IoCall, IoMail } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -23,7 +18,7 @@ const FooterColumn = ({ title, links }) => (
     </h3>
     <ul className="space-y-3">
       {links.map((link) => (
-        <li key={link.name}>
+        <li key={link.href}>
           <Link
             href={link.href}
             className="text-gray-400 transition-colors hover:text-orange-400"
@@ -37,6 +32,7 @@ const FooterColumn = ({ title, links }) => (
 );
 
 // --- Smarter Footer Data Structure (Consolidated Links) ---
+// Keep these values STATIC so that SSR and CSR match exactly (prevents hydration mismatch)
 const footerData = [
   {
     title: "About FastFeast",
@@ -48,12 +44,12 @@ const footerData = [
     ],
   },
   {
-    // ✅ Combined partner links for a cleaner look
-    title: "Our Partners",
+    title: "Support & Polcy",
     links: [
-      { name: "For Restaurants", href: "/signup/restaurant" },
-      { name: "For Riders", href: "/signup/rider" },
-      { name: "Partner Hub", href: "/partner-hub" },
+      { name: "Privacy Policy", href: "/PrivacyPolicy" },
+      { name: "Return Policy", href: "/ReturnPolicy" },
+      { name: "Terms And Conditions", href: "/TermsAndConditions" },
+      { name: "Developer Info", href: "/DeveloperInfo" },
     ],
   },
 ];
@@ -62,25 +58,35 @@ const Footer = () => {
 
 
   const pathname = usePathname();
+  const [isDashboard, setIsDashboard] = useState(false);
 
+<<<<<<< HEAD
 
 
   if (pathname.includes("dashboard")) {
+=======
+  // Only reads pathname on client; render-null pattern avoids hydration mismatch
+  useEffect(() => {
+    setIsDashboard(pathname?.includes("dashboard") || false);
+  }, [pathname]);
+
+  // Don't render footer on dashboard pages
+  if (isDashboard) {
+>>>>>>> 49dc90ff544bc2798b228c54cd9a033d232f326a
     return null;
   }
 
   return (
     <footer className="bg-slate-900 text-gray-300 py-6">
       <div className="container mx-auto py-6 px-4">
-        {/* ✅ Simplified to a single, balanced 4-column grid */}
+        {/* ✅ Balanced 4-column grid (+ newsletter) */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Logo & Socials */}
           <div>
+            {/* If your Logo uses next/image with fill, ensure it sets `sizes` internally */}
             <Logo />
+            
             <div className="space-y-2 mt-4 text-sm">
-              <div>
-                <InstallButton />
-              </div>
               <div className="flex items-start gap-2">
                 <IoLocationSharp
                   size={20}
@@ -98,6 +104,7 @@ const Footer = () => {
                   +880 171 234 5678
                 </a>
               </div>
+
               <div className="flex items-center gap-3">
                 <IoMail size={20} className="flex-shrink-0 text-orange-400" />
                 <a
@@ -109,36 +116,42 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="mt-6 flex space-x-4">
+            <div className="mt-6 flex space-x-4 pb-6">
               <a
                 href="#"
                 className="text-gray-400 transition-colors hover:text-orange-400"
+                aria-label="Facebook"
               >
                 <FaFacebook size={24} />
               </a>
               <a
                 href="#"
                 className="text-gray-400 transition-colors hover:text-orange-400"
+                aria-label="Twitter / X"
               >
-                {/* REPLACED WITH X ICON */}
                 <FaXTwitter size={24} />
               </a>
               <a
                 href="#"
                 className="text-gray-400 transition-colors hover:text-orange-400"
+                aria-label="YouTube"
               >
                 <FaYoutube size={24} />
               </a>
               <a
                 href="#"
                 className="text-gray-400 transition-colors hover:text-orange-400"
+                aria-label="GitHub"
               >
                 <FaGithub size={24} />
               </a>
             </div>
+            <div>
+              <InstallButton />
+            </div>
           </div>
 
-          {/* Columns 2 & 3: Mapped Link Columns */}
+          {/* Columns 2, 3 & 4: Mapped Link Columns */}
           {footerData.map((column) => (
             <FooterColumn
               key={column.title}
@@ -147,7 +160,7 @@ const Footer = () => {
             />
           ))}
 
-          {/* Column 4: "Get In Touch" */}
+          {/* Column 5: Newsletter */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase text-gray-100">
               Newsletter

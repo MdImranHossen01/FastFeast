@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import { ref } from "process";
 
-const orderSchema = new mongoose.Schema(
+const OrderSchema = new mongoose.Schema(
   {
     customerInfo: {
       fullName: { type: String, required: true },
@@ -10,45 +11,53 @@ const orderSchema = new mongoose.Schema(
       city: { type: String, required: true },
       postalCode: { type: String, required: true },
     },
+
     items: [
       {
-        id: { type: String, required: true },
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Menu",
+          required: true,
+        },
         title: { type: String, required: true },
         price: { type: Number, required: true },
         quantity: { type: Number, required: true },
-        specialInstructions: { type: String },
+        specialInstructions: { type: String, default: "" },
       },
     ],
+
     paymentMethod: {
       type: String,
-      enum: ["cash", "card"],
-      required: true,
+      enum: ["cash", "card", "sslcommerz"],
+      default: "cash",
     },
-    paymentIntentId: { type: String },
+
+    paymentIntentId: { type: String, default: null }, // for Stripe/SSLCommerz IDs
+    transactionId: { type: String, default: null }, // optional if you use SSLCommerz tran_id
+
     pricing: {
       subtotal: { type: Number, required: true },
       deliveryFee: { type: Number, required: true },
       tax: { type: Number, required: true },
       total: { type: Number, required: true },
     },
+
     status: {
       type: String,
-      enum: [
-        "pending",
-        "paid",
-        "processing",
-        "out-for-delivery",
-        "delivered",
-        "cancelled",
-      ],
+      enum: ["pending", "paid", "processing", "delivered", "cancelled"],
       default: "pending",
     },
+
     orderDate: { type: Date, default: Date.now },
-    estimatedDelivery: { type: Date, required: true },
+    estimatedDelivery: { type: Date },
+    userId: { type: String, default: null }, // from NextAuth session
   },
-  { timestamps: true }
+  {
+    timestamps: true, // adds createdAt and updatedAt
+  }
 );
 
-const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
+// Prevent model overwrite in development (Next.js hot reload fix)
+const Order = mongoose.models.Order || mongoose.model("Order", OrderSchema);
 
 export default Order;

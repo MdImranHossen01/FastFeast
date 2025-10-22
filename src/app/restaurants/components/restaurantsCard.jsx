@@ -106,13 +106,13 @@ export default function RestaurantsCard({ restaurant }) {
   };
 
   return (
-    <div className="group card  bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden rounded-2xl">
-      <div className=" card-body  relative">
+    <div className=" group card m-3  bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden rounded-2xl">
+      <div className=" p-6  max-w-[345px]  relative">
         {/* Logo and Restaurant Info */}
         <div className="  flex flex-col items-center">
           {/* Larger Circular Logo with Border Animation */}
           <div className="relative mb-4">
-            <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
+            <div className="min-w-48 min-h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
               <img
                 className="w-full h-full rounded-full object-cover hover:scale-110 transition-transform duration-300"
                 src={restaurant.logo}
@@ -129,7 +129,7 @@ export default function RestaurantsCard({ restaurant }) {
             href={`restaurants/${slug}`}
             className="text-center hover:text-orange-500 transition-colors"
           >
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-gray-900">
               {restaurant.name}
             </h2>
           </Link>
@@ -156,7 +156,7 @@ export default function RestaurantsCard({ restaurant }) {
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span className="text-sm">
+            <span className="text-lg">
               {restaurant.location?.area || "Location"}
             </span>
           </div>
@@ -169,7 +169,7 @@ export default function RestaurantsCard({ restaurant }) {
                 {restaurant.rating.toFixed(1)}
               </span>
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="text-sm text-gray-500">
               ({restaurant.reviewsCount}+ reviews)
             </p>
           </div>
@@ -178,7 +178,7 @@ export default function RestaurantsCard({ restaurant }) {
         {/* View Menu Button */}
         <div className="flex justify-center">
           <Link href={`restaurants/${slug}`}>
-            <button className="flex items-center gap-2 bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors duration-300">
+            <button className=" flex items-center gap-2 bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors duration-300">
               View Menu
               <svg
                 xmlns="http://www.w3.org/2000/2000/svg"
@@ -197,8 +197,12 @@ export default function RestaurantsCard({ restaurant }) {
             </button>
           </Link>
         </div>
+        {/*  */}
         {/* add to favorite and remove to favorite */}
-        <button onClick={handleToggle} className="absolute top-0.5 right-1 p-2">
+        <button
+          onClick={handleToggle}
+          className="absolute transform transition hover:scale-110 duration-300  top-0.5 right-1 p-2"
+        >
           {isFavorite ? (
             <GoHeartFill size={24} color="#F97316" />
           ) : (
