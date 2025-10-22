@@ -25,8 +25,8 @@ const RestaurantSection = () => {
   }, []);
 
   return (
-    <section className="w-full min-h-screen bg-orange-600 md:h-screen">
-      <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-white min-h-screen md:h-full items-center">
+    <section className="w-full min-h-screen bg-gray-100 md:h-screen">
+      <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
 
         {/* Left Column: Image Slider */}
         <div className="relative w-full h-[300px] md:h-full">
@@ -48,7 +48,7 @@ const RestaurantSection = () => {
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6">
             Building Stronger <br className="hidden lg:inline" />
-            Community Partnerships
+            <span className='text-orange-600'>Community</span> Partnerships
           </h2>
 
           <p className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10">
@@ -60,7 +60,7 @@ const RestaurantSection = () => {
 
           <Link href={"/restaurants"}>
             <button 
-              className="bg-white text-orange-600 font-bold uppercase py-3 sm:py-4 px-8 sm:px-10 text-sm sm:text-base rounded-md tracking-wider transition duration-300 hover:bg-gray-100 w-fit"
+              className="bg-orange-600 text-white font-bold uppercase py-3 sm:py-4 px-8 sm:px-10 text-sm sm:text-base rounded-md tracking-wider transition duration-300 hover:bg-gray-100 w-fit"
             >
               BROWSE RESTAURANTS
             </button>
