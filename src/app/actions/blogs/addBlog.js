@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 export default async function addBlog(blog) {
   try {
     // Add blog to the API
@@ -18,13 +20,14 @@ export default async function addBlog(blog) {
 
     // always return an object
     if (!res.ok) {
+
       return {
         success: false,
         message: `Failed to add blog. Status: ${res.status}`,
         data: null,
       };
     }
-
+    revalidatePath("/admin-dashboard/manage-blogs")
     // If response is ok, parse and return the data
     const data = await res.json();
     return {
