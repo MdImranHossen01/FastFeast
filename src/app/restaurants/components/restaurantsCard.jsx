@@ -201,7 +201,7 @@ export default function RestaurantsCard({ restaurant }) {
         {/* add to favorite and remove to favorite */}
         <button
           onClick={handleToggle}
-          className="absolute transform transition hover:scale-110 duration-300  top-0.5 right-1 p-2"
+          className="absolute transform transition hover:scale-110 duration-300 cursor-pointer  top-0.5 right-1 p-2"
         >
           {isFavorite ? (
             <GoHeartFill size={24} color="#F97316" />
