@@ -59,7 +59,7 @@ export default function PrivacyPolicy({
 
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
           To learn more about cookies and how to manage them, visit{" "}
-          <span className="text-blue-600">www.allaboutcookies.org</span>.
+          <span className="text-blue-800">www.allaboutcookies.org</span>.
         </p>
 
         {/* Use of Information */}
