@@ -25,7 +25,7 @@ const RestaurantSection = () => {
   }, []);
 
   return (
-    <section className="w-full min-h-screen bg-gray-100 md:h-screen">
+    <section className="w-full min-h-screen bg-gradient-to-r from-orange-200 via-orange-100 to-white md:h-screen">
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
 
         {/* Left Column: Image Slider */}
