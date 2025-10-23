@@ -64,7 +64,7 @@ export default function TermsAndConditions({
   ];
 
   return (
-    <div className="min-h-screen text-gray-800">
+    <div className="min-h-screen text-gray-700">
       {/* Hero Section */}
       <div
         className="relative h-64 md:h-80 flex items-center justify-center text-center bg-cover bg-center"
@@ -88,7 +88,7 @@ export default function TermsAndConditions({
             key={idx}
             className="bg-white/80 shadow-sm rounded-2xl p-6 hover:shadow-md transition-shadow"
           >
-            <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3">
               {section.title}
             </h2>
             <p className="text-gray-700 leading-relaxed">{section.content}</p>
