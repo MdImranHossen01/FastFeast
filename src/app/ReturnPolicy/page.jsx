@@ -10,35 +10,35 @@ export default function ReturnPolicy({
   const sections = [
     {
       title: "1. Introduction",
-      content: `At ${siteName}, we strive to provide high-quality products and a satisfying experience. Our Return Policy explains how you can return items, request refunds, and what conditions apply.`
+      content: `At ${siteName}, we are committed to ensuring that every customer has a satisfying experience with our products and services. Our Return Policy outlines the procedures, eligibility criteria, and timelines for returning items. This policy is designed to be fair and transparent, ensuring that customers can confidently make purchases while understanding their rights and responsibilities. All returns are subject to these terms, and we encourage customers to read this policy carefully before initiating any return or exchange request.`
     },
     {
       title: "2. Eligibility for Returns",
-      content: `Items must be returned within 7 days of delivery unless specified otherwise. Products must be unused, unopened, and in their original packaging. Perishable items, customized products, or promotional items may not be eligible for return.`
+      content: `Items are eligible for return within 7 days of delivery, unless otherwise specified. Products must be unused, unopened, and in their original packaging to qualify for a return. Certain items, such as perishable goods, personalized products, and promotional items, may not be eligible for return. Customers are responsible for verifying the return eligibility of items before requesting a return. We reserve the right to refuse returns that do not meet these criteria.`
     },
     {
       title: "3. How to Initiate a Return",
-      content: `To request a return, contact our customer support via in-app chat or email at ${contactEmail}. Provide your order number and reason for return. Our support team will guide you through the return process.`
+      content: `To initiate a return, customers should contact our support team via the in-app chat or email at ${contactEmail}. When submitting a return request, please provide your order number, the item(s) you wish to return, and the reason for return. Our support team will provide detailed instructions for returning the item, including packaging requirements and any shipping labels or documents necessary to complete the process. Following the proper procedure ensures faster processing of returns and refunds.`
     },
     {
       title: "4. Refunds",
-      content: `Refunds will be issued to the original payment method once the returned item is received and inspected. Processing time may vary between 5–10 business days depending on your bank or payment provider.`
+      content: `Once a returned item is received and inspected by our team, refunds will be processed to the original payment method used for the purchase. The processing time for refunds may vary depending on your bank or payment provider and typically takes 5–10 business days. Any delays caused by the financial institution are outside our control. Refunds will include the original purchase amount, but shipping or handling fees may not be refundable, as outlined in our policy.`
     },
     {
       title: "5. Exchanges",
-      content: `If an exchange is requested, a replacement will be shipped once the original item is returned and inspected. Additional charges may apply if the replacement item costs more.`
+      content: `Customers requesting an exchange will have a replacement item shipped once the original item is returned and inspected. If the replacement item has a higher value than the returned item, additional charges may apply, and customers will be notified prior to shipment. Exchanges are subject to stock availability, and in some cases, an exact replacement may not be possible. Our team will provide alternative solutions or options if an exact exchange cannot be fulfilled.`
     },
     {
       title: "6. Damaged or Defective Items",
-      content: `If you receive a damaged or defective item, contact us immediately. We may ask for photos of the item to verify the issue. Eligible items will be refunded or replaced at no extra cost.`
+      content: `If you receive an item that is damaged or defective, contact our support team immediately. Photos or other documentation of the issue may be requested to verify the claim. Eligible items will either be replaced or refunded at no additional cost to the customer. Prompt reporting helps us resolve the issue efficiently and ensures that customers are not inconvenienced by receiving substandard products.`
     },
     {
       title: "7. Non-Returnable Items",
-      content: `Certain items cannot be returned: perishable goods, personalized items, gift cards, and items marked as final sale. Please check product descriptions for return eligibility.`
+      content: `Certain items cannot be returned under any circumstances, including perishable goods, personalized products, gift cards, and items explicitly marked as final sale. Customers should review the product descriptions and return eligibility notes carefully before purchasing such items. Any attempt to return non-returnable items will be denied.`
     },
     {
       title: "8. Contact Us",
-      content: `For any questions regarding returns, refunds, or exchanges, reach out to our support team at ${contactEmail}. We are here to help and ensure a smooth return experience.`
+      content: `For any questions or concerns regarding returns, exchanges, or refunds, please contact our support team at ${contactEmail}. Our team is available to assist with clarifications, provide guidance on the return process, and ensure a smooth and satisfactory resolution for all return-related inquiries. We value our customers and strive to make the return experience as seamless as possible.`
     }
   ];
 
@@ -60,13 +60,12 @@ export default function ReturnPolicy({
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="max-w-5xl mx-auto px-6 py-12 space-y-12">
+      {/* Content Section - long paragraphs */}
+      <div className="max-w-5xl mx-auto px-6 py-12 space-y-16">
         {sections.map((section, idx) => (
           <div key={idx} className="space-y-4">
             <h2 className="text-2xl font-semibold text-gray-900">{section.title}</h2>
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line">{section.content}</p>
-            {idx < sections.length - 1 && <hr className="border-gray-200 mt-4 mb-6" />}
+            <p className="text-gray-700 leading-relaxed">{section.content}</p>
           </div>
         ))}
       </div>
