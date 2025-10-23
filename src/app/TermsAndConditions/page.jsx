@@ -85,7 +85,7 @@ export default function TermsAndConditions({
       <div className="max-w-5xl mx-auto px-6 py-12 space-y-10">
         {sections.map((section, idx) => (
           <div key={idx} className="space-y-3">
-            <h2 className="text-xl md:text-2xl font-semibold text-gray-900">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
               {section.title}
             </h2>
             <p className="text-gray-700 leading-relaxed">{section.content}</p>
