@@ -14,6 +14,7 @@ import HowWeWork from "./components/HowWeWork";
 import RestaurantSection from "./components/RestaurantSection";
 import FoodCompare from "./components/FoodCompare";
 import AiDrivenFoodSuggestion from "./components/AiDrivenFoodSuggession";
+import Slider from "./components/Slider";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
       <Banner />
       <AiDrivenFoodSuggestion />
       <SpecialOffers />
+      <Slider></Slider>
       <FoodCompare />
       <TraditionalBeersSection></TraditionalBeersSection>
       <CategorySection />
