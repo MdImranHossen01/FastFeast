@@ -81,22 +81,20 @@ export default function TermsAndConditions({
         </div>
       </div>
 
-      {/* Terms Content */}
-      <div className="max-w-5xl mx-auto px-6 py-12 space-y-12">
+      {/* Terms Section - flat layout */}
+      <div className="max-w-5xl mx-auto px-6 py-12 space-y-10">
         {sections.map((section, idx) => (
-          <div
-            key={idx}
-            className="bg-white/80 shadow-sm rounded-2xl p-6 hover:shadow-md transition-shadow"
-          >
-            <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3">
+          <div key={idx} className="space-y-3">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-900">
               {section.title}
             </h2>
             <p className="text-gray-700 leading-relaxed">{section.content}</p>
+            {idx < sections.length - 1 && (
+              <hr className="border-gray-200 my-6" />
+            )}
           </div>
         ))}
       </div>
-
-     
     </div>
   );
 }
