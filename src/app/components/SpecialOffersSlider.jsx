@@ -48,7 +48,7 @@ export default function SpecialOffersSlider({ offers }) {
     <div className="relative w-full">
       <Slider {...settings}>
         {offers.map((offer, index) => {
-          const isActive = index === activeIndex || index === activeIndex + 1; // 2 slides visible
+          const isActive = index === activeIndex || index === activeIndex + 1;
 
           return (
             <div key={offer.id} className="px-3">
