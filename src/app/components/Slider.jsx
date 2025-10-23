@@ -134,7 +134,7 @@ const Slider = () => {
           {/* Key Facts Section */}
           <div>
             <h2 className="text-xl font-bold text-gray-800 mb-4">
-              Key Facts About Arrowai:
+              Key Facts About FastFeast:
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 max-w-md mx-auto md:mx-0 text-left">
               <div className="flex items-center space-x-3">
