@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
-import ViewDetails from "./viewPending";
+// import ViewDetails from "./viewPending";
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 
 export default function ApprovedRestaurants({

@@ -1,11 +1,12 @@
+
 import { MdArticle } from "react-icons/md";
 import getBlogs from "@/app/actions/blogs/getBlogs";
 import AddBlogModal from "../modals/AddBlogModal";
 import BlogRow from "../components/BlogRow";
 
+
 export default async function ManageBlogs() {
   const blogs = await getBlogs();
-
   return (
     <div className="space-y-8">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">

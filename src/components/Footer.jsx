@@ -55,16 +55,14 @@ const footerData = [
 ];
 
 const Footer = () => {
+
+
   const pathname = usePathname();
   const [isDashboard, setIsDashboard] = useState(false);
 
-  // Only reads pathname on client; render-null pattern avoids hydration mismatch
-  useEffect(() => {
-    setIsDashboard(pathname?.includes("dashboard") || false);
-  }, [pathname]);
 
-  // Don't render footer on dashboard pages
-  if (isDashboard) {
+
+  if (pathname.includes("dashboard")) {
     return null;
   }
 
@@ -163,13 +161,9 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright Section */}
-      <div className="border-t border-slate-800 bg-slate-900 pt-6">
-        <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()}{" "}
-          <span className="font-semibold text-orange-400">FastFeast</span>. All
-          rights reserved.
-        </div>
-      </div>
+      {/* Bottom Copyright Section */} 
+      <div className="border-t border-slate-800 bg-slate-900 pt-6"> 
+        <div className="container mx-auto px-4 text-center text-sm text-gray-500"> © {new Date().getFullYear()}{" "} <span className="font-semibold text-orange-400">FastFeast</span>. All rights reserved. </div> </div>
     </footer>
   );
 };
