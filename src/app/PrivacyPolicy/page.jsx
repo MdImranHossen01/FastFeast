@@ -121,7 +121,7 @@ export default function PrivacyPolicy({
         {/* Contact */}
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
           If you have any questions or concerns about this Privacy Policy, 
-          please contact us at <span className="text-blue-800">{contactEmail}</span>.
+          please contact us at <span className="text-blue-700">{contactEmail}</span>.
         </p>
       </div>
     </div>
