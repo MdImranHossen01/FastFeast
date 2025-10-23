@@ -1,37 +1,21 @@
-"use client";
 import { MdArticle } from "react-icons/md";
-import { useState, useEffect } from "react";
-import AddBlogModal from "../modals/AddBlogModal";
+import getBlogs from "@/app/actions/blogs/getBlogs";
+import dynamic from "next/dynamic";
 import BlogRow from "../components/BlogRow";
 
-export default function ManageBlogs() {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+// Dynamically import AddBlogModal with no SSR
+const AddBlogModal = dynamic(() => import("../modals/AddBlogModal"), {
+  ssr: false,
+  loading: () => (
+    <button className="bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-medium flex items-center gap-2 px-5 py-2 rounded-full shadow-lg transition-all duration-300">
+      Loading...
+    </button>
+  )
+});
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await fetch('/api/blogs');
-        const data = await response.json();
-        setBlogs(data);
-      } catch (error) {
-        console.error('Failed to fetch blogs:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlogs();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-lg">Loading blogs...</div>
-      </div>
-    );
-  }
-
+export default async function ManageBlogs() {
+  const blogs = await getBlogs();
+  
   return (
     <div className="space-y-8">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
