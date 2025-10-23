@@ -108,17 +108,10 @@ export default function AddBlogModal({ onSave }) {
   };
 
   try {
-   const res = await fetch("/api/blogs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(blogData),
-    });
+   const res = await addBlog(blogData)
+    
 
-    const data = await res.json();
-
-    if (!res.ok) {
+    if (!res.success) {
       throw new Error(data.message || "Failed to add blog");
     }
 
