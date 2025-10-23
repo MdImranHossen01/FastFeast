@@ -5,18 +5,18 @@ import MenuCard from "../(menulayout)/menus/components/MenuCard";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-// ✅ Scrollbar hide utility
+//  Scrollbar hide utility
 const ScrollbarHideCSS = `
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 `;
 
 const SpecialOffers = () => {
-  const [allSpecials, setAllSpecials] = useState([]); // All offers before randomizing
+  const [allSpecials, setAllSpecials] = useState([]); 
   const [offerMenus, setOfferMenus] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch menus (SSR safe)
+  // Fetch menus (SSR safe)
   useEffect(() => {
     const fetchMenus = async () => {
       try {
@@ -24,7 +24,7 @@ const SpecialOffers = () => {
         const data = await response.json();
 
         if (Array.isArray(data)) {
-          // ✅ Filter only special offer menus
+          //  Filter only special offer menus
           const specials = data.filter(
             (menu) => menu.isSpecialOffer && menu.discountRate > 0
           );
@@ -40,7 +40,7 @@ const SpecialOffers = () => {
     fetchMenus();
   }, []);
 
-  // ✅ Randomize AFTER hydration to avoid mismatch
+  // Randomize AFTER hydration to avoid mismatch
   useEffect(() => {
     if (allSpecials.length > 0) {
       const shuffled = [...allSpecials].sort(() => 0.5 - Math.random());
@@ -55,7 +55,7 @@ const SpecialOffers = () => {
       <section className="text-black w-full mb-12">
         <div className="container px-4 mx-auto flex flex-col py-8 lg:flex-row gap-8">
           
-          {/* 🔸 Left Section: Banner */}
+          {/*  Left Section: Banner */}
           <div
             className="w-full lg:w-1/2 rounded-xl overflow-hidden min-h-[400px] lg:h-[calc(100vh-2rem)] bg-cover bg-center mb-8 lg:mb-0 relative lg:sticky lg:top-4"
             style={{
@@ -71,12 +71,12 @@ const SpecialOffers = () => {
             </div>
           </div>
 
-          {/* 🔸 Right Section: Menu Cards */}
+          {/*  Right Section: Menu Cards */}
           <div className="w-full lg:w-1/2 max-h-screen overflow-y-auto scrollbar-hide lg:max-h-none lg:overflow-visible right-section">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-4">
               
               {loading ? (
-                // 🕐 Skeleton Loader while fetching
+                //  Skeleton Loader while fetching
                 Array.from({ length: 8 }).map((_, idx) => (
                   <div key={idx} className="rounded-xl overflow-hidden shadow-md">
                     <Skeleton height={160} />
