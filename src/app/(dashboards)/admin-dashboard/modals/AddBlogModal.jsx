@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
-import { v4 as uuidv4 } from "uuid";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +12,6 @@ import {
 import { uploadToImgBB } from "@/utils/imageUpload";
 import { FaPenFancy } from "react-icons/fa";
 import addBlog from "@/app/actions/blogs/addBlog";
-import ReactQuill from "react-quill-new";
 
 
 

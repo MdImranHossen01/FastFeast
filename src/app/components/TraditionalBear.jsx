@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -41,19 +41,49 @@ const dishes = [
 
 const TraditionalBear = () => {
   const [currentImage, setCurrentImage] = useState(dishes[0].imageUrl);
+  const [animationPhase, setAnimationPhase] = useState(0);
 
   const handleMouseEnter = (index) => {
     setCurrentImage(dishes[index].imageUrl);
   };
 
+  useEffect(() => {
+    const animationInterval = setInterval(() => {
+      setAnimationPhase((prev) => {
+        if (prev === 2) return 0; // Reset to start after completion
+        return prev + 1;
+      });
+    }, 2500); // Change phase every 5 seconds
+
+    return () => clearInterval(animationInterval);
+  }, []);
+
   return (
     // Full viewport height section with no scrolling
-    <section className="md:max-h-screen w-full bg-[#fcf9f0] overflow-hidden">
-      {/* FIX: Added h-full and items-center to make the grid fill the height and center content. */}
-      {/* Reduced vertical padding (py-4) to provide more space for the content */}
+    <section className="md:max-h-screen w-full bg-[#fcf9f0] overflow-hidden relative">
+      {/* Animated SVG - Drop animation from top middle */}
+      <div className={`absolute left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 ${
+        animationPhase === 0 
+          ? 'top-0 opacity-0 -translate-y-full scale-75' // Start position (top, hidden)
+          : animationPhase === 1 
+          ? 'top-1/2 -translate-y-1/2 opacity-100 scale-100' // Middle position (visible)
+          : 'top-full opacity-0 translate-y-0 scale-50' // End position (bottom, hidden)
+      }`}>
+        <div className="w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56">
+          <Image
+            src="/animateBriyani.svg"
+            alt="Animated Biryani"
+            width={224}
+            height={224}
+            className="w-full h-full object-contain drop-shadow-lg"
+            priority
+          />
+        </div>
+      </div>
+
+      {/* Rest of your component remains the same */}
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 h-full items-center py-8">
         {/* Left Side: Text and List - Scrollable if needed */}
-        {/* FIX: Set a maximum height (max-h-full) and removed fixed mx-20 */}
         <div className="flex flex-col md:w-2/3 mx-auto h-full max-h-full overflow-y-auto">
           {/* Header text */}
           <div className="space-y-2  md:space-y-3 flex-shrink-0">
@@ -67,7 +97,6 @@ const TraditionalBear = () => {
           </div>
 
           {/* Dish List - Compact spacing */}
-          {/* FIX: Added overflow-y-auto to allow only the list to scroll if it exceeds the space. */}
           <div className="mt-4 md:mt-6 divide-y divide-gray-300 flex-grow pr-12 overflow-y-auto">
             {dishes.map((dish, index) => (
               <div
@@ -103,9 +132,7 @@ const TraditionalBear = () => {
         </div>
 
         {/* Right Side: Image - Fills remaining space */}
-        {/* FIX: Ensured h-full is on the image container and adjusted margins */}
         <div className="hidden h-full lg:flex relative overflow-hidden  lg:px-12">
-          {/* Image - Full bleed, transition, and zoom on hover effect */}
           <div className="relative md:w-2/3 h-full mx-auto">
             <Image
               src={currentImage}
