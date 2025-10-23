@@ -94,7 +94,7 @@ export default async function BlogDetails({ params }) {
 
           {/* Tags */}
           <div className="flex items-center flex-wrap gap-3 mt-6">
-            <FaTags className="text-gray-500" />
+            <FaTags className="text-gray-400" />
             {post.tags?.map((tag, idx) => (
               <span
                 key={idx}
