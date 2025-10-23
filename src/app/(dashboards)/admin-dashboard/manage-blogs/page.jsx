@@ -1,12 +1,29 @@
-
+"use client"
 import { MdArticle } from "react-icons/md";
 import getBlogs from "@/app/actions/blogs/getBlogs";
 import AddBlogModal from "../modals/AddBlogModal";
 import BlogRow from "../components/BlogRow";
+import { useEffect, useState } from "react";
 
 
-export default async function ManageBlogs() {
-  const blogs = await getBlogs();
+export default function ManageBlogs() {
+const [blogs, setBlogs]=useState([])
+const [loading, setLoading]= useState(true)
+   
+   useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const blogsData= await getBlogs()
+          setBlogs(blogsData)
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }, []);
+    if(loading) return <p>Loading...</p>
   return (
     <div className="space-y-8">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
