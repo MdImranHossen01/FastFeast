@@ -22,17 +22,17 @@ export default function Home() {
       <Banner />
       <AiDrivenFoodSuggestion />
       <SpecialOffers />
-      <Slider></Slider>
       <FoodCompare />
-      <TraditionalBeersSection></TraditionalBeersSection>
+      <TraditionalBeersSection/>
       <CategorySection />
       <PopularBlogs />
       <RestaurantSection />
       <CTASection />
       <Stats />
+      <Slider />
       <HowWeWork />
-      <FAQSection />
       <Services />
+      <FAQSection />
       <OurPartner />
       {/* <CareerOpportunities/> */}
       <CustomersReview />
