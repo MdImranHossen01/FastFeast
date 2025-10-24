@@ -14,6 +14,7 @@ import HowWeWork from "./components/HowWeWork";
 import RestaurantSection from "./components/RestaurantSection";
 import FoodCompare from "./components/FoodCompare";
 import AiDrivenFoodSuggestion from "./components/AiDrivenFoodSuggession";
+import Slider from "./components/Slider";
 
 export default function Home() {
   return (
@@ -22,15 +23,16 @@ export default function Home() {
       <AiDrivenFoodSuggestion />
       <SpecialOffers />
       <FoodCompare />
-      <TraditionalBeersSection></TraditionalBeersSection>
+      <TraditionalBeersSection/>
       <CategorySection />
       <PopularBlogs />
       <RestaurantSection />
       <CTASection />
       <Stats />
+      <Slider />
       <HowWeWork />
-      <FAQSection />
       <Services />
+      <FAQSection />
       <OurPartner />
       {/* <CareerOpportunities/> */}
       <CustomersReview />
