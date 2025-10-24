@@ -5,7 +5,6 @@
 @import "slick-carousel/slick/slick-theme.css";
 @import "tw-animate-css";
 /* globals.css */
-@import "react-quill-new/dist/quill.snow.css";
 
 @custom-variant dark (&:is(.dark *));
 
