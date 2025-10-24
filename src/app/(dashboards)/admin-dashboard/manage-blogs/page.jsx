@@ -1,11 +1,43 @@
+<<<<<<< HEAD
 "use client"
+=======
+"use client";
+>>>>>>> 6675e0d7a136f61e5f4a2834fc6f873cb26ca90d
 import { MdArticle } from "react-icons/md";
-import getBlogs from "@/app/actions/blogs/getBlogs";
+import { useState, useEffect } from "react";
 import AddBlogModal from "../modals/AddBlogModal";
 import BlogRow from "../components/BlogRow";
 import { useEffect, useState } from "react";
 
+export default function ManageBlogs() {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('/api/blogs');
+        const data = await response.json();
+        setBlogs(data);
+      } catch (error) {
+        console.error('Failed to fetch blogs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-lg">Loading blogs...</div>
+      </div>
+    );
+  }
+
+<<<<<<< HEAD
 export default function ManageBlogs() {
 const [blogs, setBlogs]=useState([])
 const [loading, setLoading]= useState(true)
@@ -24,6 +56,8 @@ const [loading, setLoading]= useState(true)
       fetchData();
     }, []);
     if(loading) return <p>Loading...</p>
+=======
+>>>>>>> 6675e0d7a136f61e5f4a2834fc6f873cb26ca90d
   return (
     <div className="space-y-8">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">

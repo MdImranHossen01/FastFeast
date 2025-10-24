@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { Button } from "@/components/ui/button";
-import { v4 as uuidv4 } from "uuid";
 import {
   Dialog,
   DialogContent,
@@ -13,48 +12,6 @@ import {
 import { uploadToImgBB } from "@/utils/imageUpload";
 import { FaPenFancy } from "react-icons/fa";
 import addBlog from "@/app/actions/blogs/addBlog";
-import ReactQuill from "react-quill-new";
-
-
-
-
-const imageHandler = function () {
-  const input = document.createElement("input");
-  input.setAttribute("type", "file");
-  input.setAttribute("accept", "image/*");
-  input.click();
-
-  input.onchange = async () => {
-    const file = input.files[0];
-    if (file) {
-      try {
-        const url = await uploadToImgBB(file);
-        const range = this.quill.getSelection();
-        this.quill.insertEmbed(range.index, "image", url);
-      } catch (error) {
-        console.error("Image upload failed:", error);
-        alert("Image upload failed!");
-      }
-    }
-  };
-};
-
-const modules = {
-  toolbar: {
-    container: [
-      [{ header: [1, 2, 3, false] }],
-      ["bold", "italic", "underline", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
-      ["clean"],
-    ],
-    handlers: {
-      image: imageHandler, // ✅ now imageHandler is defined
-    },
-  },
-};
-
-
 
 export default function AddBlogModal({ onSave }) {
   const [open, setOpen] = useState(false);
@@ -72,6 +29,9 @@ export default function AddBlogModal({ onSave }) {
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleDetailsChange = (e) =>
+    setFormData({ ...formData, details: e.target.value });
 
   const handleCoverImage = async (e) => {
     const file = e.target.files[0];
@@ -181,22 +141,19 @@ export default function AddBlogModal({ onSave }) {
               ></textarea>
             </div>
 
-            {/* Rich Text Editor */}
+            {/* Blog Content - Simple Textarea */}
             <div>
               <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
                 Blog Content
               </label>
-              <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden">
-                <ReactQuill
-                  theme="snow"
-                  value={formData.details}
-                  onChange={(value) => setFormData((prev) => ({ ...prev, details: value }))}
-                  modules={modules} // 👈 add this
-                  className="bg-white dark:bg-gray-800 rounded-lg min-h-[200px]"
-                  placeholder="Write your full blog content here..."
-                />
-
-              </div>
+              <textarea
+                name="details"
+                value={formData.details}
+                onChange={handleDetailsChange}
+                placeholder="Write your full blog content here..."
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none min-h-[200px] resize-y"
+                rows={10}
+              />
             </div>
 
             {/* Cover Image */}

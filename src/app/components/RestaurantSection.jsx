@@ -7,11 +7,11 @@ import React, { useState, useEffect } from 'react';
 const RestaurantSection = () => {
   // Image URLs for the slider
   const imageUrls = [
-    "https://i.ibb.co.com/C5zrpF2T/1.png",
-    "https://i.ibb.co.com/5xFXDwxQ/2.png",
-    "https://i.ibb.co.com/N2rR1sJ9/3.png",
-    "https://i.ibb.co.com/wh4942Td/4.png",
-    "https://i.ibb.co.com/WWyddxWk/5.png",
+    "https://i.ibb.co.com/mV0WTNw8/1.png",
+    "https://i.ibb.co.com/KjLd2tgg/2.png",
+    "https://i.ibb.co.com/xS38vtXR/3.png",
+    "https://i.ibb.co.com/bMVGczn9/4.png",
+    "https://i.ibb.co.com/VYgTdVCq/5.png",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,7 +25,7 @@ const RestaurantSection = () => {
   }, []);
 
   return (
-    <section className="w-full min-h-screen bg-gray-100 md:h-screen">
+    <section className="w-full min-h-screen bg-gradient-to-r from-orange-200 via-orange-100 to-white md:h-screen">
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
 
         {/* Left Column: Image Slider */}
