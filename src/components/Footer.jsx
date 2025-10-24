@@ -49,7 +49,7 @@ const footerData = [
       { name: "Privacy Policy", href: "/PrivacyPolicy" },
       { name: "Return Policy", href: "/ReturnPolicy" },
       { name: "Terms And Conditions", href: "/TermsAndConditions" },
-      { name: "Developer Info", href: "/DeveloperInfo" },
+      { name: "Developer Info", href: "/developerInfo" },
     ],
   },
 ];
