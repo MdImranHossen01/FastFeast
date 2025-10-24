@@ -31,7 +31,7 @@ const [loading, setLoading]= useState(true)
       </h1>
 
       <div className="flex justify-end">
-        <AddBlogModal />
+        {/* <AddBlogModal /> */}
       </div>
 
       <div className="overflow-x-auto rounded-lg shadow-md py-2 bg-white dark:bg-gray-900">
