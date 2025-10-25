@@ -3,6 +3,7 @@ import React from "react";
 import { OurTeam } from "./components/OurTeam";
 import HowWeWork from "./components/HowWeWork";
 import OurImpactInNumbers from "./components/OurImpactInNumbers";
+import FoodYouWillEnjoy from "./components/FoodYouWillEnjoy";
 
 
 
@@ -44,6 +45,7 @@ const AboutPage = async () => {
 
       <HowWeWork />
       <OurImpactInNumbers />
+      <FoodYouWillEnjoy />
       <OurTeam />
     </div>
   );

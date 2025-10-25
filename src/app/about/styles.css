@@ -1,0 +1,26 @@
+/**
+ * Custom CSS for a slower spin animation.
+ * (Pasted from styles/custom_animation.css)
+ */
+
+/* 1. Define the Keyframes for the Rotation */
+@keyframes slow-spin {
+  /* Start at 0 degrees */
+  from {
+    transform: rotate(0deg);
+  }
+  /* End at 360 degrees */
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 2. Define the Custom Class */
+.slow-spin {
+  /* * Apply the animation:
+   * 4s: Duration (4 seconds per rotation)
+   * linear: Timing function (constant speed)
+   * infinite: Repetition (never stops)
+   */
+  animation: slow-spin 10s linear infinite;
+}

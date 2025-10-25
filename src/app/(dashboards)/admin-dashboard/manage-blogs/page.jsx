@@ -1,10 +1,36 @@
+"use client";
 import { MdArticle } from "react-icons/md";
-import getBlogs from "@/app/actions/blogs/getBlogs";
+import { useState, useEffect } from "react";
 import AddBlogModal from "../modals/AddBlogModal";
 import BlogRow from "../components/BlogRow";
 
-export default async function ManageBlogs() {
-  const blogs = await getBlogs();
+export default function ManageBlogs() {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch('/api/blogs');
+        const data = await response.json();
+        setBlogs(data);
+      } catch (error) {
+        console.error('Failed to fetch blogs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-lg">Loading blogs...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">

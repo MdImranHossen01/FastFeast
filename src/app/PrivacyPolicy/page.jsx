@@ -28,70 +28,101 @@ export default function PrivacyPolicy({
 
       {/* Content Section */}
       <div className="max-w-5xl mx-auto px-6 py-12 space-y-8">
+        {/* Information Collection */}
+        <p className="text-gray-700 font-semibold text-lg">
+          Information We Collect
+        </p>
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          This policy explains how we, <span className="font-semibold">{siteName}</span>, use your 
-          <span className="font-semibold"> personal information</span> which you provide to us when using our service, 
-          including but not limited to our website and mobile applications (<span className="italic">apps</span>).
+          We collect <span className="font-semibold">personal information</span> from you when 
+          you place an order, create an account, or participate in a customer survey. 
+          We may also collect technical data such as browser type, device information, 
+          and website usage details through <span className="font-semibold">cookies</span> 
+          to improve your browsing experience.
         </p>
 
-        <p className="text-gray-700 font-semibold">What information we collect about you?</p>
-
+        {/* Cookies & Analytics */}
+        <p className="text-gray-700 font-semibold text-lg">Cookies and Google Analytics</p>
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          We collect <span className="font-semibold">personal information</span> from you when you order goods or services 
-          from us or use our website. We also collect information when you complete any <span className="font-semibold">customer survey</span>. 
-          Website usage information may also be collected using <span className="font-semibold">cookies</span>.
-        </p>
-
-        <p className="text-gray-700 font-semibold">Cookies and Google Analytics</p>
-
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          <span className="font-semibold">Cookies</span> are small text files placed on your computer by websites you visit. 
-          They help websites work efficiently and provide information to site owners.
-        </p>
-
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          This website uses <span className="font-semibold text-blue-600">Google Analytics</span>, a web analytics service by Google, Inc. ("Google"). 
-          Google Analytics uses <span className="font-semibold">cookies</span> to analyze how you use the site. Data may be transmitted to and stored by Google on servers in the United States. You may refuse cookies via your browser settings, but some features may not work properly.
+          <span className="font-semibold">Cookies</span> are small text files stored on your 
+          device by websites you visit. They help improve site functionality and provide 
+          valuable insights for optimization.
         </p>
 
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          For more on managing cookies, visit <span className="text-blue-600">www.allaboutcookies.org</span>.
-        </p>
-
-        <p className="text-gray-700 font-semibold">How will we use the information we collect from you?</p>
-
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          Information we collect is used to process your orders and manage your account. We may also email you about other products or services that may interest you. 
-          Your data may be sent to <span className="font-semibold">credit reference</span> and <span className="font-semibold">fraud prevention agencies</span>.
-        </p>
-
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          From time to time, information may be shared with third parties offering goods or services that may interest you. 
-          Contact us via our <span className="font-semibold">in-app customer support chat</span> if you do not wish to be contacted.
-        </p>
-
-        <p className="text-gray-700 font-semibold">Access to your information</p>
-
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          You can request a copy of the information we hold about you anytime. Contact us through the in-app customer support chat. 
-          A small processing fee may apply.
-        </p>
-
-        <p className="text-gray-700 font-semibold">Fraud detection, prevention and security of our platform</p>
-
-        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          We continuously monitor our websites and apps to prevent attacks and ensure safe ordering. Suspicious behavior is detected early using technical measures. Automated decisions may affect your account; if you disagree, contact us via <span className="font-semibold">Help Center</span>.
+          Our website uses <span className="font-semibold text-blue-600">Google Analytics</span>, 
+          a web analytics service provided by Google. This tool helps us understand how users 
+          interact with our platform. Google Analytics may collect information such as your 
+          IP address and browsing activity, which can be stored on servers in the United States. 
+          You can disable cookies in your browser settings, but certain features of the site may 
+          not function properly as a result.
         </p>
 
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          Categories of personal data: <span className="font-semibold">Location data, Profile data (master data), Device information, Payment data, Order data, Voucher information</span>.
+          To learn more about cookies and how to manage them, visit{" "}
+          <span className="text-blue-600">www.allaboutcookies.org</span>.
+        </p>
+
+        {/* Use of Information */}
+        <p className="text-gray-700 font-semibold text-lg">
+          How We Use Your Information
+        </p>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          The information we collect is used to process your orders, manage your account, 
+          and personalize your experience. We may also contact you about new products, 
+          special offers, or updates related to our services. 
+          In some cases, your information may be shared with trusted third parties such as{" "}
+          <span className="font-semibold">payment processors</span> and{" "}
+          <span className="font-semibold">fraud prevention agencies</span> to ensure 
+          safe and secure transactions.
         </p>
 
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          Other Websites: Our website may link to other sites. This policy applies only to this website. Read other websites' privacy policies when using them.
+          If you do not wish to receive promotional communications, you can easily 
+          opt out through our <span className="font-semibold">in-app customer support chat</span>.
         </p>
 
-       
+        {/* Access to Data */}
+        <p className="text-gray-700 font-semibold text-lg">Access to Your Data</p>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          You have the right to request access to the personal information we hold about you. 
+          Contact us through our support channel, and we will provide the details in 
+          accordance with applicable data protection laws. 
+          A small administrative fee may apply for repeated requests.
+        </p>
+
+        {/* Security & Fraud Prevention */}
+        <p className="text-gray-700 font-semibold text-lg">
+          Fraud Detection and Platform Security
+        </p>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          We continuously monitor our systems to detect and prevent fraudulent activities. 
+          Automated tools may be used to safeguard transactions and identify suspicious behavior. 
+          If an automated decision affects your account, you may contact our{" "}
+          <span className="font-semibold">Help Center</span> for review.
+        </p>
+
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          Categories of personal data we may collect include:{" "}
+          <span className="font-semibold">
+            location data, profile data, device information, payment details, 
+            order history, and voucher usage.
+          </span>
+        </p>
+
+        {/* External Links */}
+        <p className="text-gray-700 font-semibold text-lg">Links to Other Websites</p>
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          Our website may contain links to external sites. Please note that this Privacy Policy 
+          applies only to <span className="font-semibold">{siteName}</span>. 
+          We are not responsible for the privacy practices of other websites. 
+          We encourage you to review their privacy policies before sharing any personal data.
+        </p>
+
+        {/* Contact */}
+        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+          If you have any questions or concerns about this Privacy Policy, 
+          please contact us at <span className="text-blue-600">{contactEmail}</span>.
+        </p>
       </div>
     </div>
   );

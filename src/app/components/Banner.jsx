@@ -50,7 +50,7 @@ const SearchIcon = () => (
     viewBox="0 0 20 20"
     className="mr-2 flex-shrink-0"
   >
-    <path d="M19.78 19.12l-3.88-3.9c1.28-1.6 2.080-3.6 2.080-5.8 0-5-3.98-9-8.98-9s-9 4-9 9c0 5 4 9 9 9 2.2 0 4.2-0.8 5.8-2.1l3.88 3.9c0.1 0.1 0.3 0.2 0.5 0.2s0.4-0.1 0.5-0.2c0.4-0.3 0.4-0.8 0.1-1.1zM1.5 9.42c0-4.1 3.4-7.5 7.5-7.5s7.48 3.4 7.48 7.5-3.38 7.5-7.48 7.5c-4.1 0-7.5-3.4-7.5-7.5z"></path>
+    <path d="M19.78 19.12l-3.88-3.9c1.28-1.6 2.080-3.6 2.080-5.8 0-5-3.98-9-8.98-9s-9 4-9 9c0 5 4 9 9 9 2.2 0 4.2-0.8 5.8-2.1l3.88 3.9c0.1 0.1 0.3 0.2 0.5 0.2s0.4-0.1 0.5-0.2c0.4-0.3 0.4-0.8 0.1-0.1zM1.5 9.42c0-4.1 3.4-7.5 7.5-7.5s7.48 3.4 7.48 7.5-3.38 7.5-7.48 7.5c-4.1 0-7.5-3.4-7.5-7.5z"></path>
   </svg>
 );
 
@@ -82,14 +82,28 @@ const ScrollDownIcon = () => (
 
 // Voice Search Icons
 const MicIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="18" height="18" viewBox="0 0 24 24" className="flex-shrink-0">
-    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#FFFFFF"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    className="flex-shrink-0"
+  >
+    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
   </svg>
 );
 
 const ListeningIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="#4CAF50" width="18" height="18" viewBox="0 0 24 24" className="flex-shrink-0 animate-pulse">
-    <path d="M12 2C13.1 2 14 2.9 14 4V12C14 13.1 13.1 14 12 14S10 13.1 10 12V4C10 2.9 10.9 2 12 2ZM17 12C17 14.8 14.8 17 12 17S7 14.8 7 12H5C5 15.9 8.1 19 12 19S19 15.9 19 12H17Z"/>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#4CAF50"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    className="flex-shrink-0 animate-pulse"
+  >
+    <path d="M12 2C13.1 2 14 2.9 14 4V12C14 13.1 13.1 14 12 14S10 13.1 10 12V4C10 2.9 10.9 2 12 2ZM17 12C17 14.8 14.8 17 12 17S7 14.8 7 12H5C5 15.9 8.1 19 12 19S19 15.9 19 12H17Z" />
   </svg>
 );
 
@@ -151,19 +165,20 @@ const Banner = () => {
 
   // Check if speech recognition is supported
   useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     setIsSpeechSupported(!!SpeechRecognition);
-    
+
     if (SpeechRecognition) {
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = true;
-      recognitionRef.current.lang = 'en-US';
+      recognitionRef.current.lang = "en-US";
 
       recognitionRef.current.onresult = (event) => {
         const currentTranscript = Array.from(event.results)
-          .map(result => result[0].transcript)
-          .join('');
+          .map((result) => result[0].transcript)
+          .join("");
         setTranscript(currentTranscript);
         dispatch(setSearchQuery(currentTranscript));
       };
@@ -174,7 +189,7 @@ const Banner = () => {
       };
 
       recognitionRef.current.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
+        console.error("Speech recognition error:", event.error);
         setIsListening(false);
         setTranscript("");
       };
@@ -197,13 +212,13 @@ const Banner = () => {
     if (e.type === "keydown" && e.key !== "Enter") return;
 
     // Redirect to menu page with filters applied
-    router.push("/menu");
+    router.push("/menus");
   };
 
   // Clear search and redirect to menu
   const handleExploreMenu = () => {
     dispatch(clearFilters());
-    router.push("/menu");
+    router.push("/menus");
   };
 
   // Clear individual filters
@@ -223,7 +238,7 @@ const Banner = () => {
         setIsListening(true);
         setTranscript("");
       } catch (error) {
-        console.error('Error starting speech recognition:', error);
+        console.error("Error starting speech recognition:", error);
         setIsListening(false);
       }
     }
@@ -283,7 +298,7 @@ const Banner = () => {
       >
         {sliderContent.map((slide, index) => (
           <SwiperSlide key={index} className="relative">
-            {/* Background video with zoom effect */}
+            {/* Background video without zoom effect */}
             <div className="absolute inset-0 overflow-hidden">
               <video
                 src={slide.video}
@@ -374,18 +389,22 @@ const Banner = () => {
                       onKeyDown={handleSearch}
                       className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white"
                     />
-                    
+
                     {/* Voice Search Button - Only icon in search bar */}
                     {isSpeechSupported && (
                       <button
                         onClick={toggleListening}
                         className={`ml-2 p-1 rounded-full transition-all duration-300 ${
-                          isListening 
-                            ? 'bg-green-500 hover:bg-green-600' 
-                            : 'bg-white/20 hover:bg-white/30'
+                          isListening
+                            ? "bg-green-500 hover:bg-green-600"
+                            : "bg-white/20 hover:bg-white/30"
                         }`}
-                        aria-label={isListening ? "Stop listening" : "Start voice search"}
-                        title={isListening ? "Stop listening" : "Start voice search"}
+                        aria-label={
+                          isListening ? "Stop listening" : "Start voice search"
+                        }
+                        title={
+                          isListening ? "Stop listening" : "Start voice search"
+                        }
                       >
                         {isListening ? <ListeningIcon /> : <MicIcon />}
                       </button>
@@ -432,7 +451,8 @@ const Banner = () => {
                 {!isSpeechSupported && (
                   <div className="mt-2 text-center">
                     <p className="text-orange-300 text-sm opacity-80">
-                      Voice search is not supported in your browser. Try Chrome or Edge.
+                      Voice search is not supported in your browser. Try Chrome
+                      or Edge.
                     </p>
                   </div>
                 )}
@@ -504,10 +524,34 @@ const Banner = () => {
                 {/* Regular Explore Menu Button */}
                 <button
                   onClick={handleExploreMenu}
+                  className="relative inline-flex cursor-pointer items-center px-12 py-3 overflow-hidden text-lg font-medium text-orange-600 border-2 border-orange-600 rounded-full hover:text-white group hover:bg-gray-50"
+                >
+                  <span className="absolute left-0 block w-full h-0 transition-all bg-orange-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-500 ease"></span>
+                  <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span className="relative">Explore Menu</span>
+                </button>
+
+                {/* <button
+                  onClick={handleExploreMenu}
                   className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
                 >
                   Explore Menu
-                </button>
+                </button> */}
               </motion.div>
             </div>
           </SwiperSlide>
@@ -528,16 +572,14 @@ const Banner = () => {
         </div>
       </motion.div>
 
-      {/* Global Styles */}
+      {/* Global Styles - Zoom effect removed */}
       <style jsx global>{`
         .slide-video {
-          transform: scale(1);
-          transition: none;
+          /* Zoom effect removed - video will remain at normal scale */
         }
 
         .swiper-slide-active .slide-video {
-          transform: scale(1.1);
-          transition: transform 10s ease-out;
+          /* Zoom effect removed - no scale transformation on active slide */
         }
       `}</style>
     </section>
