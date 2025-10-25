@@ -55,11 +55,7 @@ const Navbar = () => {
           {/* Hamburger Menu Icon */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`p-2 transition-all duration-300 transform hover:scale-110 cursor-pointer rounded-lg ${
-              isScrolled 
-                ? "bg-gray-100 text-orange-500 hover:bg-gray-200" 
-                : "text-orange-500 hover:text-orange-600"
-            }`}
+            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110 cursor-pointer"
           >
             <FiMenu size={24} />
           </button>
@@ -73,23 +69,21 @@ const Navbar = () => {
           )}
 
           {/* Right Icons */}
-          <div className={isScrolled ? "bg-gray-100 p-2 rounded-lg" : ""}>
-            <RightIcons
-              cartCount={cartCount}
-              isUserMenuOpen={isUserMenuOpen}
-              setIsUserMenuOpen={setIsUserMenuOpen}
-              isNotificationDropdownOpen={isNotificationDropdownOpen}
-              setIsNotificationDropdownOpen={setIsNotificationDropdownOpen}
-              setIsOrderStatusModalOpen={setIsOrderStatusModalOpen}
-              userMenuRef={userMenuRef}
-              notificationRef={notificationRef}
-              notifications={notifications}
-              unreadCount={unreadCount}
-              markAsRead={markAsRead}
-              markAllAsRead={markAllAsRead}
-              session={session}
-            />
-          </div>
+          <RightIcons
+            cartCount={cartCount}
+            isUserMenuOpen={isUserMenuOpen}
+            setIsUserMenuOpen={setIsUserMenuOpen}
+            isNotificationDropdownOpen={isNotificationDropdownOpen}
+            setIsNotificationDropdownOpen={setIsNotificationDropdownOpen}
+            setIsOrderStatusModalOpen={setIsOrderStatusModalOpen}
+            userMenuRef={userMenuRef}
+            notificationRef={notificationRef}
+            notifications={notifications}
+            unreadCount={unreadCount}
+            markAsRead={markAsRead}
+            markAllAsRead={markAllAsRead}
+            session={session}
+          />
         </div>
       </nav>
 
