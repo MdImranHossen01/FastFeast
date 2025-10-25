@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/menus", label: "Menus" },
+    { href: "/menu", label: "Menu" },
     { href: "/restaurants", label: "Restaurants" },
     { href: "/blogs", label: "Blogs" },
     { href: "/about", label: "About" },
@@ -55,7 +55,7 @@ const Navbar = () => {
           {/* Hamburger Menu Icon */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110 cursor-pointer"
+            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110"
           >
             <FiMenu size={24} />
           </button>
