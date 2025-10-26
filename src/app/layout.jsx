@@ -15,6 +15,8 @@ import PWAInstaller from "@/components/pwa/PWAInstaller";
 import OfflineIndicator from "@/components/pwa/OfflineIndicator";
 import ServiceWorker from "@/components/pwa/ServiceWorker";
 import LiveTraffic from "@/components/LiveTraffic"; 
+import LenisProvider from "@/providers/LenisProvider";
+import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,7 +73,6 @@ export default function RootLayout({ children }) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-TileColor" content="#ff6b00" />
         <meta name="msapplication-tap-highlight" content="no" />
-        {/* theme-color is handled by viewport export in Next.js 15 */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -83,18 +84,21 @@ export default function RootLayout({ children }) {
             <AOSProvider>
               <StoreProvider>
                 <CartProvider>
-                  <OfflineIndicator />
-                  <header>
-                    <Navbar />
-                  </header>
-                  <main>{children}</main>
-                  <Chatbot />
-                  <PWAInstaller />
-                  <LiveTraffic /> 
-                  <Toaster position="top-center" />
-                  <footer>
-                    <Footer />
-                  </footer>
+                  <LenisProvider>
+                    <OfflineIndicator />
+                    <header>
+                      <Navbar />
+                    </header>
+                    <main>{children}</main>
+                    <ScrollToTopButton />
+                    <Chatbot />
+                    <PWAInstaller />
+                    <LiveTraffic /> 
+                    <Toaster position="top-center" />
+                    <footer>
+                      <Footer />
+                    </footer>
+                  </LenisProvider>
                 </CartProvider>
               </StoreProvider>
             </AOSProvider>

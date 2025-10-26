@@ -13,6 +13,8 @@ import { useScroll, useClickOutside, useNotifications } from "./hooks";
 import { useCart } from "@/lib/cartContext";
 // import InstallButton from "@/components/pwa/InstallButton";
 
+// In your navbar index.jsx, you can add smooth scrolling like this:
+
 const Navbar = () => {
   const { data: session } = useSession();
   const pathname = usePathname();
@@ -35,7 +37,7 @@ const Navbar = () => {
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/menu", label: "Menu" },
+    { href: "/menus", label: "Menus" },
     { href: "/restaurants", label: "Restaurants" },
     { href: "/blogs", label: "Blogs" },
     { href: "/about", label: "About" },

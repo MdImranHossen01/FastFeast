@@ -173,38 +173,38 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Chatbot Toggle Button */}
+      {/* Chatbot Toggle Button - Made Smaller */}
       <motion.button
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-orange-500 hover:bg-orange-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-orange-500 hover:bg-orange-600 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300" // Changed from w-14 h-14 to w-12 h-12
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> {/* Changed from h-6 w-6 to h-5 w-5 */}
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> {/* Changed from h-6 w-6 to h-5 w-5 */}
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
           </svg>
         )}
       </motion.button>
 
-      {/* Chatbot Window */}
+      {/* Chatbot Window - Made Smaller */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 w-80 h-96 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200"
+            className="fixed bottom-20 right-6 z-50 w-72 h-80 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200" // Changed from w-80 h-96 to w-72 h-80, adjusted bottom position
           >
             {/* Header */}
-            <div className="bg-orange-500 px-4 py-3 flex items-center justify-between">
+            <div className="bg-orange-500 px-3 py-2 flex items-center justify-between"> {/* Reduced padding */}
               <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <h3 className="text-white font-semibold">FastFeast Assistant</h3>
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div> {/* Smaller dot */}
+                <h3 className="text-white font-semibold text-sm">FastFeast Assistant</h3> {/* Smaller text */}
               </div>
               <div className="flex items-center space-x-1">
                 <button
@@ -212,7 +212,7 @@ const Chatbot = () => {
                   className="text-white hover:text-orange-200 transition-colors"
                   title="Clear chat"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"> {/* Smaller icon */}
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
                 </button>
@@ -220,7 +220,7 @@ const Chatbot = () => {
                   onClick={() => setIsOpen(false)}
                   className="text-white hover:text-orange-200 transition-colors"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"> {/* Smaller icon */}
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -228,21 +228,21 @@ const Chatbot = () => {
             </div>
 
             {/* Messages Container */}
-            <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-3 bg-gray-50"> {/* Reduced padding */}
               {messages.map((message) => (
                 <ChatMessage key={message.id} message={message} />
               ))}
               
               {isTyping && (
-                <div className="flex items-center space-x-2 mb-4">
-                  <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce"></div>
+                <div className="flex items-center space-x-2 mb-3"> {/* Reduced margin */}
+                  <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center"> {/* Smaller container */}
+                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-bounce"></div> {/* Smaller dot */}
                   </div>
-                  <div className="bg-gray-200 rounded-2xl px-4 py-2 max-w-xs">
+                  <div className="bg-gray-200 rounded-2xl px-3 py-1.5 max-w-xs"> {/* Reduced padding */}
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse"></div>
-                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                      <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-pulse"></div> {/* Smaller dots */}
+                      <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                     </div>
                   </div>
                 </div>
@@ -251,7 +251,7 @@ const Chatbot = () => {
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-gray-200 p-3 bg-white">
+            <div className="border-t border-gray-200 p-2 bg-white"> {/* Reduced padding */}
               <ChatInput onSendMessage={handleSendMessage} />
             </div>
           </motion.div>
