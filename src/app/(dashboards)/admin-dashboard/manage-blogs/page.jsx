@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-"use client"
-=======
 "use client";
->>>>>>> 6675e0d7a136f61e5f4a2834fc6f873cb26ca90d
 import { MdArticle } from "react-icons/md";
 import { useState, useEffect } from "react";
 import AddBlogModal from "../modals/AddBlogModal";
 import BlogRow from "../components/BlogRow";
-import { useEffect, useState } from "react";
+
 
 export default function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
@@ -37,27 +33,6 @@ export default function ManageBlogs() {
     );
   }
 
-<<<<<<< HEAD
-export default function ManageBlogs() {
-const [blogs, setBlogs]=useState([])
-const [loading, setLoading]= useState(true)
-   
-   useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const blogsData= await getBlogs()
-          setBlogs(blogsData)
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
-    }, []);
-    if(loading) return <p>Loading...</p>
-=======
->>>>>>> 6675e0d7a136f61e5f4a2834fc6f873cb26ca90d
   return (
     <div className="space-y-8">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
@@ -65,7 +40,7 @@ const [loading, setLoading]= useState(true)
       </h1>
 
       <div className="flex justify-end">
-        {/* <AddBlogModal /> */}
+        <AddBlogModal />
       </div>
 
       <div className="overflow-x-auto rounded-lg shadow-md py-2 bg-white dark:bg-gray-900">
