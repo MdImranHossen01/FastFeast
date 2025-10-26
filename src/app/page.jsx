@@ -15,6 +15,9 @@ import RestaurantSection from "./components/RestaurantSection";
 import FoodCompare from "./components/FoodCompare";
 import AiDrivenFoodSuggestion from "./components/AiDrivenFoodSuggession";
 import Slider from "./components/Slider";
+import MarqueeSection from "./components/MarqueeSection";
+import TopCuisine from "./components/TopCuisine";
+import PopularItems from "./components/PopularItems";
 
 export default function Home() {
   return (
@@ -22,17 +25,20 @@ export default function Home() {
       <Banner />
       <AiDrivenFoodSuggestion />
       <SpecialOffers />
-      <Slider></Slider>
+      <PopularItems/>
+      <TopCuisine/>
+      <MarqueeSection/>
       <FoodCompare />
-      <TraditionalBeersSection></TraditionalBeersSection>
+      <TraditionalBeersSection/>
       <CategorySection />
       <PopularBlogs />
       <RestaurantSection />
       <CTASection />
       <Stats />
+      <Slider />
       <HowWeWork />
-      <FAQSection />
       <Services />
+      <FAQSection />
       <OurPartner />
       {/* <CareerOpportunities/> */}
       <CustomersReview />
