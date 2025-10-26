@@ -49,7 +49,7 @@ const RestaurantSection = () => {
   };
 
   return (
-    <section className="w-full min-h-screen bg-gradient-to-r from-orange-50 via-white to-emerald-50 md:h-screen">
+    <section className="w-full min-h-screen bg-gradient-to-r from-orange-200 via-orange-100 to-white md:h-screen">
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
         
         {/* Left Column: Animated Food Orbit */}
@@ -125,7 +125,7 @@ const RestaurantSection = () => {
             OUR COMMITMENT TO QUALITY
           </p>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-4 sm:mb-6">
+          <h2 className="text-3xl sm:text-4xl  font-extrabold leading-tight mb-4 sm:mb-6">
             Building Stronger <br className="hidden lg:inline" />
             <span className="text-orange-600">Community</span> Partnerships
           </h2>

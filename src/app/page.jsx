@@ -17,6 +17,7 @@ import AiDrivenFoodSuggestion from "./components/AiDrivenFoodSuggession";
 import Slider from "./components/Slider";
 import MarqueeSection from "./components/MarqueeSection";
 import TopCuisine from "./components/TopCuisine";
+import PopularItems from "./components/PopularItems";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Banner />
       <AiDrivenFoodSuggestion />
       <SpecialOffers />
+      <PopularItems/>
       <TopCuisine/>
       <MarqueeSection/>
       <FoodCompare />

@@ -12,7 +12,7 @@ import {
   Navigation,
   Autoplay,
 } from "swiper/modules";
-import { ArrowLeft, ArrowRight, Utensils, Star, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, Star, Clock } from "lucide-react";
 import Link from "next/link";
 
 const TopCuisine = () => {
@@ -25,7 +25,7 @@ const TopCuisine = () => {
       icon: "🍛",
       rating: 4.8,
       deliveryTime: "25-35 min",
-      link: "/cuisine/thai"
+      link: "/thaifood"
     },
     {
       name: "Japanese",
@@ -35,7 +35,7 @@ const TopCuisine = () => {
       icon: "🍣",
       rating: 4.9,
       deliveryTime: "30-40 min",
-      link: "/cuisine/japanese"
+      link: "/japanesefood"
     },
     {
       name: "Indian",
@@ -45,7 +45,7 @@ const TopCuisine = () => {
       icon: "🍛",
       rating: 4.7,
       deliveryTime: "20-30 min",
-      link: "/cuisine/indian"
+      link: "/indianfood"
     },
     {
       name: "Chinese",
@@ -55,7 +55,7 @@ const TopCuisine = () => {
       icon: "🥢",
       rating: 4.6,
       deliveryTime: "25-35 min",
-      link: "/cuisine/chinese"
+      link: "/chinesefood"
     },
     {
       name: "Italian",
@@ -65,7 +65,7 @@ const TopCuisine = () => {
       icon: "🍝",
       rating: 4.8,
       deliveryTime: "35-45 min",
-      link: "/cuisine/italian"
+      link: "/italianfood"
     },
     {
       name: "Turkish",
@@ -75,7 +75,7 @@ const TopCuisine = () => {
       icon: "🥙",
       rating: 4.5,
       deliveryTime: "30-40 min",
-      link: "/cuisine/turkish"
+      link: "/turkishfood"
     },
     {
       name: "Korean",
@@ -85,7 +85,7 @@ const TopCuisine = () => {
       icon: "🍲",
       rating: 4.7,
       deliveryTime: "25-35 min",
-      link: "/cuisine/korean"
+      link: "/koreanfood"
     }
   ];
 
@@ -139,13 +139,7 @@ const TopCuisine = () => {
 
         {/* Header */}
         <div className="text-center mb-12 lg:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full mb-4 backdrop-blur-sm border border-orange-500/30">
-            <Utensils className="w-4 h-4 text-orange-600" />
-            <span className="text-sm font-semibold text-orange-700">
-              Explore Global Flavors
-            </span>
-          </div>
-
+         
           <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4">
             Top <span className="text-orange-600">Cuisines</span>
           </h2>
