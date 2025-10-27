@@ -1,10 +1,13 @@
 import { NextResponse } from 'next/server';
+import connectMongooseDb from "@/lib/mongoose"; 
 import Order from '@/models/order.model';
 import User from '@/models/user.model';
 import Traffic from '@/models/traffic.model';
 
 export async function GET(request) {
   try {
+
+    await connectMongooseDb();
     const { searchParams } = new URL(request.url);
     
     // Get active orders (placed in last 1 hour)

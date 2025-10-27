@@ -2,13 +2,10 @@ import { NextResponse } from "next/server";
 import connectMongooseDb from "@/lib/mongoose";
 import Menu from "@/models/menu.model";
 
-// CREATE a new Menu
+// CREATE a new Menu - Keep as is
 export async function POST(req) {
   try {
-    // Parse the request body
     const menuData = await req.json();
-
-    // Destructure required fields
     const {
       title,
       imageUrl,
@@ -28,7 +25,6 @@ export async function POST(req) {
       rating,
     } = menuData;
 
-    // Basic validation
     if (
       !title ||
       !imageUrl ||
@@ -46,10 +42,7 @@ export async function POST(req) {
       );
     }
 
-    // Connect to MongoDB
     await connectMongooseDb();
-
-    // Create new menu
     const newMenu = await Menu.create({
       title,
       imageUrl,
@@ -69,13 +62,11 @@ export async function POST(req) {
       rating,
     });
 
-    // Return the created menu
     return NextResponse.json(
       { success: true, menu: newMenu.toObject() },
       { status: 201 }
     );
   } catch (error) {
-    // Log the error for debugging
     console.error("Error creating menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
@@ -84,19 +75,25 @@ export async function POST(req) {
   }
 }
 
-// GET all menus
+// GET all menus - OPTIMIZED
 export async function GET() {
   try {
-    // Ensure DB connection
     await connectMongooseDb();
 
-    // Fetch all menus
-    const menus = await Menu.find();
+    // ✅ OPTIMIZATION: Select only needed fields + limit + lean
+    const menus = await Menu.find()
+      .select('title imageUrl description price cuisine category isSpecialOffer discountRate offerPrice rating restaurantId')
+      .limit(100)
+      .lean();
 
-    // Return the list of menus
-    return NextResponse.json(menus, { status: 200 });
+    // ✅ OPTIMIZATION: Add caching headers
+    return NextResponse.json(menus, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60'
+      }
+    });
   } catch (error) {
-    // Log the error for debugging
     console.error("Error fetching menus:", error);
     return NextResponse.json(
       { success: false, message: error.message },
