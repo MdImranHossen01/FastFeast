@@ -27,6 +27,7 @@ const LiveTraffic = () => {
   // Prevent multiple API calls
   const hasFetchedRef = useRef(false);
   const hasTrackedSessionRef = useRef(false);
+  const isComponentMountedRef = useRef(false);
 
   // Get or create session ID
   const getSessionId = () => {
@@ -42,7 +43,7 @@ const LiveTraffic = () => {
 
   // Fetch live data - ONLY REAL DATA
   const fetchTrafficData = async () => {
-    if (!isOnline) return;
+    if (!isOnline || !isComponentMountedRef.current) return;
     
     setIsLoading(true);
     try {
@@ -68,6 +69,8 @@ const LiveTraffic = () => {
 
   // Track user session
   const trackSession = async () => {
+    if (!isComponentMountedRef.current) return;
+    
     try {
       const sessionId = getSessionId();
       if (!sessionId) return;
@@ -168,16 +171,25 @@ const LiveTraffic = () => {
     };
   }, [isDragging]);
 
+  // Component mount/unmount tracking
+  useEffect(() => {
+    isComponentMountedRef.current = true;
+    
+    return () => {
+      isComponentMountedRef.current = false;
+    };
+  }, []);
+
   // --- Data Updates - FIXED (Prevent multiple calls) ---
   useEffect(() => {
-    // Only fetch once on initial mount
-    if (!hasFetchedRef.current) {
+    // Only fetch once on initial mount when component is visible
+    if (!hasFetchedRef.current && isComponentMountedRef.current) {
       fetchTrafficData();
       hasFetchedRef.current = true;
     }
     
     // Only track session once on initial mount  
-    if (!hasTrackedSessionRef.current) {
+    if (!hasTrackedSessionRef.current && isComponentMountedRef.current) {
       trackSession();
       hasTrackedSessionRef.current = true;
     }
@@ -185,7 +197,7 @@ const LiveTraffic = () => {
 
   // Fetch data only when panel opens
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && isComponentMountedRef.current) {
       fetchTrafficData();
       trackSession();
     }
@@ -194,7 +206,7 @@ const LiveTraffic = () => {
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
-      if (isOpen) {
+      if (isOpen && isComponentMountedRef.current) {
         fetchTrafficData();
         trackSession();
       }
