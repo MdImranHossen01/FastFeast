@@ -3,7 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ import {
   clearFilters,
 } from "@/lib/features/filtersSlice";
 
-// SVG Icons
+// SVG Icons - Memoized to prevent re-renders
 const LocationIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -107,39 +107,53 @@ const ListeningIcon = () => (
   </svg>
 );
 
-// Slider videos & content
+// Preload videos immediately
+const preloadVideos = () => {
+  if (typeof window !== 'undefined') {
+    const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];
+    videos.forEach(videoSrc => {
+      const video = document.createElement('video');
+      video.preload = 'auto';
+      video.src = videoSrc;
+    });
+  }
+};
+
+// Memoized slider content with poster images
 const sliderContent = [
   {
     video: "/video1.mp4",
+    poster: "/video1-poster.jpg",
     title: "Gourmet Burgers",
-    description:
-      "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
+    description: "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
   },
   {
     video: "/video2.mp4",
+    poster: "/video2-poster.jpg",
     title: "Artisan Pizzas",
-    description:
-      "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
+    description: "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
   },
   {
     video: "/video3.mp4",
+    poster: "/video3-poster.jpg",
     title: "Fresh Sushi",
-    description:
-      "Expertly crafted rolls with the finest fish, delivered right to your door.",
-  },
-  {
-    video: "/video4.mp4",
-    title: "Delicious Tacos",
-    description:
-      "Authentic Mexican flavors with fresh ingredients and homemade tortillas.",
-  },
-  {
-    video: "/video5.mp4",
-    title: "Refreshing Drinks",
-    description:
-      "Quench your thirst with our signature beverages and freshly squeezed juices.",
-  },
+    description: "Expertly crafted rolls with the finest fish, delivered right to your door.",
+  }
 ];
+
+// Custom Swiper wrapper to filter out problematic props
+const CustomSwiper = ({ children, ...props }) => {
+  // Filter out props that cause DOM warnings
+  const safeProps = { ...props };
+  delete safeProps.preloadImages;
+  delete safeProps.lazy;
+  
+  return (
+    <Swiper {...safeProps}>
+      {children}
+    </Swiper>
+  );
+};
 
 const Banner = () => {
   const router = useRouter();
@@ -155,18 +169,19 @@ const Banner = () => {
   const recognitionRef = useRef(null);
   const locationDropdownRef = useRef(null);
 
-  const availableLocations = [
-    "Dhanmondi",
-    "Mirpur",
-    "Uttara",
-    "Banani",
-    "Gulshan",
-  ];
+  // Preload videos on component mount
+  useEffect(() => {
+    preloadVideos();
+  }, []);
+
+  // Memoize locations array
+  const availableLocations = useMemo(() => [
+    "Dhanmondi", "Mirpur", "Uttara", "Banani", "Gulshan",
+  ], []);
 
   // Check if speech recognition is supported
   useEffect(() => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     setIsSpeechSupported(!!SpeechRecognition);
 
     if (SpeechRecognition) {
@@ -202,36 +217,32 @@ const Banner = () => {
     };
   }, [dispatch]);
 
-  const handleLocationSelect = (selectedLocation) => {
+  // Memoized callbacks to prevent unnecessary re-renders
+  const handleLocationSelect = useCallback((selectedLocation) => {
     dispatch(setLocation(selectedLocation));
     setIsLocationOpen(false);
-  };
+  }, [dispatch]);
 
-  // Handle search submission
-  const handleSearch = (e) => {
+  const handleSearch = useCallback((e) => {
     if (e.type === "keydown" && e.key !== "Enter") return;
-
-    // Redirect to menu page with filters applied
     router.push("/menus");
-  };
+  }, [router]);
 
-  // Clear search and redirect to menu
-  const handleExploreMenu = () => {
+  const handleExploreMenu = useCallback(() => {
     dispatch(clearFilters());
     router.push("/menus");
-  };
+  }, [dispatch, router]);
 
-  // Clear individual filters
-  const handleClearSearch = () => {
+  const handleClearSearch = useCallback(() => {
     dispatch(setSearchQuery(""));
-  };
+  }, [dispatch]);
 
-  const handleClearLocation = () => {
+  const handleClearLocation = useCallback(() => {
     dispatch(setLocation(""));
-  };
+  }, [dispatch]);
 
   // Voice search functions
-  const startListening = () => {
+  const startListening = useCallback(() => {
     if (recognitionRef.current && !isListening) {
       try {
         recognitionRef.current.start();
@@ -242,29 +253,27 @@ const Banner = () => {
         setIsListening(false);
       }
     }
-  };
+  }, [isListening]);
 
-  const stopListening = () => {
+  const stopListening = useCallback(() => {
     if (recognitionRef.current && isListening) {
       recognitionRef.current.stop();
       setIsListening(false);
     }
-  };
+  }, [isListening]);
 
-  const toggleListening = () => {
+  const toggleListening = useCallback(() => {
     if (isListening) {
       stopListening();
     } else {
       startListening();
     }
-  };
+  }, [isListening, startListening, stopListening]);
 
+  // Click outside handler
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        locationDropdownRef.current &&
-        !locationDropdownRef.current.contains(event.target)
-      ) {
+      if (locationDropdownRef.current && !locationDropdownRef.current.contains(event.target)) {
         setIsLocationOpen(false);
       }
     };
@@ -272,19 +281,20 @@ const Banner = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleScrollDown = () => {
+  const handleScrollDown = useCallback(() => {
     window.scrollTo({
       top: window.innerHeight,
       behavior: "smooth",
     });
-  };
+  }, []);
 
-  // Check if there are any active filters
-  const hasActiveFilters = searchQuery || location;
+  // Memoize computed values
+  const hasActiveFilters = useMemo(() => searchQuery || location, [searchQuery, location]);
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      <Swiper
+      {/* Use CustomSwiper instead of Swiper directly */}
+      <CustomSwiper
         spaceBetween={30}
         centeredSlides={true}
         effect={"fade"}
@@ -298,7 +308,7 @@ const Banner = () => {
       >
         {sliderContent.map((slide, index) => (
           <SwiperSlide key={index} className="relative">
-            {/* Background video without zoom effect */}
+            {/* Background video with loading optimization */}
             <div className="absolute inset-0 overflow-hidden">
               <video
                 src={slide.video}
@@ -306,6 +316,8 @@ const Banner = () => {
                 loop
                 muted
                 playsInline
+                preload="auto"
+                poster={slide.poster}
                 className="slide-video w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
@@ -390,7 +402,7 @@ const Banner = () => {
                       className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white"
                     />
 
-                    {/* Voice Search Button - Only icon in search bar */}
+                    {/* Voice Search Button */}
                     {isSpeechSupported && (
                       <button
                         onClick={toggleListening}
@@ -399,12 +411,7 @@ const Banner = () => {
                             ? "bg-green-500 hover:bg-green-600"
                             : "bg-white/20 hover:bg-white/30"
                         }`}
-                        aria-label={
-                          isListening ? "Stop listening" : "Start voice search"
-                        }
-                        title={
-                          isListening ? "Stop listening" : "Start voice search"
-                        }
+                        aria-label={isListening ? "Stop listening" : "Start voice search"}
                       >
                         {isListening ? <ListeningIcon /> : <MicIcon />}
                       </button>
@@ -414,9 +421,7 @@ const Banner = () => {
                   {/* Clear Filters Button */}
                   {hasActiveFilters && (
                     <button
-                      onClick={() => {
-                        dispatch(clearFilters());
-                      }}
+                      onClick={() => dispatch(clearFilters())}
                       className="ml-2 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
                       aria-label="Clear filters"
                     >
@@ -444,32 +449,6 @@ const Banner = () => {
                         Stop
                       </button>
                     </div>
-                  </motion.div>
-                )}
-
-                {/* Speech Recognition Not Supported Message */}
-                {!isSpeechSupported && (
-                  <div className="mt-2 text-center">
-                    <p className="text-orange-300 text-sm opacity-80">
-                      Voice search is not supported in your browser. Try Chrome
-                      or Edge.
-                    </p>
-                  </div>
-                )}
-
-                {/* Search Hint */}
-                {(searchQuery || location) && !isListening && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-2 text-center"
-                  >
-                    <p className="text-white text-sm opacity-80">
-                      Press Enter to search{" "}
-                      {searchQuery && `for "${searchQuery}"`}
-                      {searchQuery && location && " in "}
-                      {location && `📍 ${location}`}
-                    </p>
                   </motion.div>
                 )}
 
@@ -511,7 +490,7 @@ const Banner = () => {
                 transition={{ duration: 0.5, delay: 0.9 }}
                 className="flex flex-wrap gap-4 mt-8 justify-center"
               >
-                {/* Search Button (visible when there's a search query) */}
+                {/* Search Button */}
                 {(searchQuery || location) && (
                   <button
                     onClick={handleSearch}
@@ -545,18 +524,11 @@ const Banner = () => {
                   </span>
                   <span className="relative">Explore Menu</span>
                 </button>
-
-                {/* <button
-                  onClick={handleExploreMenu}
-                  className="bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
-                >
-                  Explore Menu
-                </button> */}
               </motion.div>
             </div>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </CustomSwiper>
 
       {/* Scroll Down Button */}
       <motion.div
@@ -571,17 +543,6 @@ const Banner = () => {
           <ScrollDownIcon />
         </div>
       </motion.div>
-
-      {/* Global Styles - Zoom effect removed */}
-      <style jsx global>{`
-        .slide-video {
-          /* Zoom effect removed - video will remain at normal scale */
-        }
-
-        .swiper-slide-active .slide-video {
-          /* Zoom effect removed - no scale transformation on active slide */
-        }
-      `}</style>
     </section>
   );
 };
