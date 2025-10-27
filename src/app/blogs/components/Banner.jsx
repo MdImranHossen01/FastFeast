@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import bannerImage from "../../../assets/blog-page-banner.png";
+import bannerImage from "@/assets/blog-page-banner.png";
 import SearchBar from "./SearchBar";
 
 export default function Banner({ blogs, query, setQuery, tag, setTag }) {
   const allTags = ["All", ...new Set(blogs.flatMap((b) => b.tags || []))];
 
   return (
-    <header className="lg:mb-12 relative bg-cover bg-center lg:min-h-100 h-auto overflow-hidden">
+    <header className="relative bg-cover bg-center overflow-hidden py-12">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
@@ -25,8 +25,8 @@ export default function Banner({ blogs, query, setQuery, tag, setTag }) {
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center items-center text-center h-full p-6 sm:p-10 lg:p-16">
         <div className="w-full max-w-4xl mx-auto">
-          <h1 className="text-xl sm:text-4xl lg:text-5xl uppercase text-shadow-accent-content font-extrabold py-2 bg-gradient-to-r from-red-700 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
-            FastFeast Food Journal – Tradition Meets Delivery
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl uppercase text-shadow-accent-content font-extrabold py-2 bg-gradient-to-r from-red-700 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+            FastFeast Food Journal, Tradition Meets Delivery
           </h1>
 
           <p className="text-gray-100 mb-6 text-sm sm:text-base md:text-lg">

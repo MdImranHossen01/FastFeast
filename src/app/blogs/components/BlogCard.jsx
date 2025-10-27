@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { FaEye } from "react-icons/fa";
 
 export default function BlogCard({ blog }) {
@@ -22,13 +21,8 @@ export default function BlogCard({ blog }) {
 
   const handleReadMore = async (e) => {
     e.preventDefault();
-
     try {
-      // increment visit count before navigating
-      await fetch(`/api/blogs/${_id}`, {
-        method: "POST", // use POST here, since you already made a POST route for increment
-      });
-
+      await fetch(`/api/blogs/${_id}`, { method: "POST" });
       router.push(`/blogs/${_id}`);
     } catch (error) {
       console.error("Failed to increment view count:", error);
@@ -37,85 +31,95 @@ export default function BlogCard({ blog }) {
   };
 
   return (
-    <section className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      {/* Cover image */}
-      <figure className="relative h-52 overflow-hidden">
-        {coverImage && (
+    <article
+      onClick={handleReadMore}
+      className="group cursor-pointer flex flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 ease-out"
+    >
+      {/* Image Section */}
+      <div className="relative h-56 overflow-hidden rounded-t-3xl">
+        {coverImage ? (
           <img
             src={coverImage}
             alt={title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
+        ) : (
+          <div className="h-full w-full bg-gradient-to-br from-gray-200 to-gray-300" />
         )}
-      </figure>
 
-      {/* Content */}
-      <div className="flex flex-1 flex-col p-5">
-        {/* Tag */}
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500 z-10"></div>
+
+        {/* Floating Tag */}
         {tags?.length > 0 && (
-          <span className="mb-3 inline-block w-fit rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white">
+          <span className="absolute top-3 left-3 rounded-full bg-gradient-to-r from-orange-600 to-orange-400 text-white px-3 py-1 text-xs font-semibold shadow-md shadow-orange-400/30 z-20">
             {tags[0]}
           </span>
         )}
 
-        {/* Blog Title */}
-        <h1 className="text-xl font-extrabold mb-3 line-clamp-2 text-gray-900">
+        {/* ✅ View Count - fixed visibility */}
+        <div className="absolute bottom-4 right-3 flex items-center gap-1 bg-black/70 backdrop-blur-sm px-2 py-1 rounded-full text-xs text-white shadow-md z-30">
+          <FaEye className="w-4 h-4 text-orange-400" />
+          <span>{visitCount ?? 0}</span>
+        </div>
+      </div>
+
+
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-6 sm:p-5">
+        {/* Title */}
+        <h2 className="text-lg sm:text-xl font-extrabold text-gray-900 mb-2 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300">
           {title}
-        </h1>
+        </h2>
+
+        {/* Excerpt */}
+        <p className="text-sm text-gray-600 line-clamp-2 mb-5 leading-relaxed">
+          {excerpt}
+        </p>
 
         {/* Meta Info */}
-        <div className="flex items-center justify-between text-sm text-gray-600 mb-6">
+        <div className="flex items-center justify-between mb-4 gap-2">
+          {/* Author Info */}
           <div className="flex items-center gap-2">
             <Image
               src={"/user.png"}
               alt={author || "Author"}
               width={32}
               height={32}
-              className="rounded-full border border-gray-200 object-cover"
+              className="rounded-full border border-gray-300 object-cover"
             />
-            <div className="flex flex-col">
-              <span className="font-semibold text-xs">
+            <div className="flex flex-col gap-1">
+              <p className="font-semibold text-gray-700 text-sm leading-tight">
                 {author || "Unknown"}
-              </span>
-              {/* Date */}
+              </p>
               {createdAt && (
-                <span className="text-xs ">
+                <p className="text-[11px] text-gray-400">
                   {new Date(createdAt).toLocaleDateString("en-US", {
-                    month: "long",
+                    month: "short",
                     day: "numeric",
                     year: "numeric",
                   })}
-                </span>
+                </p>
               )}
             </div>
           </div>
-
-          <div className="flex gap-1 justify-center">
-            {/* <span className="text-gray-400">•</span> */}
-
-            {/* 👁️ View Count */}
-            <span className="flex  items-center  gap-1 text-gray-600">
-              <FaEye className="w-4 h-4" /> {visitCount || 0} views
-            </span>
-          </div>
         </div>
 
-        {/* Excerpt */}
-        <p className="text-sm text-gray-700 line-clamp-2 mb-4">{excerpt}</p>
+        {/* Divider */}
+        <div className="border-t border-gray-100 mb-3"></div>
 
-        <hr className="border-orange-200 mb-3" />
-
-        {/* Read More */}
-        <div className="flex flex-1 items-center justify-end">
+        {/* Read More Button */}
+        <div className="flex justify-end">
           <Link
             href={`/blogs/${_id}`}
-            className="flex items-center gap-1 text-sm font-semibold cursor-pointer text-gray-500 transition-colors duration-300 group-hover:text-orange-500"
+            className="flex items-center gap-1 text-sm font-semibold text-orange-600 hover:text-orange-700 transition-all duration-300 group"
           >
             Read More
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
       </div>
-    </section>
+    </article>
   );
 }
