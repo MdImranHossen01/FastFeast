@@ -1,5 +1,8 @@
 // src/app/api/ai/food-suggestions/route.js
 import { NextResponse } from "next/server";
+import connectMongooseDb from "@/lib/mongoose";
+import Menu from "@/models/menu.model";
+import Restaurant from "@/models/restaurant.model";
 
 export async function POST(req) {
   try {
@@ -13,8 +16,44 @@ export async function POST(req) {
 
     const moodLower = String(mood).toLowerCase();
 
-    const response = await fetch("https://fast-feast-nine.vercel.app/api/menus");
-    const allMenus = await response.json();
+    // Try to connect to database first
+    let dbConnected = false;
+    try {
+      await connectMongooseDb();
+      dbConnected = true;
+    } catch (dbError) {
+      console.log("Database not available, using fallback data");
+    }
+
+    let allMenus = [];
+    
+    if (dbConnected) {
+      // Get menus from local database
+      try {
+        const menus = await Menu.find()
+          .select('title imageUrl description price cuisine category isSpecialOffer discountRate offerPrice rating restaurantId dietaryTags')
+          .limit(100)
+          .lean();
+        allMenus = menus;
+      } catch (menuError) {
+        console.log("Could not fetch menus from database");
+      }
+    }
+
+    // If no menus from database, use empty array (fallback will handle this)
+    if (allMenus.length === 0) {
+      console.log("No menus available, returning empty suggestions");
+      return NextResponse.json({
+        success: true,
+        message: `No menu data available for: ${mood}`,
+        suggestions: [],
+        summary: {
+          totalSuggestions: 0,
+          bestMatch: "No matches found",
+          reasoning: `No menu data available`,
+        },
+      });
+    }
 
     let filteredMenus = [];
 
@@ -53,20 +92,35 @@ export async function POST(req) {
         )
       );
     } else {
-      filteredMenus = allMenus.slice(0, 8); // CHANGED: 6 to 8
+      filteredMenus = allMenus.slice(0, 8);
     }
 
     // Randomize and limit to 8 items
-    filteredMenus = filteredMenus.sort(() => 0.5 - Math.random()).slice(0, 8); // CHANGED: 6 to 8
+    filteredMenus = filteredMenus.sort(() => 0.5 - Math.random()).slice(0, 8);
+
+    // Get restaurant info for suggestions
+    let restaurants = [];
+    if (dbConnected) {
+      try {
+        restaurants = await Restaurant.find().select('name estimatedDeliveryTime').lean();
+      } catch (restaurantError) {
+        console.log("Could not fetch restaurants");
+      }
+    }
 
     // ✅ Add menuId compatibility for frontend
-    const suggestions = filteredMenus.map((item) => ({
-      ...item,
-      menuId: item._id,
-      restaurantInfo: { name: "Local Restaurant", estimatedDeliveryTime: "30-40 min" },
-      matchScore: Math.floor(Math.random() * 20) + 75,
-      reason: `Excellent ${moodLower} choice.`,
-    }));
+    const suggestions = filteredMenus.map((item) => {
+      const restaurantInfo = restaurants.find(r => r._id.toString() === item.restaurantId?.toString()) || 
+                           { name: "Local Restaurant", estimatedDeliveryTime: "30-40 min" };
+      
+      return {
+        ...item,
+        menuId: item._id,
+        restaurantInfo,
+        matchScore: Math.floor(Math.random() * 20) + 75,
+        reason: `Excellent ${moodLower} choice.`,
+      };
+    });
 
     return NextResponse.json({
       success: true,
@@ -80,9 +134,16 @@ export async function POST(req) {
     });
   } catch (error) {
     console.error("❌ Food suggestion error:", error);
-    return NextResponse.json(
-      { success: false, error: error.message },
-      { status: 500 }
-    );
+    // Return empty suggestions instead of error to prevent frontend issues
+    return NextResponse.json({
+      success: true,
+      message: "Service temporarily unavailable",
+      suggestions: [],
+      summary: {
+        totalSuggestions: 0,
+        bestMatch: "No matches found",
+        reasoning: "Service temporarily unavailable",
+      },
+    });
   }
 }
