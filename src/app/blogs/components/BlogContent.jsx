@@ -20,7 +20,7 @@ export default function BlogContent({ blogs, query, tag }) {
         {filtered.length === 0 ? (
           <div className="text-gray-500">No posts found.</div>
         ) : (
-          filtered.map((blog) => <BlogCard key={blog._id} blog={blog} />)
+          filtered.map((blog) => <BlogCa_rd key={blog._id} blog={blog} />)
         )}
       </section>
     </main>
