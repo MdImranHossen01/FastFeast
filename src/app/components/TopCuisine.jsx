@@ -14,6 +14,8 @@ import {
 } from "swiper/modules";
 import { ArrowLeft, ArrowRight, Star, Clock } from "lucide-react";
 import Link from "next/link";
+import AOS from 'aos'; // Import AOS directly
+import 'aos/dist/aos.css';
 
 const TopCuisine = () => {
   const cuisines = [
@@ -99,26 +101,19 @@ const TopCuisine = () => {
     { from: "from-rose-500", to: "to-orange-500", glow: "rose" },
   ];
 
+  // --- MODIFICATION ---
+  // The useEffect is now simplified. Since this component only runs on the client,
+  // we can safely initialize AOS here.
   useEffect(() => {
-    // Only initialize AOS on client side
-    if (typeof window !== 'undefined') {
-      import('aos').then((AOS) => {
-        AOS.default.init({
-          duration: 800,
-          once: true,
-          mirror: false,
-          offset: 100,
-          easing: 'ease-out-cubic',
-          delay: 0,
-        });
-        
-        // Refresh after initialization
-        setTimeout(() => {
-          AOS.default.refresh();
-        }, 100);
-      });
-    }
-  }, []);
+    AOS.init({
+      duration: 800,
+      once: true,
+      mirror: false,
+      offset: 100,
+      easing: 'ease-out-cubic',
+      delay: 0,
+    });
+  }, []); // Empty dependency array ensures this runs only once on mount
   
   return (
     <>

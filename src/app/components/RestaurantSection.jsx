@@ -3,31 +3,27 @@
 import React, { useState, useEffect } from 'react';
 import { FaUtensils, FaShippingFast, FaStar, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+import AOS from 'aos'; // Import AOS directly
+import 'aos/dist/aos.css'; // Import AOS CSS
 
 const RestaurantSection = () => {
   const [rotation, setRotation] = useState(0);
 
+  // Simplified useEffect hook for AOS initialization.
+  // Since this component is now guaranteed to run only on the client,
+  // we can remove the `typeof window` checks.
   useEffect(() => {
-    // Only initialize AOS on client side
-    if (typeof window !== 'undefined') {
-      import('aos').then((AOS) => {
-        AOS.default.init({
-          duration: 800,
-          once: true,        
-          mirror: false,     
-          offset: 100,
-          easing: 'ease-out-cubic',
-          delay: 0,
-        });
-        
-        // Refresh after initialization
-        setTimeout(() => {
-          AOS.default.refresh();
-        }, 100);
-      });
-    }
-  }, []);
+    AOS.init({
+      duration: 800,
+      once: true,        
+      mirror: false,     
+      offset: 100,
+      easing: 'ease-out-cubic',
+      delay: 0,
+    });
+  }, []); // The empty dependency array ensures this runs only once after the component mounts.
 
+  // This useEffect for the rotation animation remains unchanged.
   useEffect(() => {
     const interval = setInterval(() => {
       setRotation(prev => (prev + 0.5) % 360);
