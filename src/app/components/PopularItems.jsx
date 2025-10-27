@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react"; // Import useState
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AOS from "aos";
@@ -60,8 +60,8 @@ const safeImage = (e) => {
 };
 
 const useIsMobile = (breakpoint = 768) => {
-  const [isMobile, setIsMobile] = React.useState(false);
-  React.useEffect(() => {
+  const [isMobile, setIsMobile] = useState(false); // Changed to useState for clarity, though React.useState is fine.
+  useEffect(() => { // Changed to useEffect
     if (typeof window === "undefined") return;
     const checkScreenSize = () => setIsMobile(window.innerWidth < breakpoint);
     checkScreenSize();
@@ -72,25 +72,32 @@ const useIsMobile = (breakpoint = 768) => {
 };
 
 export default function PopularItems() {
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeIndex, setActiveIndex] = useState(0); // Changed to useState
   const isMobile = useIsMobile();
+  const [isClient, setIsClient] = useState(false); // New state to track if on client
 
   // Increased container radius to prevent overlapping
   const containerRadius = isMobile ? 130 : 200; // Increased from 130/200
   const profileSize = isMobile ? 70 : 90; // Slightly increased profile size
   const containerSize = containerRadius * 2 + 100; // Increased buffer space
 
-  const getRotation = React.useCallback(
+  const getRotation = React.useCallback( // Keep React.useCallback for memoization
     (index) => (index - activeIndex) * (360 / popularItems.length),
     [activeIndex]
   );
 
   useEffect(() => {
+    // This effect runs only on the client
+    setIsClient(true);
     AOS.init({
       duration: 1000,
       once: true,
     });
-  }, []);
+    // Refresh AOS when component updates or layout changes
+    // This is important for single-page applications or components
+    // that load dynamically.
+    AOS.refresh(); 
+  }, []); // Empty dependency array means this runs once on mount
 
   const next = () => setActiveIndex((i) => (i + 1) % popularItems.length);
   const prev = () =>
@@ -104,14 +111,19 @@ export default function PopularItems() {
     [activeIndex]
   );
 
-  React.useEffect(() => {
+  useEffect(() => { // Changed to useEffect
+    if (!isClient) return; // Only attach event listeners on client
     const handleKeyDown = (event) => {
       if (event.key === "ArrowLeft") prev();
       else if (event.key === "ArrowRight") next();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [isClient, next, prev]); // Depend on isClient, next, prev
+
+  // Conditionally apply data-aos attributes based on isClient
+  const aosPropsLeft = isClient ? { "data-aos": "fade-left" } : {};
+  const aosPropsRight = isClient ? { "data-aos": "fade-right" } : {};
 
   return (
     <section className="flex flex-col items-center w-full relative min-h-[500px] transition-colors duration-300 bg-gradient-to-b from-white to-orange-50 py-12">
@@ -120,7 +132,7 @@ export default function PopularItems() {
           {/* Left Side Content */}
           <div
             className="flex flex-col justify-center space-y-6"
-            data-aos="fade-left"
+            {...aosPropsLeft} // Spread the conditionally created props
           >
             <p className="text-sm uppercase tracking-widest font-medium text-orange-600 mb-1">
               Handpicked by thousands of food lovers across Bangladesh
@@ -160,8 +172,8 @@ export default function PopularItems() {
 
           {/* right side component */}
           <div
-            data-aos="fade-right"
             className="relative flex items-center mx-auto justify-center mb-8"
+            {...aosPropsRight} // Spread the conditionally created props
             style={{
               width: containerSize,
               height: containerSize,
