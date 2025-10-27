@@ -3,7 +3,7 @@ import Banner from "./components/Banner";
 import Loading from "./loading"; 
 import TopCuisineDynamic from './components/TopCuisineDynamic';
 import RestaurantSectionDynamic from './components/RestaurantSectionDynamic'; // Import the new wrapper
-
+import PopularItemsDynamic from './components/PopularItemsDynamic'; 
 // Lazy load all other non-critical components
 const FAQSection = lazy(() => import("./components/FaqSection"));
 const Stats = lazy(() => import("./components/Stats"));
@@ -61,9 +61,7 @@ export default function Home() {
         <SpecialOffers />
       </Suspense>
       
-      <Suspense fallback={<SectionLoader />}>
-        <PopularItems />
-      </Suspense>
+     <PopularItemsDynamic />
       
       {/* This component is already wrapped and handles its own loading */}
       <TopCuisineDynamic />
