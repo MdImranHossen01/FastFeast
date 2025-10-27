@@ -15,6 +15,7 @@ export default function LoginForm() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [oauthLoading, setOauthLoading] = useState({ google: false, github: false });
   const [rememberMe, setRememberMe] = useState(false);
 
   const [showOtp, setShowOtp] = useState(false);
@@ -27,6 +28,13 @@ export default function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      Swal.fire("Error", "Please fill in all fields", "error");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -34,23 +42,50 @@ export default function LoginForm() {
         redirect: false,
         email: formData.email,
         password: formData.password,
+        callbackUrl: "/"
       });
 
+      console.log("Login response:", res); // Debug log
+
       if (res?.error === "OTP_REQUIRED") {
-        Swal.fire("OTP Sent", "Check your email for the code", "info");
+        Swal.fire("OTP Sent", "Check your email for the verification code", "info");
         setEmailForOtp(formData.email);
         setShowOtp(true);
-      } else if (res?.ok) {
+      } else if (res?.ok || res?.url) {
         Swal.fire("Success", "Logged in successfully", "success");
-        router.push("/");
+        // Use window.location for full page refresh to ensure auth state is updated
+        window.location.href = "/";
       } else {
-        Swal.fire("Error", res?.error || "Login failed", "error");
+        const errorMessage = res?.error?.includes("CredentialsSignin") 
+          ? "Invalid email or password" 
+          : (res?.error || "Login failed");
+        Swal.fire("Error", errorMessage, "error");
       }
     } catch (err) {
-      console.error(err);
-      Swal.fire("Error", "Server error", "error");
+      console.error("Login error:", err);
+      Swal.fire("Error", "An unexpected error occurred. Please try again.", "error");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleOAuthSignIn = async (provider) => {
+    setOauthLoading(prev => ({ ...prev, [provider]: true }));
+
+    try {
+      // Get the current origin for production compatibility
+      const callbackUrl = typeof window !== 'undefined' 
+        ? `${window.location.origin}/` 
+        : "/";
+      
+      await signIn(provider, { 
+        callbackUrl,
+        redirect: true 
+      });
+    } catch (err) {
+      console.error(`${provider} OAuth error:`, err);
+      Swal.fire("Error", `Failed to sign in with ${provider}`, "error");
+      setOauthLoading(prev => ({ ...prev, [provider]: false }));
     }
   };
 
@@ -76,12 +111,13 @@ export default function LoginForm() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                placeholder="Email"
-                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Enter your email"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:text-white transition-colors"
+                disabled={loading}
               />
             </div>
 
-            <div className="relative mt-4">
+            <div className="relative">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Password
               </label>
@@ -91,28 +127,30 @@ export default function LoginForm() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                placeholder="Password"
-                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-10"
+                placeholder="Enter your password"
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:text-white pr-10 transition-colors"
+                disabled={loading}
               />
               <div
-                className="absolute inset-y-0 right-0 pr-3 pt-5 flex items-center cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                className="absolute inset-y-0 right-0 pr-3 pt-7 flex items-center cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
-                  <AiOutlineEyeInvisible size={25} />
+                  <AiOutlineEyeInvisible size={20} />
                 ) : (
-                  <AiOutlineEye size={25} />
+                  <AiOutlineEye size={20} />
                 )}
               </div>
             </div>
 
-            <div className="flex justify-between">
-              <div className="flex items-center mt-2">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center">
                 <input
                   type="checkbox"
                   checked={rememberMe}
                   onChange={() => setRememberMe(!rememberMe)}
-                  className="h-4 w-4 text-orange-600 border-gray-300 rounded"
+                  className="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+                  disabled={loading}
                 />
                 <label className="ml-2 text-sm text-gray-600 dark:text-gray-300">
                   Remember me
@@ -120,27 +158,40 @@ export default function LoginForm() {
               </div>
               <Link
                 href="/forgot-password"
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-blue-600 hover:underline transition-colors"
               >
                 Forgot password?
               </Link>
             </div>
+
             <div className="flex gap-3 w-full justify-around">
               <div>
-                <CreateDemoUsersButton></CreateDemoUsersButton>
+                <CreateDemoUsersButton />
               </div>
               <Link href={"/demo-users"}>
-                <button className=" py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed mt-4">
+                <button 
+                  type="button"
+                  className="py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md hover:from-purple-600 hover:to-purple-700 transition-all mt-4"
+                >
                   Demo User Details
                 </button>
               </Link>
             </div>
+
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2 px-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2 px-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-md hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              {loading ? "Logging in..." : "Log In"}
+              {loading ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Logging in...
+                </span>
+              ) : "Log In"}
             </button>
           </form>
 
@@ -151,26 +202,44 @@ export default function LoginForm() {
           </div>
 
           <button
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() => handleOAuthSignIn("google")}
+            disabled={oauthLoading.google || loading}
             className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
-                 transition-colors shadow-sm font-medium"
+                 transition-colors shadow-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <FcGoogle className="text-xl" /> Continue with Google
+            {oauthLoading.google ? (
+              <svg className="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            ) : (
+              <FcGoogle className="text-xl" />
+            )}
+            {oauthLoading.google ? "Connecting..." : "Continue with Google"}
           </button>
+          
           <button
-            onClick={() => signIn("github", { callbackUrl: "/" })}
+            onClick={() => handleOAuthSignIn("github")}
+            disabled={oauthLoading.github || loading}
             className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
-                 transition-colors shadow-sm font-medium"
+                 transition-colors shadow-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <FaGithub className="text-xl" />
-            <span>Continue with GitHub</span>
+            {oauthLoading.github ? (
+              <svg className="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            ) : (
+              <FaGithub className="text-xl" />
+            )}
+            {oauthLoading.github ? "Connecting..." : "Continue with GitHub"}
           </button>
 
           <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
             Don't have an account?{" "}
-            <Link href="/register" className="text-blue-600 hover:underline">
+            <Link href="/register" className="text-blue-600 hover:underline transition-colors">
               Sign up here
             </Link>
           </p>
