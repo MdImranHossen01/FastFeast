@@ -2,34 +2,34 @@ import { NextResponse } from 'next/server';
 import Order from '@/models/order.model';
 import User from '@/models/user.model';
 import Traffic from '@/models/traffic.model';
+import connectMongooseDb from '@/lib/mongoose'; 
 
 export async function GET(request) {
   try {
-
     await connectMongooseDb();
     const { searchParams } = new URL(request.url);
-    
+
     // Get active orders (placed in last 1 hour)
     const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
-    
+
     const [activeOrders, activeLoggedInUsers, activeAnonymousUsers, activeDeliveries] = await Promise.all([
       // Active orders
       Order.countDocuments({
         createdAt: { $gte: oneHourAgo },
         status: { $in: ['pending', 'paid', 'processing', 'out-for-delivery'] }
       }),
-      
+
       // Active logged-in users (last 15 minutes) - using lastActive field
       User.countDocuments({
         lastActive: { $gte: new Date(Date.now() - 15 * 60 * 1000) }
       }),
-      
+
       // Active anonymous users (sessions in last 5 minutes for more accuracy)
       Traffic.countDocuments({
         lastActivity: { $gte: new Date(Date.now() - 5 * 60 * 1000) },
         isActive: true
       }),
-      
+
       // Active deliveries
       Order.countDocuments({
         status: 'out-for-delivery'
@@ -64,7 +64,7 @@ export async function GET(request) {
     });
   } catch (error) {
     console.error('Live traffic error:', error);
-    
+
     // Return zeros instead of any fake data
     return NextResponse.json({
       success: false,
@@ -85,7 +85,7 @@ async function getPopularItems() {
   try {
     // Get popular items from recent orders (last 3 hours)
     const threeHoursAgo = new Date(Date.now() - 3 * 60 * 60 * 1000);
-    
+
     const popularOrders = await Order.aggregate([
       {
         $match: {
