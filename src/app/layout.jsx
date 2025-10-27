@@ -57,7 +57,7 @@ export const viewport = {
   themeColor: "#ff6b00", 
 };
 
-// Dynamic imports for non-critical components
+// Dynamic imports for non-critical components (remove ssr: false)
 const Chatbot = dynamic(() => import("@/components/chatbot"), {
   loading: () => null
 });
@@ -92,7 +92,6 @@ function NonCriticalComponents() {
       <PWAInstaller />
       <LiveTraffic />
       <ScrollToTopButton />
-      {/* ❌ DatabaseOptimizer REMOVED - was causing errors */}
     </>
   );
 }
@@ -139,6 +138,12 @@ export default function RootLayout({ children }) {
           .slide-video {
             transition: opacity 0.3s ease-in-out;
           }
+
+          /* Prevent layout shift during session loading */
+          [data-session-loading="true"] {
+            opacity: 0.7;
+            pointer-events: none;
+          }
         `}} />
       </head>
       <body
@@ -160,7 +165,30 @@ export default function RootLayout({ children }) {
                       <footer>
                         <Footer />
                       </footer>
-                      <Toaster position="top-center" />
+                      <Toaster 
+                        position="top-center" 
+                        toastOptions={{
+                          duration: 4000,
+                          style: {
+                            background: '#363636',
+                            color: '#fff',
+                          },
+                          success: {
+                            duration: 3000,
+                            iconTheme: {
+                              primary: '#10b981',
+                              secondary: '#fff',
+                            },
+                          },
+                          error: {
+                            duration: 5000,
+                            iconTheme: {
+                              primary: '#ef4444',
+                              secondary: '#fff',
+                            },
+                          },
+                        }}
+                      />
                     </LenisProvider>
                   </CartProvider>
                 </StoreProvider>
