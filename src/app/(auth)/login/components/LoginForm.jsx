@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import Link from "next/link";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -38,27 +38,38 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      const res = await signIn("credentials", {
+      const result = await signIn("credentials", {
         redirect: false,
         email: formData.email,
         password: formData.password,
         callbackUrl: "/"
       });
 
-      console.log("Login response:", res); // Debug log
+      console.log("Login result:", result);
 
-      if (res?.error === "OTP_REQUIRED") {
+      if (result?.error === "OTP_REQUIRED") {
         Swal.fire("OTP Sent", "Check your email for the verification code", "info");
         setEmailForOtp(formData.email);
         setShowOtp(true);
-      } else if (res?.ok || res?.url) {
-        Swal.fire("Success", "Logged in successfully", "success");
-        // Use window.location for full page refresh to ensure auth state is updated
-        window.location.href = "/";
+      } else if (result?.ok || result?.url) {
+        // Force session refresh and hard redirect
+        const session = await getSession();
+        console.log("Session after login:", session);
+        
+        Swal.fire({
+          title: "Success!",
+          text: "Logged in successfully",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+        }).then(() => {
+          // Hard redirect to ensure session is properly loaded
+          window.location.href = "/";
+        });
       } else {
-        const errorMessage = res?.error?.includes("CredentialsSignin") 
+        const errorMessage = result?.error?.includes("CredentialsSignin") 
           ? "Invalid email or password" 
-          : (res?.error || "Login failed");
+          : (result?.error || "Login failed");
         Swal.fire("Error", errorMessage, "error");
       }
     } catch (err) {
@@ -73,7 +84,7 @@ export default function LoginForm() {
     setOauthLoading(prev => ({ ...prev, [provider]: true }));
 
     try {
-      // Get the current origin for production compatibility
+      // Use window location for production compatibility
       const callbackUrl = typeof window !== 'undefined' 
         ? `${window.location.origin}/` 
         : "/";
