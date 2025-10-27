@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -99,6 +99,27 @@ const TopCuisine = () => {
     { from: "from-rose-500", to: "to-orange-500", glow: "rose" },
   ];
 
+  useEffect(() => {
+    // Only initialize AOS on client side
+    if (typeof window !== 'undefined') {
+      import('aos').then((AOS) => {
+        AOS.default.init({
+          duration: 800,
+          once: true,
+          mirror: false,
+          offset: 100,
+          easing: 'ease-out-cubic',
+          delay: 0,
+        });
+        
+        // Refresh after initialization
+        setTimeout(() => {
+          AOS.default.refresh();
+        }, 100);
+      });
+    }
+  }, []);
+  
   return (
     <>
       <style>{`
@@ -132,25 +153,48 @@ const TopCuisine = () => {
         }
       `}</style>
 
-      <div className="relative max-w-7xl mx-auto mt-10 px-4 sm:px-6 lg:px-10 pb-16 lg:pb-20 overflow-hidden">
+      <div 
+        data-aos="fade-up"
+        data-aos-delay="100"
+        className="relative container w-full mx-auto mt-10 px-4 pb-16 lg:pb-20 overflow-hidden"
+      >
         {/* Background decorative elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-400/20 to-red-600/20 rounded-full blur-3xl -z-10"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl -z-10"></div>
+        <div 
+          data-aos="zoom-in"
+          data-aos-delay="200"
+          className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-400/20 to-red-600/20 rounded-full blur-3xl -z-10"
+        ></div>
+        <div 
+          data-aos="zoom-in"
+          data-aos-delay="300"
+          className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl -z-10"
+        ></div>
 
         {/* Header */}
         <div className="text-center mb-12 lg:mb-16">
-         
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4">
+          <h2 
+            data-aos="fade-up"
+            data-aos-delay="150"
+            className="text-4xl md:text-5xl font-extrabold text-center mb-4"
+          >
             Top <span className="text-orange-600">Cuisines</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+          <p 
+            data-aos="fade-up"
+            data-aos-delay="250"
+            className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto"
+          >
             Discover world-class flavors delivered fresh to your doorstep from our partner restaurants
           </p>
         </div>
 
         {/* Swiper Container */}
-        <div className="relative">
+        <div 
+          data-aos="fade-up"
+          data-aos-delay="350"
+          className="relative"
+        >
           <Swiper
             effect={"coverflow"}
             grabCursor={true}
@@ -300,8 +344,6 @@ const TopCuisine = () => {
           {/* Pagination */}
           <div className="swiper-pagination !bottom-0"></div>
         </div>
-
-       
       </div>
     </>
   );

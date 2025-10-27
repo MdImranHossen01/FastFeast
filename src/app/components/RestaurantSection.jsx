@@ -2,19 +2,30 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaUtensils, FaShippingFast, FaStar, FaHeart } from "react-icons/fa";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import Link from "next/link";
 
 const RestaurantSection = () => {
   const [rotation, setRotation] = useState(0);
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-      mirror: true
-    });
+    // Only initialize AOS on client side
+    if (typeof window !== 'undefined') {
+      import('aos').then((AOS) => {
+        AOS.default.init({
+          duration: 800,
+          once: true,        
+          mirror: false,     
+          offset: 100,
+          easing: 'ease-out-cubic',
+          delay: 0,
+        });
+        
+        // Refresh after initialization
+        setTimeout(() => {
+          AOS.default.refresh();
+        }, 100);
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -53,22 +64,35 @@ const RestaurantSection = () => {
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
         
         {/* Left Column: Animated Food Orbit */}
-        <div className="relative h-[600px] flex items-center justify-center" data-aos="fade-right">
+        <div 
+          className="relative h-[600px] flex items-center justify-center" 
+          data-aos="fade-right"
+          data-aos-delay="100"
+        >
           {/* Center Restaurant Logo */}
-          <div className="absolute z-20 w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 
-                        rounded-full flex flex-col items-center justify-center shadow-2xl" 
-               data-aos="zoom-in" data-aos-delay="200">
+          <div 
+            className="absolute z-20 w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 
+                      rounded-full flex flex-col items-center justify-center shadow-2xl" 
+            data-aos="zoom-in" 
+            data-aos-delay="300"
+          >
             <FaUtensils className="text-white text-5xl mb-2" />
             <p className="text-white font-semibold text-sm">Food Hub</p>
           </div>
 
           {/* Outer Orbit Ring */}
-          <div className="absolute w-[500px] h-[500px] border-2 border-dashed border-orange-300 rounded-full" 
-               data-aos="zoom-out" data-aos-delay="400"></div>
+          <div 
+            className="absolute w-[500px] h-[500px] border-2 border-dashed border-orange-300 rounded-full" 
+            data-aos="zoom-out" 
+            data-aos-delay="500"
+          ></div>
 
           {/* Inner Orbit Ring */}
-          <div className="absolute w-[320px] h-[320px] border-2 border-dashed border-emerald-300 rounded-full" 
-               data-aos="zoom-out" data-aos-delay="300"></div>
+          <div 
+            className="absolute w-[320px] h-[320px] border-2 border-dashed border-emerald-300 rounded-full" 
+            data-aos="zoom-out" 
+            data-aos-delay="400"
+          ></div>
 
           {/* Orbiting Food Features */}
           {features.map((item, index) => {
@@ -115,22 +139,46 @@ const RestaurantSection = () => {
           })}
 
           {/* Glow Effects */}
-          <div className="absolute w-40 h-40 bg-orange-500/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute w-60 h-60 bg-emerald-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div 
+            className="absolute w-40 h-40 bg-orange-500/20 rounded-full blur-3xl animate-pulse"
+            data-aos="fade-in"
+            data-aos-delay="600"
+          ></div>
+          <div 
+            className="absolute w-60 h-60 bg-emerald-500/20 rounded-full blur-3xl animate-pulse delay-1000"
+            data-aos="fade-in"
+            data-aos-delay="700"
+          ></div>
         </div>
 
         {/* Right Column: Content Area */}
-        <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-20 text-left min-h-[50vh] md:min-h-0" data-aos="fade-left">
-          <p className="text-sm uppercase tracking-widest font-medium text-orange-600 mb-1">
+        <div 
+          className="flex flex-col justify-center p-6 sm:p-8 lg:p-20 text-left min-h-[50vh] md:min-h-0" 
+          data-aos="fade-left"
+          data-aos-delay="200"
+        >
+          <p 
+            className="text-sm uppercase tracking-widest font-medium text-orange-600 mb-1"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             OUR COMMITMENT TO QUALITY
           </p>
 
-          <h2 className="text-3xl sm:text-4xl  font-extrabold leading-tight mb-4 sm:mb-6">
+          <h2 
+            className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4 sm:mb-6"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
             Building Stronger <br className="hidden lg:inline" />
             <span className="text-orange-600">Community</span> Partnerships
           </h2>
 
-          <p className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600">
+          <p 
+            className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
             Our success is built on collaboration. By partnering with local
             restaurants, ethical suppliers, and leading food nutritionists, we
             ensure every dish meets the highest standards of safety, quality,
@@ -139,7 +187,11 @@ const RestaurantSection = () => {
           </p>
 
           <Link href={"/restaurants"}>
-            <button className="relative py-3 sm:py-4 px-8 sm:px-10 overflow-hidden cursor-pointer font-bold text-orange-600 bg-white border-2 border-orange-600 rounded-lg shadow-lg hover:shadow-xl group transition-all duration-300">
+            <button 
+              className="relative py-3 sm:py-4 px-8 sm:px-10 overflow-hidden cursor-pointer font-bold text-orange-600 bg-white border-2 border-orange-600 rounded-lg shadow-lg hover:shadow-xl group transition-all duration-300"
+              data-aos="fade-up"
+              data-aos-delay="600"
+            >
               <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-orange-600 group-hover:w-full ease"></span>
               <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-orange-600 group-hover:w-full ease"></span>
               <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-600 group-hover:h-full ease"></span>

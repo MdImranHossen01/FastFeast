@@ -114,15 +114,53 @@ export default function PopularItems() {
   }, []);
 
   return (
-    <section
-    
-    className="flex flex-col items-center w-full relative min-h-[500px] transition-colors duration-300 bg-gradient-to-b from-white to-orange-50 py-12">
+    <section className="flex flex-col items-center w-full relative min-h-[500px] transition-colors duration-300 bg-gradient-to-b from-white to-orange-50 py-12">
       <div className="container px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Left Side Content */}
-
           <div
-          data-aos="fade-right"
+            className="flex flex-col justify-center space-y-6"
+            data-aos="fade-left"
+          >
+            <p className="text-sm uppercase tracking-widest font-medium text-orange-600 mb-1">
+              Handpicked by thousands of food lovers across Bangladesh
+            </p>
+
+            {/* Title */}
+            <h2 className="text-3xl sm:text-4xl  font-extrabold leading-tight mb-4 sm:mb-6">
+              Discover Our <br />
+              <span className="text-orange-600">Customer Favorites</span> <br />
+              Dishes
+            </h2>
+
+            {/* Paragraph */}
+            <p className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600">
+              From sizzling biryani to crispy fried chicken, our popular items
+              section showcases the dishes that keep our customers coming back
+              for more. Each item is carefully crafted with fresh ingredients,
+              authentic recipes, and delivered hot to your doorstep. Join the
+              thousands of satisfied customers who have made these dishes their
+              favorites!
+            </p>
+
+            {/* Demo Button */}
+            <Link href={"/menus"}>
+              <button className="relative py-3 sm:py-4 px-8 sm:px-10 overflow-hidden cursor-pointer font-bold text-orange-600 bg-white border-2 border-orange-600 rounded-lg shadow-lg hover:shadow-xl group transition-all duration-300">
+                <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-orange-600 group-hover:w-full ease"></span>
+                <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-orange-600 group-hover:w-full ease"></span>
+                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-600 group-hover:h-full ease"></span>
+                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-600 group-hover:h-full ease"></span>
+                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-orange-600 opacity-0 group-hover:opacity-100"></span>
+                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
+                  Explore Full Menu
+                </span>
+              </button>
+            </Link>
+          </div>
+
+          {/* right side component */}
+          <div
+            data-aos="fade-right"
             className="relative flex items-center mx-auto justify-center mb-8"
             style={{
               width: containerSize,
@@ -247,46 +285,6 @@ export default function PopularItems() {
                 </motion.div>
               );
             })}
-          </div>
-          {/* right side component */}
-          <div
-            className="flex flex-col justify-center space-y-6"
-            data-aos="fade-left"
-          >
-            <p className="text-sm uppercase tracking-widest font-medium text-orange-600 mb-1">
-              Handpicked by thousands of food lovers across Bangladesh
-            </p>
-
-            {/* Title */}
-            <h2 className="text-3xl sm:text-4xl  font-extrabold leading-tight mb-4 sm:mb-6">
-              Discover Our <br />
-              <span className="text-orange-600">Customer Favorites</span> <br />
-              Dishes
-            </h2>
-
-            {/* Paragraph */}
-            <p className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600">
-              From sizzling biryani to crispy fried chicken, our popular items
-              section showcases the dishes that keep our customers coming back
-              for more. Each item is carefully crafted with fresh ingredients,
-              authentic recipes, and delivered hot to your doorstep. Join the
-              thousands of satisfied customers who have made these dishes their
-              favorites!
-            </p>
-
-            {/* Demo Button */}
-            <Link href={"/menus"}>
-              <button className="relative py-3 sm:py-4 px-8 sm:px-10 overflow-hidden cursor-pointer font-bold text-orange-600 bg-white border-2 border-orange-600 rounded-lg shadow-lg hover:shadow-xl group transition-all duration-300">
-                <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-orange-600 group-hover:w-full ease"></span>
-                <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-orange-600 group-hover:w-full ease"></span>
-                <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-600 group-hover:h-full ease"></span>
-                <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-600 group-hover:h-full ease"></span>
-                <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-orange-600 opacity-0 group-hover:opacity-100"></span>
-                <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
-                  Explore Full Menu
-                </span>
-              </button>
-            </Link>
           </div>
         </div>
       </div>

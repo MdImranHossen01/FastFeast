@@ -28,7 +28,11 @@
     "framer-motion": "^12.23.22",
     "json-server": "^1.0.0-beta.3",
     "jspdf": "^3.0.3",
+<<<<<<< HEAD
     "lexical": "^0.37.0",
+=======
+    "lenis": "^1.3.13",
+>>>>>>> 96440ed18e22466c53c5292751b22252ee8d9116
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.544.0",
     "mongodb": "^6.19.0",
