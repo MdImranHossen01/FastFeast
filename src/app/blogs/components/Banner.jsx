@@ -8,7 +8,7 @@ export default function Banner({ blogs, query, setQuery, tag, setTag }) {
   const allTags = ["All", ...new Set(blogs.flatMap((b) => b.tags || []))];
 
   return (
-    <header className="mb-12 relative bg-cover bg-center min-h-80 h-auto overflow-hidden">
+    <header className="lg:mb-12 relative bg-cover bg-center lg:min-h-80 h-auto overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
