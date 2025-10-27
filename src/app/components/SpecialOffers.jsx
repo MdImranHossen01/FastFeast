@@ -15,20 +15,47 @@ const SpecialOffers = () => {
   const [allSpecials, setAllSpecials] = useState([]); 
   const [offerMenus, setOfferMenus] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [ratings, setRatings] = useState({});
 
-  // Fetch menus (SSR safe)
+  // Fetch menus with reviews in batch
   useEffect(() => {
-    const fetchMenus = async () => {
+    const fetchMenusWithReviews = async () => {
       try {
         const response = await fetch("/api/menus", { cache: "no-store" });
         const data = await response.json();
 
         if (Array.isArray(data)) {
-          //  Filter only special offer menus
+          // Filter only special offer menus
           const specials = data.filter(
             (menu) => menu.isSpecialOffer && menu.discountRate > 0
           );
           setAllSpecials(specials);
+
+          // Get menu IDs for batch review fetching
+          const menuIds = specials.map(menu => menu._id);
+          
+          if (menuIds.length > 0) {
+            // Fetch all reviews in one batch call
+            const reviewsResponse = await fetch('/api/menus/reviews/batch', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ menuIds }),
+            });
+
+            if (reviewsResponse.ok) {
+              const reviewsData = await reviewsResponse.json();
+              if (reviewsData.success) {
+                setRatings(reviewsData.ratings);
+                
+                // Cache the ratings in sessionStorage
+                Object.keys(reviewsData.ratings).forEach(menuId => {
+                  sessionStorage.setItem(`rating-${menuId}`, JSON.stringify(reviewsData.ratings[menuId]));
+                });
+              }
+            }
+          }
         }
       } catch (error) {
         console.error("❌ Failed to fetch menus:", error);
@@ -37,7 +64,7 @@ const SpecialOffers = () => {
       }
     };
 
-    fetchMenus();
+    fetchMenusWithReviews();
   }, []);
 
   // Randomize AFTER hydration to avoid mismatch
@@ -89,7 +116,12 @@ const SpecialOffers = () => {
                 ))
               ) : offerMenus.length > 0 ? (
                 offerMenus.map((menu) => (
-                  <MenuCard key={menu._id} menu={menu} restaurants={[]} />
+                  <MenuCard 
+                    key={menu._id} 
+                    menu={menu} 
+                    restaurants={[]}
+                    ratingData={ratings[menu._id] || { avg: null, count: 0 }}
+                  />
                 ))
               ) : (
                 <p className="text-gray-500 text-center col-span-2">

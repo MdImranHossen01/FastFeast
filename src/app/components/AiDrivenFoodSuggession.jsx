@@ -38,6 +38,7 @@ const AiDrivenFoodSuggestion = () => {
   const [loading, setLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(null);
   const [showAutoSuggestions, setShowAutoSuggestions] = useState(true);
+  const [ratings, setRatings] = useState({}); // Added for batch reviews
 
   const loadMenuData = useCallback(async () => {
     try {
@@ -59,13 +60,49 @@ const AiDrivenFoodSuggestion = () => {
       console.log("Menus loaded:", menusData?.length);
       console.log("Restaurants loaded:", restaurantsData?.length);
 
-      setMenus(Array.isArray(menusData) ? menusData : []);
-      setRestaurants(Array.isArray(restaurantsData) ? restaurantsData : []);
+      const menusArray = Array.isArray(menusData) ? menusData : [];
+      const restaurantsArray = Array.isArray(restaurantsData) ? restaurantsData : [];
+      
+      setMenus(menusArray);
+      setRestaurants(restaurantsArray);
+
+      // Fetch batch reviews for all menus
+      if (menusArray.length > 0) {
+        const menuIds = menusArray.map(menu => menu._id);
+        await fetchBatchReviews(menuIds);
+      }
     } catch (e) {
       console.error("Data loading error:", e);
       setDataError(e.message);
     }
   }, []);
+
+  // Fetch batch reviews for multiple menus
+  const fetchBatchReviews = async (menuIds) => {
+    try {
+      const reviewsResponse = await fetch('/api/menus/reviews/batch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ menuIds }),
+      });
+
+      if (reviewsResponse.ok) {
+        const reviewsData = await reviewsResponse.json();
+        if (reviewsData.success) {
+          setRatings(reviewsData.ratings);
+          
+          // Cache the ratings in sessionStorage
+          Object.keys(reviewsData.ratings).forEach(menuId => {
+            sessionStorage.setItem(`rating-${menuId}`, JSON.stringify(reviewsData.ratings[menuId]));
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching batch reviews:", error);
+    }
+  };
 
   // Load initial data and auto-suggestions
   useEffect(() => {
@@ -361,7 +398,11 @@ const AiDrivenFoodSuggestion = () => {
                       key={`${suggestion.menuId}-${index}`}
                       className="h-full"
                     >
-                      <MenuCard menu={menu} restaurants={restaurants} />
+                      <MenuCard 
+                        menu={menu} 
+                        restaurants={restaurants}
+                        ratingData={ratings[menu._id] || { avg: null, count: 0 }}
+                      />
                     </div>
                   );
                 }

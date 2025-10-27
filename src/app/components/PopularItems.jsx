@@ -3,8 +3,6 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import Link from "next/link";
 
 const popularItems = [
@@ -85,12 +83,12 @@ export default function PopularItems() {
     [activeIndex]
   );
 
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }, []);
+  // useEffect(() => {
+  //   AOS.init({
+  //     duration: 1000,
+  //     once: true,
+  //   });
+  // }, []);
 
   const next = () => setActiveIndex((i) => (i + 1) % popularItems.length);
   const prev = () =>
