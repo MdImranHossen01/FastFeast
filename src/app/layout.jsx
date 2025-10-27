@@ -92,7 +92,7 @@ function NonCriticalComponents() {
       <PWAInstaller />
       <LiveTraffic />
       <ScrollToTopButton />
-      {/* ❌ DatabaseOptimizer REMOVED - was causing errors */}
+    
     </>
   );
 }
@@ -146,7 +146,7 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
       >
         {/* Critical content first */}
-        <div id="critical-content"> {/* Removed style={{visibility:"visible"}} and client-side script for it */}
+        <div id="critical-content"> 
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
