@@ -1,8 +1,10 @@
 import { lazy, Suspense } from 'react';
 import Banner from "./components/Banner";
 import Loading from "./loading"; 
+import TopCuisineDynamic from './components/TopCuisineDynamic';
+import RestaurantSectionDynamic from './components/RestaurantSectionDynamic'; // Import the new wrapper
 
-// Lazy load all non-critical components
+// Lazy load all other non-critical components
 const FAQSection = lazy(() => import("./components/FaqSection"));
 const Stats = lazy(() => import("./components/Stats"));
 const Services = lazy(() => import("./components/Service"));
@@ -14,12 +16,11 @@ const CustomersReview = lazy(() => import("./components/CustomersReview"));
 const TraditionalBeersSection = lazy(() => import("./components/TraditionalBear"));
 const CategorySection = lazy(() => import("./components/Category"));
 const HowWeWork = lazy(() => import("./components/HowWeWork"));
-const RestaurantSection = lazy(() => import("./components/RestaurantSection"));
+// The original RestaurantSection is no longer lazy-loaded here
 const FoodCompare = lazy(() => import("./components/FoodCompare"));
 const AiDrivenFoodSuggestion = lazy(() => import("./components/AiDrivenFoodSuggession"));
 const Slider = lazy(() => import("./components/Slider"));
 const MarqueeSection = lazy(() => import("./components/MarqueeSection"));
-const TopCuisine = lazy(() => import("./components/TopCuisine"));
 const PopularItems = lazy(() => import("./components/PopularItems"));
 
 // Create optimized loading components using your variants
@@ -64,9 +65,8 @@ export default function Home() {
         <PopularItems />
       </Suspense>
       
-      <Suspense fallback={<SectionLoader />}>
-        <TopCuisine />
-      </Suspense>
+      {/* This component is already wrapped and handles its own loading */}
+      <TopCuisineDynamic />
       
       <Suspense fallback={<SectionLoader />}>
         <MarqueeSection />
@@ -90,9 +90,8 @@ export default function Home() {
         <PopularBlogs />
       </Suspense>
       
-      <Suspense fallback={<SectionLoader />}>
-        <RestaurantSection />
-      </Suspense>
+      {/* Use the new dynamic wrapper here. No Suspense is needed as it handles its own loading state. */}
+      <RestaurantSectionDynamic />
       
       <Suspense fallback={<SectionLoader />}>
         <CTASection />

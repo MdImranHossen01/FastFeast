@@ -146,7 +146,7 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning
       >
         {/* Critical content first */}
-        <div id="critical-content">
+        <div id="critical-content"> {/* Removed style={{visibility:"visible"}} and client-side script for it */}
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
@@ -177,11 +177,8 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `
               document.addEventListener('DOMContentLoaded', function() {
-                // Ensure content is visible
-                const criticalContent = document.getElementById('critical-content');
-                if (criticalContent) {
-                  criticalContent.style.visibility = 'visible';
-                }
+                // The problematic line criticalContent.style.visibility = 'visible'; has been removed.
+                // Critical content is now visible by default as there's no CSS hiding it.
                 
                 // Additional video preloading
                 const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];
