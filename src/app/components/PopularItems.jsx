@@ -114,13 +114,11 @@ export default function PopularItems() {
   }, []);
 
   return (
-    <section
-    
-    className="flex flex-col items-center w-full relative min-h-[500px] transition-colors duration-300 bg-gradient-to-b from-white to-orange-50 py-12">
+    <section className="flex flex-col items-center w-full relative min-h-[500px] transition-colors duration-300 bg-gradient-to-b from-white to-orange-50 py-12">
       <div className="container px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Left Side Content */}
-<div
+          <div
             className="flex flex-col justify-center space-y-6"
             data-aos="fade-left"
           >
@@ -159,10 +157,10 @@ export default function PopularItems() {
               </button>
             </Link>
           </div>
-         
+
           {/* right side component */}
-           <div
-          data-aos="fade-right"
+          <div
+            data-aos="fade-right"
             className="relative flex items-center mx-auto justify-center mb-8"
             style={{
               width: containerSize,
