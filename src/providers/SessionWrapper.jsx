@@ -3,9 +3,9 @@
 
 import { SessionProvider } from "next-auth/react";
 
-export default function SessionWrapper({ children, session }) {
+export default function SessionWrapper({ children }) {
   return (
-    <SessionProvider session={session} refetchInterval={5 * 60} refetchOnWindowFocus={true}>
+    <SessionProvider>
       {children}
     </SessionProvider>
   );
