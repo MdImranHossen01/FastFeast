@@ -8,11 +8,10 @@ import { generateSlug } from "@/app/restaurants/components/generateSlug";
 import { useSession } from "next-auth/react";
 import { FiStar } from "react-icons/fi";
 
-const MenuCard = ({ menu, restaurant }) => {
+const MenuCard = ({ menu, restaurant, ratingData = { avg: null, count: 0 } }) => {
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [ratingData, setRatingData] = useState({ avg: null, count: 0 });
   const [loadingFavorite, setLoadingFavorite] = useState(false);
   const mountedRef = useRef(true);
 
@@ -20,36 +19,6 @@ const MenuCard = ({ menu, restaurant }) => {
     if (!restaurant?.name) return "";
     return generateSlug(restaurant.name, restaurant.location?.area);
   }, [restaurant]);
-
-  /** ✅ Fetch Reviews (cached per menu ID) */
-  useEffect(() => {
-    mountedRef.current = true;
-    if (!menu?._id) return;
-    const cached = sessionStorage.getItem(`rating-${menu._id}`);
-    if (cached) {
-      const data = JSON.parse(cached);
-      setRatingData(data);
-      return;
-    }
-
-    fetch(`/api/menus/${menu._id}/reviews`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (mountedRef.current && data?.success) {
-          const payload = {
-            avg: data.averageRating,
-            count: data.totalReviews,
-          };
-          setRatingData(payload);
-          sessionStorage.setItem(`rating-${menu._id}`, JSON.stringify(payload));
-        }
-      })
-      .catch((err) => console.error("Review fetch failed:", err));
-
-    return () => {
-      mountedRef.current = false;
-    };
-  }, [menu?._id]);
 
   /** ✅ Fetch Favorite Status */
   useEffect(() => {
@@ -150,7 +119,7 @@ const MenuCard = ({ menu, restaurant }) => {
         </div>
 
         {/* Ratings */}
-        {ratingData.avg !== null && ratingData.count > 0 ? (
+        {ratingData.avg !== null && ratingData.avg > 0 && ratingData.count > 0 ? (
           <div className="flex items-center mt-1 text-sm text-gray-700">
             <FiStar className="text-yellow-400 mr-1" />
             {ratingData.avg.toFixed(1)} ({ratingData.count})

@@ -92,6 +92,7 @@ function NonCriticalComponents() {
       <PWAInstaller />
       <LiveTraffic />
       <ScrollToTopButton />
+      {/* ❌ DatabaseOptimizer REMOVED - was causing errors */}
     </>
   );
 }

@@ -1,9 +1,65 @@
-// src/app/api/reviews/route.js
 import { NextResponse } from "next/server";
 import connectMongooseDb from "@/lib/mongoose";
 import Review from "@/models/review.model";
 
-// ✅ CREATE a new Review
+// ✅ GET reviews for a specific menu - OPTIMIZED
+export async function GET(request, { params }) {
+  try {
+    const { id } = await params;
+    
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "Menu ID is required" },
+        { status: 400 }
+      );
+    }
+
+    await connectMongooseDb();
+
+    // ✅ OPTIMIZATION: Use aggregation for faster calculation
+    const ratingStats = await Review.aggregate([
+      { $unwind: "$itemReviews" },
+      { $match: { "itemReviews.menuId": id } },
+      {
+        $group: {
+          _id: "$itemReviews.menuId",
+          averageRating: { $avg: "$itemReviews.rating" },
+          totalReviews: { $sum: 1 }
+        }
+      }
+    ]);
+
+    const result = ratingStats.length > 0 
+      ? {
+          averageRating: ratingStats[0].averageRating || 0,
+          totalReviews: ratingStats[0].totalReviews || 0
+        }
+      : {
+          averageRating: 0,
+          totalReviews: 0
+        };
+
+    // ✅ OPTIMIZATION: Add caching headers
+    return NextResponse.json({
+      success: true,
+      ...result
+    }, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60'
+      }
+    });
+
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+// ✅ CREATE a new Review - Keep as is
 export async function POST(req) {
   try {
     const reviewData = await req.json();
@@ -17,8 +73,6 @@ export async function POST(req) {
     }
 
     await connectMongooseDb();
-
-    // ✅ Prevent duplicate reviews per order
     const existingReview = await Review.findOne({ orderId });
     if (existingReview) {
       return NextResponse.json(
@@ -27,7 +81,6 @@ export async function POST(req) {
       );
     }
 
-    // ✅ Create review
     const newReview = await Review.create({
       orderId,
       userId,
@@ -41,21 +94,6 @@ export async function POST(req) {
     );
   } catch (error) {
     console.error("Error creating review:", error);
-    return NextResponse.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
-  }
-}
-
-// ✅ GET all reviews (optionally with filters later)
-export async function GET() {
-  try {
-    await connectMongooseDb();
-    const reviews = await Review.find();
-    return NextResponse.json(reviews, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching reviews:", error);
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
