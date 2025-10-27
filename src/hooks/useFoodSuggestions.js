@@ -1,4 +1,4 @@
-// src/hooks/useFoodSuggestions.js (ঐচ্ছিক)
+
 'use client';
 
 import { useState, useCallback } from 'react';
