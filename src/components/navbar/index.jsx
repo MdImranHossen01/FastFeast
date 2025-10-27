@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, lazy, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { FiMenu } from "react-icons/fi";
@@ -11,7 +11,9 @@ import MobileDrawer from "./MobileDrawer";
 import RightIcons from "./RightIcons";
 import { useScroll, useClickOutside, useNotifications } from "./hooks";
 import { useCart } from "@/lib/cartContext";
-// import InstallButton from "@/components/pwa/InstallButton";
+
+// Lazy load heavy components
+const OrderStatusModalLazy = lazy(() => import("../OrderStatusModal"));
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -33,14 +35,15 @@ const Navbar = () => {
   const { notifications, unreadCount, markAsRead, markAllAsRead } =
     useNotifications(session);
 
-  const navItems = [
+  // Memoize navItems to prevent unnecessary re-renders
+  const navItems = useMemo(() => [
     { href: "/", label: "Home" },
     { href: "/menus", label: "Menus" },
     { href: "/restaurants", label: "Restaurants" },
     { href: "/blogs", label: "Blogs" },
     { href: "/about", label: "About" },
     { href: "/contacts", label: "Contact Us" },
-  ];
+  ], []);
 
   if (pathname.includes("dashboard")) {
     return null;
@@ -55,16 +58,12 @@ const Navbar = () => {
           {/* Hamburger Menu Icon */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`p-2 transition-all duration-300 transform hover:scale-110 cursor-pointer rounded-lg ${
-              isScrolled 
-                ? "bg-gray-100 text-orange-500 hover:bg-gray-200" 
-                : "text-orange-500 hover:text-orange-600"
-            }`}
+            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110"
+            aria-label="Toggle menu"
           >
             <FiMenu size={24} />
           </button>
-          {/* Add this where you want the install button to appear */}
-          {/* <InstallButton /> */}
+
           {/* Logo - Centered, Hidden when scrolled */}
           {!isScrolled && (
             <div className="absolute left-1/2 transform -translate-x-1/2">
@@ -73,23 +72,21 @@ const Navbar = () => {
           )}
 
           {/* Right Icons */}
-          <div className={isScrolled ? "bg-gray-100 p-2 rounded-lg" : ""}>
-            <RightIcons
-              cartCount={cartCount}
-              isUserMenuOpen={isUserMenuOpen}
-              setIsUserMenuOpen={setIsUserMenuOpen}
-              isNotificationDropdownOpen={isNotificationDropdownOpen}
-              setIsNotificationDropdownOpen={setIsNotificationDropdownOpen}
-              setIsOrderStatusModalOpen={setIsOrderStatusModalOpen}
-              userMenuRef={userMenuRef}
-              notificationRef={notificationRef}
-              notifications={notifications}
-              unreadCount={unreadCount}
-              markAsRead={markAsRead}
-              markAllAsRead={markAllAsRead}
-              session={session}
-            />
-          </div>
+          <RightIcons
+            cartCount={cartCount}
+            isUserMenuOpen={isUserMenuOpen}
+            setIsUserMenuOpen={setIsUserMenuOpen}
+            isNotificationDropdownOpen={isNotificationDropdownOpen}
+            setIsNotificationDropdownOpen={setIsNotificationDropdownOpen}
+            setIsOrderStatusModalOpen={setIsOrderStatusModalOpen}
+            userMenuRef={userMenuRef}
+            notificationRef={notificationRef}
+            notifications={notifications}
+            unreadCount={unreadCount}
+            markAsRead={markAsRead}
+            markAllAsRead={markAllAsRead}
+            session={session}
+          />
         </div>
       </nav>
 
@@ -101,12 +98,16 @@ const Navbar = () => {
         navItems={navItems}
       />
 
-      {/* Order Status Modal */}
-      <OrderStatusModal
-        isOpen={isOrderStatusModalOpen}
-        onClose={() => setIsOrderStatusModalOpen(false)}
-        userEmail={session?.user?.email}
-      />
+      {/* Order Status Modal - Lazy loaded */}
+      {isOrderStatusModalOpen && (
+        <Suspense fallback={null}>
+          <OrderStatusModalLazy
+            isOpen={isOrderStatusModalOpen}
+            onClose={() => setIsOrderStatusModalOpen(false)}
+            userEmail={session?.user?.email}
+          />
+        </Suspense>
+      )}
     </>
   );
 };
