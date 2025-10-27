@@ -9,12 +9,12 @@ import Footer from "@/components/Footer";
 import NextThemeProvider from "@/providers/NextThemeProvider";
 import { CartProvider } from "@/lib/cartContext";
 import { Toaster } from "react-hot-toast";
-import StoreProvider from "@/lib/StoreProvider"; 
-import Chatbot from "@/components/chatbot"; 
+import StoreProvider from "@/lib/StoreProvider";
+import Chatbot from "@/components/chatbot";
 import PWAInstaller from "@/components/pwa/PWAInstaller";
 import OfflineIndicator from "@/components/pwa/OfflineIndicator";
 import ServiceWorker from "@/components/pwa/ServiceWorker";
-import LiveTraffic from "@/components/LiveTraffic"; 
+import LiveTraffic from "@/components/LiveTraffic";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +28,11 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "FastFeast - Food Delivery App",
-  description: "Delicious food delivered to your doorstep. Order from your favorite restaurants with FastFeast.",
+  description:
+    "Delicious food delivered to your doorstep. Order from your favorite restaurants with FastFeast.",
   keywords: "food delivery, restaurant, order food, fast food, delivery",
   authors: [{ name: "FastFeast Team" }],
- 
+
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -55,7 +56,7 @@ export const viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "#ff6b00", 
+  themeColor: "#ff6b00",
 };
 
 export default function RootLayout({ children }) {
@@ -77,7 +78,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ServiceWorker /> 
+        <ServiceWorker />
         <SessionWrapper>
           <NextThemeProvider>
             <AOSProvider>
@@ -90,7 +91,7 @@ export default function RootLayout({ children }) {
                   <main>{children}</main>
                   <Chatbot />
                   <PWAInstaller />
-                  <LiveTraffic /> 
+                  <LiveTraffic />
                   <Toaster position="top-center" />
                   <footer>
                     <Footer />
