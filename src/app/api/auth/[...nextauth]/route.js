@@ -1,3 +1,4 @@
+// src/app/api/auth/[...nextauth]/route.js
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -99,7 +100,6 @@ export const authOptions = {
   session: { strategy: "jwt" },
 
   callbacks: {
-    // When user signs in with Google/GitHub, create user if missing
     async signIn({ user, account, profile }) {
       const usersCollection = await dbConnect(collectionsName.usersCollection);
       const existingUser = await usersCollection.findOne({ email: user.email });
@@ -116,7 +116,6 @@ export const authOptions = {
       return true;
     },
 
-    // Refresh JWT with latest DB data every time session is accessed
     async jwt({ token, user }) {
       const usersCollection = await dbConnect(collectionsName.usersCollection);
       const dbUser = await usersCollection.findOne({ email: token?.user?.email });
@@ -133,14 +132,12 @@ export const authOptions = {
           isDemo: dbUser.isDemo,
         };
       } else if (user) {
-        // fallback for first login
         token.user = user;
       }
 
       return token;
     },
 
-    // serve fresh data in session
     async session({ session, token }) {
       session.user = token.user;
       return session;
