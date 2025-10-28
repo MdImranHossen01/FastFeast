@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 
 const textList = [
@@ -147,9 +148,11 @@ const CustomersReview = () => {
                 <div
                   className="relative w-[400px] h-auto bg-center bg-contain bg-no-repeat flex items-center justify-center mx-auto mb-2"
                 >
-                  <img
+                  <Image
                     src={testimonials[reviewIndex].photo}
                     alt={testimonials[reviewIndex].name}
+                    width={20}
+                    height={20}
                     // FIX: Removed mt-16 to stop covering the stars
                     className="w-20 h-20 md:w-28 md:h-28 mb-2 rounded-full object-cover shadow-lg"
                   />

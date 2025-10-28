@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { PlusCircleIcon } from '@heroicons/react/24/solid'; 
+import Image from 'next/image';
 
 // Props now include the full 'product' object and the 'onOpenModal' function
 const ProductCard = ({ product, title, originalPrice, offerPrice, imageUrl, discountRate, onOpenModal }) => {
@@ -37,9 +38,10 @@ const ProductCard = ({ product, title, originalPrice, offerPrice, imageUrl, disc
             
             {/* --- Image Section --- */}
             <div className="h-48 sm:h-56 bg-gray-900 flex items-center justify-center relative">
-                <img 
+                <Image
                     src={imageUrl} 
                     alt={title} 
+                    fill
                     className="w-full h-full object-cover" 
                     loading="lazy"
                 />

@@ -12,6 +12,7 @@ import {
 import { uploadToImgBB } from "@/utils/imageUpload";
 import { FaEdit } from "react-icons/fa";
 import updateBlogById from "@/app/actions/blogs/updateBlogById";
+import Image from "next/image";
 
 export default function EditBlogModal({ blog, onSave }) {
   const [open, setOpen] = useState(false);
@@ -181,12 +182,13 @@ export default function EditBlogModal({ blog, onSave }) {
                 type="file"
                 accept="image/*"
                 onChange={handleCoverImage}
-                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                className="relative file-input file-input-bordered file-input-sm w-full max-w-xs"
               />
               {formData.coverImage && (
-                <img
+                <Image
                   src={formData.coverImage}
                   alt="Preview"
+                  fill
                   className="mt-2 w-40 h-28 object-cover rounded-xl border border-blue-200 shadow-md"
                 />
               )}
@@ -204,12 +206,13 @@ export default function EditBlogModal({ blog, onSave }) {
                 onChange={handleGallery}
                 className="file-input file-input-bordered file-input-sm w-full max-w-xs"
               />
-              <div className="flex flex-wrap gap-2 mt-2">
+              <div className="relative flex flex-wrap gap-2 mt-2">
                 {formData.gallery.map((img, i) => (
                   <div key={i} className="relative">
-                    <img
+                    <Image
                       src={img}
                       alt=""
+                      fill
                       className="w-20 h-20 rounded-lg object-cover border shadow-sm"
                     />
                     <button

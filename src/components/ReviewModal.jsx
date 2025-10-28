@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { FiX, FiStar } from "react-icons/fi";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
   const [riderRating, setRiderRating] = useState(0);
@@ -223,11 +224,12 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                 <h3 className="text-lg font-medium text-gray-900 mb-3">
                   Rate Delivery Rider
                 </h3>
-                <div className="flex items-center mb-3">
-                  <img
+                <div className="relative flex items-center mb-3">
+                  <Image
                     className="h-10 w-10 rounded-full object-cover mr-3"
                     src={order.riderInfo.photoUrl || "/placeholder-image.jpg"}
                     alt={order.riderInfo.name}
+                    fill
                     onError={(e) => {
                       e.target.src = "/placeholder-image.jpg";
                     }}
@@ -302,11 +304,13 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                         key={itemId}
                         className="border border-gray-200 rounded-lg p-4 bg-gray-50"
                       >
-                        <div className="flex items-center mb-3">
-                          <img
+                        <div className="relative flex items-center mb-3">
+                          <Image
                             className="h-12 w-12 rounded-md object-cover mr-3"
                             src={getImageUrl(item.image)}
+                            fill
                             alt={item.title}
+
                             onError={(e) => {
                               e.target.src = "/placeholder-image.jpg";
                             }}

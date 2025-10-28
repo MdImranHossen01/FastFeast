@@ -55,10 +55,11 @@ export default function HowWeWork() {
                                         {singleRow.description}
                                     </p>
                                 </div>
-                                <figure className=''>
-                                    <img
+                                <figure className='relative'>
+                                    <Image
                                         alt='food image'
                                         src={singleRow?.image}
+                                        fill
                                         className='h-[500px] object-cover w-full rounded-3xl'
                                     />
                                 </figure>
