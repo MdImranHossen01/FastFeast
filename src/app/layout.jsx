@@ -1,8 +1,11 @@
 // src/app/layout.jsx
-import { Geist, Geist_Mono } from "next/font/google";
+// import { Geist, Geist_Mono } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
+import CursorFlower from "@/components/CursorFlower";
 import SessionWrapper from "@/providers/SessionWrapper";
 import AOSProvider from "@/providers/AOSProvider";
 import Navbar from "@/components/Navbar";
@@ -10,27 +13,16 @@ import Footer from "@/components/Footer";
 import NextThemeProvider from "@/providers/NextThemeProvider";
 import { CartProvider } from "@/lib/cartContext";
 import { Toaster } from "react-hot-toast";
-import StoreProvider from "@/lib/StoreProvider"; 
+import StoreProvider from "@/lib/StoreProvider";
 import LenisProvider from "@/providers/LenisProvider";
+import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 
 // Preload critical fonts
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  preload: true,
-  display: 'swap',
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  preload: true,
-  display: 'swap',
-});
 
 export const metadata = {
   title: "FastFeast - Food Delivery App",
-  description: "Delicious food delivered to your doorstep. Order from your favorite restaurants with FastFeast.",
+  description:
+    "Delicious food delivered to your doorstep. Order from your favorite restaurants with FastFeast.",
   keywords: "food delivery, restaurant, order food, fast food, delivery",
   authors: [{ name: "FastFeast Team" }],
   appleWebApp: {
@@ -54,33 +46,39 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#ff6b00", 
+  themeColor: "#ff6b00",
 };
 
 // Dynamic imports for non-critical components
 const Chatbot = dynamic(() => import("@/components/chatbot"), {
-  loading: () => null
+  loading: () => null,
 });
 
 const PWAInstaller = dynamic(() => import("@/components/pwa/PWAInstaller"), {
-  loading: () => null
+  loading: () => null,
 });
 
-const OfflineIndicator = dynamic(() => import("@/components/pwa/OfflineIndicator"), {
-  loading: () => null
-});
+const OfflineIndicator = dynamic(
+  () => import("@/components/pwa/OfflineIndicator"),
+  {
+    loading: () => null,
+  }
+);
 
 const ServiceWorker = dynamic(() => import("@/components/pwa/ServiceWorker"), {
-  loading: () => null
+  loading: () => null,
 });
 
 const LiveTraffic = dynamic(() => import("@/components/LiveTraffic"), {
-  loading: () => null
+  loading: () => null,
 });
 
-const ScrollToTopButton = dynamic(() => import("@/components/ui/ScrollToTopButton"), {
-  loading: () => null
-});
+const ScrollToTopButton = dynamic(
+  () => import("@/components/ui/ScrollToTopButton"),
+  {
+    loading: () => null,
+  }
+);
 
 // Create a client component wrapper for the non-critical components
 function NonCriticalComponents() {
@@ -92,7 +90,6 @@ function NonCriticalComponents() {
       <PWAInstaller />
       <LiveTraffic />
       <ScrollToTopButton />
-      {/* ❌ DatabaseOptimizer REMOVED - was causing errors */}
     </>
   );
 }
@@ -102,18 +99,38 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Preload critical resources */}
-        <link rel="preload" href="/icons/icon-192x192.png" as="image" type="image/png" />
-        
+        <link
+          rel="preload"
+          href="/icons/icon-192x192.png"
+          as="image"
+          type="image/png"
+        />
+
         {/* PRELOAD BANNER VIDEOS FOR INSTANT LOADING */}
         <link rel="preload" href="/video1.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/video2.mp4" as="video" type="video/mp4" />
         <link rel="preload" href="/video3.mp4" as="video" type="video/mp4" />
-        
+
         {/* PRELOAD POSTER IMAGES */}
-        <link rel="preload" href="/video1-poster.jpg" as="image" type="image/jpeg" />
-        <link rel="preload" href="/video2-poster.jpg" as="image" type="image/jpeg" />
-        <link rel="preload" href="/video3-poster.jpg" as="image" type="image/jpeg" />
-        
+        <link
+          rel="preload"
+          href="/video1-poster.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+        <link
+          rel="preload"
+          href="/video2-poster.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+        <link
+          rel="preload"
+          href="/video3-poster.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -123,9 +140,11 @@ export default function RootLayout({ children }) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-TileColor" content="#ff6b00" />
         <meta name="msapplication-tap-highlight" content="no" />
-        
+
         {/* Critical CSS for above-the-fold content */}
-        <style dangerouslySetInnerHTML={{ __html: `
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
           /* Critical above-the-fold styles to prevent FCP issues */
           body { 
             margin: 0; 
@@ -139,14 +158,17 @@ export default function RootLayout({ children }) {
           .slide-video {
             transition: opacity 0.3s ease-in-out;
           }
-        `}} />
+        `,
+          }}
+        />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
         suppressHydrationWarning
       >
         {/* Critical content first */}
         <div id="critical-content">
+          <ThemeToggle/>
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
@@ -172,16 +194,16 @@ export default function RootLayout({ children }) {
         {/* Non-critical components */}
         <NonCriticalComponents />
 
+        {/* Cursor follower + click bloom (mount once) */}
+        <CursorFlower />
+
         {/* Video preloading script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               document.addEventListener('DOMContentLoaded', function() {
-                // Ensure content is visible
-                const criticalContent = document.getElementById('critical-content');
-                if (criticalContent) {
-                  criticalContent.style.visibility = 'visible';
-                }
+                // The problematic line criticalContent.style.visibility = 'visible'; has been removed.
+                // Critical content is now visible by default as there's no CSS hiding it.
                 
                 // Additional video preloading
                 const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];

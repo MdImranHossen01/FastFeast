@@ -87,23 +87,35 @@ export async function POST(req) {
   }
 }
 
-// GET all restaurants
+// GET all restaurants with better error handling
 export async function GET() {
   try {
-    // Ensure DB connection
-    await connectMongooseDb();
+    // Try to connect to database
+    let dbConnected = false;
+    try {
+      await connectMongooseDb();
+      dbConnected = true;
+    } catch (dbError) {
+      console.log("Restaurants API: Database not available");
+    }
 
-    // Fetch all restaurants
-    const restaurants = await Restaurant.find();
+    let restaurants = [];
+
+    if (dbConnected) {
+      try {
+        // Fetch all restaurants
+        restaurants = await Restaurant.find();
+      } catch (queryError) {
+        console.log("Restaurants API: Could not fetch restaurants");
+      }
+    }
 
     // Return the list of restaurants
     return NextResponse.json(restaurants, { status: 200 });
   } catch (error) {
     // Log the error for debugging
     console.error("Error fetching restaurants:", error);
-    return NextResponse.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
+    // Return empty array instead of error to prevent frontend crashes
+    return NextResponse.json([], { status: 200 });
   }
 }

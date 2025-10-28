@@ -3,30 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { FaUtensils, FaShippingFast, FaStar, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+// We no longer need to import AOS here, but we keep the CSS import if it's not in a global stylesheet
+import 'aos/dist/aos.css';
 
 const RestaurantSection = () => {
   const [rotation, setRotation] = useState(0);
 
-  useEffect(() => {
-    // Only initialize AOS on client side
-    if (typeof window !== 'undefined') {
-      import('aos').then((AOS) => {
-        AOS.default.init({
-          duration: 800,
-          once: true,        
-          mirror: false,     
-          offset: 100,
-          easing: 'ease-out-cubic',
-          delay: 0,
-        });
-        
-        // Refresh after initialization
-        setTimeout(() => {
-          AOS.default.refresh();
-        }, 100);
-      });
-    }
-  }, []);
+  // --- MODIFICATION ---
+  // The useEffect for initializing AOS has been COMPLETELY REMOVED.
+  // It is now handled globally by AOSProvider in layout.js.
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,7 +20,7 @@ const RestaurantSection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Food delivery themed orbit items
+  // ... the rest of your component logic remains exactly the same ...
   const features = [
     { icon: <FaUtensils />, label: "Fresh Food", color: 'from-orange-500 to-red-500', position: 0 },
     { icon: <FaShippingFast />, label: "Fast Delivery", color: 'from-emerald-500 to-teal-500', position: 90 },
@@ -62,14 +47,12 @@ const RestaurantSection = () => {
   return (
     <section className="w-full min-h-screen bg-gradient-to-r from-orange-200 via-orange-100 to-white md:h-screen">
       <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
-        
-        {/* Left Column: Animated Food Orbit */}
         <div 
           className="relative h-[600px] flex items-center justify-center" 
           data-aos="fade-right"
           data-aos-delay="100"
         >
-          {/* Center Restaurant Logo */}
+          {/* ... all your JSX for this component ... */}
           <div 
             className="absolute z-20 w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 
                       rounded-full flex flex-col items-center justify-center shadow-2xl" 
@@ -80,22 +63,18 @@ const RestaurantSection = () => {
             <p className="text-white font-semibold text-sm">Food Hub</p>
           </div>
 
-          {/* Outer Orbit Ring */}
           <div 
             className="absolute w-[500px] h-[500px] border-2 border-dashed border-orange-300 rounded-full" 
             data-aos="zoom-out" 
             data-aos-delay="500"
           ></div>
 
-          {/* Inner Orbit Ring */}
           <div 
             className="absolute w-[320px] h-[320px] border-2 border-dashed border-emerald-300 rounded-full" 
             data-aos="zoom-out" 
             data-aos-delay="400"
           ></div>
-
-          {/* Orbiting Food Features */}
-          {features.map((item, index) => {
+           {features.map((item, index) => {
             const angle = rotation + item.position;
             const pos = getOrbitPosition(angle, 250);
             return (
@@ -117,8 +96,6 @@ const RestaurantSection = () => {
               </div>
             );
           })}
-
-          {/* Floating food icons for motion feel */}
           {shapes.map((shape, index) => {
             const angle = rotation * 1.5 + shape.position;
             const radius = index % 2 === 0 ? 160 : 260;
@@ -137,8 +114,6 @@ const RestaurantSection = () => {
               </div>
             );
           })}
-
-          {/* Glow Effects */}
           <div 
             className="absolute w-40 h-40 bg-orange-500/20 rounded-full blur-3xl animate-pulse"
             data-aos="fade-in"
@@ -150,8 +125,6 @@ const RestaurantSection = () => {
             data-aos-delay="700"
           ></div>
         </div>
-
-        {/* Right Column: Content Area */}
         <div 
           className="flex flex-col justify-center p-6 sm:p-8 lg:p-20 text-left min-h-[50vh] md:min-h-0" 
           data-aos="fade-left"
@@ -164,7 +137,6 @@ const RestaurantSection = () => {
           >
             OUR COMMITMENT TO QUALITY
           </p>
-
           <h2 
             className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4 sm:mb-6"
             data-aos="fade-up"
@@ -173,7 +145,6 @@ const RestaurantSection = () => {
             Building Stronger <br className="hidden lg:inline" />
             <span className="text-orange-600">Community</span> Partnerships
           </h2>
-
           <p 
             className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600"
             data-aos="fade-up"
@@ -185,7 +156,6 @@ const RestaurantSection = () => {
             taste, and nutrition. We believe in transparent sourcing and
             supporting the communities that help bring the best food to you.
           </p>
-
           <Link href={"/restaurants"}>
             <button 
               className="relative py-3 sm:py-4 px-8 sm:px-10 overflow-hidden cursor-pointer font-bold text-orange-600 bg-white border-2 border-orange-600 rounded-lg shadow-lg hover:shadow-xl group transition-all duration-300"

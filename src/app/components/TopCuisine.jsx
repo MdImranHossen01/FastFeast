@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -14,8 +14,13 @@ import {
 } from "swiper/modules";
 import { ArrowLeft, ArrowRight, Star, Clock } from "lucide-react";
 import Link from "next/link";
+// We no longer need to import AOS here, but we keep the CSS import if it's not global
+import 'aos/dist/aos.css';
 
 const TopCuisine = () => {
+  // --- MODIFICATION ---
+  // The useEffect for initializing AOS has been COMPLETELY REMOVED.
+  
   const cuisines = [
     {
       name: "Thai Food",
@@ -99,27 +104,6 @@ const TopCuisine = () => {
     { from: "from-rose-500", to: "to-orange-500", glow: "rose" },
   ];
 
-  useEffect(() => {
-    // Only initialize AOS on client side
-    if (typeof window !== 'undefined') {
-      import('aos').then((AOS) => {
-        AOS.default.init({
-          duration: 800,
-          once: true,
-          mirror: false,
-          offset: 100,
-          easing: 'ease-out-cubic',
-          delay: 0,
-        });
-        
-        // Refresh after initialization
-        setTimeout(() => {
-          AOS.default.refresh();
-        }, 100);
-      });
-    }
-  }, []);
-  
   return (
     <>
       <style>{`
@@ -158,7 +142,6 @@ const TopCuisine = () => {
         data-aos-delay="100"
         className="relative container w-full mx-auto mt-10 px-4 pb-16 lg:pb-20 overflow-hidden"
       >
-        {/* Background decorative elements */}
         <div 
           data-aos="zoom-in"
           data-aos-delay="200"
@@ -169,8 +152,6 @@ const TopCuisine = () => {
           data-aos-delay="300"
           className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl -z-10"
         ></div>
-
-        {/* Header */}
         <div className="text-center mb-12 lg:mb-16">
           <h2 
             data-aos="fade-up"
@@ -179,7 +160,6 @@ const TopCuisine = () => {
           >
             Top <span className="text-orange-600">Cuisines</span>
           </h2>
-
           <p 
             data-aos="fade-up"
             data-aos-delay="250"
@@ -188,8 +168,6 @@ const TopCuisine = () => {
             Discover world-class flavors delivered fresh to your doorstep from our partner restaurants
           </p>
         </div>
-
-        {/* Swiper Container */}
         <div 
           data-aos="fade-up"
           data-aos-delay="350"
@@ -238,20 +216,15 @@ const TopCuisine = () => {
                 <SwiperSlide key={index} className="!h-auto">
                   <Link href={cuisine.link} className="block">
                     <div className="group relative h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white cursor-pointer">
-                      {/* Image Container */}
                       <div className="relative h-48 sm:h-56 overflow-hidden">
                         <img
                           src={cuisine.image}
                           alt={cuisine.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-
-                        {/* Gradient Overlay */}
                         <div
                           className={`absolute inset-0 bg-gradient-to-t ${colorScheme.from} ${colorScheme.to} opacity-60 group-hover:opacity-70 transition-opacity duration-500`}
                         ></div>
-
-                        {/* Cuisine Name Badge */}
                         <div className="absolute top-4 left-4">
                           <div
                             className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border-2 border-white/50"
@@ -263,15 +236,11 @@ const TopCuisine = () => {
                             </span>
                           </div>
                         </div>
-
-                        {/* Icon Badge */}
                         <div className="absolute top-4 right-4">
                           <div className="w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-2xl animate-float-up border-2 border-white/50">
                             {cuisine.icon}
                           </div>
                         </div>
-
-                        {/* Rating & Time Info */}
                         <div className="absolute bottom-4 left-4 right-4">
                           <div className="flex justify-between items-center">
                             <div className="flex items-center gap-2 bg-black/30 backdrop-blur-sm px-3 py-2 rounded-full">
@@ -285,25 +254,18 @@ const TopCuisine = () => {
                           </div>
                         </div>
                       </div>
-
-                      {/* Content */}
                       <div className="p-6 relative">
-                        {/* Decorative corner */}
                         <div
                           className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${colorScheme.from} ${colorScheme.to} opacity-5 rounded-bl-full`}
                         ></div>
-
                         <h3
                           className={`text-xl sm:text-2xl font-bold mb-3 bg-gradient-to-r ${colorScheme.from} ${colorScheme.to} bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300 origin-left`}
                         >
                           {cuisine.name}
                         </h3>
-
                         <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
                           {cuisine.description}
                         </p>
-
-                        {/* Highlight Badge */}
                         <div className="flex items-center justify-between">
                           <div
                             className={`px-4 py-2 bg-gradient-to-r ${colorScheme.from} ${colorScheme.to} rounded-xl shadow-lg backdrop-blur-sm`}
@@ -314,14 +276,10 @@ const TopCuisine = () => {
                           </div>
                           <span className="text-sm text-gray-500 font-medium">Explore →</span>
                         </div>
-
-                        {/* Bottom accent line */}
                         <div
                           className={`mt-4 h-1 w-16 bg-gradient-to-r ${colorScheme.from} ${colorScheme.to} rounded-full group-hover:w-full transition-all duration-500`}
                         ></div>
                       </div>
-
-                      {/* Hover glow effect */}
                       <div
                         className={`absolute inset-0 bg-gradient-to-r ${colorScheme.from} ${colorScheme.to} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none`}
                       ></div>
@@ -331,17 +289,12 @@ const TopCuisine = () => {
               );
             })}
           </Swiper>
-
-          {/* Navigation Buttons */}
           <button className="pagination-pre absolute left-0 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center group transition-all duration-300 hover:scale-110 border-2 border-orange-500/20">
             <ArrowLeft className="w-5 h-5 text-orange-600 group-hover:-translate-x-0.5 transition-transform" />
           </button>
-
           <button className="pagination-next absolute right-0 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white rounded-full shadow-xl hover:shadow-2xl flex items-center justify-center group transition-all duration-300 hover:scale-110 border-2 border-orange-500/20">
             <ArrowRight className="w-5 h-5 text-orange-600 group-hover:translate-x-0.5 transition-transform" />
           </button>
-
-          {/* Pagination */}
           <div className="swiper-pagination !bottom-0"></div>
         </div>
       </div>
