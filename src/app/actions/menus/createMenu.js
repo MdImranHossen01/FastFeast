@@ -50,7 +50,6 @@ export const createMenu = async (formData) => {
       createdAt: new Date().toISOString(),
     };
 
-    console.log("Menu data:", menuData);
 
     // Connect to MongoDB
     const client = new MongoClient(process.env.MONGODB_URI);
