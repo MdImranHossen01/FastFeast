@@ -8,7 +8,6 @@ export default function MainPage() {
     return (
         <MatrixRain>
             <Banner />
-            {/* <h2>Julkarnain Zunayed</h2> */}
         </MatrixRain>
     )
 }

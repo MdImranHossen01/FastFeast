@@ -1,6 +1,6 @@
-"use client"
-import StarRatings from '@/components/StarRatings'
-import React, { useState } from 'react'
+"use client";
+import StarRatings from "@/components/StarRatings";
+import React, { useState } from "react";
 
 export default function TableRow({ review, index }) {
     const [showDialog, setShowDialog] = useState(false);

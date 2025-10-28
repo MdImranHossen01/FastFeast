@@ -9,10 +9,7 @@ export async function POST(req) {
     const body = await req.json();
 
     const mood =
-      body?.mood ||
-      body?.context?.mood ||
-      body?.userInput ||
-      "default";
+      body?.mood || body?.context?.mood || body?.userInput || "default";
 
     const moodLower = String(mood).toLowerCase();
 
@@ -26,12 +23,14 @@ export async function POST(req) {
     }
 
     let allMenus = [];
-    
+
     if (dbConnected) {
       // Get menus from local database
       try {
         const menus = await Menu.find()
-          .select('title imageUrl description price cuisine category isSpecialOffer discountRate offerPrice rating restaurantId dietaryTags')
+          .select(
+            "title imageUrl description price cuisine category isSpecialOffer discountRate offerPrice rating restaurantId dietaryTags"
+          )
           .limit(100)
           .lean();
         allMenus = menus;
@@ -77,9 +76,14 @@ export async function POST(req) {
       );
     } else if (moodLower.includes("comfort")) {
       filteredMenus = allMenus.filter((item) =>
-        ["snacks", "khichuri", "biryani", "fried chicken", "shawarma", "burgers"].includes(
-          item.category?.toLowerCase()
-        )
+        [
+          "snacks",
+          "khichuri",
+          "biryani",
+          "fried chicken",
+          "shawarma",
+          "burgers",
+        ].includes(item.category?.toLowerCase())
       );
     } else if (moodLower.includes("quick")) {
       filteredMenus = allMenus.filter((item) =>
@@ -102,7 +106,9 @@ export async function POST(req) {
     let restaurants = [];
     if (dbConnected) {
       try {
-        restaurants = await Restaurant.find().select('name estimatedDeliveryTime').lean();
+        restaurants = await Restaurant.find()
+          .select("name estimatedDeliveryTime")
+          .lean();
       } catch (restaurantError) {
         console.log("Could not fetch restaurants");
       }
@@ -110,9 +116,10 @@ export async function POST(req) {
 
     // ✅ Add menuId compatibility for frontend
     const suggestions = filteredMenus.map((item) => {
-      const restaurantInfo = restaurants.find(r => r._id.toString() === item.restaurantId?.toString()) || 
-                           { name: "Local Restaurant", estimatedDeliveryTime: "30-40 min" };
-      
+      const restaurantInfo = restaurants.find(
+        (r) => r._id.toString() === item.restaurantId?.toString()
+      ) || { name: "Local Restaurant", estimatedDeliveryTime: "30-40 min" };
+
       return {
         ...item,
         menuId: item._id,
