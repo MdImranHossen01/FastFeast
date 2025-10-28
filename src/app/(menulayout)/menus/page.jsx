@@ -10,8 +10,6 @@ import KoreanFood from "./components/KoreanFood";
 import TurkishFood from "./components/TurkishFood";
 import { useSelector } from "react-redux";
 import MenuCard from "./components/MenuCard";
-import getMenus from "@/app/actions/menus/getMenus";
-import getRestaurants from "@/app/actions/restaurants/getRestaurant";
 
 const MenuPage = () => {
   const [allMenus, setAllMenus] = useState([]);
@@ -19,84 +17,104 @@ const MenuPage = () => {
   const [loading, setLoading] = useState(true);
   const filters = useSelector((state) => state.filters);
 
-  // ✅ Cache data locally to avoid refetch on re-render
+  // Fetch menus + restaurants from API (client-side, works in prod)
   useEffect(() => {
-    const fetchData = async () => {
+    const controller = new AbortController();
+
+    async function fetchData() {
       try {
-        const [menusData, restaurantsData] = await Promise.all([
-          getMenus(),
-          getRestaurants(),
+        const [menusRes, restaurantsRes] = await Promise.all([
+          fetch("/api/menus", { cache: "no-store", signal: controller.signal }),
+          fetch("/api/restaurants", {
+            cache: "no-store",
+            signal: controller.signal,
+          }),
         ]);
-        setAllMenus(menusData || []);
-        setAllRestaurants(restaurantsData || []);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+
+        const menusData = await menusRes.json();
+        const restaurantsData = await restaurantsRes.json();
+
+        setAllMenus(Array.isArray(menusData) ? menusData : []);
+        setAllRestaurants(Array.isArray(restaurantsData) ? restaurantsData : []);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.error("Error fetching menus/restaurants:", err);
+        }
       } finally {
         setLoading(false);
       }
-    };
+    }
+
     fetchData();
+    return () => controller.abort();
   }, []);
 
-  // ✅ Create restaurant lookup map once
+  // Create restaurant lookup
   const restaurantMap = useMemo(() => {
     const map = Object.create(null);
-    allRestaurants.forEach((r) => {
-      if (r?._id) map[r._id] = r;
+    (allRestaurants || []).forEach((r) => {
+      const id = r?._id || r?.id;
+      if (id) map[id] = r;
     });
     return map;
   }, [allRestaurants]);
 
-  // ✅ Simplified location extractor
+  // Normalize location
   const getRestaurantLocation = (restaurant) => {
     const loc = restaurant?.location;
     if (!loc) return "";
     if (typeof loc === "string") return loc.toLowerCase();
-    if (typeof loc === "object")
+    if (typeof loc === "object") {
       return (
         loc.area ||
         loc.city ||
         loc.address ||
         loc.country ||
         JSON.stringify(loc)
-      ).toLowerCase();
+      )
+        ?.toString()
+        .toLowerCase();
+    }
     return "";
   };
 
-  // ✅ Filter menus efficiently
+  // Filter menus
   const filteredMenus = useMemo(() => {
     if (!allMenus?.length) return [];
     const query = filters.searchQuery?.toLowerCase() || "";
     const locationFilter = filters.location?.toLowerCase() || "";
 
     return allMenus.filter((menu) => {
-      const restaurant = restaurantMap[menu.restaurantId];
+      const restaurant =
+        restaurantMap[menu.restaurantId] ||
+        restaurantMap[menu?.restaurant?._id] ||
+        restaurantMap[menu?.restaurant?.id] ||
+        restaurantMap[
+          typeof menu?.restaurant === "string" ? menu.restaurant : ""
+        ];
+
       const rName = restaurant?.name?.toLowerCase() || "";
       const rLoc = getRestaurantLocation(restaurant);
 
-      // Combined string search
-      const searchString =
-        `${menu.title} ${menu.cuisine} ${menu.description} ${menu.category} ${rName}`.toLowerCase();
+      const searchString = `${menu.title} ${menu.cuisine} ${menu.description} ${menu.category} ${rName}`.toLowerCase();
+
       const matchesSearch = !query || searchString.includes(query);
       const matchesLocation = !locationFilter || rLoc.includes(locationFilter);
       const matchesCuisine =
         !filters.selectedCuisines?.length ||
         filters.selectedCuisines.includes(menu.cuisine);
       const matchesRating =
-        !filters.selectedRating || menu.rating >= filters.selectedRating;
+        !filters.selectedRating || Number(menu.rating) >= Number(filters.selectedRating);
+      const price = Number(menu.price) || 0;
       const matchesPrice =
         !filters.selectedPrice ||
-        (filters.selectedPrice === "$" && menu.price < 300) ||
-        (filters.selectedPrice === "$$" &&
-          menu.price >= 300 &&
-          menu.price < 500) ||
-        (filters.selectedPrice === "$$$" &&
-          menu.price >= 500 &&
-          menu.price < 700) ||
-        (filters.selectedPrice === "$$$$" && menu.price >= 700);
+        (filters.selectedPrice === "$" && price < 300) ||
+        (filters.selectedPrice === "$$" && price >= 300 && price < 500) ||
+        (filters.selectedPrice === "$$$" && price >= 500 && price < 700) ||
+        (filters.selectedPrice === "$$$$" && price >= 700);
       const matchesOffer =
-        !filters.isSpecialOfferSelected || menu.isSpecialOffer;
-      const matchesCombo = !filters.isComboSelected || menu.isCombo;
+        !filters.isSpecialOfferSelected || Boolean(menu.isSpecialOffer);
+      const matchesCombo = !filters.isComboSelected || Boolean(menu.isCombo);
 
       return (
         matchesSearch &&
@@ -120,12 +138,13 @@ const MenuPage = () => {
     combo: filters.isComboSelected,
   }).some(Boolean);
 
-  if (loading)
+  if (loading) {
     return (
       <div className="text-center py-12 text-gray-500 text-lg">
         Loading menu...
       </div>
     );
+  }
 
   return (
     <div className="py-4">
@@ -140,7 +159,15 @@ const MenuPage = () => {
                 <MenuCard
                   key={menu._id}
                   menu={menu}
-                  restaurant={restaurantMap[menu.restaurantId]}
+                  restaurant={
+                    restaurantMap[menu.restaurantId] ||
+                    restaurantMap[menu?.restaurant?._id] ||
+                    restaurantMap[menu?.restaurant?.id] ||
+                    restaurantMap[
+                      typeof menu?.restaurant === "string" ? menu.restaurant : ""
+                    ] ||
+                    null
+                  }
                 />
               ))}
             </div>
