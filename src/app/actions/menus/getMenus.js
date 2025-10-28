@@ -1,42 +1,36 @@
 "use server";
 
-// Cache configuration
+import { getBaseUrl } from "@/lib/getBaseUrl";
+
 const CACHE_CONFIG = {
-  menus: {
-    revalidate: 3600, // 1 hour
-    tags: ['menus']
-  }
+  menus: { revalidate: 3600, tags: ["menus"] },
 };
 
 export default async function getMenus() {
   try {
-    const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/menus`, {
-      next: { 
+    const base = getBaseUrl(); // 👈 absolute origin
+    const res = await fetch(`${base}/api/menus`, {
+      next: {
         revalidate: CACHE_CONFIG.menus.revalidate,
-        tags: CACHE_CONFIG.menus.tags
-      }
+        tags: CACHE_CONFIG.menus.tags,
+      },
     });
 
     if (!res.ok) {
       console.error(`Failed to fetch menus: ${res.status}`);
       return [];
     }
-
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (error) {
     console.error("Error fetching menus:", error.message);
     return [];
   }
 }
 
-// For real-time updates (admin actions)
 export async function revalidateMenus() {
   try {
-    const { revalidateTag } = await import('next/cache');
-    revalidateTag('menus');
+    const { revalidateTag } = await import("next/cache");
+    revalidateTag("menus");
     return { success: true };
   } catch (error) {
     console.error("Error revalidating menus:", error);
