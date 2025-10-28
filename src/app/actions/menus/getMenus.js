@@ -1,28 +1,19 @@
 "use server";
-
 import { getBaseUrl } from "@/lib/getBaseUrl";
 
-const CACHE_CONFIG = {
-  menus: { revalidate: 3600, tags: ["menus"] },
-};
+const FETCH_TTL = 300;           // ⬅️ match page ISR (or smaller)
+const FETCH_TAGS = ["menus"];    // optional
 
 export default async function getMenus() {
   try {
-    const base = getBaseUrl(); // 👈 absolute origin
+    const base = getBaseUrl();
     const res = await fetch(`${base}/api/menus`, {
-      next: {
-        revalidate: CACHE_CONFIG.menus.revalidate,
-        tags: CACHE_CONFIG.menus.tags,
-      },
+      next: { revalidate: FETCH_TTL, tags: FETCH_TAGS },
     });
-
-    if (!res.ok) {
-      console.error(`Failed to fetch menus: ${res.status}`);
-      return [];
-    }
+    if (!res.ok) return [];
     return await res.json();
-  } catch (error) {
-    console.error("Error fetching menus:", error.message);
+  } catch (e) {
+    console.error("Error fetching menus:", e.message);
     return [];
   }
 }
@@ -32,8 +23,7 @@ export async function revalidateMenus() {
     const { revalidateTag } = await import("next/cache");
     revalidateTag("menus");
     return { success: true };
-  } catch (error) {
-    console.error("Error revalidating menus:", error);
-    return { success: false, error: error.message };
+  } catch (e) {
+    return { success: false, error: e.message };
   }
 }
