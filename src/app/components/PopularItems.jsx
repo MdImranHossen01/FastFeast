@@ -50,28 +50,6 @@ export default function PopularItems() {
     [activeIndex]
   );
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   AOS.init({
-  //     duration: 1000,
-  //     once: true,
-  //   });
-  // }, []);
-
-  const next = () => setActiveIndex((i) => (i + 1) % popularItems.length);
-  const prev = () =>
-    setActiveIndex((i) => (i - 1 + popularItems.length) % popularItems.length);
-
-  const handleProfileClick = React.useCallback(
-    (index) => {
-      if (index === activeIndex) return;
-      setActiveIndex(index);
-    },
-    [activeIndex]
-  );
-
-  React.useEffect(() => {
-=======
   const next = useCallback(() => setActiveIndex((i) => (i + 1) % popularItems.length), []);
   const prev = useCallback(() => setActiveIndex((i) => (i - 1 + popularItems.length) % popularItems.length), []);
 
@@ -81,7 +59,6 @@ export default function PopularItems() {
   }, [activeIndex]);
 
   useEffect(() => {
->>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
     const handleKeyDown = (event) => {
       if (event.key === "ArrowLeft") prev();
       else if (event.key === "ArrowRight") next();

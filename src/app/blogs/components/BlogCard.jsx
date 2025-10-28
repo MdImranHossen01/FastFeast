@@ -1,9 +1,11 @@
 "use client";
 
+import getUserById from "@/app/actions/users/getUserById";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 
 export default function BlogCard({ blog }) {
@@ -18,7 +20,20 @@ export default function BlogCard({ blog }) {
     author,
     createdAt,
   } = blog;
+ 
+  const [user, setUser]=useState({})
 
+  useEffect(()=>{
+    const fetchUser=async()=>{
+      try {
+      const userData =await getUserById(author)
+      setUser(userData)
+    } catch (error) {
+      console.log(error)
+    }
+    }
+    fetchUser()
+  },[])
   const handleReadMore = async (e) => {
     e.preventDefault();
     try {

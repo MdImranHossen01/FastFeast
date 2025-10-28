@@ -178,7 +178,7 @@ export default function RootLayout({ children }) {
                       <header>
                         <Navbar />
                       </header>
-                      <main>{children}</main>
+                      <main className="overflow-x-hidden">{children}</main>
                       <footer>
                         <Footer />
                       </footer>
