@@ -1,7 +1,7 @@
 // src/app/components/AiDrivenFoodSuggestion.jsx
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { getTimeBasedSuggestions } from "@/utils/timeOfDay";
 import MenuCard from "../(menulayout)/menus/components/MenuCard";
 
@@ -22,7 +22,10 @@ const AiDrivenFoodSuggestion = () => {
     suggestionType: "",
   });
 
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
     const info = getTimeBasedSuggestions();
     setTimeInfo(info);
     setContext((prev) => ({ ...prev, timeOfDay: info.timeOfDay }));
@@ -38,8 +41,17 @@ const AiDrivenFoodSuggestion = () => {
   const [loading, setLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(null);
   const [showAutoSuggestions, setShowAutoSuggestions] = useState(true);
+  const [ratings, setRatings] = useState({});
+  
+  // Refs to prevent multiple API calls
+  const hasLoadedDataRef = useRef(false);
+  const hasFetchedAutoSuggestionsRef = useRef(false);
 
   const loadMenuData = useCallback(async () => {
+    // Prevent multiple data loads
+    if (hasLoadedDataRef.current) return;
+    hasLoadedDataRef.current = true;
+
     try {
       console.log("Loading menu and restaurant data...");
       const [mRes, rRes] = await Promise.all([
@@ -59,27 +71,70 @@ const AiDrivenFoodSuggestion = () => {
       console.log("Menus loaded:", menusData?.length);
       console.log("Restaurants loaded:", restaurantsData?.length);
 
-      setMenus(Array.isArray(menusData) ? menusData : []);
-      setRestaurants(Array.isArray(restaurantsData) ? restaurantsData : []);
+      const menusArray = Array.isArray(menusData) ? menusData : [];
+      const restaurantsArray = Array.isArray(restaurantsData) ? restaurantsData : [];
+      
+      setMenus(menusArray);
+      setRestaurants(restaurantsArray);
+
+      // Only fetch batch reviews if we have menus
+      if (menusArray.length > 0) {
+        const menuIds = menusArray.map(menu => menu._id);
+        await fetchBatchReviews(menuIds);
+      }
     } catch (e) {
       console.error("Data loading error:", e);
       setDataError(e.message);
     }
   }, []);
 
-  // Load initial data and auto-suggestions
+  // Fetch batch reviews for multiple menus
+  const fetchBatchReviews = async (menuIds) => {
+    if (!menuIds || menuIds.length === 0) return;
+    
+    try {
+      const reviewsResponse = await fetch('/api/menus/reviews/batch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ menuIds }),
+      });
+
+      if (reviewsResponse.ok) {
+        const reviewsData = await reviewsResponse.json();
+        if (reviewsData.success) {
+          setRatings(reviewsData.ratings);
+          
+          // Cache the ratings in sessionStorage
+          Object.keys(reviewsData.ratings).forEach(menuId => {
+            sessionStorage.setItem(`rating-${menuId}`, JSON.stringify(reviewsData.ratings[menuId]));
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching batch reviews:", error);
+    }
+  };
+
+  // Load initial data AND auto-suggestions on mount
   useEffect(() => {
-    if (!timeOfDay) return;
+    if (!timeOfDay || !isClient) return;
 
     const initializeData = async () => {
       await loadMenuData();
+      // Fetch auto-suggestions automatically when component mounts
       await fetchAutoSuggestions();
     };
 
     initializeData();
-  }, [loadMenuData, timeOfDay]);
+  }, [loadMenuData, timeOfDay, isClient]);
 
   const fetchAutoSuggestions = async () => {
+    // Prevent multiple auto-suggestion calls
+    if (hasFetchedAutoSuggestionsRef.current) return;
+    hasFetchedAutoSuggestionsRef.current = true;
+
     try {
       console.log("Fetching auto-suggestions for time:", timeOfDay);
       const res = await fetch("/api/ai/food-suggestions", {
@@ -99,6 +154,8 @@ const AiDrivenFoodSuggestion = () => {
         }
       } else {
         console.error("Auto-suggestions API error:", res.status);
+        // Fallback to local time-based suggestions
+        createLocalTimeBasedSuggestions();
       }
     } catch (err) {
       console.error("Auto-suggestions fetch error:", err);
@@ -244,7 +301,10 @@ const AiDrivenFoodSuggestion = () => {
   const handleUseAutoSuggestion = async (text) => {
     setLoadingButton(text);
     setUserInput(text);
+    
+    // For all quick prompts, fetch suggestions
     await fetchSuggestions(text);
+    
     setLoadingButton(null);
   };
 
@@ -285,9 +345,13 @@ const AiDrivenFoodSuggestion = () => {
             Our <span className="text-orange-600">Suggestion</span> for you
           </h2>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">
-            {showAutoSuggestions
-              ? `Best Picks for ${suggestionType}`
-              : "Search Results"}
+            {!isClient ? (
+              "Discover Great Food Options"
+            ) : showAutoSuggestions ? (
+              `Best Picks for ${suggestionType}`
+            ) : (
+              "Search Results"
+            )}
           </h3>
         </div>
 
@@ -361,7 +425,11 @@ const AiDrivenFoodSuggestion = () => {
                       key={`${suggestion.menuId}-${index}`}
                       className="h-full"
                     >
-                      <MenuCard menu={menu} restaurants={restaurants} />
+                      <MenuCard 
+                        menu={menu} 
+                        restaurants={restaurants}
+                        ratingData={ratings[menu._id] || { avg: null, count: 0 }}
+                      />
                     </div>
                   );
                 }

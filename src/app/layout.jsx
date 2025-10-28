@@ -1,8 +1,11 @@
 // src/app/layout.jsx
-import { Geist, Geist_Mono } from "next/font/google";
+// import { Geist, Geist_Mono } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import dynamic from "next/dynamic";
 
+import CursorFlower from "@/components/CursorFlower";
 import SessionWrapper from "@/providers/SessionWrapper";
 import AOSProvider from "@/providers/AOSProvider";
 import Navbar from "@/components/Navbar";
@@ -12,8 +15,10 @@ import { CartProvider } from "@/lib/cartContext";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "@/lib/StoreProvider";
 import LenisProvider from "@/providers/LenisProvider";
+import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 
 // Preload critical fonts
+<<<<<<< HEAD
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,6 +32,8 @@ const geistMono = Geist_Mono({
   preload: true,
   display: "swap",
 });
+=======
+>>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
 
 export const metadata = {
   title: "FastFeast - Food Delivery App",
@@ -172,11 +179,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
         suppressHydrationWarning
       >
         {/* Critical content first */}
         <div id="critical-content">
+          <ThemeToggle/>
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
@@ -202,16 +210,16 @@ export default function RootLayout({ children }) {
         {/* Non-critical components */}
         <NonCriticalComponents />
 
+        {/* Cursor follower + click bloom (mount once) */}
+        <CursorFlower />
+
         {/* Video preloading script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               document.addEventListener('DOMContentLoaded', function() {
-                // Ensure content is visible
-                const criticalContent = document.getElementById('critical-content');
-                if (criticalContent) {
-                  criticalContent.style.visibility = 'visible';
-                }
+                // The problematic line criticalContent.style.visibility = 'visible'; has been removed.
+                // Critical content is now visible by default as there's no CSS hiding it.
                 
                 // Additional video preloading
                 const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];

@@ -16,12 +16,11 @@ import { useSession } from "next-auth/react";
 import { FiStar } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 
-const MenuCard = ({ menu, restaurant }) => {
+const MenuCard = ({ menu, restaurant, ratingData = { avg: null, count: 0 } }) => {
   const { data: session } = useSession();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [ratingData, setRatingData] = useState({ avg: null, count: 0 });
   const [loadingFavorite, setLoadingFavorite] = useState(false);
 
   const mountedRef = useRef(true);
@@ -36,6 +35,7 @@ const MenuCard = ({ menu, restaurant }) => {
     return generateSlug(restaurant.name, restaurant.location?.area);
   }, [restaurant?.name, restaurant?.location?.area]);
 
+<<<<<<< HEAD
   /** ✅ Fetch Reviews only once, cache + prevent redundant setState */
   useEffect(() => {
     mountedRef.current = true;
@@ -83,6 +83,9 @@ const MenuCard = ({ menu, restaurant }) => {
   }, [menuId]);
 
   /** ✅ Fetch Favorite Status (skip redundant updates) */
+=======
+  /** ✅ Fetch Favorite Status */
+>>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
   useEffect(() => {
     if (!userId || !menuId) return;
 
@@ -206,8 +209,14 @@ const MenuCard = ({ menu, restaurant }) => {
           </button>
         </div>
 
+<<<<<<< HEAD
         {ratingData.count > 0 ? (
           <div className="flex items-center text-sm text-gray-700 mb-2">
+=======
+        {/* Ratings */}
+        {ratingData.avg !== null && ratingData.avg > 0 && ratingData.count > 0 ? (
+          <div className="flex items-center mt-1 text-sm text-gray-700">
+>>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
             <FiStar className="text-yellow-400 mr-1" />
             <span>{ratingData.avg.toFixed(1)}</span>
             <span className="ml-1 text-gray-500">({ratingData.count})</span>
@@ -257,4 +266,8 @@ const MenuCard = ({ menu, restaurant }) => {
   );
 };
 
+<<<<<<< HEAD
 export default memo(MenuCard);
+=======
+export default MenuCard;
+>>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
