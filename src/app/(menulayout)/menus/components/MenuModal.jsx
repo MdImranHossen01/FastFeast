@@ -59,6 +59,7 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
   };
 
   if (!isOpen) return null;
+  if (!menu) return null;
 
   return (
     <div
@@ -139,7 +140,7 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Ingredients</h3>
             <div className="flex flex-wrap gap-2">
-              {menu.ingredients.map((ingredient, index) => (
+              {menu.ingredients?.map((ingredient, index) => (
                 <span
                   key={index}
                   className="px-3 py-1 bg-gray-100 rounded-full text-sm"
@@ -154,7 +155,7 @@ const MenuModal = ({ isOpen, onClose, menu }) => {
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Dietary Information</h3>
             <div className="flex flex-wrap gap-2">
-              {menu.dietaryTags.map((tag, index) => (
+              {menu.dietaryTags?.map((tag, index) => (
                 <span
                   key={index}
                   className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm"
