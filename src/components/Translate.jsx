@@ -6,13 +6,22 @@ import { IoLanguageOutline } from "react-icons/io5";
 export default function Translate() {
   const [lang, setLang] = useState("en");
   const [open, setOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Wait for component to mount on client side
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const changeLanguage = (code) => {
     setLang(code);
-    const combo = document.querySelector("select.goog-te-combo");
-    if (combo) {
-      combo.value = code;
-      combo.dispatchEvent(new Event("change"));
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      const combo = document.querySelector("select.goog-te-combo");
+      if (combo) {
+        combo.value = code;
+        combo.dispatchEvent(new Event("change"));
+      }
     }
     setOpen(false);
   };
@@ -25,21 +34,36 @@ export default function Translate() {
     { code: "ar", label: "العربية" },
   ];
 
-  // Auto-init to selected language
+  // Auto-init to selected language - only on client side
   useEffect(() => {
-    const i = setInterval(() => {
+    if (!isMounted) return;
+
+    const initLanguage = () => {
       const combo = document.querySelector("select.goog-te-combo");
       if (combo) {
         combo.value = lang;
         combo.dispatchEvent(new Event("change"));
-        clearInterval(i);
+        return true;
       }
-    }, 300);
-    return () => clearInterval(i);
-  }, [lang]);
+      return false;
+    };
+
+    // Try immediately, then with interval if not ready
+    if (!initLanguage()) {
+      const intervalId = setInterval(() => {
+        if (initLanguage()) {
+          clearInterval(intervalId);
+        }
+      }, 300);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [lang, isMounted]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
+    if (!isMounted) return;
+
     const handleClickOutside = (event) => {
       if (!event.target.closest('.translate-container')) {
         setOpen(false);
@@ -48,7 +72,24 @@ export default function Translate() {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [isMounted]);
+
+  // Don't render anything until mounted on client to avoid hydration mismatch
+  if (!isMounted) {
+    return (
+      <div className="relative select-none translate-container">
+        <button
+          className="flex items-center justify-center gap-2 p-2 rounded-full
+                     text-gray-700 dark:text-gray-300
+                     border border-transparent"
+          aria-label="Change language"
+        >
+          <IoLanguageOutline className="w-5 h-5" />
+          <span className="text-sm font-medium hidden sm:block">EN</span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="relative select-none translate-container">
