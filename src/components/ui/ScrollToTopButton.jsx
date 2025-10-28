@@ -1,13 +1,14 @@
 // components/ui/ScrollToTopButton.jsx
 "use client";
 
-import { useState, useEffect, useRef } from 'react'; // <-- 1. IMPORT useRef
+import { useState, useEffect } from 'react'; // No longer need useRef for the audio
 import { ChevronUp } from 'lucide-react';
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const audioRef = useRef(null); // <-- 2. CREATE the ref here
+
+  // The audio logic is now removed from here
 
   useEffect(() => {
     const calculateScrollProgress = () => {
@@ -34,9 +35,12 @@ export default function ScrollToTopButton() {
   }, []);
 
   const scrollToTop = () => {
-    if (audioRef.current) { // Good practice to check if it exists
-      audioRef.current.play();
-    }
+    // 1. Create a new Audio object and play it.
+    // This is not tied to the component's lifecycle.
+    const clickSound = new Audio('/audio/back-to-top.mp3');
+    clickSound.play();
+
+    // 2. Scroll the window to the top.
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -98,7 +102,7 @@ export default function ScrollToTopButton() {
           />
         </div>
       </div>
-        <audio ref={audioRef} src="/audio/back-to-top.mp3" />
+      {/* 3. The <audio> tag has been removed from here. */}
     </button>
   );
 }
