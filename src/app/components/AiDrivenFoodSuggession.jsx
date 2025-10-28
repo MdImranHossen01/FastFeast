@@ -47,6 +47,14 @@ const AiDrivenFoodSuggestion = () => {
   const hasLoadedDataRef = useRef(false);
   const hasFetchedAutoSuggestionsRef = useRef(false);
 
+  // ✅ ADD: Create restaurant lookup map
+  const restaurantMap = {};
+  restaurants.forEach((restaurant) => {
+    if (restaurant?._id) {
+      restaurantMap[restaurant._id] = restaurant;
+    }
+  });
+
   const loadMenuData = useCallback(async () => {
     // Prevent multiple data loads
     if (hasLoadedDataRef.current) return;
@@ -66,8 +74,6 @@ const AiDrivenFoodSuggestion = () => {
         mRes.json(),
         rRes.json(),
       ]);
-
-    
 
       const menusArray = Array.isArray(menusData) ? menusData : [];
       const restaurantsArray = Array.isArray(restaurantsData) ? restaurantsData : [];
@@ -418,9 +424,10 @@ const AiDrivenFoodSuggestion = () => {
                       key={`${suggestion.menuId}-${index}`}
                       className="h-full"
                     >
+                      {/* ✅ FIXED: Changed from restaurants to restaurant */}
                       <MenuCard 
                         menu={menu} 
-                        restaurants={restaurants}
+                        restaurant={restaurantMap[menu.restaurantId]}
                         ratingData={ratings[menu._id] || { avg: null, count: 0 }}
                       />
                     </div>
