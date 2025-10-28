@@ -7,7 +7,7 @@ import Loading from "./loading";
 import TopCuisineDynamic from "./components/TopCuisineDynamic";
 import RestaurantSectionDynamic from "./components/RestaurantSectionDynamic";
 import PopularItemsDynamic from "./components/PopularItemsDynamic";
-import SpecialOffersDynamic from "./components/SpecialOffersDynamic"; // 👈 NEW wrapper
+import SpecialOffers from "./components/SpecialOffers";
 
 // Lazy load non-critical components (SSR OK)
 const FAQSection = lazy(() => import("./components/FaqSection"));
@@ -51,7 +51,8 @@ export default function Home() {
       </Suspense>
 
       {/* Client-only; DO NOT wrap in <Suspense> */}
-      <SpecialOffersDynamic />
+      <SpecialOffers />
+
 
       <PopularItemsDynamic />
 
