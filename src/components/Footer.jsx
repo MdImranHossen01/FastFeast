@@ -56,12 +56,8 @@ const footerData = [
 ];
 
 const Footer = () => {
-
-
   const pathname = usePathname();
   const [isDashboard, setIsDashboard] = useState(false);
-
-
 
   if (pathname.includes("dashboard")) {
     return null;
@@ -76,7 +72,7 @@ const Footer = () => {
           <div>
             {/* If your Logo uses next/image with fill, ensure it sets `sizes` internally */}
             <Logo />
-            
+
             <div className="space-y-2 mt-4 text-sm">
               <div className="flex items-start gap-2">
                 <IoLocationSharp
@@ -165,9 +161,14 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright Section */}
-      {/* Bottom Copyright Section */} 
-      <div className="border-t border-slate-800 bg-slate-900 pt-6"> 
-        <div className="container mx-auto px-4 text-center text-sm text-gray-500"> © {new Date().getFullYear()}{" "} <span className="font-semibold text-orange-400">FastFeast</span>. All rights reserved. </div> </div>
+      {/* Bottom Copyright Section */}
+      <div className="border-t border-slate-800 bg-slate-900 pt-6">
+        <div className="px-4 text-center text-sm text-gray-500">
+          {"© "} {new Date().getFullYear()} {" "}
+          <span className="font-semibold text-orange-400">FastFeast</span>
+          {" All rights reserved."}
+        </div>
+      </div>
     </footer>
   );
 };

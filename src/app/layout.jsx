@@ -18,7 +18,6 @@ import LenisProvider from "@/providers/LenisProvider";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 
 // Preload critical fonts
-
 export const metadata = {
   title: "FastFeast - Food Delivery App",
   description:
@@ -168,7 +167,7 @@ export default function RootLayout({ children }) {
       >
         {/* Critical content first */}
         <div id="critical-content">
-          <ThemeToggle/>
+          <ThemeToggle />
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
@@ -178,7 +177,7 @@ export default function RootLayout({ children }) {
                       <header>
                         <Navbar />
                       </header>
-                      <main>{children}</main>
+                      <main className="overflow-x-hidden">{children}</main>
                       <footer>
                         <Footer />
                       </footer>
