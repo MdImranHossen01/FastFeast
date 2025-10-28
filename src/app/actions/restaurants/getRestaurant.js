@@ -1,16 +1,15 @@
 "use server";
 
+import { getBaseUrl } from "@/lib/getBaseUrl";
+
 const CACHE_CONFIG = {
-  restaurants: {
-    revalidate: 3600, // 1 hour
-    tags: ["restaurants"],
-  },
+  restaurants: { revalidate: 3600, tags: ["restaurants"] },
 };
 
 export default async function getRestaurants() {
   try {
-    // Relative URL avoids env issues and CORS
-    const res = await fetch("/api/restaurants", {
+    const base = getBaseUrl(); // 👈 absolute origin
+    const res = await fetch(`${base}/api/restaurants`, {
       next: {
         revalidate: CACHE_CONFIG.restaurants.revalidate,
         tags: CACHE_CONFIG.restaurants.tags,
@@ -20,7 +19,7 @@ export default async function getRestaurants() {
     if (!res.ok) return [];
     return await res.json();
   } catch (error) {
-    console.error("Error fetching restaurants:", error.message);
+    console.error("Error fetching data:", error.message);
     return [];
   }
 }
