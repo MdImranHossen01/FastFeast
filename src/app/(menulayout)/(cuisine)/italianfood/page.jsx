@@ -9,7 +9,6 @@ const ItalianFoodPage = async () => {
 
   // Filter menus to only show Italian cuisine
   const ItalianMenus = menus.filter((menu) => menu.cuisine === "Italian");
-  console.log("Italian menus:", ItalianMenus);
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -1,13 +1,25 @@
 import React from "react";
 import MenuCard from "../../menus/components/MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
+import getRestaurants from "@/app/actions/restaurants/getRestaurant"; // ✅ ADD THIS IMPORT
 
 const NoodlesPage = async () => {
-  const menus = await getMenu();
+  // ✅ CHANGE THIS: Fetch both menus and restaurants
+  const [menus, restaurants] = await Promise.all([
+    getMenu(),
+    getRestaurants()
+  ]);
 
-  // Filter menus to only show Thai cuisine
+  // Filter menus to only show Noodles category
   const Menus = menus.filter((menu) => menu.category === "Noodles");
-  console.log("Thai menus:", Menus);
+  
+  // ✅ ADD THIS: Create restaurant lookup map
+  const restaurantMap = {};
+  restaurants.forEach((restaurant) => {
+    if (restaurant?._id) {
+      restaurantMap[restaurant._id] = restaurant;
+    }
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -18,7 +30,12 @@ const NoodlesPage = async () => {
       {Menus.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {Menus.map((menu) => (
-            <MenuCard key={menu?._id} menu={menu} />
+            // ✅ CHANGE THIS: Add restaurant prop
+            <MenuCard 
+              key={menu?._id} 
+              menu={menu} 
+              restaurant={restaurantMap[menu.restaurantId]} 
+            />
           ))}
         </div>
       ) : (

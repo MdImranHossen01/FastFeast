@@ -142,7 +142,6 @@ const TraditionalBear = () => {
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="items-center rounded-xl justify-center object-cover transition-all duration-500 ease-in-out hover:scale-[1.05]"
               onError={(e) => {
-                console.log("Image failed to load:", currentImage);
                 e.target.style.backgroundColor = "#f3f4f6";
               }}
             />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import MenuCard from "./MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
@@ -20,6 +20,17 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
     filters.selectedPrice || 
     filters.isSpecialOfferSelected || 
     filters.isComboSelected;
+
+  // Create restaurant lookup map
+  const restaurantMap = useMemo(() => {
+    const map = {};
+    restaurants.forEach((restaurant) => {
+      if (restaurant?._id) {
+        map[restaurant._id] = restaurant;
+      }
+    });
+    return map;
+  }, [restaurants]);
 
   useEffect(() => {
     // If props are provided, use them (for better performance)
@@ -126,7 +137,10 @@ const ThaiFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
         {thaiMenus.map((menu) => (
           <div key={menu?._id} className="flex-shrink-0 w-64">
-            <MenuCard menu={menu} restaurants={restaurants} />
+            <MenuCard 
+              menu={menu} 
+              restaurant={restaurantMap[menu.restaurantId]} 
+            />
           </div>
         ))}
       </div>

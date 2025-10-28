@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 
 export default function TableRow({ review, index }) {
     const [showDialog, setShowDialog] = useState(false);
-    // console.log(review)
     return (
         <tr className='border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'>
             <th>

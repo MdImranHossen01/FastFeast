@@ -14,34 +14,23 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
   // Function to get actual menu item IDs from the database
   const fetchMenuItemIds = async (itemTitles) => {
     try {
-      console.log("🔍 Fetching all menu items to find IDs for:", itemTitles);
-
       // Fetch all menu items
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_ADDRESS}/api/menus`
       );
       const result = await response.json();
 
-      console.log("📦 Raw API response:", result);
-
       // Handle different response formats
       let menus = [];
       if (Array.isArray(result)) {
         // If response is directly an array
         menus = result;
-        console.log("✅ Response is direct array with", menus.length, "items");
       } else if (result.success && Array.isArray(result.menus)) {
         // If response has success and menus fields
         menus = result.menus;
-        console.log(
-          "✅ Response has success and menus fields with",
-          menus.length,
-          "items"
-        );
       } else if (Array.isArray(result.data)) {
         // If response has data field
         menus = result.data;
-        console.log("✅ Response has data field with", menus.length, "items");
       } else {
         console.error("❌ Unexpected API response format:", result);
         return {};
@@ -53,17 +42,12 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
       menus.forEach((menu) => {
         if (menu.title && menu._id) {
           idMap[menu.title] = menu._id;
-          console.log(`✅ Mapped "${menu.title}" -> ${menu._id}`);
         } else {
           console.warn("❌ Menu item missing title or _id:", menu);
         }
       });
 
-      console.log("✅ Final menu item ID map:", idMap);
-      console.log("🔍 Looking for specific items:");
-      itemTitles.forEach((title) => {
-        console.log(`   "${title}": ${idMap[title] || "NOT FOUND"}`);
-      });
+      itemTitles.forEach((title) => {});
 
       return idMap;
     } catch (error) {
@@ -87,11 +71,9 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
   useEffect(() => {
     const initializeReviews = async () => {
       if (order && order.items) {
-        console.log("📦 Order items:", order.items);
 
         // Extract item titles to look up their IDs
         const itemTitles = order.items.map((item) => item.title);
-        console.log("🎯 Item titles to lookup:", itemTitles);
 
         const idMap = await fetchMenuItemIds(itemTitles);
 
@@ -159,7 +141,6 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
         })
         .filter((item) => item.rating > 0);
 
-      console.log("📤 Final itemReviews to submit:", itemReviewsData);
 
       // Prepare review data
       const reviewData = {
@@ -172,15 +153,11 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
         itemReviews: itemReviewsData,
       };
 
-      console.log(
-        "💾 Complete review data being submitted:",
-        JSON.stringify(reviewData, null, 2)
-      );
+    
 
       // Call the onSubmit prop function
       const result = await onSubmit(reviewData);
 
-      console.log("📨 Review submission result:", result);
 
       if (result.success) {
         toast.success("Review submitted successfully!");

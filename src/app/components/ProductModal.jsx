@@ -17,7 +17,6 @@ const ProductModal = ({ product, onClose }) => {
   if (!product) return null; // Don't render if no product is passed
 
   const handleConfirmOrder = () => {
-    console.log(`Confirmed Order: ${quantity} x ${product.title} with notes: "${specialInstructions}"`);
     // Add logic here to dispatch the final order to the cart
     onClose(); 
   };
