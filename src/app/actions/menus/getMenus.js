@@ -1,16 +1,15 @@
 "use server";
 
+import { getBaseUrl } from "@/lib/getBaseUrl";
+
 const CACHE_CONFIG = {
-  menus: {
-    revalidate: 3600, // 1 hour (page will still revalidate at 300s)
-    tags: ["menus"],
-  },
+  menus: { revalidate: 3600, tags: ["menus"] },
 };
 
 export default async function getMenus() {
   try {
-    // Use relative URL so it works on localhost + prod without env drift
-    const res = await fetch("/api/menus", {
+    const base = getBaseUrl(); // 👈 absolute origin
+    const res = await fetch(`${base}/api/menus`, {
       next: {
         revalidate: CACHE_CONFIG.menus.revalidate,
         tags: CACHE_CONFIG.menus.tags,
