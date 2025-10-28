@@ -65,7 +65,6 @@ export default function OtpModal({ email, onClose }) {
         skipOtp: true,
       });
 
-      console.log("OTP verification response:", res); // Debug log
 
       if (res?.ok || res?.url) {
         Swal.fire("Success", "OTP verified successfully! Logging you in...", "success");

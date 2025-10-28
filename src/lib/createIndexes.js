@@ -16,7 +16,6 @@ export const createDatabaseIndexes = async () => {
     await Review.collection.createIndex({ "itemReviews.menuId": 1 });
     await Review.collection.createIndex({ orderId: 1 });
     
-    console.log('✅ Database indexes created for MongoDB Atlas');
   } catch (error) {
     console.error('❌ Error creating indexes:', error);
   }

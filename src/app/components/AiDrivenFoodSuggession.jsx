@@ -53,7 +53,6 @@ const AiDrivenFoodSuggestion = () => {
     hasLoadedDataRef.current = true;
 
     try {
-      console.log("Loading menu and restaurant data...");
       const [mRes, rRes] = await Promise.all([
         fetch("/api/menus", { cache: "no-store" }),
         fetch("/api/restaurants", { cache: "no-store" }),
@@ -68,8 +67,7 @@ const AiDrivenFoodSuggestion = () => {
         rRes.json(),
       ]);
 
-      console.log("Menus loaded:", menusData?.length);
-      console.log("Restaurants loaded:", restaurantsData?.length);
+    
 
       const menusArray = Array.isArray(menusData) ? menusData : [];
       const restaurantsArray = Array.isArray(restaurantsData) ? restaurantsData : [];
@@ -136,7 +134,6 @@ const AiDrivenFoodSuggestion = () => {
     hasFetchedAutoSuggestionsRef.current = true;
 
     try {
-      console.log("Fetching auto-suggestions for time:", timeOfDay);
       const res = await fetch("/api/ai/food-suggestions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -145,7 +142,6 @@ const AiDrivenFoodSuggestion = () => {
 
       if (res.ok) {
         const data = await res.json();
-        console.log("Auto-suggestions received:", data);
 
         if (data.suggestions && Array.isArray(data.suggestions)) {
           setSuggestions(data.suggestions);
@@ -231,7 +227,6 @@ const AiDrivenFoodSuggestion = () => {
     setShowAutoSuggestions(false);
 
     try {
-      console.log("Fetching suggestions for:", text);
       const res = await fetch("/api/ai/food-suggestions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -243,7 +238,6 @@ const AiDrivenFoodSuggestion = () => {
 
       if (res.ok) {
         const data = await res.json();
-        console.log("Search suggestions received:", data);
 
         if (data.suggestions && Array.isArray(data.suggestions)) {
           setSuggestions(data.suggestions);
@@ -267,7 +261,6 @@ const AiDrivenFoodSuggestion = () => {
   const performLocalSearch = (query) => {
     if (!query.trim() || menus.length === 0) return;
 
-    console.log("Performing local search for:", query);
 
     const filteredMenus = menus
       .filter(

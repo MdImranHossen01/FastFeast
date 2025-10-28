@@ -71,7 +71,6 @@ export const createRider = async (formData) => {
       createdAt: new Date().toISOString()
     };
     
-    console.log('Rider data:', riderData);
     
     // Connect to MongoDB
     const client = new MongoClient(process.env.MONGODB_URI);

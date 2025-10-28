@@ -9,7 +9,6 @@ export function usePWAUpdate() {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        console.log('🔄 Service Worker updated, reloading...');
         window.location.reload();
       });
 
@@ -20,7 +19,6 @@ export function usePWAUpdate() {
           
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('🔄 New update available!');
               setUpdateAvailable(true);
             }
           });

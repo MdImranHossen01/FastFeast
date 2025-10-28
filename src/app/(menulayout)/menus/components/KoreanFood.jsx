@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import MenuCard from "./MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
@@ -14,17 +14,30 @@ const KoreanFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
 
   // Get filters from Redux to check if we should hide this section
   const filters = useSelector((state) => state.filters);
-  const hasActiveFilters = filters.searchQuery || 
-    filters.selectedCuisines.length > 0 || 
-    filters.selectedRating > 0 || 
-    filters.selectedPrice || 
-    filters.isSpecialOfferSelected || 
+  const hasActiveFilters =
+    filters.searchQuery ||
+    filters.selectedCuisines.length > 0 ||
+    filters.selectedRating > 0 ||
+    filters.selectedPrice ||
+    filters.isSpecialOfferSelected ||
     filters.isComboSelected;
+  // Create restaurant lookup map
+  const restaurantMap = useMemo(() => {
+    const map = {};
+    restaurants.forEach((restaurant) => {
+      if (restaurant?._id) {
+        map[restaurant._id] = restaurant;
+      }
+    });
+    return map;
+  }, [restaurants]);
 
   useEffect(() => {
     // If props are provided, use them (for better performance)
     if (propMenus && propRestaurants) {
-      const filteredMenus = propMenus.filter((menu) => menu.cuisine === "Korean");
+      const filteredMenus = propMenus.filter(
+        (menu) => menu.cuisine === "Korean"
+      );
       setKoreanMenus(filteredMenus);
       setRestaurants(propRestaurants);
       setLoading(false);
@@ -36,11 +49,13 @@ const KoreanFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       try {
         const [menusData, restaurantsData] = await Promise.all([
           getMenu(),
-          getRestaurant()
+          getRestaurant(),
         ]);
-        
+
         // Filter Korean cuisine menus
-        const filteredMenus = menusData.filter((menu) => menu.cuisine === "Korean");
+        const filteredMenus = menusData.filter(
+          (menu) => menu.cuisine === "Korean"
+        );
         setKoreanMenus(filteredMenus);
         setRestaurants(restaurantsData);
       } catch (error) {
@@ -126,7 +141,10 @@ const KoreanFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
       <div className="flex w-full space-x-4 overflow-x-auto scrollbar-hide pb-4">
         {koreanMenus.map((menu) => (
           <div key={menu?._id} className="flex-shrink-0 w-64">
-            <MenuCard menu={menu} restaurants={restaurants} />
+            <MenuCard
+              menu={menu}
+              restaurant={restaurantMap[menu.restaurantId]}
+            />
           </div>
         ))}
       </div>

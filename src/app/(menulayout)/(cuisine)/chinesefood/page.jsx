@@ -9,7 +9,6 @@ const ChineseFoodPage = async () => {
 
   // Filter menus to only show Chinese cuisine
   const ChineseMenus = menus.filter((menu) => menu.cuisine === "Chinese");
-  console.log("Chinese menus:", ChineseMenus);
 
   return (
     <div className="container mx-auto px-4 py-8">
