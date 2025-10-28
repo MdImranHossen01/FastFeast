@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import NewsletterForm from "@/app/components/NewsLetter";
 import InstallButton from "@/components/pwa/InstallButton";
+import Translate from "./Translate";
 
 // --- Reusable Footer Column Component ---
 const FooterColumn = ({ title, links }) => (
@@ -156,6 +157,9 @@ const Footer = () => {
               Newsletter
             </h3>
             <NewsletterForm />
+          </div>
+           <div className="relative">
+            <Translate/>
           </div>
         </div>
       </div>

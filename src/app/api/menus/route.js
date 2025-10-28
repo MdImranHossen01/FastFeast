@@ -75,16 +75,31 @@ export async function POST(req) {
   }
 }
 
-// GET all menus - OPTIMIZED
+// GET all menus - OPTIMIZED with better error handling
 export async function GET() {
   try {
-    await connectMongooseDb();
+    // Try to connect to database
+    let dbConnected = false;
+    try {
+      await connectMongooseDb();
+      dbConnected = true;
+    } catch (dbError) {
+      console.log("Menus API: Database not available");
+    }
 
-    // ✅ OPTIMIZATION: Select only needed fields + limit + lean
-    const menus = await Menu.find()
-      .select('title imageUrl description price cuisine category isSpecialOffer discountRate offerPrice rating restaurantId')
-      .limit(100)
-      .lean();
+    let menus = [];
+
+    if (dbConnected) {
+      try {
+        // ✅ OPTIMIZATION: Select only needed fields + limit + lean
+        menus = await Menu.find()
+          .select('title imageUrl description price cuisine category isSpecialOffer discountRate offerPrice rating restaurantId')
+          .limit(100)
+          .lean();
+      } catch (queryError) {
+        console.log("Menus API: Could not fetch menus from database");
+      }
+    }
 
     // ✅ OPTIMIZATION: Add caching headers
     return NextResponse.json(menus, { 
@@ -95,9 +110,12 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Error fetching menus:", error);
-    return NextResponse.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
+    // Return empty array instead of error to prevent frontend crashes
+    return NextResponse.json([], { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
+    });
   }
 }
