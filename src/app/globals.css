@@ -304,3 +304,29 @@
   .cf-petal { display: none !important; }
   .cf-follower { box-shadow: 0 0 0 3px rgba(255, 138, 31, 0.95) inset; }
 }
+
+/* google translat start */
+
+/* Hide Google banner/balloon; prevent body shift */
+.goog-te-banner-frame,
+.goog-te-balloon-frame,
+#goog-gt-tt { display: none !important; }
+body { top: 0 !important; }
+
+/* Hide inline branding */
+.goog-logo-link,
+.goog-te-gadget span { display: none !important; }
+.goog-te-gadget { height: 0 !important; overflow: hidden !important; }
+
+/* --- Google Translate hardening (prevents scroll lock) --- */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-balloon-frame,
+#goog-gt-tt { display: none !important; }
+
+html, body {
+  position: static !important;   /* GT sometimes sets position + top */
+  top: 0 !important;
+  overflow: auto !important;     /* undo any overflow: hidden */
+  height: auto !important;
+  min-height: 100% !important;
+}

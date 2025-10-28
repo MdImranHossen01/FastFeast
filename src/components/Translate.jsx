@@ -1,76 +1,11 @@
-// G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\components\Translate.jsx
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaGlobe } from "react-icons/fa";
-
-const GOOGLE_TRANSLATE_SCRIPT_ID = "googleTranslateScript";
-const HIDE_TRANSLATE_STYLE_ID = "hideGoogleTranslate";
+import { IoLanguageOutline } from "react-icons/io5";
 
 export default function Translate() {
   const [lang, setLang] = useState("en");
   const [open, setOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isMounted) {
-      return;
-    }
-
-    // --- Define the init function in the window scope ---
-    window.googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: "en",
-          includedLanguages: "en,bn,hi,es,ar",
-          autoDisplay: false,
-          // Use a div to contain the widget, which we will hide
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-        },
-        "google_translate_element"
-      );
-    };
-
-    // --- Inject the script ---
-    if (!document.getElementById(GOOGLE_TRANSLATE_SCRIPT_ID)) {
-      const script = document.createElement("script");
-      script.id = GOOGLE_TRANSLATE_SCRIPT_ID;
-      script.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
-      script.async = true;
-      document.body.appendChild(script);
-    }
-
-    // --- Inject the CSS to hide the banner and widget ---
-    if (!document.getElementById(HIDE_TRANSLATE_STYLE_ID)) {
-      const style = document.createElement("style");
-      style.id = HIDE_TRANSLATE_STYLE_ID;
-      style.innerHTML = `
-        body { top: 0px !important; }
-        .goog-te-banner-frame { display: none !important; }
-        #goog-gt-tt { display: none !important; }
-        .goog-te-gadget-simple { display: none !important; }
-        .goog-te-gadget-icon { display: none !important; }
-      `;
-      document.head.appendChild(style);
-    }
-    
-    // --- Cleanup function ---
-    return () => {
-        // When the component unmounts, remove the script and styles
-        const script = document.getElementById(GOOGLE_TRANSLATE_SCRIPT_ID);
-        if (script) script.remove();
-
-        const style = document.getElementById(HIDE_TRANSLATE_STYLE_ID);
-        if (style) style.remove();
-
-        // Clean up the global function
-        delete window.googleTranslateElementInit;
-    };
-  }, [isMounted]);
 
   const changeLanguage = (code) => {
     setLang(code);
@@ -90,41 +25,93 @@ export default function Translate() {
     { code: "ar", label: "العربية" },
   ];
 
+  // Auto-init to selected language
+  useEffect(() => {
+    const i = setInterval(() => {
+      const combo = document.querySelector("select.goog-te-combo");
+      if (combo) {
+        combo.value = lang;
+        combo.dispatchEvent(new Event("change"));
+        clearInterval(i);
+      }
+    }, 300);
+    return () => clearInterval(i);
+  }, [lang]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.translate-container')) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
-    <div className="relative select-none">
-      {/* 
-        THE FIX: Use dangerouslySetInnerHTML to tell React not to manage this div's children.
-        This prevents the 'removeChild' error because React will not try to clean up
-        what the Google Translate script is doing inside this div.
-      */}
-      <div 
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: '<div id="google_translate_element"></div>' }}
-        style={{ display: 'none' }}
-      />
-      
+    <div className="relative select-none translate-container">
+      {/* Button */}
       <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center justify-center gap-2 p-2 rounded-full text-gray-400 hover:text-orange-400 hover:bg-slate-800 transition-colors"
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center justify-center gap-2 p-2 rounded-full
+                   text-gray-700 dark:text-gray-300
+                   hover:bg-gray-100 dark:hover:bg-gray-800
+                   hover:text-primary-600 dark:hover:text-primary-400
+                   transition-all duration-200 border border-transparent
+                   hover:border-gray-200 dark:hover:border-gray-700"
+        aria-label="Change language"
       >
-        <FaGlobe className="w-6 h-6" />
+        <IoLanguageOutline className="w-5 h-5" />
+        <span className="text-sm font-medium hidden sm:block">
+          {languages.find(l => l.code === lang)?.label || 'EN'}
+        </span>
       </button>
 
+      {/* Dropdown - Now opens on top */}
       {open && (
-        <div className="absolute bottom-full right-0 mb-2 w-36 rounded-lg shadow-lg bg-slate-800 border border-slate-700 z-50">
-          {languages.map((l) => (
-            <button
-              key={l.code}
-              onClick={() => changeLanguage(l.code)}
-              className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
-                lang === l.code
-                  ? "bg-orange-500 text-white"
-                  : "text-gray-300 hover:bg-slate-700"
-              }`}
-            >
-              {l.label}
-            </button>
-          ))}
+        <div
+          className="absolute bottom-full right-0 mb-2 w-40 rounded-xl shadow-lg 
+                     border border-gray-200 dark:border-gray-700 
+                     bg-white dark:bg-gray-900 backdrop-blur-sm bg-opacity-95
+                     text-gray-900 dark:text-gray-100 z-50
+                     animate-in fade-in-0 zoom-in-95 duration-200"
+        >
+          {/* Arrow indicator */}
+          <div className="absolute -bottom-1 right-3 w-3 h-3 rotate-45 
+                         bg-white dark:bg-gray-900 border-r border-b 
+                         border-gray-200 dark:border-gray-700"></div>
+          
+          {/* Language options */}
+          <div className="py-2">
+            {languages.map((language) => (
+              <button
+                key={language.code}
+                onClick={() => changeLanguage(language.code)}
+                className={`flex items-center w-full px-4 py-3 text-sm transition-all duration-200
+                  ${
+                    lang === language.code
+                      ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-semibold border-r-2 border-primary-500"
+                      : "hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400"
+                  }`}
+              >
+                <span className="flex-1 text-left">{language.label}</span>
+                {lang === language.code && (
+                  <div className="w-2 h-2 rounded-full bg-primary-500 ml-2"></div>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Footer with current language */}
+          <div className="px-4 py-2 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 rounded-b-xl">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Current: <span className="font-medium text-primary-600 dark:text-primary-400">
+                {languages.find(l => l.code === lang)?.label}
+              </span>
+            </p>
+          </div>
         </div>
       )}
     </div>
