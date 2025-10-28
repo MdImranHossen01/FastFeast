@@ -58,7 +58,7 @@ const Navbar = () => {
           {/* Hamburger Menu Icon */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110"
+            className="p-2 cursor-pointer text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-110"
             aria-label="Toggle menu"
           >
             <FiMenu size={24} />
