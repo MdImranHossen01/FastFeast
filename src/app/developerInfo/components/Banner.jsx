@@ -23,7 +23,7 @@ export default function Banner() {
                     backgroundImage: `url(/code-line.png)`,
                     // backgroundPosition: '-100px'
                 }}
-                className="min-h-screen bg-fixed bg-size-[auto_350px] bg-bottom-right bg-no-repeat flex justify-center items-center text-9xl ">
+                className="min-h-screen banner-bg bg-fixed bg-size-[auto_350px] bg-bottom-right bg-no-repeat flex justify-center items-center text-9xl ">
                 <div
                     style={{
                         backgroundImage: `url(/sl_031420_28950_10.jpg)`
