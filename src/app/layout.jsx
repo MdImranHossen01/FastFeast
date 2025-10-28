@@ -15,6 +15,7 @@ import { CartProvider } from "@/lib/cartContext";
 import { Toaster } from "react-hot-toast";
 import StoreProvider from "@/lib/StoreProvider";
 import LenisProvider from "@/providers/LenisProvider";
+import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 
 // Preload critical fonts
 
@@ -167,6 +168,7 @@ export default function RootLayout({ children }) {
       >
         {/* Critical content first */}
         <div id="critical-content">
+          <ThemeToggle/>
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
