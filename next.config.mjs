@@ -14,10 +14,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
-      {
-        protocol: "https",
-        hostname: "www.travelmate.com.bd",
-      },
+      
     ],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,
