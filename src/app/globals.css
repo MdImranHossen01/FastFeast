@@ -230,3 +230,61 @@
   scrollbar-color: #f97316 #fed7aa;
 }
 
+/* ===== Cursor Flower (Follower + Bloom) =============================== */
+/* ===== Cursor Flower (Follower + Bloom) =============================== */
+.cf-follower {
+  position: fixed;
+  /* we'll set left/top from JS every frame */
+  left: 50%; 
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  /* center anchor so the ring is centered on the coordinates */
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2147483647;
+  border-radius: 9999px;
+  box-shadow:
+    0 0 0 2px rgba(255, 140, 0, 0.25) inset,
+    0 0 12px 4px rgba(255, 140, 0, 0.25);
+}
+
+.cf-petal {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  left: 0; top: 0;
+  pointer-events: none;
+  z-index: 2147483646;
+  transform: translate3d(-50%,-50%,0);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0) 70%),
+    radial-gradient(circle, hsl(var(--cf-hue, 30) 95% 65% / 1), hsl(var(--cf-hue, 30) 95% 65% / 0) 70%);
+  filter: blur(0.2px);
+  opacity: 0.9;
+}
+
+@keyframes cf-bloom {
+  0% {
+    transform: translate3d(calc(-50% + 0px), calc(-50% + 0px), 0) scale(0.6);
+    opacity: 0.95;
+    filter: blur(0.2px);
+  }
+  70% {
+    transform: translate3d(calc(-50% + var(--cf-tx, 0px)), calc(-50% + var(--cf-ty, 0px)), 0) scale(1.1);
+    opacity: 0.9;
+    filter: blur(0.3px);
+  }
+  100% {
+    transform: translate3d(calc(-50% + var(--cf-tx, 0px)), calc(-50% + var(--cf-ty, 0px)), 0) scale(0.9);
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cf-petal { display: none !important; }
+  .cf-follower { box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.25) inset; }
+}
