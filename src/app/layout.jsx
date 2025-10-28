@@ -18,23 +18,6 @@ import LenisProvider from "@/providers/LenisProvider";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 
 // Preload critical fonts
-<<<<<<< HEAD
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  preload: true,
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  preload: true,
-  display: "swap",
-});
-=======
->>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
-
 export const metadata = {
   title: "FastFeast - Food Delivery App",
   description:
@@ -184,7 +167,7 @@ export default function RootLayout({ children }) {
       >
         {/* Critical content first */}
         <div id="critical-content">
-          <ThemeToggle/>
+          <ThemeToggle />
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
@@ -194,7 +177,7 @@ export default function RootLayout({ children }) {
                       <header>
                         <Navbar />
                       </header>
-                      <main>{children}</main>
+                      <main className="overflow-x-hidden">{children}</main>
                       <footer>
                         <Footer />
                       </footer>

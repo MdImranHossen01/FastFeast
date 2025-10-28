@@ -16,7 +16,11 @@ import { useSession } from "next-auth/react";
 import { FiStar } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 
-const MenuCard = ({ menu, restaurant, ratingData = { avg: null, count: 0 } }) => {
+const MenuCard = ({
+  menu,
+  restaurant,
+  ratingData = { avg: null, count: 0 },
+}) => {
   const { data: session } = useSession();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,57 +39,7 @@ const MenuCard = ({ menu, restaurant, ratingData = { avg: null, count: 0 } }) =>
     return generateSlug(restaurant.name, restaurant.location?.area);
   }, [restaurant?.name, restaurant?.location?.area]);
 
-<<<<<<< HEAD
-  /** ✅ Fetch Reviews only once, cache + prevent redundant setState */
-  useEffect(() => {
-    mountedRef.current = true;
-    if (!menuId) return;
-
-    const cacheKey = `rating-${menuId}`;
-    const cached = sessionStorage.getItem(cacheKey);
-
-    if (cached) {
-      const parsed = JSON.parse(cached);
-      lastRatingRef.current = parsed;
-      setRatingData(parsed);
-      return;
-    }
-
-    const fetchReviews = async () => {
-      try {
-        const res = await fetch(`/api/reviews?itemId=${menuId}`);
-        if (!res.ok) throw new Error("Failed to fetch reviews");
-        const data = await res.json();
-
-        if (!data?.success || !mountedRef.current) return;
-
-        const payload = {
-          avg: data.averageRating || 0,
-          count: data.totalReviews || 0,
-        };
-
-        // Prevent setState if same data
-        const last = lastRatingRef.current;
-        if (!last || last.avg !== payload.avg || last.count !== payload.count) {
-          lastRatingRef.current = payload;
-          setRatingData(payload);
-          sessionStorage.setItem(cacheKey, JSON.stringify(payload));
-        }
-      } catch (err) {
-        console.error("Rating fetch failed:", err);
-      }
-    };
-
-    fetchReviews();
-    return () => {
-      mountedRef.current = false;
-    };
-  }, [menuId]);
-
-  /** ✅ Fetch Favorite Status (skip redundant updates) */
-=======
   /** ✅ Fetch Favorite Status */
->>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
   useEffect(() => {
     if (!userId || !menuId) return;
 
@@ -209,14 +163,11 @@ const MenuCard = ({ menu, restaurant, ratingData = { avg: null, count: 0 } }) =>
           </button>
         </div>
 
-<<<<<<< HEAD
-        {ratingData.count > 0 ? (
-          <div className="flex items-center text-sm text-gray-700 mb-2">
-=======
         {/* Ratings */}
-        {ratingData.avg !== null && ratingData.avg > 0 && ratingData.count > 0 ? (
+        {ratingData.avg !== null &&
+        ratingData.avg > 0 &&
+        ratingData.count > 0 ? (
           <div className="flex items-center mt-1 text-sm text-gray-700">
->>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
             <FiStar className="text-yellow-400 mr-1" />
             <span>{ratingData.avg.toFixed(1)}</span>
             <span className="ml-1 text-gray-500">({ratingData.count})</span>
@@ -266,8 +217,4 @@ const MenuCard = ({ menu, restaurant, ratingData = { avg: null, count: 0 } }) =>
   );
 };
 
-<<<<<<< HEAD
-export default memo(MenuCard);
-=======
 export default MenuCard;
->>>>>>> 0e71960eee96ad82c4922bbdbc6acf49fb609de3
