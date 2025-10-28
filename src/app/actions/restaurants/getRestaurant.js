@@ -1,22 +1,37 @@
 "use server";
 
+const CACHE_CONFIG = {
+  restaurants: {
+    revalidate: 3600, // 1 hour
+    tags: ["restaurants"],
+  },
+};
+
 export default async function getRestaurants() {
   try {
-    // Fetch restaurants from the API
-    const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurants`);
+    // Relative URL avoids env issues and CORS
+    const res = await fetch("/api/restaurants", {
+      next: {
+        revalidate: CACHE_CONFIG.restaurants.revalidate,
+        tags: CACHE_CONFIG.restaurants.tags,
+      },
+    });
 
-    // always return an array
-    if (!res.ok) {
-      return [];
-    }
-
-    // If response is ok, parse and return the data
-    const data = await res.json();
-    return data;
+    if (!res.ok) return [];
+    return await res.json();
   } catch (error) {
-    // Log the error for debugging purposes
-    console.error("Error fetching data:", error.message);
+    console.error("Error fetching restaurants:", error.message);
     return [];
+  }
+}
+
+export async function revalidateRestaurants() {
+  try {
+    const { revalidateTag } = await import("next/cache");
+    revalidateTag("restaurants");
+    return { success: true };
+  } catch (error) {
+    console.error("Error revalidating restaurants:", error);
+    return { success: false, error: error.message };
   }
 }
