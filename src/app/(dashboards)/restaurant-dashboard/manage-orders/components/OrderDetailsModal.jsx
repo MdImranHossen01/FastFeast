@@ -303,10 +303,11 @@ const OrderDetailsModal = ({ order, isOpen, onClose, updateOrderStatus, assignRi
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
-                      <img
+                      <Image
                         className="h-12 w-12 rounded-full"
                         src={assignedRider.photoUrl || `https://avatar.vercel.sh/${assignedRider.email}`}
                         alt={assignedRider.name}
+                        fill
                       />
                     </div>
                     <div className="flex-1">

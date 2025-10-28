@@ -156,13 +156,14 @@ export const OurTeam = () => {
                                 <div className="bg-linear-to-bl from-red-600/5 via-red-600/10 to-red-600/50 w-[110%] h-[110%] absolute  translate-y-[100%] -translate-x-[100%] group-hover:-translate-y-10 group-hover:-translate-x-0 duration-300 z-10">
 
                                 </div>
-                                <figure>
+                                <figure className='relative'>
                                     {/* Profile image */}
-                                    <img
+                                    <Image
                                         className='max-h-[400px] object-cover object-top w-full group-hover:scale-105 duration-300 overflow-hidden'
                                         // width={748}
                                         // height={1123}
                                         src={developer.image}
+                                        fill
                                         alt={`Image of ${developer.name}`}
                                     // unoptimized={true}
                                     />

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
+import Image from "next/image";
 
 export default function PendingRestaurants({
   restaurants,
@@ -69,22 +70,24 @@ export default function PendingRestaurants({
 
                   {/* Mobile View */}
                   <td className="block md:hidden py-1">
-                    <div className="flex flex-col items-center gap-2">
-                      <img
+                    <div className="flex relative flex-col items-center gap-2">
+                      <Image
                         className="bg-gray-50 dark:bg-gray-500  w-12 h-12 rounded-full object-cover"
                         src={restaurant.logo}
                         alt="logo"
+                        fill
                       />
                       <span className="font-bold">{restaurant.name}</span>
                     </div>
                   </td>
 
                   {/* Desktop Logo */}
-                  <td className="px-4 hidden md:table-cell">
-                    <img
+                  <td className="px-4 relative hidden md:table-cell">
+                    <Image
                       className="bg-gray-50 dark:bg-gray-500 w-12 h-12 rounded-full object-cover"
                       src={restaurant.logo}
                       alt="logo"
+                      fill
                     />
                   </td>
 

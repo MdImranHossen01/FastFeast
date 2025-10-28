@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -15,9 +16,10 @@ const CategoryTile = ({ title, imageUrl, bgColor, textColor, url }) => {
       >
         {/* Background Image */}
         {imageUrl && (
-          <img
+          <Image
             src={imageUrl}
             alt={title}
+            fill
             className="w-full h-full object-cover absolute inset-0
                      group-hover:scale-105 transition-transform duration-500 ease-in-out"
           />

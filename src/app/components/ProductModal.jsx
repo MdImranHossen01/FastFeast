@@ -4,6 +4,7 @@
 
 import React, { useState } from 'react';
 import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'; // Icons for quantity and close
+import Image from 'next/image';
 
 /**
  * Renders a modal for product customization and order confirmation.
@@ -33,9 +34,10 @@ const ProductModal = ({ product, onClose }) => {
         
         {/* Modal Header & Image Container */}
         <div className="relative h-48 sm:h-64 overflow-hidden">
-          <img 
+          <Image
             src={product.imageUrl} 
             alt={product.title} 
+            fill
             className="w-full h-full object-cover" 
           />
           {/* Close Button */}
