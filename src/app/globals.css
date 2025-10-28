@@ -231,24 +231,39 @@
 }
 
 /* ===== Cursor Flower (Follower + Bloom) =============================== */
-/* ===== Cursor Flower (Follower + Bloom) =============================== */
+/* Follower styled to match the screenshot: orange ring + small dark center */
 .cf-follower {
   position: fixed;
-  /* we'll set left/top from JS every frame */
-  left: 50%; 
+  left: 50%;
   top: 50%;
-  width: 22px;
-  height: 22px;
-  /* center anchor so the ring is centered on the coordinates */
-  transform: translate(-50%, -50%);
+  width: 26px;           /* slightly bigger ring for crisp edge */
+  height: 26px;
+  transform: translate(-50%, -50%); /* center anchor */
   pointer-events: none;
   z-index: 2147483647;
   border-radius: 9999px;
+  /* sharp inner ring and gentle outer glow */
   box-shadow:
-    0 0 0 2px rgba(255, 140, 0, 0.25) inset,
-    0 0 12px 4px rgba(255, 140, 0, 0.25);
+    0 0 0 3px rgba(255, 138, 31, 0.95) inset,  /* orange ring */
+    0 0 18px 6px rgba(255, 138, 31, 0.25);     /* soft glow */
+  background: transparent;
 }
 
+/* dark inner dot */
+.cf-follower::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: #2b2b2b;  /* dark center */
+  opacity: 0.9;
+}
+
+/* Petals (click bloom) — now RED */
 .cf-petal {
   position: fixed;
   width: 10px;
@@ -258,11 +273,12 @@
   z-index: 2147483646;
   transform: translate3d(-50%,-50%,0);
   border-radius: 9999px;
+  /* two radial gradients to mimic a glowing petal */
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0) 70%),
-    radial-gradient(circle, hsl(var(--cf-hue, 30) 95% 65% / 1), hsl(var(--cf-hue, 30) 95% 65% / 0) 70%);
+    radial-gradient(circle, hsl(var(--cf-hue, 0) 95% 58% / 1), hsl(var(--cf-hue, 0) 95% 58% / 0) 70%);
   filter: blur(0.2px);
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 @keyframes cf-bloom {
@@ -286,5 +302,5 @@
 /* respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .cf-petal { display: none !important; }
-  .cf-follower { box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.25) inset; }
+  .cf-follower { box-shadow: 0 0 0 3px rgba(255, 138, 31, 0.95) inset; }
 }

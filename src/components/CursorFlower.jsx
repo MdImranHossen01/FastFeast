@@ -9,6 +9,7 @@ export default function CursorFlower() {
   useEffect(() => {
     const follower = followerRef.current;
 
+    // Reuse DOM nodes to avoid GC churn
     const PETALS = 18;
     const pool = [];
     for (let i = 0; i < PETALS; i++) {
@@ -24,10 +25,9 @@ export default function CursorFlower() {
     let targetX = 0, targetY = 0;
     let x = window.innerWidth / 2, y = window.innerHeight / 2;
 
-    // OPTIONAL: tiny manual nudge if you want the ring to sit a bit
-    // below/right of the pointer tip (most people keep this at 0, 0).
-    const FOLLOWER_OFFSET_X = 0; // e.g. -2
-    const FOLLOWER_OFFSET_Y = 0; // e.g. -2
+    // If you want the ring to sit slightly under the cursor tip, tweak these
+    const FOLLOWER_OFFSET_X = 0;
+    const FOLLOWER_OFFSET_Y = 0;
 
     const onMove = (e) => {
       targetX = e.clientX + FOLLOWER_OFFSET_X;
@@ -45,11 +45,11 @@ export default function CursorFlower() {
     const onClick = (e) => bloom(e.clientX, e.clientY);
 
     const tick = () => {
-      // ease follower toward target
+      // ease follower toward pointer
       x += (targetX - x) * 0.18;
       y += (targetY - y) * 0.18;
 
-      // center-anchored: set left/top; CSS handles -50%/-50%
+      // center-anchored via CSS transform: translate(-50%, -50%)
       follower.style.left = `${x}px`;
       follower.style.top = `${y}px`;
 
@@ -79,11 +79,16 @@ export default function CursorFlower() {
         const tx = Math.cos(angle) * radius;
         const ty = Math.sin(angle) * radius;
 
-        const hue = 25 + (Math.random() * 20 - 10);
+        // ---- RED BLOOM ----
+        // Keep hue near 0 (pure red) with a tiny random variance for life
+        const hue = 0 + (Math.random() * 10 - 5); // -5..+5
         el.style.setProperty('--cf-hue', hue.toFixed(1));
+        // -------------------
+
         el.style.setProperty('--cf-tx', `${tx}px`);
         el.style.setProperty('--cf-ty', `${ty}px`);
 
+        // restart animation
         el.style.animation = 'none';
         // eslint-disable-next-line no-unused-expressions
         el.offsetHeight;
@@ -107,7 +112,7 @@ export default function CursorFlower() {
       window.removeEventListener('click', onClick);
       window.removeEventListener('touchstart', onTouch);
       cancelAnimationFrame(raf);
-      pool.forEach(p => p.remove());
+      pool.forEach((p) => p.remove());
     };
   }, []);
 
