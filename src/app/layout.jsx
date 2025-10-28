@@ -1,5 +1,7 @@
 // src/app/layout.jsx
-import { Geist, Geist_Mono } from "next/font/google";
+// import { Geist, Geist_Mono } from "next/font/google";
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import "./globals.css";
 import dynamic from 'next/dynamic';
 
@@ -14,19 +16,7 @@ import StoreProvider from "@/lib/StoreProvider";
 import LenisProvider from "@/providers/LenisProvider";
 
 // Preload critical fonts
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  preload: true,
-  display: 'swap',
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  preload: true,
-  display: 'swap',
-});
 
 export const metadata = {
   title: "FastFeast - Food Delivery App",
@@ -142,7 +132,7 @@ export default function RootLayout({ children }) {
         `}} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
         suppressHydrationWarning
       >
         {/* Critical content first */}
