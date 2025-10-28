@@ -1,6 +1,6 @@
 // src/app/components/SpecialOffers.jsx
 // SERVER COMPONENT (SSG)
-export const dynamic = "force-static"; // ensure SSG
+export const revalidate = 300; // ensure SSG
 // export const revalidate = false; // (default) pure SSG; uncomment if you want to be explicit
 
 import SpecialOffersGrid from "./SpecialOffersGrid";
@@ -25,7 +25,10 @@ function stableOrderSpecials(specials) {
 
 export default async function SpecialOffers() {
   // ✅ Server-side data fetching at build time (SSG)
-  const [menus, restaurants] = await Promise.all([getMenus(), getRestaurants()]);
+  const [menus, restaurants] = await Promise.all([
+    getMenus(),
+    getRestaurants(),
+  ]);
 
   const specials = Array.isArray(menus)
     ? menus.filter((m) => m?.isSpecialOffer && Number(m?.discountRate) > 0)
@@ -54,7 +57,10 @@ export default async function SpecialOffers() {
         </div>
 
         {/* Right: client sub-tree that only renders the pre-fetched SSG data */}
-        <SpecialOffersGrid specials={ordered} restaurants={Array.isArray(restaurants) ? restaurants : []} />
+        <SpecialOffersGrid
+          specials={ordered}
+          restaurants={Array.isArray(restaurants) ? restaurants : []}
+        />
       </div>
     </section>
   );
