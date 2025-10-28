@@ -6,10 +6,11 @@ export default function JobCard({ job }) {
   return (
     <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all p-6 border border-gray-100">
       {/* Logo & Company */}
-      <div className="flex items-center gap-3 mb-4">
-        <img
+      <div className="relative flex items-center gap-3 mb-4">
+        <Image
           src={job.company_logo}
           alt={job.company}
+          fill
           className="w-10 h-10 rounded-full object-cover"
         />
         <div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
 const Slider = () => {
@@ -225,9 +226,10 @@ const Slider = () => {
             }`}
             style={{ zIndex: 30 }}
           >
-            <img
+            <Image
               src={boxImage1}
               alt="Large Delivery Box"
+              fill
               className="w-full h-auto object-contain animate-float-main"
             />
           </div>
@@ -240,9 +242,10 @@ const Slider = () => {
             }`}
             style={{ zIndex: 20 }}
           >
-            <img
+            <Image
               src={boxImage2}
               alt="Small Delivery Box"
+              fill
               className="w-full h-auto object-contain animate-float-secondary"
             />
           </div>
@@ -255,9 +258,10 @@ const Slider = () => {
             }`}
             style={{ zIndex: 10 }}
           >
-            <img
+            <Image
               src={boxImage3}
               alt="Medium Delivery Box"
+              fill
               className="w-full h-auto object-contain animate-float-tertiary"
             />
           </div>

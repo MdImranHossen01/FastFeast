@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiArrowLeft, FiPhone, FiMapPin, FiTruck, FiMail, FiCalendar, FiStar, FiPackage, FiCheckCircle, FiUser } from 'react-icons/fi';
+import Image from 'next/image';
 const RiderDetailsPage = () => {
   const params = useParams();
   const router = useRouter();
@@ -109,11 +110,12 @@ const RiderDetailsPage = () => {
         {/* Rider Profile Card */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-shrink-0">
-              <img
+            <div className="relative flex-shrink-0">
+              <Image
                 className="h-24 w-24 rounded-full object-cover"
                 src={rider.photoUrl || `https://avatar.vercel.sh/${rider.email}`}
                 alt={rider.name}
+                fill
               />
             </div>
             <div className="flex-grow">

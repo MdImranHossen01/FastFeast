@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { IoHeart } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function RestaurantsCard({ restaurant }) {
   const { data: session } = useSession();
@@ -112,11 +113,12 @@ export default function RestaurantsCard({ restaurant }) {
         <div className="  flex flex-col items-center">
           {/* Larger Circular Logo with Border Animation */}
           <div className="relative mb-4">
-            <div className="min-w-48 min-h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
-              <img
+            <div className="relative min-w-48 min-h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
+              <Image
                 className="w-full h-full rounded-full object-cover hover:scale-110 transition-transform duration-300"
                 src={restaurant.logo}
                 alt={restaurant.name}
+                fill
               />
             </div>
 

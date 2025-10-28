@@ -17,6 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ReviewModal from "./ReviewModal";
+import Image from "next/image";
 
 // --- helpers ---
 const normalizeStatus = (status) => {
@@ -447,14 +448,15 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
 
                           {showRiderDetails === order.id && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <div className="flex items-center space-x-3">
-                                <img
+                              <div className="relative flex items-center space-x-3">
+                                <Image
                                   className="h-10 w-10 rounded-full object-cover"
                                   src={
                                     order.riderInfo.photoUrl ||
                                     `https://avatar.vercel.sh/${order.riderInfo.email}`
                                   }
                                   alt={order.riderInfo.name}
+                                  fill
                                   onError={(e) => {
                                     e.target.src = `https://avatar.vercel.sh/${
                                       order.riderInfo.name || "rider"

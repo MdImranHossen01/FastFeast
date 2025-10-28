@@ -107,10 +107,12 @@ const MenuCard = ({
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all overflow-hidden">
       {/* Image */}
       <div className="relative h-40 w-full">
+        // inside the "relative h-40 w-full" image
         <Image
           src={menu.imageUrl || "/images/placeholder-food.jpg"}
           alt={menu.title}
           fill
+          sizes="(min-width:1280px) 25vw, (min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
           className="rounded-t-xl object-cover"
         />
         <div className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">

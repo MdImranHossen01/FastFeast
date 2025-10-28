@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 // import {
 //   FaMapMarkerAlt,
 //   FaMobileAlt,
@@ -103,9 +104,11 @@ export default function Services() {
               >
                 {/* Front Side */}
                 <div className="absolute inset-0 flex flex-col bg-white rounded-xl shadow-md p-6 py-5 items-center justify-center [backface-visibility:hidden]">
-                  <img
+                  <Image
                     src={service.icon}
                     alt="service"
+                    height={200}
+                    width={180}
                     className="h-[200px] w-[180px] object-cover  transition-transform duration-300  group-hover:scale-110 pt-5"
                   />
                   <h3 className="text-xl font-bold text-gray-800 text-center group-hover:text-orange-500 transition-colors duration-300 py-5">

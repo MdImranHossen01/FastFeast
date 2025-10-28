@@ -41,9 +41,10 @@ export default function BlogCard({ blog }) {
       {/* Cover image */}
       <figure className="relative h-52 overflow-hidden">
         {coverImage && (
-          <img
+          <Image
             src={coverImage}
             alt={title}
+            fill
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         )}

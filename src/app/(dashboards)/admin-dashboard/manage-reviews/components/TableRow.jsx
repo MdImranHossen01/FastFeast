@@ -1,5 +1,6 @@
 "use client";
 import StarRatings from "@/components/StarRatings";
+import Image from "next/image";
 import React, { useState } from "react";
 
 export default function TableRow({ review, index }) {
@@ -12,10 +13,13 @@ export default function TableRow({ review, index }) {
             <td>
                 <div className="flex items-center gap-3">
                     <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                            <img
+                        <div className="relative mask mask-squircle h-12 w-12">
+                            <Image
                                 src={review?.user?.image}
-                                alt="Avatar Tailwind CSS Component" />
+                                alt="Avatar Tailwind CSS Component" 
+                                fill
+                                />
+                                
                         </div>
                     </div>
                     <div>
