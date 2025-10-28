@@ -15,10 +15,12 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false,
+      default: null,
     },
     image: {
       type: String,
+      required: false,
       default: null,
     },
     role: {
@@ -26,13 +28,30 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "rider", "restaurantOwner", "moderator", "admin"],
       default: "user",
     },
+    location: {
+      type: String,
+      default: "",
+    },
+    phone: {
+      type: String,
+      default: "",
+    },
     lastLogin: {
       type: Date,
       default: null,
     },
-    lastActive: {
-      type: Date,
-      default: Date.now
+    provider: {
+      type: String,
+      enum: ["credentials", "github", "google"],
+      default: "credentials",
+    },
+    resetTokenExpiry: {
+      type: Number,
+      default: null,
+    },
+    resetToken: {
+      type: String,
+      default: null,
     },
   },
   {
@@ -41,8 +60,14 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Check if the model already exists to avoid recompilation issues
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+if (mongoose.models.User) {
+  mongoose.deleteModel("User");
+}
+
+// Standard way to prevent model overwrite in Next.js development
+// This checks if the model already exists before compiling it again
+// const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
 // Export the User model
 export default User;

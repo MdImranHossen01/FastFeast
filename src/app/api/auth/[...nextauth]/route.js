@@ -88,7 +88,7 @@ export const authOptions = {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
-          image: user.photoUrl,
+          image: user.image,
           location: user.location,
           phone: user.phone,
           role: user.role,
@@ -108,7 +108,7 @@ export const authOptions = {
         await usersCollection.insertOne({
           name: user.name || profile?.login,
           email: user.email,
-          photoUrl: user.image,
+          image: user.image,
           provider: account.provider,
           createdAt: new Date(),
         });
