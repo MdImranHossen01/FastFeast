@@ -11,7 +11,7 @@ export default function DashboardLinks() {
   // const user = session?.user;
 
   const user = {
-    role: "rider",
+    role: "restaurant",
   };
 
   const linkStyle = (href) =>
@@ -148,7 +148,7 @@ export default function DashboardLinks() {
               href="/restaurant-dashboard/manage-orders"
               className={linkStyle("/restaurant-dashboard/manage-orders")}
             >
-              Manage Orders manage-menus
+              Manage Orders
             </Link>
           </li>
           <li>
@@ -161,8 +161,8 @@ export default function DashboardLinks() {
           </li>
           <li>
             <Link
-              href="/restaurant-dashboard/manage-menus"
-              className={linkStyle("/restaurant-dashboard/manage-menus")}
+              href="/restaurant-dashboard/add-menu"
+              className={linkStyle("/restaurant-dashboard/add-menu")}
             >
               Add Menu
             </Link>

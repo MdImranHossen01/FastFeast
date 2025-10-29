@@ -15,12 +15,10 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: false,
       default: null,
     },
     image: {
       type: String,
-      required: false,
       default: null,
     },
     role: {
@@ -68,11 +66,11 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// Prevent model overwrite upon initial compile
 if (mongoose.models.User) {
   mongoose.deleteModel("User");
 }
 
-// Standard way to prevent model overwrite in Next.js development
 // This checks if the model already exists before compiling it again
 // const User = mongoose.models.User || mongoose.model("User", userSchema);
 const User = mongoose.model("User", userSchema);
