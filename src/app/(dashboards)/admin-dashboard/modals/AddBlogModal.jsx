@@ -61,25 +61,35 @@ export default function AddBlogModal({ onSave }) {
     }
   };
 
-  const handleSubmit = async () => {
-    const blogData = {
-      ...formData,
-      slug: formData.title.toLowerCase().replace(/\s+/g, "-"),
-      tags: formData.tags.split(",").map((t) => t.trim()),
-    };
-    try {
-      await addBlog(blogData);
-      Swal.fire({
-        icon: "success",
-        title: "🎉 Blog Added Successfully!",
-        confirmButtonColor: "#f97316",
-      });
-      onSave?.(blogData);
-      setOpen(false);
-    } catch {
-      Swal.fire("Oops!", "Something went wrong, try again!", "error");
-    }
+ const handleSubmit = async () => {
+  const blogData = {
+    ...formData,
+    slug: formData.title.toLowerCase().replace(/\s+/g, "-"),
+    tags: formData.tags.split(",").map((t) => t.trim()),
   };
+
+  try {
+   const res = await addBlog(blogData)
+    
+
+    if (!res.success) {
+      throw new Error(data.message || "Failed to add blog");
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "🎉 Blog Added Successfully!",
+      confirmButtonColor: "#f97316",
+    });
+
+    onSave?.(blogData);
+    setOpen(false);
+  } catch (error) {
+    console.error("Error adding blog:", error);
+    Swal.fire("Oops!", "Something went wrong, try again!", "error");
+  }
+};
+
 
   return (
     <>
