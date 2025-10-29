@@ -26,7 +26,6 @@ const FoodCompare = lazy(() => import("./components/FoodCompare"));
 const AiDrivenFoodSuggestion = lazy(() =>
   import("./components/AiDrivenFoodSuggession")
 );
-const Slider = lazy(() => import("./components/Slider"));
 const MarqueeSection = lazy(() => import("./components/MarqueeSection"));
 // const PopularItems = lazy(() => import("./components/PopularItems")); // using PopularItemsDynamic instead
 
@@ -94,9 +93,7 @@ export default function Home() {
         <Stats />
       </Suspense>
 
-      <Suspense fallback={<SectionLoader />}>
-        <Slider />
-      </Suspense>
+      
 
       {/* Informational Sections - Lowest priority */}
       <Suspense fallback={<SectionLoader />}>

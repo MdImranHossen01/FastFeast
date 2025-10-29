@@ -37,26 +37,26 @@ export default function FAQSection() {
   const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
 
   return (
-    <section className="w-full bg-gray-100 py-12 md:py-16">
+    <section className="w-full py-12 md:py-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
           {/* Left Column */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-white mb-6">
               Frequently Asked <span className="text-orange-600">Questions</span>
             </h2>
 
-            <div className="space-y-2">
+            <div className="space-y-2 cursor-pointer">
               {faqs.map((faq, index) => (
-                <div key={index} className="transition-all duration-300 hover:shadow-md rounded-lg overflow-hidden bg-white">
+                <div key={index} className="transition-all cursor-pointer duration-300 hover:shadow-md rounded-lg overflow-hidden bg-white">
                   <button
-                    className="w-full flex justify-between items-center p-4 sm:p-5 text-left font-medium text-gray-800"
+                    className=" w-full flex justify-between items-center p-4 sm:p-5 text-left font-medium text-gray-800"
                     onClick={() => toggleFAQ(index)}
                   >
-                    <span className="text-base sm:text-lg">{faq.question}</span>
+                    <span className="cursor-pointer text-base hover:text-orange-600 sm:text-lg">{faq.question}</span>
                     <IoChevronForward
-                      className={`h-5 w-5 text-gray-800 transition-transform duration-300 ${
+                      className={`h-5 w-5 cursor-pointer text-gray-800 hover:text-orange-600 transition-transform duration-300 ${
                         openIndex === index ? "rotate-90" : ""
                       }`}
                     />
