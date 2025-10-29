@@ -70,10 +70,10 @@ export default function Services() {
     setFlipped((prev) => (prev === id ? null : id));
   };
   return (
-    <section className="bg-orange-50 py-16">
+    <section className=" py-16">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
-          How <span className="text-orange-500">FastFeast</span> Works
+        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-white">
+          How <span className="text-orange-600">FastFeast</span> Works
         </h2>
 
         {/* perspective-parent */}
