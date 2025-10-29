@@ -83,7 +83,7 @@ const CustomersReview = () => {
     setReviewIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="py-16 bg-amber-50 my-10">
+    <section className="py-16  my-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           {/* Left Banner Text */}
@@ -95,7 +95,7 @@ const CustomersReview = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6 }}
-                className="text-5xl font-bold text-gray-800 leading-tight"
+                className="text-5xl font-bold text-gray-800 dark:text-white leading-tight"
               >
                 <span className="text-orange-500">
                   {textList[headingIndex].split(" ")[0]}
@@ -103,7 +103,7 @@ const CustomersReview = () => {
                 {textList[headingIndex].split(" ").slice(1).join(" ")}
               </motion.h2>
             </AnimatePresence>
-            <p className="text-lg text-gray-600 max-w-md my-8">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-md my-8">
               Real stories from our happy customers. We always focus on quality,
               fast delivery, and excellent service.
             </p>

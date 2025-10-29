@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import "swiper/css";
 import "swiper/css/effect-fade";
@@ -109,11 +109,11 @@ const ListeningIcon = () => (
 
 // Preload videos immediately
 const preloadVideos = () => {
-  if (typeof window !== 'undefined') {
-    const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];
-    videos.forEach(videoSrc => {
-      const video = document.createElement('video');
-      video.preload = 'auto';
+  if (typeof window !== "undefined") {
+    const videos = ["/video1.mp4", "/video2.mp4", "/video3.mp4"];
+    videos.forEach((videoSrc) => {
+      const video = document.createElement("video");
+      video.preload = "auto";
       video.src = videoSrc;
     });
   }
@@ -124,36 +124,40 @@ const sliderContent = [
   {
     video: "/video1.mp4",
     poster: "/video1-poster.jpg",
-    title: "Gourmet Burgers",
-    description: "Savor our juicy, handcrafted burgers made with premium ingredients and secret sauces.",
+    title: (
+      <>
+        Endless
+        <span className="text-orange-600"> Choices, Delivered </span>Fast
+      </>
+    ),
+    description:
+      "From burgers to biryani, pizza to pasta - discover new favorites and old classics with FastFeast delivery.",
   },
   {
     video: "/video2.mp4",
     poster: "/video2-poster.jpg",
-    title: "Artisan Pizzas",
-    description: "Wood-fired perfection with fresh toppings and homemade dough, delivered crispy.",
+    title: (
+      <>
+        Craving Something 
+        <span className="text-orange-600"> Delicious?</span>
+      </>
+    ),
+    description:
+      "Get your favorite meals delivered in minutes. From local favorites to international cuisine, FastFeast brings the feast to you!",
   },
   {
     video: "/video3.mp4",
     poster: "/video3-poster.jpg",
-    title: "Fresh Sushi",
-    description: "Expertly crafted rolls with the finest fish, delivered right to your door.",
-  }
+    title: (
+      <>
+        <span className="text-orange-600">Fast</span> Food,{" "}
+        <span className="text-orange-600">Feast</span> Quality
+      </>
+    ),
+    description:
+      "Experience the perfect blend of speed and quality. Fresh ingredients, amazing flavors, delivered when you're hungry.",
+  },
 ];
-
-// Custom Swiper wrapper to filter out problematic props
-const CustomSwiper = ({ children, ...props }) => {
-  // Filter out props that cause DOM warnings
-  const safeProps = { ...props };
-  delete safeProps.preloadImages;
-  delete safeProps.lazy;
-  
-  return (
-    <Swiper {...safeProps}>
-      {children}
-    </Swiper>
-  );
-};
 
 const Banner = () => {
   const router = useRouter();
@@ -166,6 +170,7 @@ const Banner = () => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeechSupported, setIsSpeechSupported] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [activeSlide, setActiveSlide] = useState(0);
   const recognitionRef = useRef(null);
   const locationDropdownRef = useRef(null);
 
@@ -175,13 +180,15 @@ const Banner = () => {
   }, []);
 
   // Memoize locations array
-  const availableLocations = useMemo(() => [
-    "Dhanmondi", "Mirpur", "Uttara", "Banani", "Gulshan",
-  ], []);
+  const availableLocations = useMemo(
+    () => ["Dhanmondi", "Mirpur", "Uttara", "Banani", "Gulshan"],
+    []
+  );
 
   // Check if speech recognition is supported
   useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     setIsSpeechSupported(!!SpeechRecognition);
 
     if (SpeechRecognition) {
@@ -218,15 +225,21 @@ const Banner = () => {
   }, [dispatch]);
 
   // Memoized callbacks to prevent unnecessary re-renders
-  const handleLocationSelect = useCallback((selectedLocation) => {
-    dispatch(setLocation(selectedLocation));
-    setIsLocationOpen(false);
-  }, [dispatch]);
+  const handleLocationSelect = useCallback(
+    (selectedLocation) => {
+      dispatch(setLocation(selectedLocation));
+      setIsLocationOpen(false);
+    },
+    [dispatch]
+  );
 
-  const handleSearch = useCallback((e) => {
-    if (e.type === "keydown" && e.key !== "Enter") return;
-    router.push("/menus");
-  }, [router]);
+  const handleSearch = useCallback(
+    (e) => {
+      if (e.type === "keydown" && e.key !== "Enter") return;
+      router.push("/menus");
+    },
+    [router]
+  );
 
   const handleExploreMenu = useCallback(() => {
     dispatch(clearFilters());
@@ -273,7 +286,10 @@ const Banner = () => {
   // Click outside handler
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (locationDropdownRef.current && !locationDropdownRef.current.contains(event.target)) {
+      if (
+        locationDropdownRef.current &&
+        !locationDropdownRef.current.contains(event.target)
+      ) {
         setIsLocationOpen(false);
       }
     };
@@ -289,15 +305,20 @@ const Banner = () => {
   }, []);
 
   // Memoize computed values
-  const hasActiveFilters = useMemo(() => searchQuery || location, [searchQuery, location]);
+  const hasActiveFilters = useMemo(
+    () => searchQuery || location,
+    [searchQuery, location]
+  );
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Use CustomSwiper instead of Swiper directly */}
-      <CustomSwiper
+      <Swiper
         spaceBetween={30}
         centeredSlides={true}
         effect={"fade"}
+        fadeEffect={{
+          crossFade: true,
+        }}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -305,6 +326,7 @@ const Banner = () => {
         speed={1200}
         modules={[Autoplay, EffectFade]}
         className="h-full w-full"
+        onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
       >
         {sliderContent.map((slide, index) => (
           <SwiperSlide key={index} className="relative">
@@ -326,33 +348,40 @@ const Banner = () => {
 
             {/* Content overlay */}
             <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
-              <div className="text-center mb-8">
-                <motion.h1
-                  initial={{ opacity: 0, y: -30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-white"
-                >
-                  {slide.title}
-                </motion.h1>
+              {/* Title and Description with fade-up animation */}
+              <AnimatePresence mode="wait">
+                {activeSlide === index && (
+                  <motion.div
+                    key={`content-${index}`}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-8"
+                  >
+                    <motion.h1
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-white"
+                    >
+                      {slide.title}
+                    </motion.h1>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  className="text-lg md:text-xl mb-6 opacity-90 text-white max-w-2xl mx-auto"
-                >
-                  {slide.description}
-                </motion.p>
-              </div>
+                    <motion.p
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      className="mb-6 opacity-90 text-white max-w-2xl mx-auto"
+                    >
+                      {slide.description}
+                    </motion.p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-              {/* Search Bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="w-full max-w-3xl"
-              >
+              {/* Search Bar - Static (no animation) */}
+              <div className="w-full max-w-3xl">
                 <div className="flex w-full items-center rounded-lg bg-orange-500/50 backdrop-blur-sm p-3 shadow-lg">
                   {/* Location Input */}
                   <div className="relative w-2/5" ref={locationDropdownRef}>
@@ -411,7 +440,9 @@ const Banner = () => {
                             ? "bg-green-500 hover:bg-green-600"
                             : "bg-white/20 hover:bg-white/30"
                         }`}
-                        aria-label={isListening ? "Stop listening" : "Start voice search"}
+                        aria-label={
+                          isListening ? "Stop listening" : "Start voice search"
+                        }
                       >
                         {isListening ? <ListeningIcon /> : <MicIcon />}
                       </button>
@@ -432,11 +463,7 @@ const Banner = () => {
 
                 {/* Voice Search Status */}
                 {isListening && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="mt-2 text-center"
-                  >
+                  <div className="mt-2 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-500/30">
                       <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                       <p className="text-green-300 text-sm font-medium">
@@ -449,7 +476,7 @@ const Banner = () => {
                         Stop
                       </button>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {/* Active Filters Display */}
@@ -481,15 +508,10 @@ const Banner = () => {
                     )}
                   </div>
                 )}
-              </motion.div>
+              </div>
 
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.9 }}
-                className="flex flex-wrap gap-4 mt-8 justify-center"
-              >
+              {/* CTA Buttons - Static (no animation) */}
+              <div className="flex flex-wrap gap-4 mt-8 justify-center">
                 {/* Search Button */}
                 {(searchQuery || location) && (
                   <button
@@ -524,17 +546,14 @@ const Banner = () => {
                   </span>
                   <span className="relative">Explore Menu</span>
                 </button>
-              </motion.div>
+              </div>
             </div>
           </SwiperSlide>
         ))}
-      </CustomSwiper>
+      </Swiper>
 
       {/* Scroll Down Button */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1.2 }}
+      <div
         className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 flex animate-bounce cursor-pointer items-center"
         onClick={handleScrollDown}
       >
@@ -542,7 +561,7 @@ const Banner = () => {
           Scroll down
           <ScrollDownIcon />
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
