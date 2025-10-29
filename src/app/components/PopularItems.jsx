@@ -68,7 +68,7 @@ export default function PopularItems() {
   }, [next, prev]); // Dependencies are now stable
 
   return (
-    <section className="flex flex-col items-center w-full relative min-h-[500px] transition-colors duration-300 bg-gradient-to-b from-white to-orange-50 py-12">
+    <section className="flex flex-col items-center w-full relative min-h-[500px] transition-colors duration-300  py-12">
       <div className="container px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           {/* Left Side Content */}
@@ -79,12 +79,12 @@ export default function PopularItems() {
             <p className="text-sm uppercase tracking-widest font-medium text-orange-600 mb-1">
               Handpicked by thousands of food lovers across Bangladesh
             </p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4 sm:mb-6">
+            <h2 className="text-3xl sm:text-4xl text-gray-800 dark:text-white font-extrabold leading-tight mb-4 sm:mb-6">
               Discover Our <br />
               <span className="text-orange-600">Customer Favorites</span> <br />
               Dishes
             </h2>
-            <p className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600">
+            <p className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-800 dark:text-gray-200">
               From sizzling biryani to crispy fried chicken, our popular items
               section showcases the dishes that keep our customers coming back
               for more. Each item is carefully crafted with fresh ingredients,
