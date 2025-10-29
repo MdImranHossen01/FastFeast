@@ -10,9 +10,13 @@ const riderReviewSchema = new mongoose.Schema(
     rating: {
       type: Number,
       required: true,
+      min: 1,
+      max: 5,
     },
     comment: {
       type: String,
+      trim: true,
+      default: "",
     },
   },
   { _id: false }
@@ -28,9 +32,13 @@ const itemReviewsSchema = new mongoose.Schema(
     rating: {
       type: Number,
       required: true,
+      min: 1,
+      max: 5,
     },
     comment: {
       type: String,
+      trim: true,
+      default: "",
     },
   },
   { _id: false }
@@ -38,11 +46,7 @@ const itemReviewsSchema = new mongoose.Schema(
 
 const reviewSchema = new mongoose.Schema(
   {
-    orderId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
-      required: true,
-    },
+    orderId: { type: String, unique: true, required: true },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -65,4 +69,8 @@ if (mongoose.models.Review) {
   mongoose.deleteModel("Review");
 }
 
-export default mongoose.model("Review", reviewSchema);
+// Define the Review model
+const Review = mongoose.model("Review", reviewSchema);
+
+// Export the Review model
+export default Review;

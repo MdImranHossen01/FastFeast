@@ -7,6 +7,7 @@ import {
   FiArrowLeft, FiPackage, FiClock, FiCheck, FiTruck, FiMapPin,
   FiPhone, FiUser, FiCalendar, FiDollarSign, FiDownload
 } from 'react-icons/fi';
+import Image from 'next/image';
 
 const OrderDetailsPage = () => {
   const params = useParams();
@@ -202,10 +203,11 @@ const OrderDetailsPage = () => {
                 order.items.map((item, index) => (
                   <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                     <div className="flex items-center">
-                      <div className="w-12 h-12 rounded-md overflow-hidden mr-3">
-                        <img 
+                      <div className="relative w-12 h-12 rounded-md overflow-hidden mr-3">
+                        <Image
                           src={item.image || 'https://via.placeholder.com/48'} 
                           alt={item.name} 
+                          fill
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -277,11 +279,12 @@ const OrderDetailsPage = () => {
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <h3 className="text-lg font-medium text-gray-800 mb-3">Delivery Rider</h3>
             <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <img
+              <div className="relative flex items-center">
+                <Image
                   className="h-12 w-12 rounded-full object-cover mr-3"
                   src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
                   alt={order.riderInfo.name}
+                  fill
                 />
                 <div>
                   <p className="font-medium text-gray-800">{order.riderInfo.name}</p>

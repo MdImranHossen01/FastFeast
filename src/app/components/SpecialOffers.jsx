@@ -14,22 +14,38 @@ const ScrollbarHideCSS = `
 const SpecialOffers = () => {
   const [allSpecials, setAllSpecials] = useState([]); 
   const [offerMenus, setOfferMenus] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [ratings, setRatings] = useState({});
 
-  // Fetch menus with reviews in batch
+  // ✅ CORRECTED: Create restaurant lookup map in component body
+  const restaurantMap = {};
+  restaurants.forEach((restaurant) => {
+    if (restaurant?._id) {
+      restaurantMap[restaurant._id] = restaurant;
+    }
+  });
+
+  // Fetch menus with reviews and restaurants in batch
   useEffect(() => {
     const fetchMenusWithReviews = async () => {
       try {
-        const response = await fetch("/api/menus", { cache: "no-store" });
-        const data = await response.json();
+        // Fetch both menus and restaurants
+        const [menusResponse, restaurantsResponse] = await Promise.all([
+          fetch("/api/menus", { cache: "no-store" }),
+          fetch("/api/restaurants", { cache: "no-store" })
+        ]);
 
-        if (Array.isArray(data)) {
+        const menusData = await menusResponse.json();
+        const restaurantsData = await restaurantsResponse.json();
+
+        if (Array.isArray(menusData)) {
           // Filter only special offer menus
-          const specials = data.filter(
+          const specials = menusData.filter(
             (menu) => menu.isSpecialOffer && menu.discountRate > 0
           );
           setAllSpecials(specials);
+          setRestaurants(restaurantsData || []);
 
           // Get menu IDs for batch review fetching
           const menuIds = specials.map(menu => menu._id);
@@ -119,7 +135,7 @@ const SpecialOffers = () => {
                   <MenuCard 
                     key={menu._id} 
                     menu={menu} 
-                    restaurants={[]}
+                    restaurant={restaurantMap[menu.restaurantId]} // ✅ FIXED: Now this will work
                     ratingData={ratings[menu._id] || { avg: null, count: 0 }}
                   />
                 ))

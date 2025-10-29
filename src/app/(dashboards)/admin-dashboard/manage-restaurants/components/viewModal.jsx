@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React from "react";
 import {
   AiOutlineClose,
@@ -46,17 +47,19 @@ export default function ViewModal({ restaurants, isOpen, onClose }) {
 
       {/* Rest of your content remains the same */}
       <div className="relative">
-        <img
+        <Image
           src={banner}
           alt="Restaurant Banner"
           className="w-full h-60 object-cover"
+          fill
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
-        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 mb-[-3rem]">
-          <img
+        <div className="relative -bottom-1 left-1/2 transform -translate-x-1/2 mb-[-3rem]">
+          <Image
             src={logo}
             alt="Restaurant Logo"
+            fill
             className="w-28 h-28 rounded-full border-4 border-orange-400 bg-white object-cover shadow-lg"
           />
         </div>

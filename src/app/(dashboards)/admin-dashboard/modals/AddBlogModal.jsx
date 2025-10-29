@@ -12,6 +12,7 @@ import {
 import { uploadToImgBB } from "@/utils/imageUpload";
 import { FaPenFancy } from "react-icons/fa";
 import addBlog from "@/app/actions/blogs/addBlog";
+import Image from "next/image";
 
 export default function AddBlogModal({ onSave }) {
   const [open, setOpen] = useState(false);
@@ -165,12 +166,13 @@ export default function AddBlogModal({ onSave }) {
                 type="file"
                 accept="image/*"
                 onChange={handleCoverImage}
-                className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                className="relative file-input file-input-bordered file-input-sm w-full max-w-xs"
               />
               {formData.coverImage && (
-                <img
+                <Image
                   src={formData.coverImage}
                   alt="Preview"
+                  fill
                   className="mt-2 w-40 h-28 object-cover rounded-xl border border-orange-200 shadow-md"
                 />
               )}
@@ -190,10 +192,11 @@ export default function AddBlogModal({ onSave }) {
               />
               <div className="flex flex-wrap gap-2 mt-2">
                 {formData.gallery.map((img, i) => (
-                  <img
+                  <Image
                     key={i}
                     src={img}
                     alt=""
+                    fill
                     className="w-20 h-20 rounded-lg object-cover border shadow-sm"
                   />
                 ))}

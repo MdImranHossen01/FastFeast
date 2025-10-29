@@ -10,11 +10,18 @@ export default function FoodYouWillEnjoy() {
           <h1 className="text-xl sm:text-2xl md:text-4xl font-bold">
             Foods You Will Enjoy
           </h1>
-          <p className="max-w-[50%] mt-4">
+          <p className="md:max-w-[50%] mt-4">
             We have a dedicated teem to check the quality of the restaurant and there foods quality. We never want you experience bad food by FastFest
           </p>
         </div>
-        <Image className='slow-spin absolute right-0 translate-x-[50%] ' src={"/pizza_02.webp"} alt='A pizza' height={500} width={500} />
+        <Image
+          className='slow-spin absolute right-0 translate-x-[50%]  md:h-full w aspect-square '
+          src={"/pizza_02.webp"}
+          alt='A pizza'
+          // placeholder="blur"
+          height={500}
+          width={500}
+        />
       </div>
     </section>
   )

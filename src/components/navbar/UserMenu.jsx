@@ -5,13 +5,26 @@ import Image from "next/image";
 import { MdLocationSearching } from "react-icons/md";
 import { FiUser, FiGrid, FiLogOut } from "react-icons/fi";
 
-const UserMenu = ({ 
-  session, 
-  isOpen, 
-  setIsOpen, 
+const UserMenu = ({
+  session,
+  isOpen,
+  setIsOpen,
   setIsOrderStatusModalOpen,
-  dropdownRef 
+  dropdownRef,
 }) => {
+  const user = session?.user;
+  let conditionalDashboard = "";
+
+  if (user.role === "rider") {
+    conditionalDashboard = "/rider-dashboard";
+  } else if (user.role === "restaurantOwner") {
+    conditionalDashboard = "/restaurant-dashboard";
+  } else if (user.role === "moderator") {
+    conditionalDashboard = "/moderator-dashboard";
+  } else if (user.role === "admin") {
+    conditionalDashboard = "/admin-dashboard";
+  }
+
   return (
     <div className="relative" ref={dropdownRef}>
       <Image
@@ -52,17 +65,14 @@ const UserMenu = ({
               </li>
               <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
                 <FiUser />{" "}
-                <Link
-                  href="/profile"
-                  onClick={() => setIsOpen(false)}
-                >
+                <Link href="/profile" onClick={() => setIsOpen(false)}>
                   My Profile
                 </Link>
               </li>
               <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
                 <FiGrid />{" "}
                 <Link
-                  href="/admin-dashboard"
+                  href={`${conditionalDashboard}`}
                   onClick={() => setIsOpen(false)}
                 >
                   Dashboard

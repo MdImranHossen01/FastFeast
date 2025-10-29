@@ -34,9 +34,7 @@ const connectMongooseDb = async () => {
         w: 'majority' // ✅ Write concern
       };
 
-      console.log('🔗 Connecting to MongoDB Atlas...');
       cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-        console.log('✅ MongoDB Atlas connected successfully');
         return mongoose;
       });
     }
@@ -55,21 +53,17 @@ const connectMongooseDb = async () => {
 
 // ✅ OPTIONAL: Handle connection events for monitoring
 mongoose.connection.on('connected', () => {
-  console.log('🟢 Mongoose connected to MongoDB Atlas');
 });
 
 mongoose.connection.on('error', (err) => {
-  console.error('🔴 Mongoose connection error:', err);
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.log('🟡 Mongoose disconnected from MongoDB Atlas');
 });
 
 // ✅ Handle app termination
 process.on('SIGINT', async () => {
   await mongoose.connection.close();
-  console.log('🟠 MongoDB connection closed due to app termination');
   process.exit(0);
 });
 

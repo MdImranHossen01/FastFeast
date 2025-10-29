@@ -38,7 +38,7 @@ const MatrixRain = ({  fontSize = 16, animationSpeed = 2, children }) => {
 
         const draw = () => {
             // Semi-transparent black rectangle for the "fade" effect (Matrix trail)
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, width, height);
 
             // Set drawing style for the binary rain
@@ -83,13 +83,13 @@ const MatrixRain = ({  fontSize = 16, animationSpeed = 2, children }) => {
 
     return (
         // The main container fills the screen and sets the background
-        <div className="relative w-screen h-screen bg-black overflow-hidden">
+        <div className="relative w-screen h-screen  overflow-hidden">
 
             {/* Canvas for the Matrix Rain Effect */}
             <canvas
                 ref={canvasRef}
                 id="matrixCanvas"
-                className="absolute inset-0 z-10 block"
+                className="absolute inset-0 z-10 block bg-none"
             />
 
             {/* Centered Text Overlay */}

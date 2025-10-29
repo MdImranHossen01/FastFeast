@@ -1,5 +1,6 @@
 // src/app/layout.jsx
-// import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -18,7 +19,6 @@ import LenisProvider from "@/providers/LenisProvider";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 
 // Preload critical fonts
-
 export const metadata = {
   title: "FastFeast - Food Delivery App",
   description:
@@ -168,7 +168,7 @@ export default function RootLayout({ children }) {
       >
         {/* Critical content first */}
         <div id="critical-content">
-          <ThemeToggle/>
+          <ThemeToggle />
           <SessionWrapper>
             <NextThemeProvider>
               <AOSProvider>
@@ -196,6 +196,80 @@ export default function RootLayout({ children }) {
 
         {/* Cursor follower + click bloom (mount once) */}
         <CursorFlower />
+
+        {/* Google Translate container OUTSIDE React UI */}
+        <div
+          id="gt-container"
+          style={{
+            position: "fixed",
+            left: "-9999px",
+            top: 0,
+            width: 0,
+            height: 0,
+            pointerEvents: "none",
+          }}
+        />
+
+        {/* Init callback (runs once after hydration) */}
+        <Script id="gt-init" strategy="afterInteractive">
+          {`
+  window.googleTranslateElementInit = function () {
+    try {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,bn,hi,es,ar',
+          autoDisplay: false
+        },
+        'gt-container'
+      );
+    } catch (e) {
+      // ignore if script isn't ready; the real script will call us again
+    }
+  };
+`}
+        </Script>
+
+        <Script id="gt-sanitize" strategy="afterInteractive">
+          {`
+  (function () {
+    function sanitize(node) {
+      const s = node && node.style;
+      if (!s) return;
+      // Only remove GT-problematic properties
+      if (s.position) s.position = "";
+      if (s.top) s.top = "";
+      if (s.overflow === "hidden") s.overflow = "";
+    }
+
+    const restore = () => {
+      sanitize(document.documentElement);
+      sanitize(document.body);
+    };
+
+    // Run now and on common events
+    restore();
+    window.addEventListener("resize", restore);
+    window.addEventListener("orientationchange", restore);
+
+    // Watch for inline style mutations from GT
+    const opts = { attributes: true, attributeFilter: ["style"] };
+    const moHtml = new MutationObserver(restore);
+    const moBody = new MutationObserver(restore);
+    moHtml.observe(document.documentElement, opts);
+    moBody.observe(document.body, opts);
+  })();
+`}
+        </Script>
+
+        {/* Load Google script once, calls googleTranslateElementInit */}
+        <Script
+          id="gt-script"
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="afterInteractive"
+        />
+
+        {/* end google translate */}
 
         {/* Video preloading script */}
         <script

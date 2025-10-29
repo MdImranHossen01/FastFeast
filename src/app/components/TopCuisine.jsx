@@ -16,6 +16,7 @@ import { ArrowLeft, ArrowRight, Star, Clock } from "lucide-react";
 import Link from "next/link";
 // We no longer need to import AOS here, but we keep the CSS import if it's not global
 import 'aos/dist/aos.css';
+import Image from "next/image";
 
 const TopCuisine = () => {
   // --- MODIFICATION ---
@@ -217,9 +218,10 @@ const TopCuisine = () => {
                   <Link href={cuisine.link} className="block">
                     <div className="group relative h-full rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] bg-white cursor-pointer">
                       <div className="relative h-48 sm:h-56 overflow-hidden">
-                        <img
+                        <Image
                           src={cuisine.image}
                           alt={cuisine.name}
+                          fill
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
                         <div

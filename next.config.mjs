@@ -14,18 +14,22 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      
     ],
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,
   },
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  
+
   // Only enable these optimizations in production
-  compiler: process.env.NODE_ENV === 'production' ? {
-    removeConsole: true,
-  } : undefined,
+  compiler:
+    process.env.NODE_ENV === "production"
+      ? {
+          removeConsole: true,
+        }
+      : undefined,
 };
 
 export default nextConfig;

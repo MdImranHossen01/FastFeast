@@ -10,11 +10,10 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { uploadToImgBB } from "@/utils/imageUpload";
-import { FaEdit } from "react-icons/fa";
 import updateBlogById from "@/app/actions/blogs/updateBlogById";
+import Image from "next/image";
 
-export default function EditBlogModal({ blog, onSave }) {
-  const [open, setOpen] = useState(false);
+export default function EditBlogModal({ open, onOpenChange, blog, onSave }) {
   const [formData, setFormData] = useState({
     slug: "",
     title: "",
@@ -62,9 +61,7 @@ export default function EditBlogModal({ blog, onSave }) {
     const files = Array.from(e.target.files);
     if (!files.length) return;
     try {
-      const uploadedUrls = await Promise.all(
-        files.map((file) => uploadToImgBB(file))
-      );
+      const uploadedUrls = await Promise.all(files.map(uploadToImgBB));
       setFormData((prev) => ({
         ...prev,
         gallery: [...prev.gallery, ...uploadedUrls],
@@ -83,41 +80,34 @@ export default function EditBlogModal({ blog, onSave }) {
 
   const handleSubmit = async () => {
     if (!blog?._id) return;
-    
+
     const blogData = {
       ...formData,
       slug: formData.title.toLowerCase().replace(/\s+/g, "-"),
       tags: formData.tags.split(",").map((t) => t.trim()),
     };
-    
+
     try {
       await updateBlogById(blog._id, blogData);
       Swal.fire({
         icon: "success",
-        title: "✅ Blog Updated Successfully!",
+        title: "🎉 Blog Updated Successfully!",
         confirmButtonColor: "#f97316",
       });
       onSave?.(blogData);
-      setOpen(false);
+      onOpenChange(false);
     } catch {
       Swal.fire("Oops!", "Something went wrong, try again!", "error");
     }
   };
 
   return (
-    <>
-      <Button
-        onClick={() => setOpen(true)}
-        className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-medium flex items-center gap-2 px-4 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-[1.02] text-sm"
-      >
-        <FaEdit /> Edit
-      </Button>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-3xl bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl border border-blue-100 dark:border-gray-700 shadow-xl overflow-y-auto max-h-[90vh] p-6">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-3xl bg-gradient-to-br from-white to-orange-50 dark:from-gray-900 dark:to-gray-800 rounded-2xl border border-orange-100 dark:border-gray-700 shadow-xl overflow-y-auto max-h-[90vh] p-6">
+        <div className="overflow-y-auto max-h-[85vh] p-6">
           {/* Header */}
-          <DialogHeader className="border-b border-blue-100 dark:border-gray-700 pb-4 mb-4">
-            <DialogTitle className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+          <DialogHeader className="border-b border-orange-100 dark:border-gray-700 pb-4 mb-4">
+            <DialogTitle className="text-2xl font-bold text-orange-600 dark:text-orange-400">
               ✏️ Edit Blog Post
             </DialogTitle>
             <DialogDescription className="text-sm text-gray-500 dark:text-gray-400">
@@ -137,7 +127,7 @@ export default function EditBlogModal({ blog, onSave }) {
                 type="text"
                 value={formData.title}
                 placeholder="Enter your blog title"
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-blue-400 outline-none"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
                 onChange={handleChange}
               />
             </div>
@@ -151,13 +141,13 @@ export default function EditBlogModal({ blog, onSave }) {
                 name="excerpt"
                 value={formData.excerpt}
                 placeholder="Write a short summary..."
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-blue-400 outline-none"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
                 rows={2}
                 onChange={handleChange}
               ></textarea>
             </div>
 
-            {/* Blog Content - Simple Textarea */}
+            {/* Blog Content */}
             <div>
               <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
                 Blog Content
@@ -167,7 +157,7 @@ export default function EditBlogModal({ blog, onSave }) {
                 value={formData.details}
                 onChange={handleDetailsChange}
                 placeholder="Write your full blog content here..."
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-400 outline-none min-h-[200px] resize-y"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none min-h-[200px] resize-y"
                 rows={10}
               />
             </div>
@@ -184,11 +174,17 @@ export default function EditBlogModal({ blog, onSave }) {
                 className="file-input file-input-bordered file-input-sm w-full max-w-xs"
               />
               {formData.coverImage && (
-                <img
-                  src={formData.coverImage}
-                  alt="Preview"
-                  className="mt-2 w-40 h-28 object-cover rounded-xl border border-blue-200 shadow-md"
-                />
+                <div className=" relative">
+                  <Image
+                    src={formData.coverImage}
+                    alt="Cover Preview"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 500px"
+                    className="object-cover rounded-xl border border-orange-200 shadow-md"
+                  />
+
+
+                </div>
               )}
             </div>
 
@@ -207,10 +203,12 @@ export default function EditBlogModal({ blog, onSave }) {
               <div className="flex flex-wrap gap-2 mt-2">
                 {formData.gallery.map((img, i) => (
                   <div key={i} className="relative">
-                    <img
+                    <Image
                       src={img}
-                      alt=""
-                      className="w-20 h-20 rounded-lg object-cover border shadow-sm"
+                      alt={`Gallery ${i}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 500px"
+                      className="object-cover rounded-xl border border-orange-200 shadow-md"
                     />
                     <button
                       onClick={() => removeGalleryImage(i)}
@@ -233,7 +231,7 @@ export default function EditBlogModal({ blog, onSave }) {
                   name="category"
                   value={formData.category}
                   placeholder="e.g., Food, Travel, Health"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-blue-400 outline-none"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
                   onChange={handleChange}
                 />
               </div>
@@ -245,7 +243,7 @@ export default function EditBlogModal({ blog, onSave }) {
                   name="tags"
                   value={formData.tags}
                   placeholder="comma separated tags"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-blue-400 outline-none"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-orange-400 outline-none"
                   onChange={handleChange}
                 />
               </div>
@@ -253,23 +251,23 @@ export default function EditBlogModal({ blog, onSave }) {
           </div>
 
           {/* Footer */}
-          <div className="flex justify-end gap-3 mt-8 border-t border-blue-100 dark:border-gray-700 pt-4">
+          <div className="flex justify-end gap-3 mt-8 border-t border-orange-100 dark:border-gray-700 pt-4">
             <Button
               variant="outline"
-              onClick={() => setOpen(false)}
+              onClick={() => onOpenChange(false)}
               className="rounded-full border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
-              className="rounded-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-semibold shadow-lg hover:scale-[1.03] transition-transform"
+              className="rounded-full bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-semibold shadow-lg hover:scale-[1.03] transition-transform"
             >
               Update Blog
             </Button>
           </div>
-        </DialogContent>
-      </Dialog>
-    </>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

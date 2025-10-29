@@ -8,7 +8,6 @@ const ThaiFoodPage = async () => {
 
   // Filter menus to only show Thai cuisine
   const thaiMenus = menus.filter((menu) => menu.cuisine === "Thai");
-  console.log("Thai menus:", thaiMenus);
 
   return (
     <div className="container mx-auto px-4 py-8">

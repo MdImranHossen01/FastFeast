@@ -17,7 +17,6 @@ export default async function updateRestaurantById(id, updatedData) {
       }
     );
 
-    console.log(res);
 
     // always return an object
     if (!res.ok) {
