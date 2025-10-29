@@ -1,14 +1,15 @@
-// src/app/api/auth/[...nextauth]/route.js
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import { dbConnect, collectionsName } from "@/lib/dbConnect";
 import bcrypt from "bcrypt";
+import connectMongooseDb from "@/lib/mongoose";
 import { sendOtpEmail } from "@/lib/sendOtpEmail";
+import User from "@/models/user.model";
 
 export const authOptions = {
   providers: [
+    // Social Providers
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -17,6 +18,8 @@ export const authOptions = {
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
+
+    // Credentials Provider
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -25,19 +28,24 @@ export const authOptions = {
         otp: { label: "OTP", type: "text" },
         skipOtp: { label: "Skip OTP", type: "boolean" },
       },
+
       async authorize(credentials) {
-        const usersCollection = await dbConnect(collectionsName.usersCollection);
-        const user = await usersCollection.findOne({ email: credentials.email });
+        await connectMongooseDb();
 
+        const user = await User.findOne({ email: credentials.email });
         if (!user) throw new Error("Invalid email or password");
-        if (!user.password) throw new Error("User registered with Google/GitHub");
+        if (!user.password)
+          throw new Error("User registered with Google/GitHub");
 
-        // Check if this is a demo user
+        // Check if demo user
         const isDemoUser = user.isDemo === true;
 
-        // Password check
+        // Validate password (for real users only)
         if (!credentials.skipOtp) {
-          const isMatch = await bcrypt.compare(credentials.password, user.password);
+          const isMatch = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
           if (!isMatch) throw new Error("Invalid email or password");
         }
 
@@ -47,7 +55,7 @@ export const authOptions = {
             id: user._id.toString(),
             name: user.name,
             email: user.email,
-            image: user.photoUrl,
+            image: user.image,
             location: user.location,
             phone: user.phone,
             role: user.role,
@@ -55,13 +63,13 @@ export const authOptions = {
           };
         }
 
-        // OTP for regular users
-        if (!credentials.skipOtp) {
+        // Send OTP (for real users)
+        if (!credentials.skipOtp && !credentials.otp) {
           const otp = Math.floor(100000 + Math.random() * 900000).toString();
           const hashedOtp = await bcrypt.hash(otp, 10);
-          const otpExpires = new Date(Date.now() + 2 * 60 * 1000);
+          const otpExpires = new Date(Date.now() + 2 * 60 * 1000); // 2 min
 
-          await usersCollection.updateOne(
+          await User.updateOne(
             { email: user.email },
             { $set: { otp: hashedOtp, otpExpires } }
           );
@@ -70,25 +78,29 @@ export const authOptions = {
           throw new Error("OTP_REQUIRED");
         }
 
-        // OTP verification
+        // Verify OTP (for real users)
         if (credentials.skipOtp && credentials.otp) {
-          if (!user.otp || !user.otpExpires) throw new Error("No OTP found, request again");
+          if (!user.otp || !user.otpExpires)
+            throw new Error("No OTP found, request again");
+
           if (user.otpExpires < new Date()) throw new Error("OTP expired");
 
           const isOtpValid = await bcrypt.compare(credentials.otp, user.otp);
           if (!isOtpValid) throw new Error("Invalid OTP");
 
-          await usersCollection.updateOne(
+          // Cleanup after successful verification
+          await User.updateOne(
             { email: user.email },
             { $unset: { otp: "", otpExpires: "" } }
           );
         }
 
+        // Return safe user object
         return {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
-          image: user.photoUrl,
+          image: user.image,
           location: user.location,
           phone: user.phone,
           role: user.role,
@@ -100,32 +112,35 @@ export const authOptions = {
   session: { strategy: "jwt" },
 
   callbacks: {
+    // When user signs in with Google/GitHub
     async signIn({ user, account, profile }) {
-      const usersCollection = await dbConnect(collectionsName.usersCollection);
-      const existingUser = await usersCollection.findOne({ email: user.email });
+      await connectMongooseDb();
 
+      const existingUser = await User.findOne({ email: user.email });
       if (!existingUser) {
-        await usersCollection.insertOne({
+        await User.create({
           name: user.name || profile?.login,
           email: user.email,
-          photoUrl: user.image,
+          image: user.image,
           provider: account.provider,
-          createdAt: new Date(),
         });
       }
       return true;
     },
 
+    // Attach user data to JWT token
     async jwt({ token, user }) {
-      const usersCollection = await dbConnect(collectionsName.usersCollection);
-      const dbUser = await usersCollection.findOne({ email: token?.user?.email });
+      await connectMongooseDb();
 
+      const dbUser = await User.findOne({
+        email: token?.user?.email || token?.email,
+      });
       if (dbUser) {
         token.user = {
           id: dbUser._id.toString(),
           name: dbUser.name,
           email: dbUser.email,
-          image: dbUser.photoUrl,
+          image: dbUser.image,
           location: dbUser.location,
           phone: dbUser.phone,
           role: dbUser.role,
@@ -138,6 +153,7 @@ export const authOptions = {
       return token;
     },
 
+    // Attach token data to session
     async session({ session, token }) {
       session.user = token.user;
       return session;

@@ -1,22 +1,19 @@
 "use server";
+import { getBaseUrl } from "@/lib/getBaseUrl";
+
+const FETCH_TTL = 300;                 // ⬅️ match page ISR (or smaller)
+const FETCH_TAGS = ["restaurants"];    // optional
 
 export default async function getRestaurants() {
   try {
-    // Fetch restaurants from the API
-    const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(`${NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurants`);
-
-    // always return an array
-    if (!res.ok) {
-      return [];
-    }
-
-    // If response is ok, parse and return the data
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    // Log the error for debugging purposes
-    console.error("Error fetching data:", error.message);
+    const base = getBaseUrl();
+    const res = await fetch(`${base}/api/restaurants`, {
+      next: { revalidate: FETCH_TTL, tags: FETCH_TAGS },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (e) {
+    console.error("Error fetching restaurants:", e.message);
     return [];
   }
 }

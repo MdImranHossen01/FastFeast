@@ -151,6 +151,22 @@ export default function DashboardLinks() {
               Manage Orders
             </Link>
           </li>
+          <li>
+            <Link
+              href="/restaurant-dashboard/manage-menus"
+              className={linkStyle("/restaurant-dashboard/manage-menus")}
+            >
+              Manage Menus
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/restaurant-dashboard/add-menu"
+              className={linkStyle("/restaurant-dashboard/add-menu")}
+            >
+              Add Menu
+            </Link>
+          </li>
         </>
       )}
 
@@ -159,26 +175,18 @@ export default function DashboardLinks() {
         <>
           <li>
             <Link
-              href="/user-dashboard"
-              className={linkStyle("/user-dashboard")}
+              href="/rider-dashboard"
+              className={linkStyle("/rider-dashboard")}
             >
               Home
             </Link>
           </li>
           <li>
             <Link
-              href="/user-dashboard/orders-history"
-              className={linkStyle("/user-dashboard/orders-history")}
+              href="/rider-dashboard/orders-history"
+              className={linkStyle("/rider-dashboard/orders-history")}
             >
               Orders History
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/customer-dashboard/payments-history"
-              className={linkStyle("/customer-dashboard/payments-history")}
-            >
-              Payments History
             </Link>
           </li>
         </>

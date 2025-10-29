@@ -1,33 +1,32 @@
+// src/app/page.jsx
 import { lazy, Suspense } from "react";
+
 import Banner from "./components/Banner";
 import Loading from "./loading";
+
 import TopCuisineDynamic from "./components/TopCuisineDynamic";
-import RestaurantSectionDynamic from "./components/RestaurantSectionDynamic"; // Import the new wrapper
+import RestaurantSectionDynamic from "./components/RestaurantSectionDynamic";
 import PopularItemsDynamic from "./components/PopularItemsDynamic";
-// Lazy load all other non-critical components
+import SpecialOffers from "./components/SpecialOffers";
+
+// Lazy load non-critical components (SSR OK)
 const FAQSection = lazy(() => import("./components/FaqSection"));
 const Stats = lazy(() => import("./components/Stats"));
 const Services = lazy(() => import("./components/Service"));
 const CTASection = lazy(() => import("./components/CTASection"));
 const PopularBlogs = lazy(() => import("./components/PopularBlogs"));
 const OurPartner = lazy(() => import("./components/OurPartner"));
-const SpecialOffers = lazy(() => import("./components/SpecialOffers"));
 const CustomersReview = lazy(() => import("./components/CustomersReview"));
-const TraditionalBeersSection = lazy(() =>
-  import("./components/TraditionalBear")
-);
+const TraditionalBeersSection = lazy(() => import("./components/TraditionalBear"));
 const CategorySection = lazy(() => import("./components/Category"));
 const HowWeWork = lazy(() => import("./components/HowWeWork"));
-// The original RestaurantSection is no longer lazy-loaded here
 const FoodCompare = lazy(() => import("./components/FoodCompare"));
-const AiDrivenFoodSuggestion = lazy(() =>
-  import("./components/AiDrivenFoodSuggession")
-);
+const AiDrivenFoodSuggestion = lazy(() => import("./components/AiDrivenFoodSuggession"));
 const Slider = lazy(() => import("./components/Slider"));
 const MarqueeSection = lazy(() => import("./components/MarqueeSection"));
-const PopularItems = lazy(() => import("./components/PopularItems"));
+// const PopularItems = lazy(() => import("./components/PopularItems")); // using PopularItemsDynamic instead
 
-// Create optimized loading components using your variants
+// Loaders
 const ComponentLoader = () => (
   <div className="min-h-[400px] flex items-center justify-center">
     <Loading />
@@ -35,7 +34,7 @@ const ComponentLoader = () => (
 );
 
 const SectionLoader = () => (
-  <div className="min-h-[300px] flex items-center justify-center  rounded-lg">
+  <div className="min-h-[300px] flex items-center justify-center rounded-lg">
     <Loading />
   </div>
 );
@@ -51,13 +50,13 @@ export default function Home() {
         <AiDrivenFoodSuggestion />
       </Suspense>
 
-      <Suspense fallback={<SectionLoader />}>
-        <SpecialOffers />
-      </Suspense>
+      {/* Client-only; DO NOT wrap in <Suspense> */}
+      <SpecialOffers />
+
 
       <PopularItemsDynamic />
 
-      {/* This component is already wrapped and handles its own loading */}
+      {/* Already wrapped and handles its own loading */}
       <TopCuisineDynamic />
 
       <Suspense fallback={<SectionLoader />}>
@@ -82,7 +81,7 @@ export default function Home() {
         <PopularBlogs />
       </Suspense>
 
-      {/* Use the new dynamic wrapper here. No Suspense is needed as it handles its own loading state. */}
+      {/* Uses its own dynamic wrapper; no Suspense needed here */}
       <RestaurantSectionDynamic />
 
       <Suspense fallback={<SectionLoader />}>
