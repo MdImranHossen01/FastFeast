@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 // import {
 //   FaMapMarkerAlt,
 //   FaMobileAlt,
@@ -69,7 +70,7 @@ export default function Services() {
     setFlipped((prev) => (prev === id ? null : id));
   };
   return (
-    <section className="bg-orange-50/40 py-16">
+    <section className="bg-orange-50 py-16">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
           How <span className="text-orange-500">FastFeast</span> Works
@@ -103,9 +104,11 @@ export default function Services() {
               >
                 {/* Front Side */}
                 <div className="absolute inset-0 flex flex-col bg-white rounded-xl shadow-md p-6 py-5 items-center justify-center [backface-visibility:hidden]">
-                  <img
+                  <Image
                     src={service.icon}
                     alt="service"
+                    height={200}
+                    width={180}
                     className="h-[200px] w-[180px] object-cover  transition-transform duration-300  group-hover:scale-110 pt-5"
                   />
                   <h3 className="text-xl font-bold text-gray-800 text-center group-hover:text-orange-500 transition-colors duration-300 py-5">

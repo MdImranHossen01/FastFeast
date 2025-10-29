@@ -1,66 +1,97 @@
 // src/components/OrderStatusModal.jsx
-import React, { useState, useEffect } from 'react';
-import { FiX, FiSearch, FiClock, FiCheck, FiPackage, FiTruck, FiPhone, FiMapPin, FiExternalLink, FiUser, FiRefreshCw, FiStar } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
-import ReviewModal from './ReviewModal';
+import React, { useState, useEffect } from "react";
+import {
+  FiX,
+  FiSearch,
+  FiClock,
+  FiCheck,
+  FiPackage,
+  FiTruck,
+  FiPhone,
+  FiMapPin,
+  FiExternalLink,
+  FiUser,
+  FiRefreshCw,
+  FiStar,
+} from "react-icons/fi";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import ReviewModal from "./ReviewModal";
+import Image from "next/image";
 
 // --- helpers ---
 const normalizeStatus = (status) => {
-  const s = String(status || '').trim().toLowerCase();
-  if (s === 'complete' || s === 'completed' || s === 'delivery-completed') return 'delivered';
-  if (s === 'out for delivery' || s === 'out_for_delivery') return 'out-for-delivery';
+  const s = String(status || "")
+    .trim()
+    .toLowerCase();
+  if (s === "complete" || s === "completed" || s === "delivery-completed")
+    return "delivered";
+  if (s === "out for delivery" || s === "out_for_delivery")
+    return "out-for-delivery";
   return s;
 };
 
 const statusPercent = {
-  'pending': 10,
-  'confirmed': 25,
-  'preparing': 50,
-  'ready': 75,
-  'out-for-delivery': 90,
-  'delivered': 100,
-  'cancelled': 0,
+  pending: 10,
+  confirmed: 25,
+  preparing: 50,
+  ready: 75,
+  "out-for-delivery": 90,
+  delivered: 100,
+  cancelled: 0,
 };
 
 const StatusBadge = ({ status }) => {
   const s = normalizeStatus(status);
   const classes = {
-    'pending': 'bg-yellow-100 text-yellow-800',
-    'confirmed': 'bg-blue-100 text-blue-800',
-    'preparing': 'bg-purple-100 text-purple-800',
-    'ready': 'bg-indigo-100 text-indigo-800',
-    'out-for-delivery': 'bg-orange-100 text-orange-800',
-    'delivered': 'bg-green-100 text-green-800',
-    'cancelled': 'bg-red-100 text-red-800',
-    'unknown': 'bg-gray-100 text-gray-800',
+    pending: "bg-yellow-100 text-yellow-800",
+    confirmed: "bg-blue-100 text-blue-800",
+    preparing: "bg-purple-100 text-purple-800",
+    ready: "bg-indigo-100 text-indigo-800",
+    "out-for-delivery": "bg-orange-100 text-orange-800",
+    delivered: "bg-green-100 text-green-800",
+    cancelled: "bg-red-100 text-red-800",
+    unknown: "bg-gray-100 text-gray-800",
   };
-  const label = {
-    'pending': 'Pending',
-    'confirmed': 'Confirmed',
-    'preparing': 'Preparing',
-    'ready': 'Ready',
-    'out-for-delivery': 'Out for Delivery',
-    'delivered': 'Delivered',
-    'cancelled': 'Cancelled',
-    'unknown': 'Unknown',
-  }[s] ?? 'Unknown';
+  const label =
+    {
+      pending: "Pending",
+      confirmed: "Confirmed",
+      preparing: "Preparing",
+      ready: "Ready",
+      "out-for-delivery": "Out for Delivery",
+      delivered: "Delivered",
+      cancelled: "Cancelled",
+      unknown: "Unknown",
+    }[s] ?? "Unknown";
 
-  const cls = classes[s] ?? classes['unknown'];
-  return <span className={`px-2 py-1 text-xs font-medium rounded-full ${cls}`}>{label}</span>;
+  const cls = classes[s] ?? classes["unknown"];
+  return (
+    <span className={`px-2 py-1 text-xs font-medium rounded-full ${cls}`}>
+      {label}
+    </span>
+  );
 };
 
 const StatusIcon = ({ status }) => {
   const s = normalizeStatus(status);
   switch (s) {
-    case 'pending': return <FiClock className="text-yellow-600" />;
-    case 'confirmed': return <FiCheck className="text-blue-600" />;
-    case 'preparing': return <FiPackage className="text-purple-600" />;
-    case 'ready': return <FiPackage className="text-indigo-600" />;
-    case 'out-for-delivery': return <FiTruck className="text-orange-600" />;
-    case 'delivered': return <FiCheck className="text-green-600" />;
-    case 'cancelled': return <FiX className="text-red-600" />;
-    default: return null;
+    case "pending":
+      return <FiClock className="text-yellow-600" />;
+    case "confirmed":
+      return <FiCheck className="text-blue-600" />;
+    case "preparing":
+      return <FiPackage className="text-purple-600" />;
+    case "ready":
+      return <FiPackage className="text-indigo-600" />;
+    case "out-for-delivery":
+      return <FiTruck className="text-orange-600" />;
+    case "delivered":
+      return <FiCheck className="text-green-600" />;
+    case "cancelled":
+      return <FiX className="text-red-600" />;
+    default:
+      return null;
   }
 };
 
@@ -70,15 +101,24 @@ const progressFromStatus = (status) => {
 };
 
 const fmtDate = (dateString) => {
-  const options = { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' };
-  return new Date(dateString || Date.now()).toLocaleDateString(undefined, options);
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  return new Date(dateString || Date.now()).toLocaleDateString(
+    undefined,
+    options
+  );
 };
 
 const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   const router = useRouter();
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showRiderDetails, setShowRiderDetails] = useState(null);
@@ -92,35 +132,39 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
     try {
       setLoading(true);
       setFetchError(null);
-      const res = await fetch(`/api/orders?userEmail=${encodeURIComponent(userEmail)}`);
-      
+      const res = await fetch(
+        `/api/orders?userEmail=${encodeURIComponent(userEmail)}`
+      );
+
       if (!res.ok) {
         throw new Error(`Failed to fetch orders: ${res.status}`);
       }
-      
+
       const data = await res.json();
 
       // normalize shape & status
-      const list = (data.orders || []).map(o => ({
+      const list = (data.orders || []).map((o) => ({
         ...o,
-        id: String(o.id ?? o._id ?? ''),
+        id: String(o.id ?? o._id ?? ""),
         status: normalizeStatus(o.status),
         orderDate: o.orderDate ?? o.createdAt ?? Date.now(),
         pricing: o.pricing || {},
-        items: Array.isArray(o.items) ? o.items : (o.items ? [o.items] : []),
+        items: Array.isArray(o.items) ? o.items : o.items ? [o.items] : [],
         // Ensure riderInfo includes the ID
-        riderInfo: o.riderInfo ? {
-          ...o.riderInfo,
-          id: o.riderInfo.id || o.riderInfo._id || ''
-        } : null
+        riderInfo: o.riderInfo
+          ? {
+              ...o.riderInfo,
+              id: o.riderInfo.id || o.riderInfo._id || "",
+            }
+          : null,
       }));
 
       setOrders(list);
       setFilteredOrders(applySearch(list, searchTerm));
     } catch (e) {
-      console.error('Error fetching orders:', e);
+      console.error("Error fetching orders:", e);
       setFetchError(e.message);
-      toast.error('Failed to load orders. Please try again.');
+      toast.error("Failed to load orders. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -136,11 +180,12 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
 
   // search
   const applySearch = (list, q) => {
-    const s = (q || '').trim().toLowerCase();
+    const s = (q || "").trim().toLowerCase();
     if (!s) return list;
-    return list.filter(order =>
-      (order.id || '').toLowerCase().includes(s) ||
-      normalizeStatus(order.status).includes(s)
+    return list.filter(
+      (order) =>
+        (order.id || "").toLowerCase().includes(s) ||
+        normalizeStatus(order.status).includes(s)
     );
   };
 
@@ -155,7 +200,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
 
   const handleRiderClick = (riderId, riderName) => {
     if (!riderId) {
-      toast.error('Rider information is not available');
+      toast.error("Rider information is not available");
       return;
     }
     // Navigate to rider details page
@@ -169,30 +214,29 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
       const fullReviewData = {
         ...reviewData,
         orderId: orderToReview.id,
-        customerEmail: orderToReview.customerInfo?.email,
         riderId: orderToReview.riderInfo?.id, // CRITICAL: Add riderId
       };
 
-      const response = await fetch('/api/reviews', {
-        method: 'POST',
+      const response = await fetch("/api/reviews", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(fullReviewData),
       });
-      
+
       const data = await response.json();
-      
+
       if (!data.success) {
-        throw new Error(data.message || 'Failed to submit review');
+        throw new Error(data.message || "Failed to submit review");
       }
-      
+
       // Refresh orders to update review status
       fetchUserOrders();
-      
+
       return data;
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error("Error submitting review:", error);
       throw error;
     }
   };
@@ -216,14 +260,19 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 overflow-y-auto bg-black/30  flex items-center justify-center p-4" onClick={onClose}>
-        <div 
-          className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full max-h-[90vh] flex flex-col"
+      <div
+        className="fixed inset-0 z-50 overflow-y-auto bg-black/30  flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <div
+          className="align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full max-h-[90vh] flex flex-col"
           onClick={handleModalContentClick}
         >
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex-shrink-0">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl leading-6 font-medium text-gray-900">Order Status Tracking</h3>
+              <h3 className="text-xl leading-6 font-medium text-gray-900">
+                Order Status Tracking
+              </h3>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
@@ -232,9 +281,15 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                   className="p-2 text-gray-500 bg-gray-100 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50"
                   title="Refresh Orders"
                 >
-                  <FiRefreshCw className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`} />
+                  <FiRefreshCw
+                    className={`h-5 w-5 ${loading ? "animate-spin" : ""}`}
+                  />
                 </button>
-                <button type="button" className="text-gray-400 hover:text-gray-500 focus:outline-none" onClick={onClose}>
+                <button
+                  type="button"
+                  className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                  onClick={onClose}
+                >
                   <span className="sr-only">Close</span>
                   <FiX className="h-6 w-6" />
                 </button>
@@ -277,11 +332,18 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                 {filteredOrders.map((order) => {
                   const pct = progressFromStatus(order.status);
                   return (
-                    <div key={order.id} className="border rounded-lg p-4 bg-gray-50">
+                    <div
+                      key={order.id}
+                      className="border rounded-lg p-4 bg-gray-50"
+                    >
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h4 className="font-medium text-gray-900">Order #{order.id}</h4>
-                          <p className="text-sm text-gray-500">{fmtDate(order.orderDate)}</p>
+                          <h4 className="font-medium text-gray-900">
+                            Order #{order.id}
+                          </h4>
+                          <p className="text-sm text-gray-500">
+                            {fmtDate(order.orderDate)}
+                          </p>
                         </div>
                         <div className="flex items-center gap-2">
                           <StatusIcon status={order.status} />
@@ -307,20 +369,28 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                       <div className="grid grid-cols-2 gap-4 text-sm mb-3">
                         <div>
                           <span className="text-gray-500">Items:</span>
-                          <span className="ml-2 font-medium">{order.items?.length ?? 0}</span>
+                          <span className="ml-2 font-medium">
+                            {order.items?.length ?? 0}
+                          </span>
                         </div>
                         <div>
                           <span className="text-gray-500">Total:</span>
-                          <span className="ml-2 font-medium">৳{order.pricing?.total ?? 0}</span>
+                          <span className="ml-2 font-medium">
+                            ৳{order.pricing?.total ?? 0}
+                          </span>
                         </div>
                         <div>
                           <span className="text-gray-500">Delivery:</span>
-                          <span className="ml-2 font-medium">{fmtDate(order.estimatedDelivery)}</span>
+                          <span className="ml-2 font-medium">
+                            {fmtDate(order.estimatedDelivery)}
+                          </span>
                         </div>
                         <div>
                           <span className="text-gray-500">Payment:</span>
                           <span className="ml-2 font-medium">
-                            {order.paymentMethod === 'cash' ? 'Cash on Delivery' : 'Card'}
+                            {order.paymentMethod === "cash"
+                              ? "Cash on Delivery"
+                              : "Card"}
                           </span>
                         </div>
                       </div>
@@ -332,9 +402,14 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                             <div className="flex items-center">
                               <FiTruck className="text-orange-500 mr-2" />
                               {/* Make the rider name clickable */}
-                              <span 
+                              <span
                                 className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline cursor-pointer flex items-center gap-1"
-                                onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                                onClick={() =>
+                                  handleRiderClick(
+                                    order.riderInfo.id,
+                                    order.riderInfo.name
+                                  )
+                                }
                               >
                                 {order.riderInfo.name}
                                 <FiExternalLink className="h-3 w-3" />
@@ -343,33 +418,55 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                             <div className="flex items-center gap-2">
                               <button
                                 className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1"
-                                onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                                onClick={() =>
+                                  handleRiderClick(
+                                    order.riderInfo.id,
+                                    order.riderInfo.name
+                                  )
+                                }
                               >
                                 <FiUser className="h-4 w-4" />
                                 Profile
                               </button>
                               <button
                                 className="text-blue-600 hover:text-blue-800 text-sm"
-                                onClick={() => setShowRiderDetails(showRiderDetails === order.id ? null : order.id)}
+                                onClick={() =>
+                                  setShowRiderDetails(
+                                    showRiderDetails === order.id
+                                      ? null
+                                      : order.id
+                                  )
+                                }
                               >
-                                {showRiderDetails === order.id ? 'Hide' : 'Show'} Details
+                                {showRiderDetails === order.id
+                                  ? "Hide"
+                                  : "Show"}{" "}
+                                Details
                               </button>
                             </div>
                           </div>
 
                           {showRiderDetails === order.id && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <div className="flex items-center space-x-3">
-                                <img
+                              <div className="relative flex items-center space-x-3">
+                                <Image
                                   className="h-10 w-10 rounded-full object-cover"
-                                  src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
+                                  src={
+                                    order.riderInfo.photoUrl ||
+                                    `https://avatar.vercel.sh/${order.riderInfo.email}`
+                                  }
                                   alt={order.riderInfo.name}
+                                  fill
                                   onError={(e) => {
-                                    e.target.src = `https://avatar.vercel.sh/${order.riderInfo.name || 'rider'}`;
+                                    e.target.src = `https://avatar.vercel.sh/${
+                                      order.riderInfo.name || "rider"
+                                    }`;
                                   }}
                                 />
                                 <div className="flex-grow">
-                                  <div className="font-medium">{order.riderInfo.name}</div>
+                                  <div className="font-medium">
+                                    {order.riderInfo.name}
+                                  </div>
                                   <div className="flex items-center text-sm text-gray-500">
                                     <FiPhone className="mr-1" />
                                     {order.riderInfo.phone}
@@ -378,15 +475,22 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                                     <FiMapPin className="mr-1" />
                                     {order.riderInfo.currentLocation
                                       ? `Lat: ${order.riderInfo.currentLocation.lat}, Lng: ${order.riderInfo.currentLocation.lng}`
-                                      : 'Location not available'}
+                                      : "Location not available"}
                                   </div>
                                   <div className="text-sm text-gray-500">
-                                    Vehicle: {order.riderInfo.vehicleType || 'Not specified'}
+                                    Vehicle:{" "}
+                                    {order.riderInfo.vehicleType ||
+                                      "Not specified"}
                                   </div>
                                 </div>
                                 <button
                                   className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors flex items-center gap-1"
-                                  onClick={() => handleRiderClick(order.riderInfo.id, order.riderInfo.name)}
+                                  onClick={() =>
+                                    handleRiderClick(
+                                      order.riderInfo.id,
+                                      order.riderInfo.name
+                                    )
+                                  }
                                 >
                                   <FiExternalLink className="h-3 w-3" />
                                   View Profile
@@ -405,9 +509,9 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                         >
                           View Full Details
                         </button>
-                        
+
                         {/* Show Review Button for Delivered Orders */}
-                        {order.status === 'delivered' && (
+                        {order.status === "delivered" && (
                           <button
                             className="flex-1 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors flex items-center justify-center gap-1"
                             onClick={() => openReviewModal(order)}
@@ -424,7 +528,9 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
             ) : (
               <div className="text-center py-8">
                 <p className="text-gray-500">
-                  {searchTerm ? 'No orders found matching your search.' : 'You have no orders yet.'}
+                  {searchTerm
+                    ? "No orders found matching your search."
+                    : "You have no orders yet."}
                 </p>
               </div>
             )}

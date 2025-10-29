@@ -11,7 +11,6 @@ export default async function RestaurantsListing() {
     return restaurant.status === "approved";
   });
 
-  // console.log(restaurants);
 
   return (
     <div className=" ">

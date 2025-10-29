@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { IoHeart } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function RestaurantsCard({ restaurant }) {
   const { data: session } = useSession();
@@ -107,16 +108,17 @@ export default function RestaurantsCard({ restaurant }) {
 
   return (
     <div className=" group card m-3  bg-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden rounded-2xl">
-      <div className=" card-body  relative">
+      <div className=" p-6  max-w-[345px]  relative">
         {/* Logo and Restaurant Info */}
         <div className="  flex flex-col items-center">
           {/* Larger Circular Logo with Border Animation */}
           <div className="relative mb-4">
-            <div className="min-w-48 min-h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
-              <img
+            <div className="relative min-w-48 min-h-48 rounded-full overflow-hidden border-4 border-orange-300 p-1 bg-white">
+              <Image
                 className="w-full h-full rounded-full object-cover hover:scale-110 transition-transform duration-300"
                 src={restaurant.logo}
                 alt={restaurant.name}
+                fill
               />
             </div>
 
@@ -201,7 +203,7 @@ export default function RestaurantsCard({ restaurant }) {
         {/* add to favorite and remove to favorite */}
         <button
           onClick={handleToggle}
-          className="absolute transform transition hover:scale-110 duration-300  top-0.5 right-1 p-2"
+          className="absolute transform transition hover:scale-110 duration-300 cursor-pointer  top-0.5 right-1 p-2"
         >
           {isFavorite ? (
             <GoHeartFill size={24} color="#F97316" />

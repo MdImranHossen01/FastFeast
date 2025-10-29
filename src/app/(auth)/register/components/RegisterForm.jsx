@@ -55,7 +55,7 @@ export default function RegisterForm() {
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        photoUrl,
+        image: photoUrl,
       });
 
       if (result.success) {

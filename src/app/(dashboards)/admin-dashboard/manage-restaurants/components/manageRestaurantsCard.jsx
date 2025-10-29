@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import PendingRestaurants from "./pendingRestaurants";
 import ApprovedRestaurants from "./approvedRestaurants";
-import Swal from "sweetalert2";
-import ViewApproved from "./viewModal";
+// import Swal from "sweetalert2";
+// import ViewApproved from "./viewModal";
 import ViewModal from "./viewModal";
-import deleteRestaurantById from "@/app/actions/restaurants/deleteMenuById";
+// import deleteRestaurantById from "@/app/actions/restaurants/deleteMenuById";
 
 export default function ManageRestaurantsCard({ restaurants }) {
   const [allRestaurants, setAllRestaurants] = useState(restaurants);
@@ -48,7 +48,6 @@ export default function ManageRestaurantsCard({ restaurants }) {
        mt-4 md:w-[400px] lg:w-[500px] "
         />
       </div>
-
       {/* Pending Restaurant Requests */}
       <h2 className="text-2xl text-center font-bold dark:text-white py-5">
         Pending Restaurant Requests
@@ -60,7 +59,6 @@ export default function ManageRestaurantsCard({ restaurants }) {
           handleModal={handleModal}
         />
       </div>
-
       {/* Approved Restaurants */}
       <h2 className="text-2xl text-center font-bold dark:text-white py-9">
         Approved Restaurants
@@ -72,14 +70,16 @@ export default function ManageRestaurantsCard({ restaurants }) {
           handleModal={handleModal}
         />
       </div>
+      {/* modal */}
+
       <dialog id="my_modal_2" className="modal">
-        <div className="modal-box   overflow-auto">
+        <div className="modal-box max-w-4xl overflow-auto p-0">
           {isOpen && (
             <ViewModal
-              setIsOpen={setIsOpen}
               isOpen={isOpen}
               restaurants={restaurants}
-            ></ViewModal>
+              onClose={() => document.getElementById("my_modal_2").close()}
+            />
           )}
         </div>
         <form method="dialog" className="modal-backdrop">

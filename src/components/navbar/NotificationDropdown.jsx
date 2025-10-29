@@ -13,14 +13,14 @@ const formatDate = (dateString) => {
   return d.toLocaleDateString(undefined, options);
 };
 
-const NotificationDropdown = ({ 
-  isOpen, 
+const NotificationDropdown = ({
+  isOpen,
   setIsOpen, // Make sure this prop is defined
-  notifications, 
-  unreadCount, 
-  markAsRead, 
+  notifications,
+  unreadCount,
+  markAsRead,
   markAllAsRead,
-  dropdownRef 
+  dropdownRef,
 }) => {
   return (
     <div className="relative" ref={dropdownRef}>
@@ -33,7 +33,7 @@ const NotificationDropdown = ({
             {unreadCount}
           </span>
         )}
-        <IoMdNotifications size={25} />
+        <IoMdNotifications size={25} className="cursor-pointer" />
       </button>
 
       <AnimatePresence>

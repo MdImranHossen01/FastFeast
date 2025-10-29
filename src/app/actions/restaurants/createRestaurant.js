@@ -108,7 +108,6 @@ export const createRestaurant = async (formData) => {
       avgCostForTwo,
     };
 
-    console.log("Restaurant data:", restaurantData);
 
     // Connect to MongoDB
     const client = new MongoClient(process.env.MONGODB_URI);

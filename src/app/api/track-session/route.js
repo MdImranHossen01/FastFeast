@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { getServerSession } from 'next-auth';
+import connectMongooseDb from "@/lib/mongoose";
 import Traffic from '@/models/traffic.model';
 import User from '@/models/user.model';
 
 export async function POST(request) {
   try {
+
+    await connectMongooseDb();
     const headersList = await headers();
     const session = await getServerSession();
     

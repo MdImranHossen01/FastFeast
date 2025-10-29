@@ -16,6 +16,7 @@ import {
   FaComments,
   FaWallet,
 } from "react-icons/fa";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { data: session, update: updateSession } = useSession();
@@ -179,13 +180,14 @@ export default function ProfilePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-orange-600/60 to-black/80"></div>
         <div className="absolute bottom-8 w-full flex flex-col items-center text-center text-white">
           <div className="relative">
-            <img
+            <Image
               src={
                 previewImage ||
                 profileData.image ||
                 "https://cdn-icons-png.flaticon.com/512/747/747545.png"
               }
               alt="Profile"
+              fill
               className="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover"
             />
             <button
@@ -246,14 +248,15 @@ export default function ProfilePage() {
               Edit Profile
             </h3>
 
-            <div className="flex flex-col items-center mb-4">
-              <img
+            <div className="relative flex flex-col items-center mb-4">
+              <Image
                 src={
                   previewImage ||
                   profileData.image ||
                   "https://cdn-icons-png.flaticon.com/512/747/747545.png"
                 }
                 alt="Preview"
+                fill
                 className="w-24 h-24 rounded-full border-2 border-orange-500 object-cover"
               />
               <input

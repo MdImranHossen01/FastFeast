@@ -131,12 +131,17 @@ export const OurTeam = () => {
         },
     ]
     return (
-        <section className="py-16 px-4">
-            <div className="container mx-auto">
+        <section
+            style={{
+                backgroundImage: `linear-gradient(to bottom, #00000085 , #00000099), url(/team_working_together.webp)`,
+            }}
+            className="flex justify-center items-center bg-center bg-cover bg-no-repeat min-h-[600px] md:min-h-screen bg-fixed px-4"
+        >
+            <div className="container mx-auto py-24">
                 <h3 className="text-xl font-bold text-center text-gray-400">
                     MEET OUR BEST EMPLOYEES
                 </h3>
-                <h1 className='text-center text-3xl md:text-4xl font-semibold my-5 mb-14'>
+                <h1 className='text-center text-gray-200 text-3xl md:text-4xl font-semibold my-5 mb-14'>
                     <span className="text-orange-600">
                         EMPLOYEES {" "}
                     </span>
@@ -151,13 +156,14 @@ export const OurTeam = () => {
                                 <div className="bg-linear-to-bl from-red-600/5 via-red-600/10 to-red-600/50 w-[110%] h-[110%] absolute  translate-y-[100%] -translate-x-[100%] group-hover:-translate-y-10 group-hover:-translate-x-0 duration-300 z-10">
 
                                 </div>
-                                <figure>
+                                <figure className='relative'>
                                     {/* Profile image */}
-                                    <img
+                                    <Image
                                         className='max-h-[400px] object-cover object-top w-full group-hover:scale-105 duration-300 overflow-hidden'
                                         // width={748}
                                         // height={1123}
                                         src={developer.image}
+                                        fill
                                         alt={`Image of ${developer.name}`}
                                     // unoptimized={true}
                                     />

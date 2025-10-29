@@ -57,7 +57,6 @@ export const useOrderManagement = () => {
       const data = await response.json();
       
       if (data.success) {
-        console.log('Fetched riders:', data.users);
         setRiders(data.users);
       } else {
         toast.error(data.message || 'Failed to fetch riders');
@@ -149,8 +148,7 @@ export const useOrderManagement = () => {
   // Assign rider to order
   const assignRiderToOrder = async (orderId, riderId) => {
     try {
-      console.log('Assigning rider to order:', { orderId, riderId });
-      console.log('Type of riderId:', typeof riderId);
+     
       
       const response = await fetch(`/api/orders/${orderId}`, {
         method: 'PATCH',

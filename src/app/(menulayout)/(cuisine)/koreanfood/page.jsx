@@ -1,5 +1,5 @@
 import React from "react";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "../../menus/components/MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
 
 
@@ -9,7 +9,6 @@ const KoreanFoodPage = async () => {
 
   // Filter menus to only show Korean cuisine
   const KoreanMenus = menus.filter((menu) => menu.cuisine === "Korean");
-  console.log("Korean menus:", KoreanMenus);
 
   return (
     <div className="container mx-auto px-4 py-8">

@@ -42,7 +42,8 @@ export default function LoginForm() {
         setShowOtp(true);
       } else if (res?.ok) {
         Swal.fire("Success", "Logged in successfully", "success");
-        router.push("/");
+        // Use window.location for full page refresh to ensure session loads in production
+        window.location.href = "/";
       } else {
         Swal.fire("Error", res?.error || "Login failed", "error");
       }

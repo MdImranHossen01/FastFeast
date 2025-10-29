@@ -11,7 +11,7 @@ export default function DashboardLinks() {
   // const user = session?.user;
 
   const user = {
-    role: "admin",
+    role: "restaurant",
   };
 
   const linkStyle = (href) =>
@@ -69,48 +69,124 @@ export default function DashboardLinks() {
           </li>
           <li>
             <Link
-              href="/restaurant-dashboard/manage-orders"
-              className={linkStyle("/manage-orders")}
+              href="/admin-dashboard/manage-newsletter"
+              className={linkStyle("/manage-newsletter")}
             >
-              Manage Ordres
+              Manage Newsletter
             </Link>
           </li>
           <li>
             <Link
-              href="/user-dashboard/MyFavouriteMenu"
-              className={linkStyle("/MyFavouriteMenu")}
+              href="/admin-dashboard/manage-moderator"
+              className={linkStyle("/manage-moderator")}
             >
-              My Favourite Menus
+              Manage Moderator
             </Link>
           </li>
         </>
       )}
 
-      {/* user links */}
-      {user.role === "user" && (
+      {/* moderator links */}
+      {user.role === "moderator" && (
         <>
           <li>
             <Link
-              href="/user-dashboard"
-              className={linkStyle("/user-dashboard")}
+              href="/moderator-dashboard"
+              className={linkStyle("/moderator-dashboard")}
             >
               Home
             </Link>
           </li>
           <li>
             <Link
-              href="/user-dashboard/orders-history"
-              className={linkStyle("/user-dashboard/orders-history")}
+              href="/moderator-dashboard/manage-riders"
+              className={linkStyle("/moderator-dashboard/manage-riders")}
             >
-              Orders History
+              Manage Riders
             </Link>
           </li>
           <li>
             <Link
-              href="/customer-dashboard/payments-history"
-              className={linkStyle("/customer-dashboard/payments-history")}
+              href="/moderator-dashboard/manage-blogs"
+              className={linkStyle("/moderator-dashboard/manage-blogs")}
             >
-              Payments History
+              Manage Blogs
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/moderator-dashboard/manage-reviews"
+              className={linkStyle("/moderator-dashboard/manage-reviews")}
+            >
+              Manage Reviews
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/moderator-dashboard/manage-newsletter"
+              className={linkStyle("/moderator-dashboard/manage-newsletter")}
+            >
+              Manage Newsletter
+            </Link>
+          </li>
+        </>
+      )}
+
+      {/* restaurant links */}
+      {user.role === "restaurant" && (
+        <>
+          <li>
+            <Link
+              href="/restaurant-dashboard"
+              className={linkStyle("/restaurant-dashboard")}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/restaurant-dashboard/manage-orders"
+              className={linkStyle("/restaurant-dashboard/manage-orders")}
+            >
+              Manage Orders
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/restaurant-dashboard/manage-menus"
+              className={linkStyle("/restaurant-dashboard/manage-menus")}
+            >
+              Manage Menus
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/restaurant-dashboard/add-menu"
+              className={linkStyle("/restaurant-dashboard/add-menu")}
+            >
+              Add Menu
+            </Link>
+          </li>
+        </>
+      )}
+
+      {/* rider links */}
+      {user.role === "rider" && (
+        <>
+          <li>
+            <Link
+              href="/rider-dashboard"
+              className={linkStyle("/rider-dashboard")}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/rider-dashboard/orders-history"
+              className={linkStyle("/rider-dashboard/orders-history")}
+            >
+              Orders History
             </Link>
           </li>
         </>

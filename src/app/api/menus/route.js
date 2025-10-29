@@ -2,45 +2,39 @@ import { NextResponse } from "next/server";
 import connectMongooseDb from "@/lib/mongoose";
 import Menu from "@/models/menu.model";
 
-// CREATE a new Menu
+// CREATE a new Menu - Keep as is
 export async function POST(req) {
   try {
-    // Parse the request body
     const menuData = await req.json();
-
-    // Destructure required fields
     const {
-      slug,
-      name,
-      bio,
-      logo,
-      banner,
-      cuisines,
-      currency,
-      deliveryFee,
-      estimatedDeliveryTime,
-      location,
-      contact,
-      openingHours,
-      ownerId,
-      isActive,
-      status,
+      title,
+      imageUrl,
+      description,
+      price,
+      cuisine,
+      category,
+      ingredients,
+      dietaryTags,
+      restaurantId,
+      availability,
+      isCombo,
+      isSpecialOffer,
+      discountRate,
+      offerPrice,
       reviewsCount,
       rating,
     } = menuData;
 
-    // Basic validation
     if (
-      !slug ||
-      !name ||
-      !bio ||
-      !logo ||
-      !banner ||
-      !cuisines ||
-      !location ||
-      !contact ||
-      !openingHours ||
-      !ownerId
+      !title ||
+      !imageUrl ||
+      !description ||
+      !price ||
+      !cuisine ||
+      !category ||
+      !ingredients ||
+      !dietaryTags ||
+      !restaurantId
     ) {
       return NextResponse.json(
         { success: false, message: "Missing required fields" },
@@ -48,37 +42,31 @@ export async function POST(req) {
       );
     }
 
-    // Connect to MongoDB
     await connectMongooseDb();
-
-    // Create new menu
     const newMenu = await Menu.create({
-      slug,
-      name,
-      bio,
-      logo,
-      banner,
-      cuisines,
-      currency,
-      deliveryFee,
-      estimatedDeliveryTime,
-      location,
-      contact,
-      openingHours,
-      ownerId,
-      isActive,
-      status,
+      title,
+      imageUrl,
+      description,
+      price,
+      cuisine,
+      category,
+      ingredients,
+      dietaryTags,
+      restaurantId,
+      availability,
+      isCombo,
+      isSpecialOffer,
+      discountRate,
+      offerPrice,
       reviewsCount,
       rating,
     });
 
-    // Return the created menu
     return NextResponse.json(
       { success: true, menu: newMenu.toObject() },
       { status: 201 }
     );
   } catch (error) {
-    // Log the error for debugging
     console.error("Error creating menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
@@ -87,23 +75,47 @@ export async function POST(req) {
   }
 }
 
-// GET all menus
+// GET all menus - OPTIMIZED with better error handling
 export async function GET() {
   try {
-    // Ensure DB connection
-    await connectMongooseDb();
+    // Try to connect to database
+    let dbConnected = false;
+    try {
+      await connectMongooseDb();
+      dbConnected = true;
+    } catch (dbError) {
+      console.log("Menus API: Database not available");
+    }
 
-    // Fetch all menus
-    const menus = await Menu.find();
+    let menus = [];
 
-    // Return the list of menus
-    return NextResponse.json(menus, { status: 200 });
+    if (dbConnected) {
+      try {
+        // ✅ OPTIMIZATION: Select only needed fields + limit + lean
+        menus = await Menu.find()
+          .select('title imageUrl description price cuisine category isSpecialOffer discountRate offerPrice rating restaurantId')
+          .limit(100)
+          .lean();
+      } catch (queryError) {
+        console.log("Menus API: Could not fetch menus from database");
+      }
+    }
+
+    // ✅ OPTIMIZATION: Add caching headers
+    return NextResponse.json(menus, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60'
+      }
+    });
   } catch (error) {
-    // Log the error for debugging
     console.error("Error fetching menus:", error);
-    return NextResponse.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
+    // Return empty array instead of error to prevent frontend crashes
+    return NextResponse.json([], { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
+    });
   }
 }

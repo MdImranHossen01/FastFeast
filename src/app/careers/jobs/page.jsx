@@ -1,8 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import JobsContainer from '../components/JobsContainer'
+
 import Loading from '@/app/loading';
 import Error from 'next/error';
+import JobsContainer from '../page';
 
 export default function JobsPage() {
    const [jobs, setJobs] = useState([]);
@@ -24,7 +25,6 @@ export default function JobsPage() {
 
     getJobs();
   }, []); 
-  console.log(jobs)
 
   if (loading) return <Loading/>;
   return (

@@ -23,8 +23,13 @@ const LiveTraffic = () => {
   const dragStartPos = useRef({ x: 0, y: 0 });
   const buttonRef = useRef(null);
   const panelRef = useRef(null);
+  
+  // Prevent multiple API calls
+  const hasFetchedRef = useRef(false);
+  const hasTrackedSessionRef = useRef(false);
+  const isComponentMountedRef = useRef(false);
 
-  // Get or create session ID with better persistence
+  // Get or create session ID
   const getSessionId = () => {
     if (typeof window === 'undefined') return null;
     
@@ -38,7 +43,7 @@ const LiveTraffic = () => {
 
   // Fetch live data - ONLY REAL DATA
   const fetchTrafficData = async () => {
-    if (!isOnline) return;
+    if (!isOnline || !isComponentMountedRef.current) return;
     
     setIsLoading(true);
     try {
@@ -62,8 +67,10 @@ const LiveTraffic = () => {
     }
   };
 
-  // Track user session with better timing and persistence
+  // Track user session
   const trackSession = async () => {
+    if (!isComponentMountedRef.current) return;
+    
     try {
       const sessionId = getSessionId();
       if (!sessionId) return;
@@ -86,6 +93,7 @@ const LiveTraffic = () => {
         setIsOpen(true);
         setIsAnimating(true);
         fetchTrafficData();
+        trackSession();
         
         // Reset animation state after opening
         setTimeout(() => setIsAnimating(false), 300);
@@ -98,21 +106,6 @@ const LiveTraffic = () => {
         }, 200);
       }
     }
-  };
-
-  // Track page visibility and navigation
-  const trackPageActivity = () => {
-    trackSession();
-    
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        trackSession();
-        if (isOpen) fetchTrafficData();
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   };
 
   // ✅ Initial position before first paint (no flicker)
@@ -178,26 +171,45 @@ const LiveTraffic = () => {
     };
   }, [isDragging]);
 
-  // --- Data Updates ---
+  // Component mount/unmount tracking
   useEffect(() => {
-    fetchTrafficData();
-    const visibilityCleanup = trackPageActivity();
-
-    const trafficInterval = setInterval(fetchTrafficData, 10000);
-    const sessionInterval = setInterval(trackSession, 30000);
-
+    isComponentMountedRef.current = true;
+    
     return () => {
-      clearInterval(trafficInterval);
-      clearInterval(sessionInterval);
-      visibilityCleanup();
+      isComponentMountedRef.current = false;
     };
-  }, [isOnline, isOpen]);
+  }, []);
+
+  // --- Data Updates - FIXED (Prevent multiple calls) ---
+  useEffect(() => {
+    // Only fetch once on initial mount when component is visible
+    if (!hasFetchedRef.current && isComponentMountedRef.current) {
+      fetchTrafficData();
+      hasFetchedRef.current = true;
+    }
+    
+    // Only track session once on initial mount  
+    if (!hasTrackedSessionRef.current && isComponentMountedRef.current) {
+      trackSession();
+      hasTrackedSessionRef.current = true;
+    }
+  }, []); // Empty dependency array
+
+  // Fetch data only when panel opens
+  useEffect(() => {
+    if (isOpen && isComponentMountedRef.current) {
+      fetchTrafficData();
+      trackSession();
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
-      fetchTrafficData();
-      trackSession();
+      if (isOpen && isComponentMountedRef.current) {
+        fetchTrafficData();
+        trackSession();
+      }
     };
     const handleOffline = () => setIsOnline(false);
     
@@ -208,14 +220,7 @@ const LiveTraffic = () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, []);
-
-  // Track session on component mount
-  useEffect(() => {
-    trackSession();
-    const interval = setInterval(trackSession, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  }, [isOpen]);
 
   // --- Render ---
   return (

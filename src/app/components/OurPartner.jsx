@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
 import "swiper/css";
+import Image from "next/image";
 
 // Your partner logos array
 const partnerLogos = [
@@ -22,12 +23,12 @@ const partnerLogos = [
 
 const OurPartner = () => {
   return (
-    <section className="bg-orange-600 w-full">
+    <section className="bg-gray-100 w-full">
       <div className="container mx-auto py-24 px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="mb-4 text-4xl font-bold text-white">
-           Our Partners
+          <h2 className="mb-4 text-4xl font-bold text-gray-800">
+           Our <span className="text-orange-600">Partners</span>
           </h2>
           
         </div>
@@ -50,10 +51,11 @@ const OurPartner = () => {
         >
           {partnerLogos.map((logo, index) => (
             <SwiperSlide key={index} className="cursor-pointer">
-              <div className="flex items-center justify-center h-40 lg:h-60">
-                <img
+              <div className="relative flex items-center justify-center h-40 lg:h-60">
+                <Image
                   src={logo.src}
                   alt={logo.alt}
+                  fill
                   className="max-h-60 w-auto object-contain filter hover:grayscale-0 transition-all duration-300 hover:scale-110"
                 />
               </div>

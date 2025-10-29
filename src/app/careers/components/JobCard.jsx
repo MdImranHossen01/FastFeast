@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { Briefcase, MapPin, CalendarDays, DollarSign } from "lucide-react"; // icons
 
@@ -5,10 +6,11 @@ export default function JobCard({ job }) {
   return (
     <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all p-6 border border-gray-100">
       {/* Logo & Company */}
-      <div className="flex items-center gap-3 mb-4">
-        <img
+      <div className="relative flex items-center gap-3 mb-4">
+        <Image
           src={job.company_logo}
           alt={job.company}
+          fill
           className="w-10 h-10 rounded-full object-cover"
         />
         <div>
@@ -50,7 +52,7 @@ export default function JobCard({ job }) {
       </p>
 
       {/* Button */}
-      <button className="w-full py-2 bg-gradient-to-r from-green-600 via-lime-500 to-yellow-400 hover:from-green-700 hover:via-lime-600 hover:to-yellow-500 text-white font-medium rounded-xl transition duration-300 shadow-md hover:shadow-lg">
+      <button className="w-full py-2 bg-linear-to-r/oklch from-green-500 to-lime-400 hover:from-green-700 hover:via-lime-600 hover:to-yellow-500 text-white font-medium rounded-xl transition duration-300 shadow-md hover:shadow-lg">
         Apply Now
       </button>
 

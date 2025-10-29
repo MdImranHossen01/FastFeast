@@ -4,6 +4,8 @@ import getBlogs from "@/app/actions/blogs/getBlogs";
 import ReactMarkdown from "react-markdown";
 import RelatedBlogSidebar from "../components/RelatedBlogSlider";
 import SocialIcons from "../components/SocialIcons";
+import DOMPurify from "dompurify";
+import Image from "next/image";
 
 export default async function BlogDetails({ params }) {
   const { slug } = await params;
@@ -29,10 +31,11 @@ export default async function BlogDetails({ params }) {
   return (
     <main className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 bg-white shadow-lg rounded-lg mt-10 mb-20">
       {/* Header Image */}
-      <div className="w-full mb-8 overflow-hidden rounded-lg">
-        <img
+      <div className="relative w-full mb-8 overflow-hidden rounded-lg">
+        <Image
           src={post.coverImage || post.image}
           alt={post.title}
+          fill
           className="w-full h-[400px] object-cover rounded-lg"
         />
       </div>
@@ -47,8 +50,8 @@ export default async function BlogDetails({ params }) {
 
           {/* Author Info */}
           <div className="flex items-center gap-4 mb-3 text-gray-600 text-sm">
-            <div className="flex items-center gap-2">
-              <img
+            <div className="relative flex items-center gap-2">
+              <Image
                 src={post.authorPhoto || "/user.png"}
                 alt={post.author}
                 className="w-10 h-10 rounded-full object-cover"
@@ -58,7 +61,7 @@ export default async function BlogDetails({ params }) {
                   {post.author}
                 </span>
                 <span className="text-gray-500">
-                  {new Date(post.publishDate).toLocaleDateString("en-US", {
+                  {new Date(post.createdAt).toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
                     year: "numeric",
@@ -74,9 +77,22 @@ export default async function BlogDetails({ params }) {
             <span className="font-medium">{post.visitCount || 0}</span> views
           </div>
 
-          <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
+          {/* <div className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10">
             <ReactMarkdown>{post.details}</ReactMarkdown>
-          </div>
+          </div> */}
+          {/* <div
+            className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.details) }}
+          ></div> */}
+
+          <div
+            className="prose prose-lg max-w-none leading-relaxed text-gray-800 mb-10"
+            dangerouslySetInnerHTML={{ __html: post.details }}
+          ></div>
+
+
+
+
 
           {/* Tags */}
           <div className="flex items-center flex-wrap gap-3 mt-6">
@@ -99,10 +115,11 @@ export default async function BlogDetails({ params }) {
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {post.gallery.map((img, i) => (
-                  <div key={i} className="overflow-hidden rounded-lg">
-                    <img
+                  <div key={i} className="relative overflow-hidden rounded-lg">
+                    <Image
                       src={img}
                       alt={`Gallery ${i}`}
+                      fill
                       className="w-full h-56 object-cover hover:scale-105 transition-transform"
                     />
                   </div>
@@ -116,10 +133,11 @@ export default async function BlogDetails({ params }) {
         <aside className="md:col-span-4 space-y-8">
           <div className="p-6 bg-gray-50 rounded-lg shadow-sm">
             <h2 className="text-xl font-semibold mb-4">About the Author</h2>
-            <div className="flex flex-col items-center text-center">
-              <img
+            <div className="relative flex flex-col items-center text-center">
+              <Image
                 src={post.authorPhoto || "/default-avatar.png"}
                 alt={post.author}
+                fill
                 className="w-20 h-20 rounded-full mb-3 object-cover"
               />
               <p className="text-gray-600 text-sm">

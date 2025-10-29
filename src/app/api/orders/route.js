@@ -1,67 +1,70 @@
-// src/app/api/orders/route.js
-import { getCollection, serializeDocument, ObjectId } from '@/lib/dbConnect';
+import connectMongooseDb from "@/lib/mongoose";
+import Order from "@/models/order.model";
+import { NextResponse } from "next/server";
 
-export async function GET(request) {
+export async function POST(req) {
   try {
-    const { searchParams } = new URL(request.url);
-    const userEmail = searchParams.get('userEmail');
-    
-    // Build query
-    let query = {};
-    if (userEmail) {
-      query['customerInfo.email'] = userEmail;
-    }
-    
-    // Get orders collection
-    const ordersCollection = await getCollection('orders');
-    
-    // Find orders
-    const orders = await ordersCollection
-      .find(query)
-      .sort({ createdAt: -1 })
-      .toArray();
-    
-    // Serialize documents to JSON-safe format
-    const serializedOrders = serializeDocument(orders);
-    
-    return Response.json({
-      success: true,
-      orders: serializedOrders
+    // Parse the request body
+    const orderData = await req.json();
+
+    // Destructure required fields
+    const {
+      orderId,
+      customerInfo,
+      items,
+      paymentMethod,
+      paymentIntentId,
+      pricing,
+      status,
+      estimatedDelivery,
+      userId,
+      riderInfo,
+    } = orderData;
+
+    // Ensure DB connection
+    await connectMongooseDb();
+
+    // Create a new order
+    const newOrder = await Order.create({
+      orderId,
+      customerInfo,
+      items,
+      paymentMethod,
+      paymentIntentId,
+      pricing,
+      status,
+      estimatedDelivery,
+      userId,
+      riderInfo,
     });
+
+    // Return the created order
+    return NextResponse.json(newOrder, { status: 201 });
   } catch (error) {
-    console.error('Error fetching orders:', error);
-    return Response.json(
-      { success: false, message: 'Failed to fetch orders', error: error.message },
+    // Log the error for debugging
+    console.error("Error creating order:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
       { status: 500 }
     );
   }
 }
 
-export async function POST(request) {
+export async function GET() {
   try {
-    const body = await request.json();
-    
-    // Get orders collection
-    const ordersCollection = await getCollection('orders');
-    
-    // Create new order
-    const result = await ordersCollection.insertOne({
-      ...body,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    
-    // Fetch the created order
-    const newOrder = await ordersCollection.findOne({ _id: result.insertedId });
-    
-    return Response.json({
-      success: true,
-      order: serializeDocument(newOrder)
-    }, { status: 201 });
+    // Ensure DB connection
+    await connectMongooseDb();
+
+    // Fetch all orders
+    const orders = await Order.find();
+
+    // Return the list of orders
+    return NextResponse.json(orders, { status: 200 });
   } catch (error) {
-    console.error('Error creating order:', error);
-    return Response.json(
-      { success: false, message: 'Failed to create order', error: error.message },
+    // Log the error for debugging
+    console.log(error);
+    return NextResponse.json(
+      { success: false, message: error.message },
       { status: 500 }
     );
   }

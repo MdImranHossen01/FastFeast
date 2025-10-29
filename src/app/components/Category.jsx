@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
 
 // A reusable component for each category tile
 const CategoryTile = ({ title, imageUrl, bgColor, textColor, url }) => {
@@ -16,9 +16,10 @@ const CategoryTile = ({ title, imageUrl, bgColor, textColor, url }) => {
       >
         {/* Background Image */}
         {imageUrl && (
-          <img
+          <Image
             src={imageUrl}
             alt={title}
+            fill
             className="w-full h-full object-cover absolute inset-0
                      group-hover:scale-105 transition-transform duration-500 ease-in-out"
           />
@@ -70,7 +71,7 @@ const CategorySection = () => {
           title="Kebab"
           imageUrl="https://i.ibb.co.com/HD7LD1Jr/kebab.jpg"
           bgColor="bg-purple-900"
-          url="/kebab"  
+          url="/kebab"
         />
         <CategoryTile
           title="Cakes"

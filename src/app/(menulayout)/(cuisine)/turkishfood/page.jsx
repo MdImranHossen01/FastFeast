@@ -1,5 +1,5 @@
 import React from "react";
-import MenuCard from "../../menu/components/MenuCard";
+import MenuCard from "../../menus/components/MenuCard";
 import getMenu from "@/app/actions/menus/getMenus";
 
 
@@ -9,7 +9,6 @@ const TurkishFoodPage = async () => {
 
   // Filter menus to only show Turkish cuisine
   const TurkishMenus = menus.filter((menu) => menu.cuisine === "Turkish");
-  console.log("Turkish menus:", TurkishMenus);
 
   return (
     <div className="container mx-auto px-4 py-8">

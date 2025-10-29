@@ -1,0 +1,60 @@
+[
+  {
+    "orderId": "ORD-MB8O6D7Q-5XZ1Y9",
+    "customerInfo": {
+      "fullName": "John Miller",
+      "email": "demo-user-3@fastfeast.com",
+      "phone": "16466286440",
+      "address": "Barabari, Lalmonirhat",
+      "city": "Lalmonirhat",
+      "postalCode": "5500"
+    },
+    "items": [
+      {
+        "itemId": "68f09b69b43773ea7c5016c8",
+        "title": "Classic Tom Yum Soup",
+        "price": 320,
+        "quantity": 1,
+        "specialInstructions": ""
+      },
+      {
+        "itemId": "68f09bbcb43773ea7c5016cc",
+        "title": "Authentic Pad Thai",
+        "price": 380,
+        "quantity": 1,
+        "specialInstructions": ""
+      },
+      {
+        "itemId": "68f09c12b43773ea7c5016d0",
+        "title": "Thai Green Curry",
+        "price": 420,
+        "quantity": 1,
+        "specialInstructions": ""
+      },
+      {
+        "itemId": "68f09c47b43773ea7c5016d4",
+        "title": "Mango Sticky Rice",
+        "price": 220,
+        "quantity": 1,
+        "specialInstructions": ""
+      }
+    ],
+    "paymentMethod": "",
+    "paymentIntentId": "",
+    "pricing": {
+      "subtotal": 1340,
+      "deliveryFee": 50,
+      "tax": 134,
+      "total": 1524
+    },
+    "userId": "68ea8f1e887188e51ebdfb64",
+    "riderInfo": {
+      "riderId": "68ea8f1e887188e51ebdfb66",
+      "riderName": "Jane Smith",
+      "riderEmail": "demo-rider-2@fastfeast.com",
+      "riderPhone": "+17892479864",
+      "photoUrl": "https://i.ibb.co.com/mCychrjx/lawyer-6.jpg",
+      "vehicleType": "Scooter"
+    }
+  }
+]

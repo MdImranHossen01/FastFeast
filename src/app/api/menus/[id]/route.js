@@ -2,19 +2,18 @@ import connectMongooseDb from "@/lib/mongoose";
 import Menu from "@/models/menu.model";
 import { NextResponse } from "next/server";
 
-// GET menu by ID
+// GET menu by ID - OPTIMIZED
 export async function GET(req, { params }) {
   try {
-    // Extract restaurant ID from params
     const { id } = await params;
 
-    // Ensure DB connection
     await connectMongooseDb();
 
-    // Fetch menu by ID
-    const menu = await Menu.findById(id);
+    // ✅ OPTIMIZATION: Select only needed fields + use lean()
+    const menu = await Menu.findById(id)
+      .select('title imageUrl description price cuisine category ingredients dietaryTags restaurantId availability isCombo isSpecialOffer discountRate offerPrice reviewsCount rating')
+      .lean();
 
-    // Handle case where menu is not found
     if (!menu) {
       return NextResponse.json(
         { success: false, message: "Menu not found" },
@@ -22,10 +21,14 @@ export async function GET(req, { params }) {
       );
     }
 
-    // Return the found menu
-    return NextResponse.json(menu, { status: 200 });
+    // ✅ OPTIMIZATION: Add caching headers for single menu
+    return NextResponse.json(menu, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
+      }
+    });
   } catch (error) {
-    // Log the error for debugging
     console.error("Error fetching menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
@@ -34,26 +37,26 @@ export async function GET(req, { params }) {
   }
 }
 
-// PATCH (update) menu by ID
+// PATCH (update) menu by ID - OPTIMIZED
 export async function PATCH(req, { params }) {
   try {
-    // Extract menu ID from params
     const { id } = await params;
-
-    // Parse the request body to get update data
     const updateData = await req.json();
 
-    // Ensure DB connection
     await connectMongooseDb();
 
-    // Update the menu and return the updated document
+    // ✅ OPTIMIZATION: Select only needed fields in response
     const updatedMenu = await Menu.findByIdAndUpdate(
       id,
       { $set: updateData },
-      { new: true, runValidators: true, context: "query" }
+      { 
+        new: true, 
+        runValidators: true, 
+        context: "query",
+        select: 'title imageUrl description price cuisine category ingredients dietaryTags restaurantId availability isCombo isSpecialOffer discountRate offerPrice reviewsCount rating'
+      }
     );
 
-    // Handle case where menu is not found
     if (!updatedMenu) {
       return NextResponse.json(
         { success: false, message: "Menu not found" },
@@ -61,10 +64,8 @@ export async function PATCH(req, { params }) {
       );
     }
 
-    // Return the updated menu
     return NextResponse.json(updatedMenu, { status: 200 });
   } catch (error) {
-    // Log the error for debugging
     console.error("Error updating menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },
@@ -73,19 +74,17 @@ export async function PATCH(req, { params }) {
   }
 }
 
-// DELETE menu by ID
+// DELETE menu by ID - OPTIMIZED
 export async function DELETE(req, { params }) {
   try {
-    // Extract menu ID from params
     const { id } = await params;
 
-    // Ensure DB connection
     await connectMongooseDb();
 
-    // Delete the menu by ID
-    const deletedMenu = await Menu.findByIdAndDelete(id);
+    // ✅ OPTIMIZATION: Select only needed fields in response
+    const deletedMenu = await Menu.findByIdAndDelete(id)
+      .select('title restaurantId');
 
-    // Handle case where menu is not found
     if (!deletedMenu) {
       return NextResponse.json(
         { success: false, message: "Menu not found" },
@@ -93,17 +92,18 @@ export async function DELETE(req, { params }) {
       );
     }
 
-    // Return success response
     return NextResponse.json(
       {
         success: true,
         message: "Menu deleted successfully",
-        deletedMenu,
+        deletedMenu: {
+          title: deletedMenu.title,
+          restaurantId: deletedMenu.restaurantId
+        },
       },
       { status: 200 }
     );
   } catch (error) {
-    // Log the error for debugging
     console.error("Error deleting menu:", error);
     return NextResponse.json(
       { success: false, message: error.message },

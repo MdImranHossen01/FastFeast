@@ -1,80 +1,101 @@
 import { NextResponse } from "next/server";
-import { getCollection, serializeDocument, ObjectId } from "@/lib/dbConnect";
+import connectMongooseDb from "@/lib/mongoose";
+import Review from "@/models/review.model";
 
-export async function GET(req, { params }) {
+// ✅ GET reviews for a specific menu - OPTIMIZED
+export async function GET(request, { params }) {
   try {
-    const param = await params;
-    const menuId = param.id;
-
-    if (!menuId) {
+    const { id } = await params;
+    
+    if (!id) {
       return NextResponse.json(
         { success: false, message: "Menu ID is required" },
         { status: 400 }
       );
     }
 
-    // Validate if menuId is a valid ObjectId
-    if (!ObjectId.isValid(menuId)) {
+    await connectMongooseDb();
+
+    // ✅ OPTIMIZATION: Use aggregation for faster calculation
+    const ratingStats = await Review.aggregate([
+      { $unwind: "$itemReviews" },
+      { $match: { "itemReviews.menuId": id } },
+      {
+        $group: {
+          _id: "$itemReviews.menuId",
+          averageRating: { $avg: "$itemReviews.rating" },
+          totalReviews: { $sum: 1 }
+        }
+      }
+    ]);
+
+    const result = ratingStats.length > 0 
+      ? {
+          averageRating: ratingStats[0].averageRating || 0,
+          totalReviews: ratingStats[0].totalReviews || 0
+        }
+      : {
+          averageRating: 0,
+          totalReviews: 0
+        };
+
+    // ✅ OPTIMIZATION: Add caching headers
+    return NextResponse.json({
+      success: true,
+      ...result
+    }, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60'
+      }
+    });
+
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+// ✅ CREATE a new Review - Keep as is
+export async function POST(req) {
+  try {
+    const reviewData = await req.json();
+    const { orderId, userId, riderReview, itemReviews } = reviewData;
+
+    if (!orderId || !userId) {
       return NextResponse.json(
-        { success: false, message: "Invalid menu ID format" },
+        { success: false, message: "Order ID and userId are required" },
         { status: 400 }
       );
     }
 
-    const reviewsCollection = await getCollection("reviews");
-
-    // Find reviews for this menu item
-    const reviews = await reviewsCollection
-      .find({
-        "itemReviews.itemId": menuId,
-      })
-      .sort({ createdAt: -1 })
-      .toArray();
-
-    // Extract and format the reviews for this specific menu item
-    const itemReviews = [];
-    reviews.forEach((reviewDoc) => {
-      const itemReview = reviewDoc.itemReviews.find(
-        (item) => item.itemId === menuId
+    await connectMongooseDb();
+    const existingReview = await Review.findOne({ orderId });
+    if (existingReview) {
+      return NextResponse.json(
+        { success: false, message: "You have already reviewed this order" },
+        { status: 409 }
       );
-      if (itemReview) {
-        itemReviews.push({
-          customerEmail: reviewDoc.customerEmail,
-          rating: itemReview.rating,
-          comment: itemReview.comment,
-          createdAt: reviewDoc.createdAt,
-          reviewId: reviewDoc._id,
-          orderId: reviewDoc.orderId,
-        });
-      }
+    }
+
+    const newReview = await Review.create({
+      orderId,
+      userId,
+      riderReview: riderReview || null,
+      itemReviews: itemReviews || [],
     });
 
-    // Calculate average rating
-    const averageRating =
-      itemReviews.length > 0
-        ? (
-            itemReviews.reduce((sum, review) => sum + review.rating, 0) /
-            itemReviews.length
-          ).toFixed(1)
-        : null;
-
-    return NextResponse.json({
-      success: true,
-      reviews: serializeDocument(itemReviews),
-      averageRating,
-      totalReviews: itemReviews.length,
-    });
-  } catch (error) {
-    console.error("Error fetching menu item reviews:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to fetch reviews",
-        error:
-          process.env.NODE_ENV === "development"
-            ? error.message
-            : "Internal server error",
-      },
+      { success: true, review: newReview.toObject() },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error creating review:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
       { status: 500 }
     );
   }
