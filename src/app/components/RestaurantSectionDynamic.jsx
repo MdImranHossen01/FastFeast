@@ -1,9 +1,8 @@
-"use client"; // This directive marks the component as a Client Component.
+"use client"; 
 
 import dynamic from 'next/dynamic';
-import Loading from "../loading"; // Assuming your Loading component is at src/app/loading.js or .jsx
+import Loading from "../loading"; 
 
-// This is the placeholder that will be shown while the main component is loading on the client.
 const SectionLoader = () => (
   <div className="min-h-[300px] flex items-center justify-center bg-gray-50/50 rounded-lg">
     <Loading 
@@ -15,11 +14,9 @@ const SectionLoader = () => (
   </div>
 );
 
-// We use next/dynamic to import the RestaurantSection.
-// `ssr: false` is the key: it tells Next.js to skip rendering this component on the server.
 const RestaurantSection = dynamic(() => import('./RestaurantSection'), {
   ssr: false,
-  loading: () => <SectionLoader />, // This is the component to render during the loading state.
+  loading: () => <SectionLoader />, 
 });
 
 // This new component's only job is to render the dynamically loaded RestaurantSection.
