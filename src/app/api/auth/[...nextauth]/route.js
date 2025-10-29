@@ -9,7 +9,7 @@ import User from "@/models/user.model";
 
 export const authOptions = {
   providers: [
-    // Social Providers
+    // --- Social Providers ---
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -19,7 +19,7 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
 
-    // Credentials Provider
+    // --- Credentials Provider ---
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -37,33 +37,14 @@ export const authOptions = {
         if (!user.password)
           throw new Error("User registered with Google/GitHub");
 
-        // Check if demo user
-        const isDemoUser = user.isDemo === true;
+        // Validate password
+        const isMatch = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+        if (!isMatch) throw new Error("Invalid email or password");
 
-        // Validate password (for real users only)
-        if (!credentials.skipOtp) {
-          const isMatch = await bcrypt.compare(
-            credentials.password,
-            user.password
-          );
-          if (!isMatch) throw new Error("Invalid email or password");
-        }
-
-        // Skip OTP for demo users
-        if (isDemoUser) {
-          return {
-            id: user._id.toString(),
-            name: user.name,
-            email: user.email,
-            image: user.image,
-            location: user.location,
-            phone: user.phone,
-            role: user.role,
-            isDemo: true,
-          };
-        }
-
-        // Send OTP (for real users)
+        // Send OTP if user has not submitted one yet
         if (!credentials.skipOtp && !credentials.otp) {
           const otp = Math.floor(100000 + Math.random() * 900000).toString();
           const hashedOtp = await bcrypt.hash(otp, 10);
@@ -78,7 +59,7 @@ export const authOptions = {
           throw new Error("OTP_REQUIRED");
         }
 
-        // Verify OTP (for real users)
+        // Verify OTP
         if (credentials.skipOtp && credentials.otp) {
           if (!user.otp || !user.otpExpires)
             throw new Error("No OTP found, request again");
@@ -88,14 +69,14 @@ export const authOptions = {
           const isOtpValid = await bcrypt.compare(credentials.otp, user.otp);
           if (!isOtpValid) throw new Error("Invalid OTP");
 
-          // Cleanup after successful verification
+          // Remove OTP after successful login
           await User.updateOne(
             { email: user.email },
             { $unset: { otp: "", otpExpires: "" } }
           );
         }
 
-        // Return safe user object
+        // Return safe user data
         return {
           id: user._id.toString(),
           name: user.name,
@@ -112,29 +93,39 @@ export const authOptions = {
   session: { strategy: "jwt" },
 
   callbacks: {
-    // When user signs in with Google/GitHub
+    // Social sign-in (Google/GitHub)
     async signIn({ user, account, profile }) {
       await connectMongooseDb();
 
       const existingUser = await User.findOne({ email: user.email });
+
       if (!existingUser) {
+        // Create new user
         await User.create({
           name: user.name || profile?.login,
           email: user.email,
           image: user.image,
           provider: account.provider,
         });
+      } else {
+        // Update existing user’s info
+        await User.updateOne(
+          { email: user.email },
+          { $set: { image: user.image, provider: account.provider } }
+        );
       }
+
       return true;
     },
 
-    // Attach user data to JWT token
+    // Add user info to JWT
     async jwt({ token, user }) {
       await connectMongooseDb();
 
       const dbUser = await User.findOne({
         email: token?.user?.email || token?.email,
       });
+
       if (dbUser) {
         token.user = {
           id: dbUser._id.toString(),
@@ -144,7 +135,6 @@ export const authOptions = {
           location: dbUser.location,
           phone: dbUser.phone,
           role: dbUser.role,
-          isDemo: dbUser.isDemo,
         };
       } else if (user) {
         token.user = user;
@@ -153,7 +143,7 @@ export const authOptions = {
       return token;
     },
 
-    // Attach token data to session
+    // Attach token to session
     async session({ session, token }) {
       session.user = token.user;
       return session;
