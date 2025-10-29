@@ -15,7 +15,6 @@ export default function DashboardLayout({ children }) {
   const { data: session } = useSession();
   const user = session?.user;
 
-  console.log(user);
 
   useEffect(() => {
     setMounted(true);

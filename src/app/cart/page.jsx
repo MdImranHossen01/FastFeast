@@ -23,7 +23,7 @@ const CartPage = () => {
             Looks like you haven't added any items to your cart yet.
           </p>
           <Link
-            href="/menu"
+            href="/menus"
             className="px-6 py-3 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors"
           >
             Browse Menu

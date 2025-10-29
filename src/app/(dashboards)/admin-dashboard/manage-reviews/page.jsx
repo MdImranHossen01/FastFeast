@@ -10,7 +10,6 @@ export default async function ManageReviews({ searchParams }) {
 
 
   const {reviews} = await getReviews(search, ratings);
-  console.log(reviews)
 
   return (
     <div className="px-6">
