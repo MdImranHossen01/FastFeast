@@ -14,14 +14,18 @@ const FAQSection = lazy(() => import("./components/FaqSection"));
 const Stats = lazy(() => import("./components/Stats"));
 const Services = lazy(() => import("./components/Service"));
 const CTASection = lazy(() => import("./components/CTASection"));
-// const PopularBlogs = lazy(() => import("./components/PopularBlogs"));
+const PopularBlogs = lazy(() => import("./components/PopularBlogs"));
 const OurPartner = lazy(() => import("./components/OurPartner"));
 const CustomersReview = lazy(() => import("./components/CustomersReview"));
-const TraditionalBeersSection = lazy(() => import("./components/TraditionalBear"));
+const TraditionalBeersSection = lazy(() =>
+  import("./components/TraditionalBear")
+);
 const CategorySection = lazy(() => import("./components/Category"));
 const HowWeWork = lazy(() => import("./components/HowWeWork"));
 const FoodCompare = lazy(() => import("./components/FoodCompare"));
-const AiDrivenFoodSuggestion = lazy(() => import("./components/AiDrivenFoodSuggession"));
+const AiDrivenFoodSuggestion = lazy(() =>
+  import("./components/AiDrivenFoodSuggession")
+);
 const Slider = lazy(() => import("./components/Slider"));
 const MarqueeSection = lazy(() => import("./components/MarqueeSection"));
 // const PopularItems = lazy(() => import("./components/PopularItems")); // using PopularItemsDynamic instead
@@ -44,7 +48,6 @@ export default function Home() {
     <div>
       {/* Critical - Load immediately (above the fold) */}
       <Banner />
-
       {/* Food Discovery Sections - Quick loading */}
       <Suspense fallback={<SectionLoader />}>
         <AiDrivenFoodSuggestion />
@@ -52,7 +55,6 @@ export default function Home() {
 
       {/* Client-only; DO NOT wrap in <Suspense> */}
       <SpecialOffers />
-
 
       <PopularItemsDynamic />
 
@@ -77,7 +79,9 @@ export default function Home() {
       </Suspense>
 
       {/* Content Sections - Lower priority */}
-      {/* <Suspense fallback={<SectionLoader />}><PopularBlogs /></Suspense> */}
+      <Suspense fallback={<SectionLoader />}>
+        <PopularBlogs />
+      </Suspense>
 
       {/* Uses its own dynamic wrapper; no Suspense needed here */}
       <RestaurantSectionDynamic />

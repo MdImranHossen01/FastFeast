@@ -58,7 +58,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6 transform transition duration-300 hover:scale-[1.02]">
+        <div className="bg-white dark:bg-gray-700 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6 transform transition duration-300 hover:scale-[1.02]">
           <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">
             Welcome Back
           </h1>

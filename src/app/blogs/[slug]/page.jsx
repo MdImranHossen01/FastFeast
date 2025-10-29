@@ -35,7 +35,10 @@ export default async function BlogDetails({ params }) {
         <Image
           src={post.coverImage || post.image}
           alt={post.title}
-          fill
+          
+          height={40}
+          width={100}
+        
           className="w-full h-[400px] object-cover rounded-lg"
         />
       </div>
@@ -54,6 +57,8 @@ export default async function BlogDetails({ params }) {
               <Image
                 src={post.authorPhoto || "/user.png"}
                 alt={post.author}
+                width={10}
+                height={10}
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div className="flex flex-col">
@@ -96,7 +101,7 @@ export default async function BlogDetails({ params }) {
 
           {/* Tags */}
           <div className="flex items-center flex-wrap gap-3 mt-6">
-            <FaTags className="text-gray-500" />
+            <FaTags className="text-gray-400" />
             {post.tags?.map((tag, idx) => (
               <span
                 key={idx}
@@ -119,7 +124,9 @@ export default async function BlogDetails({ params }) {
                     <Image
                       src={img}
                       alt={`Gallery ${i}`}
-                      fill
+                      
+                      height={40}
+                      width={40}
                       className="w-full h-56 object-cover hover:scale-105 transition-transform"
                     />
                   </div>
@@ -137,7 +144,8 @@ export default async function BlogDetails({ params }) {
               <Image
                 src={post.authorPhoto || "/default-avatar.png"}
                 alt={post.author}
-                fill
+                width={30}
+                height={30}
                 className="w-20 h-20 rounded-full mb-3 object-cover"
               />
               <p className="text-gray-600 text-sm">

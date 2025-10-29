@@ -1,5 +1,7 @@
 "use server";
 
+
+
 // Action to delete a blog by ID
 export default async function deleteBlogById(id) {
   try {
@@ -21,6 +23,7 @@ export default async function deleteBlogById(id) {
 
     // If response is ok, parse and return the data
     const data = await res.json();
+   
     return {
       success: true,
       message: "Blog deleted successfully.",
