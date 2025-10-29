@@ -44,7 +44,8 @@ export default function BlogCard({ blog }) {
           <Image
             src={coverImage}
             alt={title}
-            fill
+            width={40}
+            height={40}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         )}

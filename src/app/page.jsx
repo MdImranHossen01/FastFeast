@@ -9,7 +9,7 @@ const FAQSection = lazy(() => import("./components/FaqSection"));
 const Stats = lazy(() => import("./components/Stats"));
 const Services = lazy(() => import("./components/Service"));
 const CTASection = lazy(() => import("./components/CTASection"));
-// const PopularBlogs = lazy(() => import("./components/PopularBlogs"));
+const PopularBlogs = lazy(() => import("./components/PopularBlogs"));
 const OurPartner = lazy(() => import("./components/OurPartner"));
 const SpecialOffers = lazy(() => import("./components/SpecialOffers"));
 const CustomersReview = lazy(() => import("./components/CustomersReview"));
@@ -78,9 +78,9 @@ export default function Home() {
       </Suspense>
 
       {/* Content Sections - Lower priority */}
-      {/* <Suspense fallback={<SectionLoader />}>
+      <Suspense fallback={<SectionLoader />}>
         <PopularBlogs />
-      </Suspense> */}
+      </Suspense>
 
       {/* Use the new dynamic wrapper here. No Suspense is needed as it handles its own loading state. */}
       <RestaurantSectionDynamic />
