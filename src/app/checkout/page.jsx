@@ -14,6 +14,7 @@ const CheckOutPage = () => {
   const router = useRouter();
   const { data: session } = useSession(); // Get session from next-auth
   const user = session?.user; // Define user from session
+
   const searchParams = useSearchParams();
   const status = searchParams.get("status");
   const tranId = searchParams.get("tran_id");
@@ -224,7 +225,7 @@ const CheckOutPage = () => {
         },
         paymentStatus: paymentIntentId ? "paid" : "unpaid",
         estimatedDelivery: new Date(Date.now() + 45 * 60 * 1000).toISOString(),
-        userId: "68f09b69b43773ea7c5016c8",
+        userId: user.id,
       };
 
       // Save order to backend

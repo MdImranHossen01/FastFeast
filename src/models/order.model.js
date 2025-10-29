@@ -46,13 +46,12 @@ const riderInfoSchema = new mongoose.Schema(
     riderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Rider",
-      required: true,
     },
-    riderName: { type: String, required: true },
-    riderEmail: { type: String, required: true },
-    riderPhone: { type: String, required: true },
-    photoUrl: { type: String, required: true },
-    vehicleType: { type: String, required: true },
+    riderName: { type: String },
+    riderEmail: { type: String },
+    riderPhone: { type: String },
+    photoUrl: { type: String },
+    vehicleType: { type: String },
   },
   { _id: false }
 );
@@ -93,7 +92,6 @@ const orderSchema = new mongoose.Schema(
     },
     riderInfo: {
       type: riderInfoSchema,
-      required: true,
     },
   },
   { timestamps: true, versionKey: false }
