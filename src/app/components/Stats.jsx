@@ -46,7 +46,7 @@ export default function Stats() {
       ref={ref} 
       // Ensure the section takes up the viewport height on md screens and larger
       // Use min-h-screen for mobile to guarantee content fits
-      className="relative flex flex-col md:-h-screen w-full bg-gray-100 overflow-hidden py-4"
+      className="relative flex flex-col md:-h-screen w-full overflow-hidden py-4"
     >
       {/* Dark overlay for readability (optional) */}
       <div className="absolute inset-0 flex-grow-1"></div>
@@ -62,7 +62,7 @@ export default function Stats() {
             <h1 className="text-orange-600 text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
               Our Mission <br/> Access to Better Food.
             </h1>
-            <p className="mt-4 text-gray-600 text-sm sm:text-base max-w-lg">
+            <p className="mt-4 text-gray-600 dark:text-gray-300 text-sm sm:text-base max-w-lg">
               We've enabled our customers to effortlessly access better food
               and explore a wider world of tastes, all conveniently delivered
               right to your door.

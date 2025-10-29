@@ -74,7 +74,7 @@ const IndianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
     return (
       <section className="mb-12 relative">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             Experience the Tastes of India 🇮🇳
           </h2>
           <Link href={"/indianfood"}>
@@ -111,7 +111,7 @@ const IndianFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   return (
     <section className="mb-12 relative">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-900">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
           Experience the Tastes of India 🇮🇳
         </h2>
         <Link href={"/indianfood"}>

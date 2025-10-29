@@ -1,16 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
-import { MdDeleteOutline } from "react-icons/md";
-import Swal from "sweetalert2";
-// import ViewDetails from "./viewPending";
+import React from "react";
+import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 import Image from "next/image";
 
 export default function ApprovedRestaurants({
   restaurants,
   setRestaurants,
-
   handleModal,
 }) {
   // for approve and reject button
@@ -24,6 +20,7 @@ export default function ApprovedRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
+      await updateUserRole(id, { role: "user" });
       if (!res.success) throw new Error("Failed to update");
       // update state
       setRestaurants((prev) =>

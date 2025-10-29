@@ -1,5 +1,3 @@
-"use server";
-
 // Action to update a restaurant by ID
 export default async function updateRestaurantById(id, updatedData) {
   try {
@@ -16,7 +14,6 @@ export default async function updateRestaurantById(id, updatedData) {
         cache: "no-store", // ensure fresh data
       }
     );
-
 
     // always return an object
     if (!res.ok) {
