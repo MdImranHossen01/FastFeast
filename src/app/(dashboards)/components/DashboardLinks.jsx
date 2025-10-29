@@ -159,14 +159,8 @@ export default function DashboardLinks() {
               Manage Menus
             </Link>
           </li>
-          <li>
-            <Link
-              href="/restaurant-dashboard/add-menu"
-              className={linkStyle("/restaurant-dashboard/add-menu")}
-            >
-              Add Menu
-            </Link>
-          </li>
+          
+          
         </>
       )}
 

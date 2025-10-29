@@ -9,7 +9,7 @@ import User from "@/models/user.model";
 
 export const authOptions = {
   providers: [
-    // --- Social Providers ---
+    // Social Providers
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -18,8 +18,7 @@ export const authOptions = {
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
-
-    // --- Credentials Provider ---
+    // Credentials Provider
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -28,23 +27,36 @@ export const authOptions = {
         otp: { label: "OTP", type: "text" },
         skipOtp: { label: "Skip OTP", type: "boolean" },
       },
-
       async authorize(credentials) {
         await connectMongooseDb();
-
         const user = await User.findOne({ email: credentials.email });
         if (!user) throw new Error("Invalid email or password");
         if (!user.password)
           throw new Error("User registered with Google/GitHub");
-
-        // Validate password
-        const isMatch = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
-        if (!isMatch) throw new Error("Invalid email or password");
-
-        // Send OTP if user has not submitted one yet
+        // Check if demo user
+        const isDemoUser = user.isDemo === true;
+        // Validate password (for real users only)
+        if (!credentials.skipOtp) {
+          const isMatch = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+          if (!isMatch) throw new Error("Invalid email or password");
+        }
+        // Skip OTP for demo users
+        if (isDemoUser) {
+          return {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            location: user.location,
+            phone: user.phone,
+            role: user.role,
+            isDemo: true,
+          };
+        }
+        // Send OTP (for real users)
         if (!credentials.skipOtp && !credentials.otp) {
           const otp = Math.floor(100000 + Math.random() * 900000).toString();
           const hashedOtp = await bcrypt.hash(otp, 10);
@@ -54,12 +66,11 @@ export const authOptions = {
             { email: user.email },
             { $set: { otp: hashedOtp, otpExpires } }
           );
-
           await sendOtpEmail(user.email, otp);
+
           throw new Error("OTP_REQUIRED");
         }
-
-        // Verify OTP
+        // Verify OTP (for real users)
         if (credentials.skipOtp && credentials.otp) {
           if (!user.otp || !user.otpExpires)
             throw new Error("No OTP found, request again");
@@ -67,16 +78,16 @@ export const authOptions = {
           if (user.otpExpires < new Date()) throw new Error("OTP expired");
 
           const isOtpValid = await bcrypt.compare(credentials.otp, user.otp);
+
           if (!isOtpValid) throw new Error("Invalid OTP");
 
-          // Remove OTP after successful login
+          // Cleanup after successful verification
           await User.updateOne(
             { email: user.email },
             { $unset: { otp: "", otpExpires: "" } }
           );
         }
-
-        // Return safe user data
+        // Return safe user object
         return {
           id: user._id.toString(),
           name: user.name,
@@ -89,16 +100,12 @@ export const authOptions = {
       },
     }),
   ],
-
   session: { strategy: "jwt" },
-
   callbacks: {
-    // Social sign-in (Google/GitHub)
+    // When user signs in with Google/GitHub
     async signIn({ user, account, profile }) {
       await connectMongooseDb();
-
       const existingUser = await User.findOne({ email: user.email });
-
       if (!existingUser) {
         // Create new user
         await User.create({
@@ -108,24 +115,20 @@ export const authOptions = {
           provider: account.provider,
         });
       } else {
-        // Update existing user’s info
+        // update existing user’s image/provider info
         await User.updateOne(
           { email: user.email },
           { $set: { image: user.image, provider: account.provider } }
         );
       }
-
       return true;
     },
-
-    // Add user info to JWT
+    // Attach user data to JWT token
     async jwt({ token, user }) {
       await connectMongooseDb();
-
       const dbUser = await User.findOne({
         email: token?.user?.email || token?.email,
       });
-
       if (dbUser) {
         token.user = {
           id: dbUser._id.toString(),
@@ -139,20 +142,16 @@ export const authOptions = {
       } else if (user) {
         token.user = user;
       }
-
       return token;
     },
-
-    // Attach token to session
+    // Attach token data to session
     async session({ session, token }) {
       session.user = token.user;
       return session;
     },
   },
-
   pages: { signIn: "/login" },
   secret: process.env.NEXTAUTH_SECRET,
 };
-
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
