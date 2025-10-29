@@ -181,7 +181,7 @@ export default function ManageMenusPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-auto text-gray-900 dark:text-gray-100">
-            <h2 className="text-2xl font-extrabold mb-4">{editIndex !== null ? "✏️ Edit Menu Item" : "➕ Add Menu Item"}</h2>
+            <h2 className="text-2xl font-extrabold mb-4">{editIndex !== null ? " Edit Menu Item" : "➕ Add Menu Item"}</h2>
             <div className="flex flex-col gap-3">
               <input type="text" placeholder="Menu Name" className="input input-bordered w-full" value={newMenu.name} onChange={(e) => setNewMenu({ ...newMenu, name: e.target.value })} />
               <textarea placeholder="Description" className="textarea textarea-bordered w-full" value={newMenu.description} onChange={(e) => setNewMenu({ ...newMenu, description: e.target.value })} />
@@ -206,7 +206,7 @@ export default function ManageMenusPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {newMenu.dietaryTags.map((tag, idx) => (
-                  <span key={idx} className="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-700 dark:text-green-100 rounded-full text-xs flex items-center gap-1">
+                  <span key={idx} className="px-2 py-1 bg-green-100 dark:bg-green-700 text-green-600 dark:text-green-100 rounded-full text-xs flex items-center gap-1">
                     <FaLeaf /> {tag}
                   </span>
                 ))}
