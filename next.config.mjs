@@ -14,7 +14,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
-      
+      {
+        protocol: "https",
+        hostname: "avatar.vercel.sh",
+      },
     ],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,

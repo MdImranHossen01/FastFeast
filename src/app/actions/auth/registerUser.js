@@ -1,33 +1,60 @@
 "use server";
 
-import { collectionsName, dbConnect } from "@/lib/dbConnect";
 import bcrypt from "bcrypt";
+import connectMongooseDb from "@/lib/mongoose";
+import User from "@/models/user.model";
 
 export const registerUser = async (payload) => {
-  const usersCollection = dbConnect(collectionsName.usersCollection);
-  const { email, password, name, photoUrl } = payload; // frontend sends the URL
+  try {
+    const { email, password, name, image } = payload;
 
-  if (!email || !password) return { success: false };
+    // Basic validation (as before)
+    if (!name || !email || !password) {
+      return {
+        success: false,
+        message: "Name, email, and password are required.",
+      };
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return { success: false, message: "Invalid email format." };
+    }
+    if (password.length < 6) {
+      // Example: minimum password length
+      return {
+        success: false,
+        message: "Password must be at least 6 characters long.",
+      };
+    }
 
-  const user = await usersCollection.findOne({ email });
-  if (user) return { success: false, message: "User already exists" };
+    await connectMongooseDb();
 
-  // hash password
-  const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.findOne({ email });
 
-  // insert user into DB
-  const result = await usersCollection.insertOne({
-    name,
-    email,
-    role: "user", // default role set to user
-    password: hashedPassword,
-    photoUrl: photoUrl || null, // optional
-    createdAt: new Date(),
-    lastLogin: new Date(),
-  });
+    if (user) {
+      return { success: false, message: "User already exists" };
+    }
 
-  return {
-    success: result.acknowledged,
-    insertedId: result.insertedId.toString(),
-  };
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const createUser = await User.create({
+      name,
+      email,
+      image: image || null,
+      password: hashedPassword,
+    });
+
+    const plainUser = JSON.parse(JSON.stringify(createUser));
+
+    return {
+      success: true,
+      message: "User created successfully",
+      data: plainUser,
+    };
+  } catch (error) {
+    console.error("Error in registerUser server action:", error);
+    return {
+      success: false,
+      message: error.message || "An unknown error occurred.",
+    };
+  }
 };
