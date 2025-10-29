@@ -157,14 +157,14 @@ const TopCuisine = () => {
           <h2 
             data-aos="fade-up"
             data-aos-delay="150"
-            className="text-4xl md:text-5xl font-extrabold text-center mb-4"
+            className="text-4xl text-gray-800 dark:text-white md:text-5xl font-extrabold text-center mb-4"
           >
             Top <span className="text-orange-600">Cuisines</span>
           </h2>
           <p 
             data-aos="fade-up"
             data-aos-delay="250"
-            className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-base sm:text-lg text-gray-600 dark:text-gray-200 max-w-2xl mx-auto"
           >
             Discover world-class flavors delivered fresh to your doorstep from our partner restaurants
           </p>

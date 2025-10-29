@@ -336,7 +336,7 @@ const AiDrivenFoodSuggestion = () => {
   const displaySummary = summary;
 
   return (
-    <section className="w-full bg-gradient-to-br from-orange-50 to-amber-50 py-12">
+    <section className="w-full py-12">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">

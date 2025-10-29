@@ -1,58 +1,65 @@
+// G:\Level 1\backend\EJP-SCIC\End-Game\FastFeast\src\components\ThemeToggle\ThemeToggle.jsx
+
 "use client";
+
+import { useTheme } from "next-themes";
 import { FaMoon } from "react-icons/fa6";
 import { MdSunny } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState("light"); // SSR-safe default theme
-  const [mounted, setMounted] = useState(false); // hydration fix flag
-  const audioRef = useRef(null)
+  // Use the hook from next-themes. It handles everything for you.
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const audioRef = useRef(null);
 
-  // Load theme only after client mounts
+  // useEffect only runs on the client, so now we can safely show the UI
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
     setMounted(true);
   }, []);
 
-  // Apply theme
-  useEffect(() => {
-    if (!mounted) return; // prevent SSR mismatch
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme, mounted]);
+  // When the component is not mounted yet, we don't want to render anything
+  // to avoid a hydration mismatch.
+  if (!mounted) {
+    return null;
+  }
 
-  const handleToggle = (e) => {
-    audioRef.current.play()
-    setTheme(e.target.checked ? "dark" : "light");
+  const handleToggle = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+    // The hook provides the function to toggle the theme.
+    setTheme(theme === "dark" ? "light" : "dark");
   };
-
-  if (!mounted) return null; // prevent mismatch during hydration
+  
+  // Use resolvedTheme to avoid UI flicker on initial load
+  const currentTheme = theme === "system" ? resolvedTheme : theme;
 
   return (
-    <div className="p-0.5 rounded-full hover:bg-primary/30 duration-500 max-w-19 fixed top-40 rotate-90 z-20">
-      <div className="p-1 rounded-full bg-primary/30">
+    <div className="p-0.5 rounded-full hover:bg-orange-100 duration-500 max-w-16 fixed top-40 rotate-90 z-20">
+      <div className="p-1 rounded-full bg-orange-100">
         <label
-          className={`relative flex items-center cursor-pointer w-14 h-8 border-2 border-primary rounded-full transition-colors duration-300 ${theme === "dark" ? "bg-[#FAFAFA]" : "bg-[#010515]"
-            }`}
+          className={`relative flex items-center cursor-pointer w-12 h-6 border border-orange-300 rounded-full transition-colors duration-300 ${
+            currentTheme === "dark" ? "bg-gray-800" : "bg-orange-50"
+          }`}
         >
           <input
             type="checkbox"
-            checked={theme === "dark"}
+            checked={currentTheme === "dark"}
             onChange={handleToggle}
             className="sr-only"
           />
 
           {/* Toggle knob */}
           <div
-            className={`absolute w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${theme === "dark" ? "translate-x-6" : ""
-              }`}
+            className={`absolute w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300 ${
+              currentTheme === "dark" ? "translate-x-6" : "translate-x-0"
+            }`}
           >
-            {theme === "dark" ? (
-              <FaMoon className="text-primary p-1.5 -rotate-120 text-2xl bg-[#010515] rounded-full" />
+            {currentTheme === "dark" ? (
+              <FaMoon className="text-orange-400 p-0.5 -rotate-90 text-sm bg-gray-900 rounded-full" />
             ) : (
-              <MdSunny className="text-primary p-1.5 text-[24px] bg-[#FAFAFA] rounded-full" />
+              <MdSunny className="text-orange-500 p-0.5 text-sm bg-orange-100 rounded-full" />
             )}
           </div>
         </label>
