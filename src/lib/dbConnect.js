@@ -79,28 +79,28 @@ export const getDatabase = async () => {
 // Helper to convert MongoDB document to JSON-safe object
 export const serializeDocument = (doc) => {
   if (!doc) return null;
-  
+
   // Handle arrays
   if (Array.isArray(doc)) {
     return doc.map(serializeDocument);
   }
-  
+
   // Handle objects
   const result = { ...doc };
-  
+
   // Convert ObjectId to string
   if (result._id) {
     result._id = result._id.toString();
     result.id = result._id; // Add id field for consistency
   }
-  
+
   // Convert any nested ObjectIds
-  Object.keys(result).forEach(key => {
-    if (result[key] && typeof result[key] === 'object' && result[key]._id) {
+  Object.keys(result).forEach((key) => {
+    if (result[key] && typeof result[key] === "object" && result[key]._id) {
       result[key] = serializeDocument(result[key]);
     }
   });
-  
+
   return result;
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Logo from "./logo";
 import { FaFacebook, FaGithub, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -32,8 +32,7 @@ const FooterColumn = ({ title, links }) => (
   </div>
 );
 
-// --- Smarter Footer Data Structure (Consolidated Links) ---
-// Keep these values STATIC so that SSR and CSR match exactly (prevents hydration mismatch)
+// --- Smarter Footer Data Structure ---
 const footerData = [
   {
     title: "About FastFeast",
@@ -56,28 +55,20 @@ const footerData = [
 ];
 
 const Footer = () => {
-
-
   const pathname = usePathname();
-  const [isDashboard, setIsDashboard] = useState(false);
-
-
 
   if (pathname.includes("dashboard")) {
     return null;
   }
 
   return (
-    <footer className="bg-slate-900 text-gray-300 py-6">
-      <div className="container mx-auto py-6 px-4">
-        {/* ✅ Balanced 4-column grid (+ newsletter) */}
+    <footer className="bg-slate-900 text-gray-300">
+      <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Column 1: Logo & Socials */}
-          <div>
-            {/* If your Logo uses next/image with fill, ensure it sets `sizes` internally */}
+          <div className="space-y-4">
             <Logo />
-            
-            <div className="space-y-2 mt-4 text-sm">
+            <div className="space-y-2 text-sm">
               <div className="flex items-start gap-2">
                 <IoLocationSharp
                   size={20}
@@ -85,7 +76,6 @@ const Footer = () => {
                 />
                 <p className="text-gray-400">123 Gulshan Avenue, Dhaka </p>
               </div>
-
               <div className="flex items-center gap-3">
                 <IoCall size={20} className="flex-shrink-0 text-orange-400" />
                 <a
@@ -95,7 +85,6 @@ const Footer = () => {
                   +880 171 234 5678
                 </a>
               </div>
-
               <div className="flex items-center gap-3">
                 <IoMail size={20} className="flex-shrink-0 text-orange-400" />
                 <a
@@ -106,43 +95,18 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-
-            <div className="mt-6 flex space-x-4 pb-6">
-              <a
-                href="#"
-                className="text-gray-400 transition-colors hover:text-orange-400"
-                aria-label="Facebook"
-              >
-                <FaFacebook size={24} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 transition-colors hover:text-orange-400"
-                aria-label="Twitter / X"
-              >
-                <FaXTwitter size={24} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 transition-colors hover:text-orange-400"
-                aria-label="YouTube"
-              >
-                <FaYoutube size={24} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 transition-colors hover:text-orange-400"
-                aria-label="GitHub"
-              >
-                <FaGithub size={24} />
-              </a>
+            <div className="flex space-x-4 pt-2">
+              <a href="#" aria-label="Facebook"><FaFacebook size={24} className="text-gray-400 transition-colors hover:text-orange-400" /></a>
+              <a href="#" aria-label="Twitter / X"><FaXTwitter size={24} className="text-gray-400 transition-colors hover:text-orange-400" /></a>
+              <a href="#" aria-label="YouTube"><FaYoutube size={24} className="text-gray-400 transition-colors hover:text-orange-400" /></a>
+              <a href="#" aria-label="GitHub"><FaGithub size={24} className="text-gray-400 transition-colors hover:text-orange-400" /></a>
             </div>
             <div>
               <InstallButton />
             </div>
           </div>
 
-          {/* Columns 2, 3 & 4: Mapped Link Columns */}
+          {/* Mapped Link Columns */}
           {footerData.map((column) => (
             <FooterColumn
               key={column.title}
@@ -151,23 +115,34 @@ const Footer = () => {
             />
           ))}
 
-          {/* Column 5: Newsletter */}
+          {/* Newsletter Column */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase text-gray-100">
               Newsletter
             </h3>
             <NewsletterForm />
           </div>
-           <div className="relative">
-            <Translate/>
-          </div>
         </div>
       </div>
 
-      {/* Bottom Copyright Section */}
-      {/* Bottom Copyright Section */} 
-      <div className="border-t border-slate-800 bg-slate-900 pt-6"> 
-        <div className="container mx-auto px-4 text-center text-sm text-gray-500"> © {new Date().getFullYear()}{" "} <span className="font-semibold text-orange-400">FastFeast</span>. All rights reserved. </div> </div>
+      {/* === THIS IS THE UPDATED SECTION === */}
+      <div className="border-t border-slate-800 py-6">
+        <div className="container mx-auto flex flex-col items-center gap-4 px-4 text-sm text-gray-500 sm:flex-row sm:justify-center">
+          
+          {/* Left Side: Copyright */}
+          <p className="text-center sm:text-left">
+            © {new Date().getFullYear()}{" "}
+            <span className="font-semibold text-orange-400">FastFeast</span>.
+            All rights reserved.
+          </p>
+
+          {/* Right Side: Translate Button */}
+          {/* The 'relative' class is important for the dropdown positioning */}
+          <div className="relative">
+            <Translate />
+          </div>
+        </div>
+      </div>
     </footer>
   );
 };

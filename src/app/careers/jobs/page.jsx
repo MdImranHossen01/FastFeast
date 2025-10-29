@@ -25,7 +25,6 @@ export default function JobsPage() {
 
     getJobs();
   }, []); 
-  console.log(jobs)
 
   if (loading) return <Loading/>;
   return (

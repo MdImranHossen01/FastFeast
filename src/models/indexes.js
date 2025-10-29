@@ -9,7 +9,6 @@ export const createIndexes = async () => {
     await mongoose.connection.collection('menus').createIndex({ isSpecialOffer: 1 });
     await mongoose.connection.collection('menus').createIndex({ category: 1 });
     
-    console.log('Database indexes created successfully');
   } catch (error) {
     console.error('Error creating indexes:', error);
   }

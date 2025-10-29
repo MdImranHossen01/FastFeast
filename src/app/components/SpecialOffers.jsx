@@ -1,140 +1,67 @@
-"use client";
+// src/app/components/SpecialOffers.jsx
+// SERVER COMPONENT (SSG)
+export const revalidate = 300; // ensure SSG
+// export const revalidate = false; // (default) pure SSG; uncomment if you want to be explicit
 
-import React, { useEffect, useState } from "react";
-import MenuCard from "../(menulayout)/menus/components/MenuCard";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import SpecialOffersGrid from "./SpecialOffersGrid";
+import getMenus from "@/app/actions/menus/getMenus";
+import getRestaurants from "@/app/actions/restaurants/getRestaurant";
 
-//  Scrollbar hide utility
-const ScrollbarHideCSS = `
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-`;
+/** Deterministic "shuffle" so build output is stable (no hydration mismatch) */
+function stableOrderSpecials(specials) {
+  // Sort by (discount desc, price asc, title asc) — tweak as you like
+  return [...specials].sort((a, b) => {
+    const dA = Number(a?.discountRate || 0);
+    const dB = Number(b?.discountRate || 0);
+    if (dA !== dB) return dB - dA;
 
-const SpecialOffers = () => {
-  const [allSpecials, setAllSpecials] = useState([]); 
-  const [offerMenus, setOfferMenus] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [ratings, setRatings] = useState({});
+    const pA = Number(a?.price || 0);
+    const pB = Number(b?.price || 0);
+    if (pA !== pB) return pA - pB;
 
-  // Fetch menus with reviews in batch
-  useEffect(() => {
-    const fetchMenusWithReviews = async () => {
-      try {
-        const response = await fetch("/api/menus", { cache: "no-store" });
-        const data = await response.json();
+    return String(a?.title || "").localeCompare(String(b?.title || ""));
+  });
+}
 
-        if (Array.isArray(data)) {
-          // Filter only special offer menus
-          const specials = data.filter(
-            (menu) => menu.isSpecialOffer && menu.discountRate > 0
-          );
-          setAllSpecials(specials);
+export default async function SpecialOffers() {
+  // ✅ Server-side data fetching at build time (SSG)
+  const [menus, restaurants] = await Promise.all([
+    getMenus(),
+    getRestaurants(),
+  ]);
 
-          // Get menu IDs for batch review fetching
-          const menuIds = specials.map(menu => menu._id);
-          
-          if (menuIds.length > 0) {
-            // Fetch all reviews in one batch call
-            const reviewsResponse = await fetch('/api/menus/reviews/batch', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ menuIds }),
-            });
+  const specials = Array.isArray(menus)
+    ? menus.filter((m) => m?.isSpecialOffer && Number(m?.discountRate) > 0)
+    : [];
 
-            if (reviewsResponse.ok) {
-              const reviewsData = await reviewsResponse.json();
-              if (reviewsData.success) {
-                setRatings(reviewsData.ratings);
-                
-                // Cache the ratings in sessionStorage
-                Object.keys(reviewsData.ratings).forEach(menuId => {
-                  sessionStorage.setItem(`rating-${menuId}`, JSON.stringify(reviewsData.ratings[menuId]));
-                });
-              }
-            }
-          }
-        }
-      } catch (error) {
-        console.error("❌ Failed to fetch menus:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMenusWithReviews();
-  }, []);
-
-  // Randomize AFTER hydration to avoid mismatch
-  useEffect(() => {
-    if (allSpecials.length > 0) {
-      const shuffled = [...allSpecials].sort(() => 0.5 - Math.random());
-      setOfferMenus(shuffled.slice(0, 8));
-    }
-  }, [allSpecials]);
+  const ordered = stableOrderSpecials(specials).slice(0, 8);
 
   return (
-    <>
-      <style>{ScrollbarHideCSS}</style>
-
-      <section className="text-black w-full mb-12">
-        <div className="container px-4 mx-auto flex flex-col py-8 lg:flex-row gap-8">
-          
-          {/*  Left Section: Banner */}
-          <div
-            className="w-full lg:w-1/2 rounded-xl overflow-hidden min-h-[400px] lg:h-[calc(100vh-2rem)] bg-cover bg-center mb-8 lg:mb-0 relative lg:sticky lg:top-4"
-            style={{
-              backgroundImage:
-                "url('https://i.ibb.co.com/S4pQbgpq/fried-chicken-in-orange-background.jpg')",
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-6 sm:p-10 text-white">
-              <h2 className="text-3xl pb-24 sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-                SEE OUR <span className="text-orange-600">SPECIAL</span> OFFERS
-              </h2>
-            </div>
-          </div>
-
-          {/*  Right Section: Menu Cards */}
-          <div className="w-full lg:w-1/2 max-h-screen overflow-y-auto scrollbar-hide lg:max-h-none lg:overflow-visible right-section">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-4">
-              
-              {loading ? (
-                //  Skeleton Loader while fetching
-                Array.from({ length: 8 }).map((_, idx) => (
-                  <div key={idx} className="rounded-xl overflow-hidden shadow-md">
-                    <Skeleton height={160} />
-                    <div className="p-4">
-                      <Skeleton width="60%" height={20} />
-                      <Skeleton width="40%" height={20} />
-                      <Skeleton count={2} />
-                    </div>
-                  </div>
-                ))
-              ) : offerMenus.length > 0 ? (
-                offerMenus.map((menu) => (
-                  <MenuCard 
-                    key={menu._id} 
-                    menu={menu} 
-                    restaurants={[]}
-                    ratingData={ratings[menu._id] || { avg: null, count: 0 }}
-                  />
-                ))
-              ) : (
-                <p className="text-gray-500 text-center col-span-2">
-                  No special offers available right now.
-                </p>
-              )}
-
-            </div>
+    <section className="text-black w-full mb-12">
+      <div className="container px-4 mx-auto flex flex-col py-8 lg:flex-row gap-8">
+        {/* Left: sticky banner (pure static) */}
+        <div
+          className="w-full lg:w-1/2 rounded-xl overflow-hidden min-h-[400px] lg:h-[calc(100vh-2rem)] bg-cover bg-center mb-8 lg:mb-0 relative lg:sticky lg:top-4"
+          style={{
+            backgroundImage:
+              "url('https://i.ibb.co/S4pQbgpq/fried-chicken-in-orange-background.jpg')",
+          }}
+          aria-hidden="true"
+        >
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 p-6 sm:p-10 text-white">
+            <h2 className="text-3xl pb-24 sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+              SEE OUR <span className="text-orange-600">SPECIAL</span> OFFERS
+            </h2>
           </div>
         </div>
-      </section>
-    </>
-  );
-};
 
-export default SpecialOffers;
+        {/* Right: client sub-tree that only renders the pre-fetched SSG data */}
+        <SpecialOffersGrid
+          specials={ordered}
+          restaurants={Array.isArray(restaurants) ? restaurants : []}
+        />
+      </div>
+    </section>
+  );
+}

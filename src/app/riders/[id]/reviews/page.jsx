@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FiArrowLeft, FiStar, FiUser } from 'react-icons/fi';
+import Image from 'next/image';
 
 const RiderReviewsPage = () => {
   const params = useParams();
@@ -91,11 +92,12 @@ const RiderReviewsPage = () => {
 
         {/* Rider Card */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex items-start">
-            <img
+          <div className="relative flex items-start">
+            <Image
               className="h-20 w-20 rounded-full object-cover mr-4"
               src={rider.photoUrl || `https://avatar.vercel.sh/${rider.email}`}
               alt={rider.name}
+              fill
             />
             <div className="flex-grow">
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{rider.name}</h2>

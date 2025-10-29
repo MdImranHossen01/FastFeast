@@ -1,10 +1,10 @@
-"use client"
-import StarRatings from '@/components/StarRatings'
-import React, { useState } from 'react'
+"use client";
+import StarRatings from "@/components/StarRatings";
+import Image from "next/image";
+import React, { useState } from "react";
 
 export default function TableRow({ review, index }) {
     const [showDialog, setShowDialog] = useState(false);
-    // console.log(review)
     return (
         <tr className='border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'>
             <th>
@@ -13,10 +13,13 @@ export default function TableRow({ review, index }) {
             <td>
                 <div className="flex items-center gap-3">
                     <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                            <img
+                        <div className="relative mask mask-squircle h-12 w-12">
+                            <Image
                                 src={review?.user?.image}
-                                alt="Avatar Tailwind CSS Component" />
+                                alt="Avatar Tailwind CSS Component" 
+                                fill
+                                />
+                                
                         </div>
                     </div>
                     <div>

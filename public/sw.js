@@ -2,7 +2,6 @@
 
 const CACHE_NAME = "fastfeast-v2.1"; // 🔹 Increment version whenever you deploy
 const APP_VERSION = "2.1"; // 🔹 Version log
-console.log(`🚀 FastFeast Service Worker v${APP_VERSION} initializing...`);
 
 /**
  * ✅ Utility: Cache only valid HTTP(S) GET requests
@@ -26,7 +25,6 @@ function canCache(request, response) {
  * ✅ INSTALL: Precache app shell & skip waiting immediately
  */
 self.addEventListener("install", (event) => {
-  console.log(`⚙️ Installing v${APP_VERSION}...`);
   event.waitUntil(
     caches
       .open(CACHE_NAME)
@@ -47,13 +45,11 @@ self.addEventListener("install", (event) => {
  * ✅ ACTIVATE: Clear all old caches + claim clients
  */
 self.addEventListener("activate", (event) => {
-  console.log(`✅ Activating Service Worker v${APP_VERSION}...`);
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME && key.startsWith("fastfeast-v")) {
-            console.log("🗑️ Removing old cache:", key);
             return caches.delete(key);
           }
         })
@@ -101,7 +97,6 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       caches.match(req).then((cached) => {
         if (cached) {
-          console.log("📦 Cache hit:", req.url);
           fetch(req)
             .then((netRes) => {
               const clone = netRes.clone();
@@ -159,7 +154,6 @@ self.addEventListener("message", (event) => {
   if (!data) return;
 
   if (data.type === "SKIP_WAITING") {
-    console.log("🔄 Skip waiting triggered manually.");
     self.skipWaiting();
   }
 
@@ -173,12 +167,10 @@ self.addEventListener("message", (event) => {
  */
 self.addEventListener("sync", (event) => {
   if (event.tag === "background-sync") {
-    console.log("🔁 Background sync triggered");
     event.waitUntil(doBackgroundSync());
   }
 });
 
 async function doBackgroundSync() {
-  console.log("📡 Running background sync...");
   // future offline upload logic here
 }
