@@ -1,14 +1,14 @@
 "use client";
+
 import React, { useState } from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
-
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 import Image from "next/image";
+import updateUserRole from "@/app/actions/users/updateUserRole";
 
 export default function PendingRestaurants({
   restaurants,
   setRestaurants,
-
   handleModal,
 }) {
   // approve and reject button
@@ -22,6 +22,7 @@ export default function PendingRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
+      await updateUserRole(id, "restaurantOwner");
       if (!res.success) throw new Error("Failed to update");
       // update state
       setRestaurants((prev) =>

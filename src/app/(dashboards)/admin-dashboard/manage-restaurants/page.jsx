@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import PendingRestaurants from "./components/pendingRestaurants";
-import ApprovedRestaurants from "./components/approvedRestaurants";
 import ManageRestaurantsCard from "./components/manageRestaurantsCard";
 import getRestaurants from "@/app/actions/restaurants/getRestaurant";
 
