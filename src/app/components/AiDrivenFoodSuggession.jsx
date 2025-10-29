@@ -1,4 +1,3 @@
-// src/app/components/AiDrivenFoodSuggestion.jsx
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";

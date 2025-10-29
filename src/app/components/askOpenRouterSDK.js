@@ -1,9 +1,6 @@
-// src/app/components/askOpenRouterSDK.js
 import 'server-only';
 import OpenAI from 'openai';
 
-// DO NOT import this file from any client component.
-// Keep it unused or delete in production.
 
 export async function demoAskLLM(question = 'What is the meaning of life?') {
   if (!process.env.OPENROUTER_API_KEY) {
