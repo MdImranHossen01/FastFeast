@@ -11,14 +11,20 @@ export default function LenisProvider({ children }) {
       const Lenis = (await import('lenis')).default;
       
       const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        duration: 1.4, // Increased for smoother effect
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -12 * t)), // More gradual easing
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        smoothTouch: false,
-        touchMultiplier: 2,
-        wheelMultiplier: 1,
+        smoothTouch: true, // Enable smooth touch
+        touchMultiplier: 1.5,
+        wheelMultiplier: 1.2, // Slightly increased
+        infinite: false,
+      });
+
+      // Add some event listeners for better UX
+      lenis.on('scroll', (e) => {
+        console.log('Scrolling:', e);
       });
 
       function raf(time) {
