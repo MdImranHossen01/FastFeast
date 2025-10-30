@@ -30,6 +30,7 @@ const UserMenu = ({
       <Image
         src={
           session.user?.image ||
+          `/user.png` ||
           `https://avatar.vercel.sh/${session.user?.email}`
         }
         alt={session.user?.name || "User"}
@@ -48,7 +49,9 @@ const UserMenu = ({
             className="absolute right-0 mt-2 w-64 origin-top-right rounded-lg border bg-white shadow-lg z-50"
           >
             <div className="border-b p-4 text-center">
-              <p className="font-semibold text-gray-800">{session.user?.name}</p>
+              <p className="font-semibold text-gray-800">
+                {session.user?.name}
+              </p>
               <p className="text-sm text-gray-500">{session.user?.email}</p>
             </div>
             <ul className="p-2">
