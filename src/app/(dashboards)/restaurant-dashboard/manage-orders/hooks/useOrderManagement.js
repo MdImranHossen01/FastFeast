@@ -24,12 +24,12 @@ export const useOrderManagement = () => {
     totalRevenue: 0,
   });
 
+  console.log("orders:", orders);
+
   // Fetch orders
   const fetchOrders = async () => {
     try {
       const response = await fetch("/api/orders");
-
-      console.log("Response:", response);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -37,6 +37,7 @@ export const useOrderManagement = () => {
           errorData.message || `HTTP error! status: ${response.status}`
         );
       }
+
       const data = await response.json();
 
       if (data.success) {

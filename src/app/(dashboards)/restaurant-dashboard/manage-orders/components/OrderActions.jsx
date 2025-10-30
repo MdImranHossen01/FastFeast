@@ -22,7 +22,7 @@ const OrderActions = ({
 
       {order.status === "pending" && (
         <button
-          onClick={() => updateOrderStatus(order.id, "confirmed")}
+          onClick={() => updateOrderStatus(order._id, "confirmed")}
           className="text-blue-600 hover:text-blue-900"
         >
           Confirm
@@ -31,7 +31,7 @@ const OrderActions = ({
 
       {order.status === "confirmed" && (
         <button
-          onClick={() => updateOrderStatus(order.id, "preparing")}
+          onClick={() => updateOrderStatus(order._id, "preparing")}
           className="text-purple-600 hover:text-purple-900"
         >
           Start Preparing
@@ -40,7 +40,7 @@ const OrderActions = ({
 
       {order.status === "preparing" && (
         <button
-          onClick={() => updateOrderStatus(order.id, "ready")}
+          onClick={() => updateOrderStatus(order._id, "ready")}
           className="text-indigo-600 hover:text-indigo-900"
         >
           Mark Ready
@@ -49,7 +49,7 @@ const OrderActions = ({
 
       {order.status === "ready" && (
         <button
-          onClick={() => updateOrderStatus(order.id, "out-for-delivery")}
+          onClick={() => updateOrderStatus(order._id, "out-for-delivery")}
           className="text-orange-600 hover:text-orange-900"
         >
           Out for Delivery
@@ -58,7 +58,7 @@ const OrderActions = ({
 
       {order.status === "out-for-delivery" && (
         <button
-          onClick={() => updateOrderStatus(order.id, "delivered")}
+          onClick={() => updateOrderStatus(order._id, "delivered")}
           className="text-green-600 hover:text-green-900"
         >
           Mark Delivered
@@ -67,7 +67,7 @@ const OrderActions = ({
 
       {order.status !== "delivered" && order.status !== "cancelled" && (
         <button
-          onClick={() => updateOrderStatus(order.id, "cancelled")}
+          onClick={() => updateOrderStatus(order._id, "cancelled")}
           className="text-red-600 hover:text-red-900"
         >
           Cancel
@@ -79,7 +79,7 @@ const OrderActions = ({
           <button
             onClick={() =>
               setShowRiderDropdown(
-                showRiderDropdown === order.id ? null : order.id
+                showRiderDropdown === order._id ? null : order._id
               )
             }
             className="text-blue-600 hover:text-blue-900"
@@ -87,16 +87,16 @@ const OrderActions = ({
             Assign Rider
           </button>
 
-          {showRiderDropdown === order.id && (
+          {showRiderDropdown === order._id && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
               <div className="py-1">
                 {riders.length > 0 ? (
                   riders.map((rider) => (
                     <button
-                      key={rider.id}
+                      key={rider._id}
                       onClick={() => {
-                        console.log('Assigning rider:', rider.id, rider.name);
-                        assignRiderToOrder(order.id, rider.id);
+                        console.log("Assigning rider:", rider._id, rider.name);
+                        assignRiderToOrder(order._id, rider.id);
                       }}
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >

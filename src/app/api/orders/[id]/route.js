@@ -1,32 +1,40 @@
-// src/app/api/orders/[id]/route.js
-import { getCollection, serializeDocument } from '@/lib/dbConnect';
-import { ObjectId } from 'mongodb';
+import connectMongooseDb from "@/lib/mongoose";
+import Order from "@/models/order.model";
+import { User } from "lucide-react";
+import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
-    const { id } = params;
-    
-    // Get orders collection
-    const ordersCollection = await getCollection('orders');
-    
+    const { id } = await params;
+
+    await connectMongooseDb();
+
     // Find the order
-    const order = await ordersCollection.findOne({ _id: new ObjectId(id) });
-    
+    const order = await Order.findById(id);
+
     if (!order) {
       return Response.json(
-        { success: false, message: 'Order not found' },
+        { success: false, message: "Order not found" },
         { status: 404 }
       );
     }
-    
-    return Response.json({
-      success: true,
-      order: serializeDocument(order)
-    });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Order details fetched successfully",
+        order,
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Error fetching order details:', error);
-    return Response.json(
-      { success: false, message: 'Failed to fetch order details', error: error.message },
+    console.error("Error fetching order details:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Failed to fetch order details",
+        data: null,
+      },
       { status: 500 }
     );
   }
@@ -34,122 +42,71 @@ export async function GET(request, { params }) {
 
 export async function PATCH(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
-    
-    console.log('Updating order:', id);
-    console.log('Request body:', body);
-    
-    // Validate ObjectId
-    if (!ObjectId.isValid(id)) {
-      return Response.json(
-        { success: false, message: 'Invalid order ID' },
-        { status: 400 }
-      );
-    }
-    
-    // Get collections
-    const ordersCollection = await getCollection('orders');
-    const usersCollection = await getCollection('users');
-    
+
+    await connectMongooseDb();
+
     // Check if order exists
-    const order = await ordersCollection.findOne({ _id: new ObjectId(id) });
-    
+    const order = await Order.findById(id);
+
     if (!order) {
       return Response.json(
-        { success: false, message: 'Order not found' },
+        { success: false, message: "Order not found" },
         { status: 404 }
       );
     }
-    
-    // Prepare update object
-    const updateData = {
-      updatedAt: new Date(),
-    };
-    
-    // Update order status if provided
+
     if (body.status) {
-      updateData.status = body.status;
+      await Order.updateOne({ _id: id }, { $set: { status: body.status } });
     }
-    
+
     // Assign rider if provided
     if (body.riderId) {
-      console.log('Rider ID being assigned:', body.riderId);
-      console.log('Type of riderId:', typeof body.riderId);
-      
       // Check if riderId is a valid ObjectId string
       let riderId = body.riderId;
-      
-      // If it's an object with _id property, extract the string
-      if (typeof riderId === 'object' && riderId._id) {
-        riderId = riderId._id.toString();
-      }
-      
-      console.log('Processed rider ID:', riderId);
-      console.log('Is valid ObjectId:', ObjectId.isValid(riderId));
-      
-      // Validate rider ID
-      if (!ObjectId.isValid(riderId)) {
-        console.error('Invalid rider ID format:', riderId);
-        return Response.json(
-          { success: false, message: 'Invalid rider ID format' },
-          { status: 400 }
-        );
-      }
-      
-      const rider = await usersCollection.findOne({ 
-        _id: new ObjectId(riderId),
-        role: 'rider'
-      });
-      
-      if (!rider) {
-        console.error('Rider not found with ID:', riderId);
-        return Response.json(
-          { success: false, message: 'Rider not found' },
-          { status: 404 }
-        );
-      }
-      
-      updateData.riderInfo = {
-        id: rider._id.toString(),
-        name: rider.name,
-        email: rider.email,
-        phone: rider.phone,
+
+      const rider = await User.findById(riderId);
+
+      body.riderInfo = {
+        riderId,
+        riderName: rider.name,
+        riderEmail: rider.email,
+        riderPhone: rider.phone,
         photoUrl: rider.photoUrl || rider.image,
-        vehicleType: rider.vehicleType || 'Not specified'
+        vehicleType: rider.vehicleType || "Not specified",
       };
-      
-      // Also add assignedRider field for compatibility
-      updateData.assignedRider = rider._id.toString();
     }
-    
-    console.log('Update data:', updateData);
-    
+
     // Update the order
-    const updateResult = await ordersCollection.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: updateData }
-    );
-    
+    const updateResult = await Order.updateOne({ _id: id }, { $set: body });
+
     if (updateResult.matchedCount === 0) {
       return Response.json(
-        { success: false, message: 'Order not found' },
+        { success: false, message: "Order not found" },
         { status: 404 }
       );
     }
-    
+
     // Fetch the updated order
-    const updatedOrder = await ordersCollection.findOne({ _id: new ObjectId(id) });
-    
-    return Response.json({
-      success: true,
-      order: serializeDocument(updatedOrder),
-      riderInfo: updatedOrder.riderInfo
-    });
+    const updatedOrder = await Order.findById(id);
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Order updated successfully",
+        order: updatedOrder,
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Error updating order:', error);
-    return Response.json(
-      { success: false, message: 'Failed to update order', error: error.message },
+    console.error("Error updating order:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Failed to update order",
+        data: null,
+      },
       { status: 500 }
     );
   }

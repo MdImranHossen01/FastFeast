@@ -11,7 +11,7 @@ export default function DashboardLinks() {
   // const user = session?.user;
 
   const user = {
-    role: "admin",
+    role: "restaurantOwner",
   };
 
   const linkStyle = (href) =>
