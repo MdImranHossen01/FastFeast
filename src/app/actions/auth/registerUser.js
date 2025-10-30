@@ -41,7 +41,6 @@ export const registerUser = async (payload) => {
       email,
       image: image || null,
       password: hashedPassword,
-      isDemo: true,
     });
 
     const plainUser = JSON.parse(JSON.stringify(createUser));
