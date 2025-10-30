@@ -46,21 +46,22 @@ export default function ViewModal({ restaurants, isOpen, onClose }) {
       </button>
 
       {/* Rest of your content remains the same */}
-      <div className="relative">
+      <div className="relative w-full  h-60   ">
         <Image
           src={banner}
           alt="Restaurant Banner"
-          className="w-full h-60 object-cover"
+          className=" object-cover  "
           fill
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
-        <div className="relative -bottom-1 left-1/2 transform -translate-x-1/2 mb-[-3rem]">
+        <div className="absolute w-28 h-28 mx-auto -bottom-1 left-1/2  transform -translate-x-1/2 mb-[-3rem]">
           <Image
             src={logo}
             alt="Restaurant Logo"
-            fill
-            className="w-28 h-28 rounded-full border-4 border-orange-400 bg-white object-cover shadow-lg"
+            width={112}
+            height={112}
+            className=" rounded-full border-4 border-orange-400 bg-white object-cover shadow-lg"
           />
         </div>
       </div>
