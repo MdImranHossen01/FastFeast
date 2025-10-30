@@ -2,18 +2,19 @@
 export default async function updateRestaurantById(id, updatedData) {
   try {
     // Update restaurant to the API
-    const { NEXT_PUBLIC_SERVER_ADDRESS } = process.env;
-    const res = await fetch(
-      `${NEXT_PUBLIC_SERVER_ADDRESS}/api/restaurants/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedData),
-        cache: "no-store", // ensure fresh data
-      }
-    );
+    const baseUrl = process.env.NEXT_PUBLIC_SERVER_ADDRESS;
+
+    if (!baseUrl) {
+      throw new Error("NEXT_PUBLIC_SERVER_ADDRESS is not defined");
+    }
+
+    const res = await fetch(`/api/restaurants/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    });
 
     // always return an object
     if (!res.ok) {

@@ -53,11 +53,11 @@ const OrdersTable = ({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredOrders.length > 0 ? (
+            {filteredOrders?.length > 0 ? (
               filteredOrders.map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50">
+                <tr key={order._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {order.id}
+                    {order._id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>

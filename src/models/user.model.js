@@ -59,6 +59,10 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    isDemo: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
