@@ -6,9 +6,9 @@ import Image from "next/image";
 
 
 const textList = [
-  "What People Say About Us?",
-  "Why Customers Love Us?",
-  "Trusted by Thousands!",
+  "Hear What Our Valued Customers Say...",
+  "Why People Choose FastFeast Every Time..",
+  "Trusted and Loved by Thousands of Happy Users!",
 ];
 
 const testimonials = [
@@ -95,7 +95,7 @@ const CustomersReview = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6 }}
-                className="text-5xl font-bold text-gray-800 dark:text-white leading-tight"
+                className="lg:text-5xl text-3xl font-serif font-bold text-gray-800 dark:text-white leading-tight"
               >
                 <span className="text-orange-500">
                   {textList[headingIndex].split(" ")[0]}
@@ -151,9 +151,9 @@ const CustomersReview = () => {
                   <Image
                     src={testimonials[reviewIndex].photo}
                     alt={testimonials[reviewIndex].name}
-                    width={20}
-                    height={20}
-                    // FIX: Removed mt-16 to stop covering the stars
+                    width={120}
+                    height={120}
+                    
                     className="w-20 h-20 md:w-28 md:h-28 mb-2 rounded-full object-cover shadow-lg"
                   />
                 </div>
