@@ -23,12 +23,10 @@ const MenuCard = ({
   const { data: session } = useSession();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false); // Default to false
   const [loadingFavorite, setLoadingFavorite] = useState(false);
 
   const mountedRef = useRef(true);
-  const lastRatingRef = useRef(null);
-  const lastFavoriteRef = useRef(null);
 
   const menuId = useMemo(() => menu?._id, [menu?._id]);
   const userId = useMemo(() => session?.user?.id, [session?.user?.id]);
@@ -38,32 +36,10 @@ const MenuCard = ({
     return generateSlug(restaurant.name, restaurant.location?.area);
   }, [restaurant?.name, restaurant?.location?.area]);
 
-  /** ✅ Fetch Favorite Status */
-  useEffect(() => {
-    if (!userId || !menuId) return;
+  // ✅ COMPLETELY REMOVED the favorites API call useEffect
+  // No more automatic API calls for favorites!
 
-    const fetchFavoriteStatus = async () => {
-      try {
-        const res = await fetch(`/api/favorites?menuId=${menuId}`);
-        if (!res.ok) throw new Error("Failed to fetch favorite status");
-        const data = await res.json();
-
-        if (mountedRef.current) {
-          const newFav = Boolean(data?.isFavorite);
-          if (lastFavoriteRef.current !== newFav) {
-            lastFavoriteRef.current = newFav;
-            setIsFavorite(newFav);
-          }
-        }
-      } catch (err) {
-        console.error("Favorite fetch failed:", err);
-      }
-    };
-
-    fetchFavoriteStatus();
-  }, [userId, menuId]);
-
-  /** ✅ Toggle Favorite (Optimistic UI + stable callback) */
+  /** ✅ Toggle Favorite (Only when user clicks) */
   const toggleFavorite = useCallback(
     async (e) => {
       e.stopPropagation();
@@ -85,12 +61,13 @@ const MenuCard = ({
         });
 
         if (!res.ok) throw new Error("Favorite toggle failed");
+        
         toast.success(
           newState ? "Added to favorites!" : "Removed from favorites!"
         );
       } catch (err) {
         console.error(err);
-        setIsFavorite(!newState);
+        setIsFavorite(!newState); // Revert on error
         toast.error("Failed to update favorite.");
       } finally {
         setLoadingFavorite(false);
@@ -102,11 +79,17 @@ const MenuCard = ({
   const openMenuModal = useCallback(() => setIsModalOpen(true), []);
   const closeMenuModal = useCallback(() => setIsModalOpen(false), []);
 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all overflow-hidden">
       {/* Image */}
       <div className="relative h-40 w-full">
-        // inside the "relative h-40 w-full" image
         <Image
           src={menu.imageUrl || "/images/placeholder-food.jpg"}
           alt={menu.title}

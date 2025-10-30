@@ -530,7 +530,7 @@ const CheckOutPage = () => {
                   value={formData.fullName}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors bg-white text-gray-900 dark:bg-gray-800 dark:text-white"
                   placeholder="John Doe"
                 />
               </div>
@@ -549,7 +549,7 @@ const CheckOutPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors bg-white text-gray-900 dark:bg-gray-800 dark:text-white"
                   placeholder="john@example.com"
                 />
               </div>
@@ -569,7 +569,7 @@ const CheckOutPage = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors bg-white text-gray-900 dark:bg-gray-800 dark:text-white"
                 placeholder="+880 1XXX XXXXXX"
               />
             </div>
@@ -588,7 +588,7 @@ const CheckOutPage = () => {
                 value={formData.address}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors bg-white text-gray-900 dark:bg-gray-800 dark:text-white"
                 placeholder="123 Main Street"
               />
             </div>
@@ -608,7 +608,7 @@ const CheckOutPage = () => {
                   value={formData.city}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors bg-white text-gray-900 dark:bg-gray-800 dark:text-white"
                   placeholder="Dhaka"
                 />
               </div>
@@ -627,7 +627,7 @@ const CheckOutPage = () => {
                   value={formData.postalCode}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors bg-white text-gray-900 dark:bg-gray-800 dark:text-white"
                   placeholder="1200"
                 />
               </div>

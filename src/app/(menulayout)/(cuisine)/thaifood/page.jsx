@@ -12,7 +12,7 @@ const ThaiFoodPage = async () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-900">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
           Taste of Thailand 🇹🇭
         </h2>
       </div>

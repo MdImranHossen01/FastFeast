@@ -157,14 +157,14 @@ const TopCuisine = () => {
           <h2 
             data-aos="fade-up"
             data-aos-delay="150"
-            className="text-4xl md:text-5xl font-extrabold text-center mb-4"
+            className="text-4xl text-gray-800 dark:text-white md:text-5xl font-extrabold text-center mb-4"
           >
             Top <span className="text-orange-600">Cuisines</span>
           </h2>
           <p 
             data-aos="fade-up"
             data-aos-delay="250"
-            className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-base sm:text-lg text-gray-600 dark:text-gray-200 max-w-2xl mx-auto"
           >
             Discover world-class flavors delivered fresh to your doorstep from our partner restaurants
           </p>
@@ -224,9 +224,7 @@ const TopCuisine = () => {
                           fill
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-                        <div
-                          className={`absolute inset-0 bg-gradient-to-t ${colorScheme.from} ${colorScheme.to} opacity-60 group-hover:opacity-70 transition-opacity duration-500`}
-                        ></div>
+                
                         <div className="absolute top-4 left-4">
                           <div
                             className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border-2 border-white/50"

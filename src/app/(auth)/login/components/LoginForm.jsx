@@ -58,7 +58,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6 transform transition duration-300 hover:scale-[1.02]">
+        <div className="bg-white dark:bg-gray-700 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6 transform transition duration-300 hover:scale-[1.02]">
           <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">
             Welcome Back
           </h1>
@@ -78,7 +78,7 @@ export default function LoginForm() {
                 onChange={handleChange}
                 required
                 placeholder="Email"
-                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
 
@@ -93,7 +93,7 @@ export default function LoginForm() {
                 onChange={handleChange}
                 required
                 placeholder="Password"
-                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-10"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-10"
               />
               <div
                 className="absolute inset-y-0 right-0 pr-3 pt-5 flex items-center cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
@@ -153,7 +153,7 @@ export default function LoginForm() {
 
           <button
             onClick={() => signIn("google", { callbackUrl: "/" })}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+            className="w-full flex text-gray-800 dark:text-gray-200 items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
                  transition-colors shadow-sm font-medium"
           >
@@ -161,7 +161,7 @@ export default function LoginForm() {
           </button>
           <button
             onClick={() => signIn("github", { callbackUrl: "/" })}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+            className="w-full flex text-gray-800 dark:text-gray-200 items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
                  transition-colors shadow-sm font-medium"
           >

@@ -26,7 +26,7 @@ export default function BlogCard({ blog }) {
     try {
       // increment visit count before navigating
       await fetch(`/api/blogs/${_id}`, {
-        method: "POST", // use POST here, since you already made a POST route for increment
+        method: "POST", 
       });
 
       router.push(`/blogs/${_id}`);
@@ -44,7 +44,8 @@ export default function BlogCard({ blog }) {
           <Image
             src={coverImage}
             alt={title}
-            fill
+            width={40}
+            height={40}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
         )}

@@ -16,22 +16,16 @@ export default function PopularBlogs() {
         const res = await fetch("/api/blogs");
         const data = await res.json();
 
-        // Ensure posts is always an array
         let arr = [];
-        if (Array.isArray(data)) {
-          arr = data;
-        } else if (Array.isArray(data.blogs)) {
-          arr = data.blogs;
-        } else if (Array.isArray(data.data)) {
-          arr = data.data;
-        } else {
-          console.warn("Unexpected blogs API shape:", data);
-        }
+        if (Array.isArray(data)) arr = data;
+        else if (Array.isArray(data.blogs)) arr = data.blogs;
+        else if (Array.isArray(data.data)) arr = data.data;
+        else console.warn("Unexpected blogs API shape:", data);
 
         setBlogs(arr);
       } catch (err) {
         console.error("Failed to fetch posts:", err);
-        setBlogs([]); // fallback to empty array
+        setBlogs([]);
       } finally {
         setLoading(false);
       }
@@ -40,67 +34,106 @@ export default function PopularBlogs() {
     fetchPosts();
   }, []);
 
-  // Sort by visit count safely
   const topPosts = Array.isArray(blogs)
     ? [...blogs]
         .sort((a, b) => (b.visitCount || 0) - (a.visitCount || 0))
         .slice(0, 4)
     : [];
 
-  // Animation directions
+  // Animation variants for smooth staggered entrance
+  const cardVariants = {
+    hidden: (direction) => ({
+      opacity: 0,
+      x: direction.x,
+      y: direction.y,
+    }),
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
+  };
+
   const directions = [
-    { x: -80, y: 0 }, // left
-    { x: 80, y: 0 }, // right
-    { x: 0, y: -80 }, // top
-    { x: 0, y: 80 }, // bottom
+    { x: -60, y: 0 },
+    { x: 60, y: 0 },
+    { x: 0, y: 60 },
+    { x: 0, y: -60 },
   ];
 
   return (
-    <section className="py-8 container mx-auto px-4 lg:py-12">
+    <section className="relative py-16 bg-gradient-to-b from-orange-50 via-white to-orange-50 overflow-hidden">
+      {/* Subtle background accent */}
+      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 pointer-events-none"></div>
+
       {/* Header */}
-      <div className="text-center max-w-2xl mx-auto text-gray-900 mb-12">
-        <h1 className="text-3xl lg:text-4xl font-bold">
-          Popular <span className="text-orange-500">Blogs</span>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="text-center max-w-2xl mx-auto mb-14 px-4"
+      >
+        <h1 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-3">
+          Popular <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-yellow-400">Blogs</span>
         </h1>
-        <p className="mt-2 text-gray-600">
-          Discover our most-read blogs, handpicked by our readers. Stay updated
-          with the latest trends, guides, and stories from food, lifestyle, and
-          beyond.
+        <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+          Our most loved articles — carefully curated to feed your curiosity and taste buds.  
+          Explore trending stories, culinary secrets, and modern food culture.
         </p>
-      </div>
+
+        {/* Decorative accent line */}
+        <div className="mt-5 mx-auto w-16 h-1 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full"></div>
+      </motion.div>
 
       {/* Blog Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="container mx-auto px-4">
         {loading ? (
-          <div className="text-gray-500">Loading popular blogs...</div>
+          <div className="text-center text-gray-500 py-10">
+            Loading popular blogs...
+          </div>
         ) : topPosts.length === 0 ? (
-          <div className="text-gray-500">No blogs found.</div>
+          <div className="text-center text-gray-500 py-10">
+            No blogs found.
+          </div>
         ) : (
-          topPosts.map((blog, i) => (
-            <motion.div
-              key={blog._id || i}
-              initial={{ ...directions[i % 4], opacity: 0 }}
-              whileInView={{ x: 0, y: 0, opacity: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: i * 0.2, ease: "easeOut" }}
-            >
-              <BlogCard blog={blog} />
-            </motion.div>
-          ))
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {topPosts.map((blog, i) => (
+              <motion.div
+                key={blog._id || i}
+                custom={directions[i % 4]}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: i * 0.15 }}
+              >
+                <BlogCard blog={blog} />
+              </motion.div>
+            ))}
+          </div>
         )}
       </div>
 
       {/* Show All button */}
-      <div className="flex items-center justify-center pt-12">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="flex items-center justify-center pt-14"
+      >
         <Link
           href="/blogs"
-          className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-lg 
-               transition-all duration-300 ease-in-out
-               hover:bg-orange-600 hover:shadow-lg"
+          className="group my-12 flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-orange-600 to-yellow-400 
+                     text-white font-semibold rounded-full shadow-md hover:shadow-lg 
+                     transition-all duration-300 hover:-translate-y-0.5"
         >
-          Show All <ArrowRight className="w-5 h-5" />
+          Show All
+          <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
-      </div>
+      </motion.div>
     </section>
   );
 }

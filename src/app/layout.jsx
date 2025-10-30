@@ -1,6 +1,6 @@
 // src/app/layout.jsx
 import Script from "next/script";
-
+import 'aos/dist/aos.css';
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -149,12 +149,10 @@ export default function RootLayout({ children }) {
           body { 
             margin: 0; 
             font-family: var(--font-geist-sans), system-ui, sans-serif;
-            background: white;
-            color: #000;
+            
           }
           * { box-sizing: border-box; }
           
-          /* Smooth video loading */
           .slide-video {
             transition: opacity 0.3s ease-in-out;
           }
@@ -163,14 +161,14 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased bg-orange-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-orange-950 dark:to-amber-950 text-foreground`}
         suppressHydrationWarning
       >
         {/* Critical content first */}
         <div id="critical-content">
-          <ThemeToggle />
           <SessionWrapper>
             <NextThemeProvider>
+              <ThemeToggle />
               <AOSProvider>
                 <StoreProvider>
                   <CartProvider>
