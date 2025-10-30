@@ -1,5 +1,6 @@
 import connectMongooseDb from "@/lib/mongoose";
 import Blog from "@/models/blog.model";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 // PATCH (update) blog by ID
@@ -59,7 +60,7 @@ export async function DELETE(req, { params }) {
         { status: 404 }
       );
     }
-
+    revalidatePath("/admin-dashboard/manage-blogs")
     // Return deleted blog info with 200 status
     return NextResponse.json(blog, { status: 200 });
   } catch (error) {

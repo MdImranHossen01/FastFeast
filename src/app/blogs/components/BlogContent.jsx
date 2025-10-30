@@ -15,8 +15,8 @@ export default function BlogContent({ blogs, query, tag }) {
   });
 
   return (
-    <main className="pb-8 lg:mx-14 md:mx-8 mx-4 space-y-6">
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <main className="pb-8 lg:mx-14 md:mx-8 mx-4 space-y-6 lg:my-14">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:my-14 gap-6">
         {filtered.length === 0 ? (
           <div className="text-gray-500">No posts found.</div>
         ) : (

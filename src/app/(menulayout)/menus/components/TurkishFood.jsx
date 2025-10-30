@@ -78,7 +78,7 @@ const TurkishFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
     return (
       <section className="mb-12 relative">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             A Journey Through Turkey's Kitchen 🇹🇷
           </h2>
           <Link href={"/turkishfood"}>
@@ -115,7 +115,7 @@ const TurkishFood = ({ menus: propMenus, restaurants: propRestaurants }) => {
   return (
     <section className="mb-12 relative">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-gray-900">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
           A Journey Through Turkey's Kitchen 🇹🇷
         </h2>
         <Link href={"/turkishfood"}>

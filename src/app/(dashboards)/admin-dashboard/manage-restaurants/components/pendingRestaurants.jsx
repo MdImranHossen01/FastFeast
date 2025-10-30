@@ -1,14 +1,14 @@
 "use client";
-import React, { useState } from "react";
-import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 
+import React from "react";
+import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 import Image from "next/image";
+// import updateUserRole from "@/app/actions/users/updateUserRole";
 
 export default function PendingRestaurants({
   restaurants,
   setRestaurants,
-
   handleModal,
 }) {
   // approve and reject button
@@ -22,7 +22,12 @@ export default function PendingRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
-      if (!res.success) throw new Error("Failed to update");
+      // await updateUserRole(id, { role: "restaurantOwner" });
+      
+      // if (!res.success) throw new Error("Failed to update");
+
+      console.log(res);
+
       // update state
       setRestaurants((prev) =>
         prev.map((restaurant) =>
@@ -72,10 +77,11 @@ export default function PendingRestaurants({
                   <td className="block md:hidden py-1">
                     <div className="flex relative flex-col items-center gap-2">
                       <Image
-                        className="bg-gray-50 dark:bg-gray-500  w-12 h-12 rounded-full object-cover"
                         src={restaurant.logo}
                         alt="logo"
-                        fill
+                        width={50}
+                        height={50}
+                        className="bg-gray-50 dark:bg-gray-500 rounded-full object-cover"
                       />
                       <span className="font-bold">{restaurant.name}</span>
                     </div>
@@ -84,10 +90,11 @@ export default function PendingRestaurants({
                   {/* Desktop Logo */}
                   <td className="px-4 relative hidden md:table-cell">
                     <Image
-                      className="bg-gray-50 dark:bg-gray-500 w-12 h-12 rounded-full object-cover"
                       src={restaurant.logo}
                       alt="logo"
-                      fill
+                      width={90}
+                      height={90}
+                      className="bg-gray-50 dark:bg-gray-500 rounded-full object-cover"
                     />
                   </td>
 

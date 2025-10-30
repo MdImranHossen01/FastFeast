@@ -9,7 +9,7 @@ export async function GET() {
     await connectMongooseDb();
 
     // Fetch all blogs
-    const blogs = await Blog.find();
+    const blogs = await Blog.find().sort({createdAt: -1});
 
     // Return blogs with 200 status
     return NextResponse.json(blogs, { status: 200 });

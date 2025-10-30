@@ -55,7 +55,7 @@ export default function RegisterForm() {
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        photoUrl,
+        image: photoUrl,
       });
 
       if (result.success) {
@@ -105,7 +105,7 @@ export default function RegisterForm() {
             onChange={handleChange}
             placeholder="Full Name"
             required
-            className="block w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
+            className="block w-full px-4 py-2 border rounded-md dark:bg-gray-700 text-gray-800 dark:text-white"
           />
 
           {/* Email */}
@@ -116,7 +116,7 @@ export default function RegisterForm() {
             onChange={handleChange}
             placeholder="Email"
             required
-            className="block w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white"
+            className="block w-full px-4 py-2 border rounded-md text-gray-800 dark:bg-gray-700 dark:text-white"
           />
 
           {/* Password */}
@@ -128,7 +128,7 @@ export default function RegisterForm() {
               onChange={handleChange}
               placeholder="Password"
               required
-              className="block w-full px-4 py-2 border rounded-md dark:bg-gray-700 dark:text-white pr-10"
+              className="block w-full px-4 py-2 border rounded-md dark:bg-gray-700 text-gray-800 dark:text-white pr-10"
             />
             <div
               className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-gray-400"

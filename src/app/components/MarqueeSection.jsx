@@ -317,7 +317,7 @@ const MarqueeSection = () => {
               {[...cities, ...cities, ...cities].map((city, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 flex items-center gap-3 text-xl font-bold text-white hover:text-orange-400 transition-colors duration-300 whitespace-nowrap group"
+                  className="flex-shrink-0 flex items-center gap-3 text-2xl md:text-4xl font-bold text-white hover:text-orange-400 transition-colors duration-300 whitespace-nowrap group"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   <div className="w-2 h-2 bg-emerald-400 rounded-full group-hover:bg-orange-400 transition-colors"></div>

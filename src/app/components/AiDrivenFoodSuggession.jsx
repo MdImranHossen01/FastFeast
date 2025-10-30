@@ -336,14 +336,14 @@ const AiDrivenFoodSuggestion = () => {
   const displaySummary = summary;
 
   return (
-    <section className="w-full bg-gradient-to-br from-orange-50 to-amber-50 py-12">
+    <section className="w-full py-12">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">
             Our <span className="text-orange-600">Suggestion</span> for you
           </h2>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
             {!isClient ? (
               "Discover Great Food Options"
             ) : showAutoSuggestions ? (
@@ -357,7 +357,7 @@ const AiDrivenFoodSuggestion = () => {
         {/* Quick Prompts Section */}
         <div className="w-full mx-auto mb-8">
           <div className="text-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
               <span className="text-orange-600">What are you craving?</span>{" "}
               Choose from popular categories.
             </h3>
@@ -390,7 +390,7 @@ const AiDrivenFoodSuggestion = () => {
           {/* Summary */}
           {displaySummary && (
             <div className="text-center mb-8">
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 {displaySummary.reasoning} • {displaySummary.totalSuggestions}{" "}
                 suggestions found
                 {displaySummary.bestMatch && (

@@ -1,6 +1,6 @@
 // src/app/layout.jsx
 import Script from "next/script";
-
+import 'aos/dist/aos.css';
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -106,31 +106,7 @@ export default function RootLayout({ children }) {
           type="image/png"
         />
 
-        {/* PRELOAD BANNER VIDEOS FOR INSTANT LOADING */}
-        <link rel="preload" href="/video1.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/video2.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/video3.mp4" as="video" type="video/mp4" />
-
-        {/* PRELOAD POSTER IMAGES */}
-        <link
-          rel="preload"
-          href="/video1-poster.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-        <link
-          rel="preload"
-          href="/video2-poster.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-        <link
-          rel="preload"
-          href="/video3-poster.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-
+       
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,12 +125,10 @@ export default function RootLayout({ children }) {
           body { 
             margin: 0; 
             font-family: var(--font-geist-sans), system-ui, sans-serif;
-            background: white;
-            color: #000;
+            
           }
           * { box-sizing: border-box; }
           
-          /* Smooth video loading */
           .slide-video {
             transition: opacity 0.3s ease-in-out;
           }
@@ -163,14 +137,14 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} antialiased bg-orange-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-orange-950 dark:to-amber-950 text-foreground`}
         suppressHydrationWarning
       >
         {/* Critical content first */}
         <div id="critical-content">
-          <ThemeToggle />
           <SessionWrapper>
             <NextThemeProvider>
+              <ThemeToggle />
               <AOSProvider>
                 <StoreProvider>
                   <CartProvider>
@@ -269,27 +243,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* end google translate */}
-
-        {/* Video preloading script */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              document.addEventListener('DOMContentLoaded', function() {
-                // The problematic line criticalContent.style.visibility = 'visible'; has been removed.
-                // Critical content is now visible by default as there's no CSS hiding it.
-                
-                // Additional video preloading
-                const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];
-                videos.forEach(videoSrc => {
-                  const video = document.createElement('video');
-                  video.preload = 'auto';
-                  video.src = videoSrc;
-                });
-              });
-            `,
-          }}
-        />
+        
       </body>
     </html>
   );
