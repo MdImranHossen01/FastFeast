@@ -62,13 +62,15 @@ const TraditionalBear = () => {
     // Full viewport height section with no scrolling
     <section className="md:max-h-screen w-full overflow-hidden relative">
       {/* Animated SVG - Drop animation from top middle */}
-      <div className={`absolute left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 ${
-        animationPhase === 0 
-          ? 'top-0 opacity-0 -translate-y-full scale-75' // Start position (top, hidden)
-          : animationPhase === 1 
-          ? 'top-1/2 -translate-y-1/2 opacity-100 scale-100' // Middle position (visible)
-          : 'top-full opacity-0 translate-y-0 scale-50' // End position (bottom, hidden)
-      }`}>
+      <div
+        className={`absolute left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 hidden md:block ${
+          animationPhase === 0
+            ? "top-0 opacity-0 -translate-y-full scale-75" // Start position (top, hidden)
+            : animationPhase === 1
+            ? "top-1/2 -translate-y-1/2 opacity-100 scale-100" // Middle position (visible)
+            : "top-full opacity-0 translate-y-0 scale-50" // End position (bottom, hidden)
+        }`}
+      >
         <div className="w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56">
           <Image
             src="/animateBriyani.svg"
