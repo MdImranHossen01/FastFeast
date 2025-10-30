@@ -46,7 +46,7 @@ const RestaurantSection = () => {
 
   return (
     <section className="w-full min-h-screen  md:h-screen">
-      <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
+      <div className="container px-4 mx-auto grid grid-cols-1 xl:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
         <div 
           className="relative h-[600px] flex items-center justify-center" 
           data-aos="fade-right"
