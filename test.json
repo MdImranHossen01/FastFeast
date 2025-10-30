@@ -1,79 +1,286 @@
-{
-  "name": "fast-fest",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack --no-lint",
-    "start": "next start",
-    "lint": "next lint",
-    "json-server": "json-server --watch db.json --port 5000"
+[
+  {
+    "_id": "68eb5547c50926ef355a1671",
+    "slug": "the-rise-of-cloud-kitchens-in-bangladesh",
+    "title": "The Rise of Cloud Kitchens in Bangladesh",
+    "excerpt": "Ghost kitchens are changing the food industry – here’s what you need to know.",
+    "details": "Cloud kitchens, also known as ghost kitchens, are delivery-only restaurants that operate without dine-in facilities. By eliminating the costs associated with a traditional restaurant setup, these kitchens can focus on improving food quality, optimizing delivery speed, and experimenting with new menu items. This model has become increasingly popular in Dhaka and other cities in Bangladesh, fueled by the growing demand for convenient, high-quality food delivered straight to your door. Many cloud kitchens partner with multiple delivery apps to reach a wider audience, making it easier than ever for customers to enjoy a variety of cuisines from the comfort of home. As this trend continues, cloud kitchens are reshaping the food delivery landscape in the country, offering both affordability and efficiency.",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Food Tech",
+    "tags": [
+      "Cloud Kitchen",
+      "Food Business"
+    ],
+    "visitCount": 134,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T07:14:15.092Z",
+    "updatedAt": "2025-10-28T16:04:58.957Z"
   },
-  "dependencies": {
-    "@heroicons/react": "^2.2.0",
-    "@lexical/react": "^0.37.0",
-    "@lexical/rich-text": "^0.37.0",
-    "@radix-ui/react-dialog": "^1.1.15",
-    "@radix-ui/react-slot": "^1.2.3",
-    "@radix-ui/react-tooltip": "^1.2.8",
-    "@reduxjs/toolkit": "^2.9.0",
-    "@stripe/react-stripe-js": "^5.2.0",
-    "@stripe/stripe-js": "^8.0.0",
-    "aos": "^2.3.4",
-    "bcrypt": "^6.0.0",
-    "bcryptjs": "^3.0.2",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "dompurify": "^3.3.0",
-    "framer-motion": "^12.23.22",
-    "json-server": "^1.0.0-beta.3",
-    "jspdf": "^3.0.3",
-    "lenis": "^1.3.13",
-    "lottie-react": "^2.4.1",
-    "lucide-react": "^0.544.0",
-    "mongodb": "^6.19.0",
-    "mongoose": "^8.19.1",
-    "next": "15.5.3",
-    "next-auth": "^4.24.11",
-    "next-pwa": "^5.6.0",
-    "next-themes": "^0.4.6",
-    "nodemailer": "^6.10.1",
-    "openai": "^6.5.0",
-    "pdf-lib": "^1.17.1",
-    "react": "19.1.0",
-    "react-compare-image": "^3.5.10",
-    "react-countup": "^6.5.3",
-    "react-dom": "19.1.0",
-    "react-fast-marquee": "^1.6.5",
-    "react-hot-toast": "^2.6.0",
-    "react-icons": "^5.5.0",
-    "react-intersection-observer": "^9.16.0",
-    "react-loading-skeleton": "^3.5.0",
-    "react-markdown": "^10.1.0",
-    "react-redux": "^9.2.0",
-    "react-slick": "^0.31.0",
-    "react-sticky-box": "^2.0.5",
-    "recharts": "^3.2.1",
-    "slick-carousel": "^1.8.1",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
-    "sslcommerz-lts": "^1.2.0",
-    "stripe": "^19.1.0",
-    "sweetalert2": "^11.23.0",
-    "swiper": "^12.0.2",
-    "tailwind-merge": "^3.3.1",
-    "uuid": "^13.0.0"
+  {
+    "_id": "68eb5516c50926ef355a166f",
+    "slug": "traditional-bangladeshi-desserts-online",
+    "title": "Traditional Bangladeshi Desserts You Can Order Online",
+    "excerpt": "From mishti doi to chomchom, discover where to order authentic sweets.",
+    "details": "Bangladeshi desserts are a true delight, loved for their rich flavors and traditional charm. Classics like mishti doi, chomchom, roshogolla, and semai are now easily available online through trusted sweet shops, making it convenient to enjoy these treats from home. These sweets are not only perfect for festivals and celebrations but also make wonderful gifts or a delightful way to satisfy your sweet cravings. Many of these shops maintain traditional recipes while ensuring high-quality ingredients, so you can enjoy authentic Bangladeshi flavors with every bite. Whether it’s a family gathering, a special occasion, or just a treat for yourself, these desserts bring joy and a taste of tradition to every table.",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Desserts",
+    "tags": [
+      "Dessert",
+      "Traditional",
+      "Dhaka"
+    ],
+    "visitCount": 111,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T07:13:26.190Z",
+    "updatedAt": "2025-10-29T04:03:05.488Z"
   },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "24.5.0",
-    "@types/react": "19.1.13",
-    "daisyui": "^5.1.12",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.3",
-    "tailwindcss": "^4",
-    "tw-animate-css": "^1.3.8"
+  {
+    "_id": "68eb54cbc50926ef355a166d",
+    "slug": "food-delivery-safety-tips-during-rainy-season",
+    "title": "Food Delivery Safety Tips During Rainy Season",
+    "excerpt": "How to make sure your food stays safe and hygienic during heavy rains.",
+    "details": "The rainy season brings both relief and challenges for food delivery. Due to increased humidity and longer delivery times, maintaining food safety becomes more important than ever. To avoid any health risks, always order from trusted and well-reviewed restaurants that follow strict hygiene standards. Make sure the packaging is sealed properly to prevent water leakage or contamination during transit. It’s also wise to avoid items that spoil quickly in humid weather, such as seafood-based dishes, mayonnaise-heavy salads, or raw foods. Instead, opt for freshly cooked hot meals like rice bowls, noodles, or biriyani that stay safe for longer. Once delivered, consume the food within the recommended time rather than storing it for hours. By being a bit careful about where and what you order, you can enjoy your favorite meals safely even on rainy days!",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co.com/bRbCTLWB/13480.jpg"
+    ],
+    "category": "Safety",
+    "tags": [
+      "Food Safety",
+      "Rainy Season"
+    ],
+    "visitCount": 59,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T07:12:11.235Z",
+    "updatedAt": "2025-10-29T04:04:01.055Z"
+  },
+  {
+    "_id": "68eb5454c50926ef355a166b",
+    "slug": "vegan-and-vegetarian-restaurants-in-dhaka",
+    "title": "Vegan and Vegetarian Restaurants in Dhaka",
+    "excerpt": "Plant-based food lovers will enjoy these healthy and tasty options.",
+    "details": "Veganism and plant-based eating are slowly gaining popularity in Dhaka as more people become health-conscious and environmentally aware. While fully vegan restaurants are still limited, several eateries are now offering dedicated plant-based or vegetarian menus with dishes like vegan biriyani, lentil-based kebabs, fresh salads, smoothies, rice bowls, and dairy-free desserts.Restaurants such as Café Mrittika, Khaas Food Cafe, and The Yard are known for serving wholesome vegan-friendly meals using organic and locally sourced ingredients. Some popular international chains and fine-dining spots have also introduced vegan options to cater to modern lifestyles.What makes these places special is that the meals are not only healthy and nutrient-rich but also flavorful and affordable. Whether you are a strict vegan, a vegetarian, or simply trying to cut down on meat, Dhaka now offers a growing range of choices that support sustainable and guilt-free eating.If you’re planning to explore plant-based dining in the city, these restaurants are the perfect place to start your journey into greener eating!",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Vegan",
+    "tags": [
+      "Vegan",
+      "Vegetarian",
+      "Dhaka"
+    ],
+    "visitCount": 65,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T07:10:12.012Z",
+    "updatedAt": "2025-10-29T04:04:44.628Z"
+  },
+  {
+    "_id": "68eb5404c50926ef355a1669",
+    "slug": "best-burgers-in-dhaka",
+    "title": "Best Burgers in Dhaka You Must Try",
+    "excerpt": "From local favorites to international brands, these burgers are worth it.",
+    "details": "Burgers have taken over the fast-food scene in Dhaka, and it’s easy to see why. From juicy patties to cheesy layers and spicy sauces, every brand brings its own unique twist. Local favorites like Takeout, Madchef, and Chillox have earned a cult following for their bold flavors and generous portions. If you prefer something more classic and international, Burger King and KFC offer consistent quality with their iconic Whoppers and Zingers.Whether you’re into smoky beef, crispy chicken, or loaded double patties dripping with cheese, there’s a burger in Dhaka waiting for you. Some places even offer fusion options like Naga chili burgers for spice lovers or mushroom melt burgers for a richer taste.So next time you’re craving the perfect bite, skip the guesswork and head to one of these popular burger spots — because in Dhaka, burger hunting is a delicious adventure!",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Fast Food",
+    "tags": [
+      "Burger",
+      "Dhaka",
+      "Food"
+    ],
+    "visitCount": 176,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T07:08:52.492Z",
+    "updatedAt": "2025-10-29T04:14:47.210Z"
+  },
+  {
+    "_id": "68eb53b9c50926ef355a1667",
+    "slug": "how-to-save-money-on-food-delivery",
+    "title": "How to Save Money on Food Delivery",
+    "excerpt": "Tips and tricks to get discounts, promo codes, and free delivery offers.",
+    "details": "Food delivery is convenient, but the costs can add up quickly if you order regularly. Fortunately, there are many simple strategies to save money without giving up the comfort of ordering from home. Start by always checking for promo codes before placing an order. Most apps offer daily or weekly discount codes that can take 10-30% off instantly. You can even subscribe to their newsletters or follow their social media pages to catch exclusive offers. Use multiple food delivery apps instead of sticking to just one. Prices and delivery fees vary from app to app, so comparing them before ordering can help you find the cheapest deal. Some apps also offer special discounts for first-time users, so take advantage of those using different accounts or devices. Make use of loyalty or reward programs. Apps like Foodpanda, Uber Eats, or DoorDash often give points for every order that can later be redeemed for free food or discounts. If you’re loyal to one platform, join their membership plan to unlock extra benefits like lower delivery fees. Order combo meals or group orders instead of single items. Combos often include a main dish, side, and drink at a much lower price compared to ordering separately. If you’re ordering with friends or family, place one large order instead of multiple small ones to save on delivery charges. Avoid peak-time delivery charges. Ordering slightly earlier or later than rush hours can help you skip surge pricing or extra delivery fees.With just a little planning, you can enjoy food delivery while keeping your expenses under control. The key is to compare prices, collect rewards, and use smart ordering strategies consistently.",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Tips",
+    "tags": [
+      "Food Delivery",
+      "Money Saving"
+    ],
+    "visitCount": 98,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T07:07:37.296Z",
+    "updatedAt": "2025-10-29T04:20:29.346Z"
+  },
+  {
+    "_id": "68eb5158c50926ef355a1665",
+    "slug": "top-10-cafes-in-dhaka-for-students",
+    "title": "Top 10 Cafes in Dhaka for Students",
+    "excerpt": "Looking for budget-friendly cafes with Wi-Fi and cozy vibes? Here’s the list.",
+    "details": "Dhaka’s student community loves spending time in cafes — not just for food, but for productivity, hangouts, and late-night assignment marathons. The best cafes for students are the ones that offer free Wi-Fi, comfortable seating, quiet ambiance, and affordable snacks. Popular spots like North End Coffee Roasters, Crimson Cup, and Takeout are known for their study-friendly environments. Meanwhile, rooftop cafes in Dhanmondi and Bashundhara provide a chill atmosphere where you can work while enjoying the view. Some cafes even offer board games, open mics, or student discounts, making them perfect for both study sessions and weekend hangouts. Whether you're looking for a peaceful corner for online classes or planning a group project meetup, these cafes offer the perfect vibe without breaking the bank. Grab your laptop, order a latte, and let the productivity begin!",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Cafes",
+    "tags": [
+      "Cafe",
+      "Students",
+      "Dhaka"
+    ],
+    "visitCount": 143,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T06:57:28.879Z",
+    "updatedAt": "2025-10-29T04:24:16.888Z"
+  },
+  {
+    "_id": "68eb510ac50926ef355a1663",
+    "slug": "best-midnight-food-delivery-in-dhaka",
+    "title": "Best Midnight Food Delivery Services in Dhaka",
+    "excerpt": "Hungry at midnight? Here are the top food delivery apps that stay open late.",
+    "details": "Midnight cravings are no joke — whether you’re gaming, working late, or just can’t sleep without a spicy biriyani fix. Luckily, Dhaka’s food scene never sleeps anymore. Popular platforms like Foodpanda, Pathao Food, and HungryNaki now offer late-night and even 24/7 delivery in major areas like Dhanmondi, Banani, Uttara, and Mirpur. If you're in the mood for something heavy, Sultan’s Dine, Kacchi Bhai, and Chillox deliver juicy burgers and steaming kacchi till late hours. For lighter options, snack shops like Madchef and Takeout offer fries, wraps, and chicken rice bowls past midnight. Several cloud kitchens, such as Grubs and Ride & Bite, specialize entirely in late-night meals — perfect for students and night owls. Pro tip: keep your favorite midnight orders saved in advance so you can satisfy your cravings in just one tap. No more sleeping on an empty stomach!",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Food Delivery",
+    "tags": [
+      "Midnight",
+      "Delivery",
+      "Dhaka"
+    ],
+    "visitCount": 102,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T06:56:10.061Z",
+    "updatedAt": "2025-10-29T04:36:34.425Z"
+  },
+  {
+    "_id": "68eb5034c50926ef355a165f",
+    "slug": "healthy-eating-tips-for-busy-professionals",
+    "title": "Healthy Eating Tips for Busy Professionals",
+    "excerpt": "Quick, healthy, and affordable meals you can order online while working.",
+    "details": "In fast-paced cities like Dhaka, busy professionals often end up skipping meals or relying on oily fast food due to lack of time. However, staying healthy doesn’t have to be difficult — it’s all about making smarter choices. Instead of ordering heavy biriyani or fried snacks every day, try switching to grilled chicken, brown rice bowls, or protein-packed wraps from online food platforms. Many restaurants now offer salad combos with eggs, chickpeas, or smoked chicken that keep you full without the extra calories. For homemade-style comfort food, cloud kitchens and tiffin services are a great option, offering dishes like khichuri, mashed vegetables, and fish curry — perfect for those who miss home-cooked meals. Another tip is to pair your main dish with fresh juices or sugar-free drinks instead of sodas. Planning your meals ahead or setting fixed 'healthy go-to orders' can reduce last-minute junk food temptations. Eating well is not about strict dieting — it’s about consistency and small upgrades. With just a few smart swaps, you can fuel your workday without compromising your health.",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Health",
+    "tags": [
+      "Healthy Eating",
+      "Lifestyle"
+    ],
+    "visitCount": 77,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T06:52:36.374Z",
+    "updatedAt": "2025-10-29T04:37:21.424Z"
+  },
+  {
+    "_id": "68eb4fefc50926ef355a165d",
+    "slug": "top-7-biriyani-places-in-dhaka",
+    "title": "Top 7 Biriyani Places in Dhaka You Can’t Miss",
+    "excerpt": "From Old Dhaka to Banani — here are the must-try biriyani spots loved by locals.",
+    "details": "Dhaka is nothing less than a paradise for biriyani lovers. Whether you’re craving rich kacchi or spicy tehari, the city offers something for every taste. Star Kabab, Fakhruddin, and Haji Biriyani are considered legends — people willingly wait in long queues just for a plate. Sultan’s Dine has recently taken social media by storm with its generous portions and smoky aroma, making it a favorite among young foodies. For those who prefer a homely taste, places like Khushbu and Al-Razzaq keep things traditional and affordable. Meanwhile, upscale restaurants in Banani and Gulshan are serving fusion-style biriyanis with a modern twist. What makes Dhaka’s biriyani culture truly special is the passion — every shop claims theirs is the best, and honestly, they’re all right in their own way. If you haven’t explored these seven spots yet, your biriyani journey is just getting started.",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Restaurants",
+    "tags": [
+      "Biriyani",
+      "Dhaka",
+      "Food"
+    ],
+    "visitCount": 200,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T06:51:27.219Z",
+    "updatedAt": "2025-10-29T04:42:16.971Z"
+  },
+  {
+    "_id": "68eb4f62c50926ef355a165a",
+    "slug": "why-online-food-delivery-is-growing-in-bangladesh",
+    "title": "Why Online Food Delivery is Growing in Bangladesh",
+    "excerpt": "Food delivery apps are changing the way we eat. Here’s why the trend is booming.",
+    "details": "The rapid growth of internet access and affordable smartphones has made food delivery apps a natural part of daily urban life in Bangladesh. Busy professionals and students now prefer ordering food with just a few taps rather than cooking or dining out. On top of that, aggressive discounts, cashback offers, and loyalty rewards from platforms like Foodpanda, Pathao Food, and HungryNaki have made online delivery cheaper than traditional dining. The COVID-19 pandemic also played a major role by pushing people toward contactless services, turning delivery riders into essential workers overnight. Even after lockdowns were lifted, the habit of ordering food online stayed because of the unmatched convenience and time-saving benefits. Additionally, restaurants have started relying more on delivery platforms to increase their sales reach, and many home-based cloud kitchens have emerged solely to serve online customers. With growing trust in digital payments, faster delivery logistics, and expanding service areas beyond major cities, the online food delivery industry in Bangladesh is expected to grow even further in the coming years.",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Food Tech",
+    "tags": [
+      "Food Delivery",
+      "Bangladesh",
+      "Apps"
+    ],
+    "visitCount": 89,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T06:49:06.854Z",
+    "updatedAt": "2025-10-29T04:43:12.592Z"
+  },
+  {
+    "_id": "68eb4d37c50926ef355a1655",
+    "slug": "5-best-street-foods-in-dhaka",
+    "title": "5 Best Street Foods in Dhaka",
+    "excerpt": "Discover the most delicious and affordable street foods you must try in Dhaka.",
+    "details": "Dhaka’s streets are full of mouthwatering flavors. From fuchka and chotpoti in Old Dhaka to samosas in New Market, these foods represent our culture and tradition. Street foods are not only tasty but also affordable and popular among students, office workers, and tourists. Dhaka’s streets are full of mouthwatering flavors. From fuchka and chotpoti in Old Dhaka to samosas in New Market, these foods represent our culture and tradition. Street foods are not only tasty but also affordable and popular among students, office workers, and tourists. Dhaka’s streets are full of mouthwatering flavors. From fuchka and chotpoti in Old Dhaka to samosas in New Market, these foods represent our culture and tradition. Street foods are not only tasty but also affordable and popular among students, office workers, and tourists.",
+    "coverImage": "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+    "gallery": [
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png",
+      "https://i.ibb.co/r2gmn4cs/golden-biriyani.png"
+    ],
+    "category": "Street Food",
+    "tags": [
+      "Food",
+      "Dhaka",
+      "Street"
+    ],
+    "visitCount": 150,
+    "author": "68c991e89e31b26271cf8510",
+    "createdAt": "2025-10-12T06:39:51.914Z",
+    "updatedAt": "2025-10-29T04:44:36.063Z"
   }
-}
+]

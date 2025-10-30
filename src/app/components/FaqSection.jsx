@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoChevronForward } from "react-icons/io5";
 import Image from "next/image";
-import 'aos/dist/aos.css';
 
 const faqs = [
   {
@@ -35,35 +34,7 @@ const faqs = [
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
   const toggleFAQ = (index) => setOpenIndex(openIndex === index ? null : index);
-
-  useEffect(() => {
-    setIsMounted(true);
-    
-    // Initialize AOS only on client side
-    const initAOS = async () => {
-      const AOS = await import('aos');
-      const aos = AOS.default;
-      aos.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        offset: 100,
-      });
-    };
-
-    initAOS();
-  }, []);
-
-  // Don't render AOS attributes during SSR
-  const getAosProps = (animation, delay) => {
-    if (!isMounted) return {};
-    return {
-      'data-aos': animation,
-      'data-aos-delay': delay
-    };
-  };
 
   return (
     <section className="w-full py-12 md:py-16">
@@ -72,10 +43,7 @@ export default function FAQSection() {
           
           {/* Left Column */}
           <div className="flex flex-col justify-center">
-            <h2 
-              className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-white mb-6"
-              {...getAosProps('fade-up', '100')}
-            >
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-800 dark:text-white mb-6">
               Frequently Asked <span className="text-orange-600">Questions</span>
             </h2>
 
@@ -84,10 +52,9 @@ export default function FAQSection() {
                 <div 
                   key={index} 
                   className="transition-all cursor-pointer duration-300 hover:shadow-md rounded-lg overflow-hidden bg-white"
-                  {...getAosProps('fade-up', 200 + (index * 100))}
                 >
                   <button
-                    className=" w-full flex justify-between items-center p-4 sm:p-5 text-left font-medium text-gray-800"
+                    className="w-full flex justify-between items-center p-4 sm:p-5 text-left font-medium text-gray-800"
                     onClick={() => toggleFAQ(index)}
                   >
                     <span className="cursor-pointer text-base hover:text-orange-600 sm:text-lg">{faq.question}</span>
@@ -112,16 +79,14 @@ export default function FAQSection() {
           </div>
 
           {/* Right Column - Full Height Image */}
-          <div 
-            className="relative w-full h-full min-h-[400px] md:min-h-[600px] rounded-lg overflow-hidden shadow-xl flex"
-            {...getAosProps('fade-up', '150')}
-          >
+          <div className="relative w-full h-full min-h-[400px] md:min-h-[600px] rounded-lg overflow-hidden shadow-xl flex">
             <Image
               src="https://i.ibb.co/jZ5HNJ7s/FAQ-in-orange-for-food-quary-in-a-website-faq-section-1.jpg"
               alt="FAQ Illustration"
               fill
               className="object-cover object-center w-full h-full"
               sizes="(max-width: 768px) 100vw, 50vw"
+              priority // Add priority for important images
             />
           </div>
         </div>
