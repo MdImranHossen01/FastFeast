@@ -7,7 +7,6 @@ import React, {
   useMemo,
   useRef,
   useCallback,
-  memo,
 } from "react";
 import MenuModal from "./MenuModal";
 import Link from "next/link";

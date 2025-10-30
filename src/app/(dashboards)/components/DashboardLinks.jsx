@@ -133,7 +133,7 @@ export default function DashboardLinks() {
       )}
 
       {/* restaurant links */}
-      {user.role === "restaurant" && (
+      {user.role === "restaurantOwner" && (
         <>
           <li>
             <Link
