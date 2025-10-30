@@ -52,7 +52,7 @@ export default function RestaurantDashboard() {
 
         {/* Recent Orders Table */}
         <section className="bg-white rounded-2xl shadow-sm p-6 mb-10">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">
+          <h2 className="text-2xl font-bold mb-6 text-gray-9800 border-b pb-2">
             🧾 Recent Orders
           </h2>
           <div className="overflow-x-auto">
