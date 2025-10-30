@@ -1,4 +1,5 @@
 "use client";
+
 import { MdArticle } from "react-icons/md";
 import { useState, useEffect } from "react";
 import AddBlogModal from "../modals/AddBlogModal";
@@ -11,11 +12,11 @@ export default function ManageBlogs() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch('/api/blogs');
+        const response = await fetch("/api/blogs");
         const data = await response.json();
         setBlogs(data);
       } catch (error) {
-        console.error('Failed to fetch blogs:', error);
+        console.error("Failed to fetch blogs:", error);
       } finally {
         setLoading(false);
       }

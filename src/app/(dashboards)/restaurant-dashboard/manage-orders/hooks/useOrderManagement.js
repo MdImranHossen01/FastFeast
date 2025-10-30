@@ -28,6 +28,9 @@ export const useOrderManagement = () => {
   const fetchOrders = async () => {
     try {
       const response = await fetch("/api/orders");
+
+      console.log("Response:", response);
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(

@@ -69,15 +69,17 @@ const UserMenu = ({
                   My Profile
                 </Link>
               </li>
-              <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
-                <FiGrid />{" "}
-                <Link
-                  href={`${conditionalDashboard}`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Dashboard
-                </Link>
-              </li>
+              {user.role !== "user" && (
+                <li className="flex items-center gap-3 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100 transition-transform duration-300 hover:scale-105">
+                  <FiGrid />{" "}
+                  <Link
+                    href={`${conditionalDashboard}`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              )}
               <li className="flex w-full cursor-pointer items-center gap-3 rounded-md px-3 py-2 font-medium text-red-500 hover:bg-red-50 transition-transform duration-300 hover:scale-105">
                 <FiLogOut />
                 <button
