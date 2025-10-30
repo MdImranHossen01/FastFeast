@@ -65,7 +65,7 @@ export default function PopularBlogs() {
   return (
     <section className="relative py-16 bg-gradient-to-b from-orange-50 via-white to-orange-50 overflow-hidden">
       {/* Subtle background accent */}
-      <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5 pointer-events-none"></div>
+      <div className="absolute inset-0 opacity-5 pointer-events-none"></div>
 
       {/* Header */}
       <motion.div
