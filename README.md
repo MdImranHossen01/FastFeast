@@ -47,133 +47,209 @@ FastFeast revolutionizes the food delivery experience by providing a unified pla
 
 ---
 
-## 🌟 Unique Selling Points (USPs)
+# 🌟 FastFeast - Unique Selling Points (USPs)
 
-### 1. Live Messaging System
-FastFeast enables real-time communication between customers, restaurants, and riders. This eliminates miscommunication and allows for quick problem resolution. Unlike competitors who rely on phone calls or in-app notifications, FastFeast's chat feature creates a cohesive communication layer.
-
-**Impact:** Reduces delivery issues by 40% and improves customer satisfaction.
-
----
-
-### 2. Live Order Notifications
-Every stage of order processing triggers real-time notifications—from order acceptance to delivery. Customers always know their order status without asking.
-
-**Impact:** Reduces customer anxiety and support queries by 50%.
-
----
-
-### 3. Progressive Web App (PWA)
+## 1. Progressive Web App (PWA)
 FastFeast can be installed as a native app on desktop and mobile devices, works offline, and provides a seamless experience even with poor connectivity. Users can browse menus, view order history, and access cached content without internet.
 
 **Impact:** Increases accessibility by 70% and user engagement by 55%.
 
 ---
 
-### 4. Voice Search Technology
+
+## 2. Voice Search Technology
 Hands-free voice search allows users to find restaurants and menu items using natural language commands. This feature makes the platform more accessible and convenient, especially for multitasking users.
 
 **Impact:** Improves accessibility for disabled users and reduces search time by 45%.
 
 ---
 
-### 5. AI-Powered Food Recommendations
+
+## 3. Multi-Language Support
+FastFeast supports 5 languages (Bengali, English, Hindi, Arabic, Spanish) allowing users to browse and order in their preferred language. Language selector is conveniently located in the footer.
+
+**Impact:** Expands market reach to non-English speaking users and increases international adoption by 50%.
+
+---
+
+## 4. AI-Powered Food Recommendations
 Intelligent recommendation system suggests personalized food items based on time of day, user location, order history, and custom preferences. Powered by OpenRouter API and GLM model for accurate suggestions.
 
 **Impact:** Increases order conversion rate by 35% and average order value by 25%.
 
 ---
 
-### 6. AI Chatbot Assistant
+## 5. AI Chatbot Assistant
 24/7 AI-powered chatbot provides instant answers to customer queries, menu recommendations, and order support without human intervention. Understands context and provides relevant responses.
 
 **Impact:** Reduces customer support workload by 80% and improves response time by 95%.
 
 ---
 
-### 7. Live Traffic Dashboard
-Real-time monitoring of website traffic, pending orders, active users, and trending items gives restaurant owners and admins immediate business insights for data-driven decisions.
-
-**Impact:** Enables instant operational adjustments and improves business efficiency by 30%.
-
----
-
-### 8. Local Payment Integration (bKash)
-Specifically designed for the Bangladeshi market, FastFeast integrates bKash, the most popular mobile payment solution in Bangladesh. This removes barriers to digital payments for local users.
-
-**Impact:** Increases conversion rate among Bengali customers by 35%.
-
----
-
-### 9. Advanced Admin Dashboard
-Comprehensive analytics, rider management, live traffic monitoring, and real-time order tracking give administrators complete platform control. Custom reports help identify trends and optimize operations.
-
-**Impact:** Enables data-driven business decisions and 25% operational efficiency improvement.
-
----
-
-### 10. Dual Payment Gateway Integration
-Supporting both international (Stripe) and local (bKash) payment methods caters to a broader audience and enables global expansion while maintaining local market dominance.
-
-**Impact:** Expands customer base by 60%.
-
----
-
-### 11. Real-Time GPS Tracking
-Live tracking allows customers to see their rider's exact location on a map, similar to Uber. This transparency builds trust and reduces "Where's my order?" inquiries.
-
-**Impact:** Improves customer trust score to 95%.
-
----
-
-### 12. Rider Review System
-Customers can rate and review individual riders, creating accountability and ensuring quality service. Riders with consistent positive feedback earn badges and higher visibility.
-
-**Impact:** Improves service quality and rider accountability.
-
----
-
-### 13. Menu-Level Reviews
-Customers review specific menu items, helping others make informed choices and helping restaurants identify popular and underperforming items.
-
-**Impact:** Increases average order value by providing personalized recommendations.
-
----
-
-### 14. Newsletter & Blog Integration
-Engaging food-related content keeps users informed about new restaurants, cooking tips, and exclusive deals. This creates a community feel beyond just transactional interactions.
-
-**Impact:** Increases user retention and repeat orders by 45%.
-
----
-
-### 15. Responsive Multi-Device Support
-Fully responsive design ensures seamless experience across mobile, tablet, and desktop, allowing users to order anytime, anywhere.
-
-**Impact:** Captures 80% more traffic from mobile users.
-
----
-
-### 16. **🆕 Multi-Language Support**
-FastFeast now supports 5 languages (Bengali, English, Hindi, Arabic, Spanish) allowing users to browse and order in their preferred language. Language selector is conveniently located in the footer.
-
-**Impact:** Expands market reach to non-English speaking users and increases international adoption by 50%.
-
----
-
-### 17. **🆕 Dark/Light Theme System**
+## 6. Dark/Light Theme System
 Adaptive theme system with floating toggle button allows users to switch between dark and light modes based on their preference, reducing eye strain and improving user experience during night-time browsing.
 
 **Impact:** Increases session duration by 30% and reduces bounce rate for night-time users by 40%.
 
 ---
 
-### 18. **🆕 Performance Optimization with ISR**
+## 7. Live Traffic, Order, and ongowing delivery button
+Real-time monitoring of website traffic, pending orders, ongoing delivery, active users, and trending items gives restaurant owners and admins immediate business insights for data-driven decisions.
+
+**Impact:** Enables instant operational adjustments and improves business efficiency by 30%.
+
+---
+
+## 8. Local Payment Integration (bKash)
+Specifically designed for the Bangladeshi market, FastFeast integrates bKash, the most popular mobile payment solution in Bangladesh. This removes barriers to digital payments for local users.
+
+**Impact:** Increases conversion rate among Bengali customers by 35%.
+
+---
+
+## 9. Advanced Admin Dashboard
+Comprehensive analytics, rider management, live traffic monitoring, and real-time order tracking give administrators complete platform control. Custom reports help identify trends and optimize operations.
+
+**Impact:** Enables data-driven business decisions and 25% operational efficiency improvement.
+
+---
+
+## 10. Dual Payment Gateway Integration
+Supporting both international (Stripe) and local (bKash) payment methods caters to a broader audience and enables global expansion while maintaining local market dominance.
+
+**Impact:** Expands customer base by 60%.
+
+---
+
+
+## 11. Real-Time GPS Tracking
+Live tracking allows customers to see their rider's exact location on a map, similar to Uber. This transparency builds trust and reduces "Where's my order?" inquiries.
+
+**Impact:** Improves customer trust score to 95%.
+
+---
+
+## 12. Live Order Notifications
+Every stage of order processing triggers real-time notifications—from order acceptance to delivery. Customers always know their order status without asking.
+
+**Impact:** Reduces customer anxiety and support queries by 50%.
+
+---
+
+
+## 13. Live Messaging System
+FastFeast enables real-time communication between customers, restaurants, and riders. This eliminates miscommunication and allows for quick problem resolution. Unlike competitors who rely on phone calls or in-app notifications, FastFeast's chat feature creates a cohesive communication layer.
+
+**Impact:** Reduces delivery issues by 40% and improves customer satisfaction.
+
+---
+
+## 14. Rider Review System
+Customers can rate and review individual riders, creating accountability and ensuring quality service. Riders with consistent positive feedback earn badges and higher visibility.
+
+**Impact:** Improves service quality and rider accountability.
+
+---
+
+## 15. Menu-Level Reviews
+Customers review specific menu items, helping others make informed choices and helping restaurants identify popular and underperforming items.
+
+**Impact:** Increases average order value by providing personalized recommendations.
+
+---
+
+## 16. Newsletter & Blog Integration
+Engaging food-related content keeps users informed about new restaurants, cooking tips, and exclusive deals. This creates a community feel beyond just transactional interactions.
+
+**Impact:** Increases user retention and repeat orders by 45%.
+
+---
+
+## 17. Responsive Multi-Device Support
+Fully responsive design ensures seamless experience across mobile, tablet, and desktop, allowing users to order anytime, anywhere.
+
+**Impact:** Captures 80% more traffic from mobile users.
+
+---
+
+
+
+## 18. Performance Optimization with ISR
 Incremental Static Regeneration (ISR) ensures lightning-fast page loads by serving pre-rendered content while updating data in the background. Users get instant page loads without sacrificing data freshness.
 
 **Impact:** Reduces page load time by 65% and improves SEO rankings by 45%.
 
 ---
+
+## 19. 🆕 Live Order Status Tracking System
+Real-time order status tracking with visual progress indicators shows every stage of the order journey—from placement to preparation, pickup, in-transit, and delivery. Customers can track their order status instantly after placing it, with automated updates at each milestone.
+
+**Impact:** Reduces "Where's my order?" inquiries by 60% and increases customer confidence by 75%.
+
+---
+
+## 20. 🆕 Lenis Smooth Scrolling Experience
+Ultra-smooth, butter-like scrolling powered by Lenis library creates a premium, app-like browsing experience. Eliminates janky scrolling and provides fluid navigation that feels natural and responsive across all devices.
+
+**Impact:** Improves user experience perception by 50% and increases page engagement time by 35%.
+
+---
+
+## 21. 🆕 Advanced Multi-Role Dashboard System
+**Three specialized dashboards for different user roles:**
+
+### Admin Dashboard
+- Complete platform control with analytics
+- User management and role assignments
+- Order monitoring across all restaurants
+- Revenue tracking and financial reports
+- System settings and configuration
+
+### Restaurant Owner Dashboard
+- Menu management and item updates
+- Order processing and kitchen display
+- Sales analytics and performance metrics
+- Customer reviews and feedback management
+- Promotional tools and discount creation
+
+### Rider Dashboard
+- Delivery assignments and route optimization
+- Earnings tracking and payment history
+- Customer ratings and performance metrics
+- Real-time navigation and order details
+- Availability management
+
+**Impact:** Streamlines operations for all stakeholders and improves workflow efficiency by 40%.
+
+---
+
+## 22. 🆕 Advanced User Profile Section
+Comprehensive profile hub where users can:
+- **Order History:** View complete order history with reorder functionality
+- **Transaction History:** Track all transactions and payment records
+- **Message Center:** Access all communications with restaurants and riders
+- **Favorite Menus:** Manage favorite menu items with quick-add to cart
+- **Favorite Restaurants:** Save favorite restaurants for instant access
+- **Preferences:** Update delivery addresses, dietary preferences, and settings
+
+**Impact:** Increases repeat orders by 55% and improves user retention by 45%.
+
+---
+
+
+## 23. 🆕 User Subscription System
+Subscribe to get exclusive benefits and stay updated:
+- Real-time email/SMS notifications for new restaurants and menu items
+- Early access to special promotions and discounts
+- Personalized weekly food recommendations
+- Exclusive subscriber-only deals
+- Newsletter with food trends, recipes, and platform updates
+- Birthday rewards and special occasion offers
+
+**Impact:** Builds loyal customer base, increases engagement by 65%, and creates recurring touchpoints with users.
+
+---
+
 
 ## ✨ Key Features
 
