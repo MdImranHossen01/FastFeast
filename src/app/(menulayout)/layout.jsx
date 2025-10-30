@@ -16,7 +16,7 @@ const MenuLayout = ({ children }) => {
         {/* Main Content */}
         <div className="container mx-auto grid grid-cols-12 gap-4 pt-4 md:pt-18">
           {/* Desktop Sidebar - Hidden on mobile */}
-          <div className="hidden md:block col-span-12 md:col-span-3">
+          <div className="hidden sticky md:block col-span-12 md:col-span-3">
             <SidebarComponent />
           </div>
           
