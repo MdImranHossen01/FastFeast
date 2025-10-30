@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
 import Link from "next/link";
-import BlogCard from "../blogs/components/BlogCard";
+import BlogCard from "@/app/blogs/components/BlogCard";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -104,16 +104,7 @@ export default function PopularBlogs() {
     Loading Popular Blogs...
   </p>
 
-  <style jsx>{`
-    @keyframes shimmer {
-      0% {
-        background-position: 0% center;
-      }
-      100% {
-        background-position: 200% center;
-      }
-    }
-  `}</style>
+  
 </div>
 
         ) : topPosts.length === 0 ? (
