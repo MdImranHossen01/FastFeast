@@ -36,7 +36,7 @@ export default function BlogCard({ blog }) {
   };
 
   return (
-    <section className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <section className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       {/* Cover image with overlay */}
       <figure className="relative h-60 md:h-72 overflow-hidden">
         {coverImage && (
@@ -50,7 +50,7 @@ export default function BlogCard({ blog }) {
         )}
 
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-transparent transition-opacity duration-300" />
 
         {/* Tag and Views on image */}
         <div className="absolute top-3 left-3 flex flex-wrap items-center gap-2">
@@ -65,8 +65,8 @@ export default function BlogCard({ blog }) {
         </div>
 
         {/* View count badge */}
-        <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-gray-200 px-2 py-1 rounded-full text-xs font-medium shadow-md">
-          <FaEye className="w-4 h-4 text-orange-500" /> {visitCount || 0}
+        <div className="absolute top-3 right-3 flex items-center gap-1 bg-transparent bg-blur dark:bg-gray-800/90 text-gray-100 dark:text-gray-200 px-2 py-1 rounded-full text-xs font-medium shadow-md border border-gray-900">
+          <FaEye className="w-4 h-4 text-white" /> {visitCount || 0}
         </div>
       </figure>
 
