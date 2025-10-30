@@ -103,7 +103,7 @@ export default function ManageMenusPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 p-8 text-gray-800 dark:text-gray-100">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
         <h1 className="text-4xl font-extrabold text-center sm:text-left">Manage Menus</h1>
