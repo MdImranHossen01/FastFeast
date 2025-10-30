@@ -1,6 +1,6 @@
 // src/app/layout.jsx
 import Script from "next/script";
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
@@ -106,7 +106,6 @@ export default function RootLayout({ children }) {
           type="image/png"
         />
 
-       
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -242,8 +241,24 @@ export default function RootLayout({ children }) {
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
           strategy="afterInteractive"
         />
-
-        
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.addEventListener('DOMContentLoaded', function() {
+                // The problematic line criticalContent.style.visibility = 'visible'; has been removed.
+                // Critical content is now visible by default as there's no CSS hiding it.
+                
+                // Additional video preloading
+                const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];
+                videos.forEach(videoSrc => {
+                  const video = document.createElement('video');
+                  video.preload = 'auto';
+                  video.src = videoSrc;
+                });
+              });
+            `,
+          }}
+        />
       </body>
     </html>
   );
