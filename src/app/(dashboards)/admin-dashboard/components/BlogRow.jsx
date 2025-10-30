@@ -47,8 +47,8 @@ export default function BlogRow({ blog, index, onBlogUpdated }) {
           >
             <Pencil className="w-4 h-4" /> Edit
           </Button>
-          <Button size="sm" onClick={handleDelete} variant="destructive">
-            <Trash2 className="w-4 h-4" /> Delete
+          <Button className="bg-orange-500 text-white" size="sm" onClick={handleDelete}>
+            <Trash2 className="w-4 h-4 " /> Delete
           </Button>
         </td>
       </tr>
