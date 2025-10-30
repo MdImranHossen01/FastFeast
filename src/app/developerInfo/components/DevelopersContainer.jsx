@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
 import { FaGithub, FaLinkedin, FaUserCircle } from 'react-icons/fa'
-import { IoIosMail } from 'react-icons/io'
+import { IoIosMail } from 'react-icons/io';
+import "../style.css";
 
 export default function DevelopersContainer({ developerInfo }) {
     return (
@@ -10,24 +11,27 @@ export default function DevelopersContainer({ developerInfo }) {
                 {
                     developerInfo?.map((developer, index) =>
                         <div
+                        style={{
+                            
+                        }}
                             key={developer?.id}
-                            className={`flex flex-col-reverse gap-5 ${index % 2 == 0 ? 'md:flex-row' : 'md:flex-row-reverse'} bg-base-100 rounded-xl sm:rounded-2xl lg:rounded-3xl p-5 md:p-10`}>
+                            className={`glass-card flex flex-col-reverse gap-5 ${index % 2 == 0 ? 'md:flex-row' : 'md:flex-row-reverse'} bg-base-100 rounded-xl sm:rounded-2xl lg:rounded-3xl p-5 md:p-10`}>
                             <div className="md:flex-2 flex items-center justify-center">
                                 <div className="text-center space-y-1.5">
-                                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-50">
                                         {developer?.name}
                                     </h3>
-                                    <div className="text-lg font-semibold text-gray-500">
+                                    <div className="text-lg font-semibold text-gray-400">
                                         {developer?.position}
                                     </div>
-                                    <div className="text-xl font-bold">
+                                    <div className="text-xl font-bold text-gray-100">
                                         {developer?.lastEdu.institute}
                                     </div>
-                                    <div className="text-lg font-semibold text-gray-500">
+                                    <div className="text-lg font-semibold text-gray-400">
                                         {developer?.lastEdu.degree}
                                     </div>
                                     <p className="flex gap-3  text-2xl justify-center *:hover:scale-110
-                                                 *:duration-300 *:hover:text-orange-600 *:z-20 
+                                                 *:duration-300 *:hover:text-orange-600/80 *:z-20 
                                             ">
                                         <a
                                             className=' '

@@ -75,9 +75,9 @@ export default function PopularBlogs() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-center max-w-2xl mx-auto mb-16 px-4"
+        className="text-center max-w-2xl font-serif mx-auto mb-16 px-4"
       >
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">
+        <h1 className="text-3xl  md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-4">
           Popular{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-yellow-400">
             Blogs
