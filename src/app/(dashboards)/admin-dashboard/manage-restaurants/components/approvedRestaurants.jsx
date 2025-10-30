@@ -1,8 +1,10 @@
 "use client";
+
 import React from "react";
 import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 import Image from "next/image";
+// import updateUserRole from "@/app/actions/users/updateUserRole";
 
 export default function ApprovedRestaurants({
   restaurants,
@@ -20,7 +22,7 @@ export default function ApprovedRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
-      await updateUserRole(id, { role: "user" });
+      // await updateUserRole(id, { role: "user" });
       if (!res.success) throw new Error("Failed to update");
       // update state
       setRestaurants((prev) =>
@@ -68,12 +70,13 @@ export default function ApprovedRestaurants({
 
                   {/* Mobile View - Logo & Name */}
                   <td className="block md:hidden py-1">
-                    <div className="flex relative flex-col  items-center gap-2">
+                    <div className="flex relative flex-col items-center gap-2">
                       <Image
-                        className="bg-gray-100 dark:bg-gray-500 w-12 h-12 rounded-full object-cover"
                         src={restaurant.logo}
-                        fill
                         alt="logo"
+                        width={50}
+                        height={50}
+                        className="bg-gray-50 dark:bg-gray-500 rounded-full object-cover"
                       />
                       <span className="font-bold">{restaurant.name}</span>
                     </div>
@@ -82,10 +85,11 @@ export default function ApprovedRestaurants({
                   {/* Desktop View Logo */}
                   <td className="px-4 relative hidden md:table-cell">
                     <Image
-                      className="bg-gray-50 dark:bg-gray-500 w-12 h-12 rounded-full object-cover"
                       src={restaurant.logo}
                       alt="logo"
-                      fill
+                      width={90}
+                      height={90}
+                      className="bg-gray-50 dark:bg-gray-500 rounded-full object-cover"
                     />
                   </td>
 

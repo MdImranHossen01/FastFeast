@@ -2,12 +2,11 @@ import connectMongooseDb from "@/lib/mongoose";
 import Order from "@/models/order.model";
 import { NextResponse } from "next/server";
 
+// POST - Create new order
 export async function POST(req) {
   try {
-    // Parse the request body
     const orderData = await req.json();
 
-    // Destructure required fields
     const {
       orderId,
       customerInfo,
@@ -24,7 +23,7 @@ export async function POST(req) {
     // Ensure DB connection
     await connectMongooseDb();
 
-    // Create a new order
+    // Create order
     const newOrder = await Order.create({
       orderId,
       customerInfo,
@@ -38,33 +37,51 @@ export async function POST(req) {
       riderInfo,
     });
 
-    // Return the created order
-    return NextResponse.json(newOrder, { status: 201 });
+    // Return response
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Order created successfully.",
+        data: newOrder,
+      },
+      { status: 201 }
+    );
   } catch (error) {
-    // Log the error for debugging
     console.error("Error creating order:", error);
     return NextResponse.json(
-      { success: false, message: error.message },
+      {
+        success: false,
+        message: error.message || "Failed to create order.",
+        data: null,
+      },
       { status: 500 }
     );
   }
 }
 
+// GET - Fetch all orders
 export async function GET() {
   try {
-    // Ensure DB connection
     await connectMongooseDb();
 
-    // Fetch all orders
     const orders = await Order.find();
 
-    // Return the list of orders
-    return NextResponse.json(orders, { status: 200 });
-  } catch (error) {
-    // Log the error for debugging
-    console.log(error);
     return NextResponse.json(
-      { success: false, message: error.message },
+      {
+        success: true,
+        message: "Orders fetched successfully.",
+        orders,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Failed to fetch orders.",
+        data: null,
+      },
       { status: 500 }
     );
   }

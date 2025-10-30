@@ -1,9 +1,5 @@
 import React from 'react'
-// import Matrix from './components/Matrix'
-import MatrixRain from './components/Matrix'
-import MainPage from './components/MainPage'
 import Banner from './components/Banner'
-import VideoTextFill from './components/VideoTextFill'
 import DevelopersContainer from './components/DevelopersContainer'
 
 export default function page() {
@@ -122,11 +118,14 @@ export default function page() {
         },
     ]
     return (
-        <div className='bg-base-200'>
-            {/* <MainPage /> */}
-            {/* <VideoTextFill /> */}
+        <div
+            style={{
+                backgroundImage: `linear-gradient(to bottom, #00001190, #000011), url(/binary_effect_background.webp)`
+            }}
+            className="bg-fixed bg-cover">
             <Banner />
             <DevelopersContainer developerInfo={developerInfo} />
+
         </div>
     )
 }
