@@ -106,31 +106,7 @@ export default function RootLayout({ children }) {
           type="image/png"
         />
 
-        {/* PRELOAD BANNER VIDEOS FOR INSTANT LOADING */}
-        <link rel="preload" href="/video1.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/video2.mp4" as="video" type="video/mp4" />
-        <link rel="preload" href="/video3.mp4" as="video" type="video/mp4" />
-
-        {/* PRELOAD POSTER IMAGES */}
-        <link
-          rel="preload"
-          href="/video1-poster.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-        <link
-          rel="preload"
-          href="/video2-poster.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-        <link
-          rel="preload"
-          href="/video3-poster.jpg"
-          as="image"
-          type="image/jpeg"
-        />
-
+       
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -267,27 +243,7 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
 
-        {/* end google translate */}
-
-        {/* Video preloading script */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              document.addEventListener('DOMContentLoaded', function() {
-                // The problematic line criticalContent.style.visibility = 'visible'; has been removed.
-                // Critical content is now visible by default as there's no CSS hiding it.
-                
-                // Additional video preloading
-                const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];
-                videos.forEach(videoSrc => {
-                  const video = document.createElement('video');
-                  video.preload = 'auto';
-                  video.src = videoSrc;
-                });
-              });
-            `,
-          }}
-        />
+        
       </body>
     </html>
   );
