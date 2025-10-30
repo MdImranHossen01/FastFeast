@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 import Image from "next/image";
-import updateUserRole from "@/app/actions/users/updateUserRole";
+// import updateUserRole from "@/app/actions/users/updateUserRole";
 
 export default function PendingRestaurants({
   restaurants,
@@ -22,8 +22,12 @@ export default function PendingRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
-      await updateUserRole(id, { role: "restaurantOwner" });
-      if (!res.success) throw new Error("Failed to update");
+      // await updateUserRole(id, { role: "restaurantOwner" });
+      
+      // if (!res.success) throw new Error("Failed to update");
+
+      console.log(res);
+
       // update state
       setRestaurants((prev) =>
         prev.map((restaurant) =>

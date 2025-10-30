@@ -22,6 +22,13 @@ export default function LoginForm() {
 
   const router = useRouter();
 
+  const handleDemoUser = (data) => {
+    setFormData({
+      email: data.email,
+      password: data.password,
+    });
+  };
+
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -126,16 +133,68 @@ export default function LoginForm() {
                 Forgot password?
               </Link>
             </div>
+
+            {/* for demo users */}
             <div className="flex gap-3 w-full justify-around">
-              <div>
-                <CreateDemoUsersButton></CreateDemoUsersButton>
-              </div>
-              <Link href={"/demo-users"}>
-                <button className=" py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed mt-4">
-                  Demo User Details
+              {/* <div>
+                <div>
+                  <CreateDemoUsersButton></CreateDemoUsersButton>
+                </div>
+                <Link href={"/demo-users"}>
+                  <button className=" py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed mt-4">
+                    Demo User Details
+                  </button>
+                </Link>
+              </div> */}
+
+              <div className="flex items-center gap-2 text-sm">
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-moderator-1@fastfeast.com",
+                      password: "demo-moderator-1",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as Admin
                 </button>
-              </Link>
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-restaurantOwner-3@fastfeast.com",
+                      password: "demo-restaurantOwner-3",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as Restaurant Owner
+                </button>
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-rider-2@fastfeast.com",
+                      password: "demo-rider-2",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as Rider
+                </button>
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-user-3@fastfeast.com",
+                      password: "demo-user-3",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as User
+                </button>
+              </div>
             </div>
+
             <button
               type="submit"
               disabled={loading}

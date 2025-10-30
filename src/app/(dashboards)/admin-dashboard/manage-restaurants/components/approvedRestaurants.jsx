@@ -1,8 +1,10 @@
 "use client";
+
 import React from "react";
 import { AiOutlineClose, AiOutlineEye } from "react-icons/ai";
 import updateRestaurantById from "@/app/actions/restaurants/updateRestaurantById";
 import Image from "next/image";
+// import updateUserRole from "@/app/actions/users/updateUserRole";
 
 export default function ApprovedRestaurants({
   restaurants,
@@ -20,7 +22,7 @@ export default function ApprovedRestaurants({
       }
 
       const res = await updateRestaurantById(id, body);
-      await updateUserRole(id, { role: "user" });
+      // await updateUserRole(id, { role: "user" });
       if (!res.success) throw new Error("Failed to update");
       // update state
       setRestaurants((prev) =>
