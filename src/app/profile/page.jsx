@@ -61,15 +61,27 @@ export default function ProfilePage() {
     }
   }, [session]);
 
-  // GPS Detection
+  // --- THIS IS THE UPDATED FUNCTION ---
   const detectLocation = () => {
     if (!navigator.geolocation) {
       Swal.fire("Error", "Geolocation not supported!", "error");
       return;
     }
 
+    // 1. Show a loading popup immediately
+    Swal.fire({
+      title: "Fetching Location...",
+      text: "Please wait and check your browser for a permission prompt.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    // 2. Start the location request
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
+        // 3a. On SUCCESS, get the location name
         const { latitude, longitude } = pos.coords;
         const res = await fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
@@ -77,10 +89,27 @@ export default function ProfilePage() {
         const data = await res.json();
         const locationName = data.display_name || `${latitude}, ${longitude}`;
         setProfileData((p) => ({ ...p, location: locationName }));
+
+        // 4a. Close the loading popup
+        Swal.close();
       },
-      () => Swal.fire("Error", "Failed to get location", "error")
+      (error) => {
+        // 3b. On FAILURE, create a helpful error message
+        let errorMessage = "Failed to get location.";
+        if (error.code === 1) { // User clicked "Block"
+          errorMessage = "You denied the request for Geolocation. Please enable it in your browser's site settings.";
+        } else if (error.code === 2) {
+          errorMessage = "Location information is unavailable. Check your internet or GPS.";
+        } else if (error.code === 3) {
+          errorMessage = "The request to get your location timed out.";
+        }
+
+        // 4b. Show the error (this will replace the loading popup)
+        Swal.fire("Error", errorMessage, "error");
+      }
     );
   };
+  // --- END OF UPDATED FUNCTION ---
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,15 +160,23 @@ export default function ProfilePage() {
       const result = await res.json();
 
       if (res.ok) {
-        setProfileData((p) => ({ ...p, image: imageUrl }));
+        const { updated } = result;
 
+        setProfileData({
+          name: updated.name || "",
+          image: updated.image || "",
+          phone: updated.phone || "",
+          location: updated.location || "",
+        });
+
+        // Update the NextAuth session with the new data
         await updateSession({
           user: {
             ...session.user,
-            name: profileData.name,
-            image: imageUrl,
-            phone: profileData.phone,
-            location: profileData.location,
+            name: updated.name,
+            image: updated.image,
+            phone: updated.phone,
+            location: updated.location,
           },
         });
 
@@ -267,7 +304,7 @@ export default function ProfilePage() {
               />
             </div>
 
-            {/* --- FORM  --- */}
+            {/* --- FORM --- */}
             <div className="space-y-3">
               {/* Name Input */}
               <div className="form-control w-full">
