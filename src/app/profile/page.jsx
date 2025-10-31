@@ -185,7 +185,8 @@ export default function ProfilePage() {
                 "https://cdn-icons-png.flaticon.com/512/747/747545.png"
               }
               alt="Profile"
-              fill
+              width={112}
+              height={112}
               className="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover"
             />
             <button
