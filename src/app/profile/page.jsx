@@ -183,7 +183,7 @@ export default function ProfilePage() {
             <Image
               src={
                 previewImage ||
-                profileData.image ||
+                profileData?.image ||
                 "https://cdn-icons-png.flaticon.com/512/747/747545.png"
               }
               alt="Profile"
