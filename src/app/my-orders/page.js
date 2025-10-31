@@ -44,7 +44,8 @@ function MyOrdersPage() {
     if (isLoading) {
         return (
             <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-20">
-                <div className="mx-auto px-[11%] pt-30">
+                {/* REMOVED 'pt-30' from here */}
+                <div className="mx-auto px-[11%]">
                     <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">My Order History</h2>
                     <p>Loading your order history...</p>
                 </div>
@@ -56,7 +57,7 @@ function MyOrdersPage() {
     if (error) {
         return (
             <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-20">
-                <div className="mx-auto px-[11%] pt-30">
+                <div className="mx-auto px-[11%]">
                     <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">My Order History</h2>
                     <div style={{ color: 'red' }}>Error: {error}</div>
                 </div>
@@ -69,7 +70,7 @@ function MyOrdersPage() {
         // This wrapper provides the main page styling
         <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-20">
 
-            <div className="mx-auto px-[11%] pt-30">
+            <div className="mx-auto px-[11%]">
                 <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
                     My Order History
                 </h2>
@@ -99,10 +100,10 @@ function MyOrdersPage() {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm">
                                             {/* Status badges */}
                                             <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
-${order.status === 'delivered' ? 'bg-green-100 text-green-800' : ''}
-${order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : ''}
-${order.status === 'cancelled' ? 'bg-red-100 text-red-800' : ''}
-`}>
+                                            ${order.status === 'delivered' ? 'bg-green-100 text-green-800' : ''}
+                                            ${order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : ''}
+                                            ${order.status === 'cancelled' ? 'bg-red-100 text-red-800' : ''}
+                                            `}>
                                                 {order.status}
                                             </span>
                                         </td>
