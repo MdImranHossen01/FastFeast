@@ -45,14 +45,14 @@ const RestaurantSection = () => {
   };
 
   return (
-    <section className="w-full min-h-screen bg-gradient-to-r from-orange-200 via-orange-100 to-white md:h-screen">
-      <div className="container px-4 mx-auto grid grid-cols-1 md:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
+    <section className="w-full min-h-screen  md:h-screen">
+      <div className="container px-4 mx-auto grid grid-cols-1 xl:grid-cols-2 text-gray-800 min-h-screen md:h-full items-center">
         <div 
           className="relative h-[600px] flex items-center justify-center" 
           data-aos="fade-right"
           data-aos-delay="100"
         >
-          {/* ... all your JSX for this component ... */}
+          
           <div 
             className="absolute z-20 w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 
                       rounded-full flex flex-col items-center justify-center shadow-2xl" 
@@ -138,7 +138,7 @@ const RestaurantSection = () => {
             OUR COMMITMENT TO QUALITY
           </p>
           <h2 
-            className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4 sm:mb-6"
+            className="text-3xl text-gray-800 dark:text-gray-200 sm:text-4xl font-extrabold leading-tight mb-4 sm:mb-6"
             data-aos="fade-up"
             data-aos-delay="400"
           >
@@ -146,7 +146,7 @@ const RestaurantSection = () => {
             <span className="text-orange-600">Community</span> Partnerships
           </h2>
           <p 
-            className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600"
+            className="text-base sm:text-lg leading-relaxed max-w-xl mb-6 sm:mb-10 text-gray-600 dark:text-gray-300"
             data-aos="fade-up"
             data-aos-delay="500"
           >

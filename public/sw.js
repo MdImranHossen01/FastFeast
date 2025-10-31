@@ -92,7 +92,8 @@ self.addEventListener("fetch", (event) => {
   if (
     req.url.includes("/_next/static/") ||
     req.url.includes("/icons/") ||
-    req.destination === "image"
+    req.destination === "image" ||
+    req.destination === "audio" 
   ) {
     event.respondWith(
       caches.match(req).then((cached) => {

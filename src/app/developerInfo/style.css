@@ -37,6 +37,167 @@
     font-family: sans-serif; */
 }
 
+
+/*
+ * This CSS implements the complex Glassmorphism effect 
+ * including the reflection overlays via pseudo-elements.
+ */
+
+/* Define the base class for the glassmorphism card */
+.glass-card {
+    /* Core Glassmorphism properties */
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    background: rgba(232, 250, 254, 0.2);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 6px 28px 0 rgba(113, 63, 18, 0.2),
+                inset 0 0 0px rgba(255, 255, 255, 0),
+                inset 0px 0px 4px 2px rgba(255, 255, 255, 0.3);
+    position: relative; /* Crucial for positioning pseudo-elements */
+}
+
+/* Reflection overlay for realism: Top-Left Highlight */
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: inherit;
+    /* Diagonal gradient for corner highlight */
+    background: linear-gradient(to left top, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+    z-index: 1; /* Place above content but below controls if any */
+}
+
+/* Reflection overlay for realism: Top Edge Shine */
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: inherit;
+    /* Vertical gradient for top shine */
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+}
+
+.banner-title {
+  /* background-color: rgba(256,256,256,.03);
+  background-image: -webkit-linear-gradient(top, #111, #0c0c0c);
+  background-image: -moz-linear-gradient(top, #111, #0c0c0c);
+  background-image: -ms-linear-gradient(top, #111, #0c0c0c);
+  background-image: -o-linear-gradient(top, #111, #0c0c0c); */
+  color: rgb(219, 219, 219);
+  /* font-size: 2em; */
+  /* font-family: 'Amethysta', serif; */
+  text-align: center;
+  /* line-height: 1.4em; */
+  /* text-transform: uppercase; */
+  /* letter-spacing: .3em; */
+  white-space:nowrap;
+}
+
+.subtitle {
+  color: #000;
+  /* font-family: 'Caesar Dressing', cursive; */
+  /* font-size: 5em; */
+  /* text-transform: lowercase; */
+  vertical-align: middle;
+  /* letter-spacing: .2em; */
+}
+
+.fire {
+  animation: animation 1s ease-in-out infinite alternate;
+  -moz-animation: animation 1s ease-in-out infinite alternate;
+  -webkit-animation: animation 1s ease-in-out infinite alternate;
+  -o-animation: animation 1s ease-in-out infinite alternate;
+}
+
+.burn {
+  animation: animation .65s ease-in-out infinite alternate;
+  -moz-animation: animation .65s ease-in-out infinite alternate;
+  -webkit-animation: animation .65s ease-in-out infinite alternate;
+  -o-animation: animation .65s ease-in-out infinite alternate;
+}
+
+@keyframes animation
+{
+0% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #feec85,
+  -20px -20px 40px #ffae34,
+  20px -40px 50px #ec760c,
+  -20px -60px 60px #cd4606,
+  0 -80px 70px #973716,
+  10px -90px 80px #451b0e;}
+100% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #fefcc9,
+  -20px -20px 40px #feec85,
+  22px -42px 60px #ffae34,
+  -22px -58px 50px #ec760c,
+  0 -82px 80px #cd4606,
+  10px -90px 80px  #973716;}
+}
+
+@-moz-keyframes animation
+{
+0% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #feec85,
+  -20px -20px 40px #ffae34,
+  20px -40px 50px #ec760c,
+  -20px -60px 60px #cd4606,
+  0 -80px 70px #973716,
+  10px -90px 80px #451b0e;}
+100% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #fefcc9,
+  -20px -20px 40px #feec85,
+  22px -42px 60px #ffae34,
+  -22px -58px 50px #ec760c,
+  0 -82px 80px #cd4606,
+  10px -90px 80px  #973716;}
+}
+
+@-webkit-keyframes animation
+{
+0% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #feec85,
+  -20px -20px 40px #ffae34,
+  20px -40px 50px #ec760c,
+  -20px -60px 60px #cd4606,
+  0 -80px 70px #973716,
+  10px -90px 80px #451b0e;}
+100% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #fefcc9,
+  -20px -20px 40px #feec85,
+  22px -42px 60px #ffae34,
+  -22px -58px 50px #ec760c,
+  0 -82px 80px #cd4606,
+  10px -90px 80px  #973716;}
+}
+
+@-o-keyframes animation
+{
+0% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #feec85,
+  -20px -20px 40px #ffae34,
+  20px -40px 50px #ec760c,
+  -20px -60px 60px #cd4606,
+  0 -80px 70px #973716,
+  10px -90px 80px #451b0e;}
+100% {text-shadow: 0 0 20px #fefcc9,
+  10px -10px 30px #fefcc9,
+  -20px -20px 40px #feec85,
+  22px -42px 60px #ffae34,
+  -22px -58px 50px #ec760c,
+  0 -82px 80px #cd4606,
+  10px -90px 80px  #973716;}
+}
+
 /* .banner-bg {
     position: relative;
    

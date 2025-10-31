@@ -60,15 +60,17 @@ const TraditionalBear = () => {
 
   return (
     // Full viewport height section with no scrolling
-    <section className="md:max-h-screen w-full bg-[#fcf9f0] overflow-hidden relative">
+    <section className="md:max-h-screen w-full overflow-hidden relative">
       {/* Animated SVG - Drop animation from top middle */}
-      <div className={`absolute left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 ${
-        animationPhase === 0 
-          ? 'top-0 opacity-0 -translate-y-full scale-75' // Start position (top, hidden)
-          : animationPhase === 1 
-          ? 'top-1/2 -translate-y-1/2 opacity-100 scale-100' // Middle position (visible)
-          : 'top-full opacity-0 translate-y-0 scale-50' // End position (bottom, hidden)
-      }`}>
+      <div
+        className={`absolute left-1/2 transform -translate-x-1/2 z-10 transition-all duration-500 hidden md:block ${
+          animationPhase === 0
+            ? "top-0 opacity-0 -translate-y-full scale-75" // Start position (top, hidden)
+            : animationPhase === 1
+            ? "top-1/2 -translate-y-1/2 opacity-100 scale-100" // Middle position (visible)
+            : "top-full opacity-0 translate-y-0 scale-50" // End position (bottom, hidden)
+        }`}
+      >
         <div className="w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56">
           <Image
             src="/animateBriyani.svg"
@@ -87,10 +89,10 @@ const TraditionalBear = () => {
         <div className="flex flex-col md:w-2/3 mx-auto h-full max-h-full overflow-y-auto">
           {/* Header text */}
           <div className="space-y-2  md:space-y-3 flex-shrink-0">
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-serif text-gray-800 leading-tight">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-serif text-gray-800 dark:text-white leading-tight">
               Our traditional <span className="font-bold">dishes</span>
             </h2>
-            <p className="text-sm md:text-base text-gray-600">
+            <p className="text-sm md:text-base text-gray-600 dark:text-gray-300">
               Celebrates the rich culinary heritage passed down through
               generations. Each recipe tells a story of cultural identity.
             </p>
@@ -107,7 +109,7 @@ const TraditionalBear = () => {
                 {/* Dish Name - Responsive text size */}
                 <Link
                   href={`/${dish.id}`}
-                  className="text-base md:text-lg font-semibold text-gray-800 transition-all duration-300 ease-in-out transform hover:text-orange-600 group-hover:scale-[1.02] group-hover:translate-x-1"
+                  className="text-base md:text-lg font-semibold text-gray-800 dark:text-gray-200 transition-all duration-300 ease-in-out transform hover:text-orange-600  group-hover:scale-[1.02] group-hover:translate-x-1"
                 >
                   {dish.name}
                 </Link>
@@ -116,7 +118,7 @@ const TraditionalBear = () => {
                 <Link href={`/${dish.id}`}>
                   <ArrowRight
                     size={16}
-                    className="text-gray-500 transition-transform duration-300 ease-in-out group-hover:translate-x-1 group-hover:text-amber-700"
+                    className="text-gray-500 dark:text-gray-300 transition-transform duration-300 ease-in-out group-hover:translate-x-1 group-hover:text-amber-700"
                   />
                 </Link>
               </div>
@@ -125,7 +127,7 @@ const TraditionalBear = () => {
 
           {/* All Our Dishes Button - Fixed at bottom */}
           <Link href={"/menu"} className="flex-shrink-0">
-            <button className="mt-4 md:mt-6 px-4 w-full py-2 md:px-5 md:py-2.5 border border-gray-800 text-gray-800 font-medium uppercase text-xs md:text-sm hover:bg-orange-600 hover:text-white transition-colors duration-300">
+            <button className="mt-4 md:mt-6 px-4 w-full py-2 md:px-5 md:py-2.5 border border-gray-800 dark:border-gray-300 text-gray-800 dark:text-gray-300 font-medium uppercase text-xs md:text-sm hover:bg-orange-600 hover:text-white transition-colors duration-300">
               See All
             </button>
           </Link>

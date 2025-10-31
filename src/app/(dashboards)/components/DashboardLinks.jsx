@@ -11,7 +11,7 @@ export default function DashboardLinks() {
   // const user = session?.user;
 
   const user = {
-    role: "restaurant",
+    role: "restaurantOwner",
   };
 
   const linkStyle = (href) =>
@@ -133,7 +133,7 @@ export default function DashboardLinks() {
       )}
 
       {/* restaurant links */}
-      {user.role === "restaurant" && (
+      {user.role === "restaurantOwner" && (
         <>
           <li>
             <Link
@@ -151,6 +151,16 @@ export default function DashboardLinks() {
               Manage Orders
             </Link>
           </li>
+          <li>
+            <Link
+              href="/restaurant-dashboard/manage-menus"
+              className={linkStyle("/restaurant-dashboard/manage-menus")}
+            >
+              Manage Menus
+            </Link>
+          </li>
+          
+          
         </>
       )}
 
@@ -159,26 +169,18 @@ export default function DashboardLinks() {
         <>
           <li>
             <Link
-              href="/user-dashboard"
-              className={linkStyle("/user-dashboard")}
+              href="/rider-dashboard"
+              className={linkStyle("/rider-dashboard")}
             >
               Home
             </Link>
           </li>
           <li>
             <Link
-              href="/user-dashboard/orders-history"
-              className={linkStyle("/user-dashboard/orders-history")}
+              href="/rider-dashboard/orders-history"
+              className={linkStyle("/rider-dashboard/orders-history")}
             >
               Orders History
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/customer-dashboard/payments-history"
-              className={linkStyle("/customer-dashboard/payments-history")}
-            >
-              Payments History
             </Link>
           </li>
         </>

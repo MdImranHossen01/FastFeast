@@ -1,11 +1,9 @@
 "use client";
+
 import React, { useState } from "react";
 import PendingRestaurants from "./pendingRestaurants";
 import ApprovedRestaurants from "./approvedRestaurants";
-// import Swal from "sweetalert2";
-// import ViewApproved from "./viewModal";
 import ViewModal from "./viewModal";
-// import deleteRestaurantById from "@/app/actions/restaurants/deleteMenuById";
 
 export default function ManageRestaurantsCard({ restaurants }) {
   const [allRestaurants, setAllRestaurants] = useState(restaurants);
@@ -59,6 +57,7 @@ export default function ManageRestaurantsCard({ restaurants }) {
           handleModal={handleModal}
         />
       </div>
+      
       {/* Approved Restaurants */}
       <h2 className="text-2xl text-center font-bold dark:text-white py-9">
         Approved Restaurants

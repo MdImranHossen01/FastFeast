@@ -22,6 +22,13 @@ export default function LoginForm() {
 
   const router = useRouter();
 
+  const handleDemoUser = (data) => {
+    setFormData({
+      email: data.email,
+      password: data.password,
+    });
+  };
+
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -58,7 +65,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6 transform transition duration-300 hover:scale-[1.02]">
+        <div className="bg-white dark:bg-gray-700 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6 transform transition duration-300 hover:scale-[1.02]">
           <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">
             Welcome Back
           </h1>
@@ -78,7 +85,7 @@ export default function LoginForm() {
                 onChange={handleChange}
                 required
                 placeholder="Email"
-                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
 
@@ -93,7 +100,7 @@ export default function LoginForm() {
                 onChange={handleChange}
                 required
                 placeholder="Password"
-                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-10"
+                className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm bg-white text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white pr-10"
               />
               <div
                 className="absolute inset-y-0 right-0 pr-3 pt-5 flex items-center cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
@@ -126,16 +133,68 @@ export default function LoginForm() {
                 Forgot password?
               </Link>
             </div>
+
+            {/* for demo users */}
             <div className="flex gap-3 w-full justify-around">
-              <div>
-                <CreateDemoUsersButton></CreateDemoUsersButton>
-              </div>
-              <Link href={"/demo-users"}>
-                <button className=" py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed mt-4">
-                  Demo User Details
+              {/* <div>
+                <div>
+                  <CreateDemoUsersButton></CreateDemoUsersButton>
+                </div>
+                <Link href={"/demo-users"}>
+                  <button className=" py-2 px-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold rounded-md disabled:opacity-50 disabled:cursor-not-allowed mt-4">
+                    Demo User Details
+                  </button>
+                </Link>
+              </div> */}
+
+              <div className="flex items-center gap-2 text-sm">
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-moderator-1@fastfeast.com",
+                      password: "demo-moderator-1",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as Admin
                 </button>
-              </Link>
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-restaurantOwner-3@fastfeast.com",
+                      password: "demo-restaurantOwner-3",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as Restaurant Owner
+                </button>
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-rider-2@fastfeast.com",
+                      password: "demo-rider-2",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as Rider
+                </button>
+                <button
+                  onClick={() =>
+                    handleDemoUser({
+                      email: "demo-user-3@fastfeast.com",
+                      password: "demo-user-3",
+                    })
+                  }
+                  className="bg-amber-200 text-gray-600 py-2 px-4 cursor-pointer"
+                >
+                  Login as User
+                </button>
+              </div>
             </div>
+
             <button
               type="submit"
               disabled={loading}
@@ -153,7 +212,7 @@ export default function LoginForm() {
 
           <button
             onClick={() => signIn("google", { callbackUrl: "/" })}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+            className="w-full flex text-gray-800 dark:text-gray-200 items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
                  transition-colors shadow-sm font-medium"
           >
@@ -161,7 +220,7 @@ export default function LoginForm() {
           </button>
           <button
             onClick={() => signIn("github", { callbackUrl: "/" })}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
+            className="w-full flex text-gray-800 dark:text-gray-200 items-center justify-center gap-2 px-4 py-2 rounded-xl border border-gray-300 
                  hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 
                  transition-colors shadow-sm font-medium"
           >

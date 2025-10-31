@@ -61,25 +61,36 @@ export default function AddBlogModal({ onSave }) {
     }
   };
 
-  const handleSubmit = async () => {
-    const blogData = {
-      ...formData,
-      slug: formData.title.toLowerCase().replace(/\s+/g, "-"),
-      tags: formData.tags.split(",").map((t) => t.trim()),
-    };
-    try {
-      await addBlog(blogData);
-      Swal.fire({
-        icon: "success",
-        title: "🎉 Blog Added Successfully!",
-        confirmButtonColor: "#f97316",
-      });
-      onSave?.(blogData);
-      setOpen(false);
-    } catch {
-      Swal.fire("Oops!", "Something went wrong, try again!", "error");
-    }
+ const handleSubmit = async () => {
+  const blogData = {
+    ...formData,
+    slug: formData.title.toLowerCase().replace(/\s+/g, "-"),
+    tags: formData.tags.split(",").map((t) => t.trim()),
   };
+
+  try {
+   const res = await addBlog(blogData)
+    
+
+    if (!res.success) {
+      throw new Error(data.message || "Failed to add blog");
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "🎉 Blog Added Successfully!",
+      confirmButtonColor: "#f97316",
+    });
+
+    onSave?.(blogData);
+    setOpen(false);
+  } catch (error) {
+    console.error("Error adding blog:", error);
+    
+    Swal.fire("Oops!", "Something went wrong, try again!", "error");
+  }
+};
+
 
   return (
     <>
@@ -162,7 +173,8 @@ export default function AddBlogModal({ onSave }) {
                 <Image
                   src={formData.coverImage}
                   alt="Preview"
-                  fill
+                  width={20}
+                  height={20}
                   className="mt-2 w-40 h-28 object-cover rounded-xl border border-orange-200 shadow-md"
                 />
               )}
@@ -186,7 +198,8 @@ export default function AddBlogModal({ onSave }) {
                     key={i}
                     src={img}
                     alt=""
-                    fill
+                    width={20}
+                    height={20}
                     className="w-20 h-20 rounded-lg object-cover border shadow-sm"
                   />
                 ))}

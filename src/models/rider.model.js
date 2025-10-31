@@ -79,6 +79,11 @@ const riderSchema = new mongoose.Schema({
     enum: ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"],
     required: true,
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   isApproved: {
     type: Boolean,
     default: false,
@@ -90,6 +95,11 @@ const riderSchema = new mongoose.Schema({
   },
 });
 
+if (!mongoose.models.Rider) {
+  delete mongoose.models.Rider;
+}
+
+// Create the Rider model
 const Rider = mongoose.models.Rider || mongoose.model("Rider", riderSchema);
 
 export default Rider;
