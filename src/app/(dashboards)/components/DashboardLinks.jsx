@@ -8,11 +8,7 @@ import React from "react";
 export default function DashboardLinks() {
   const pathname = usePathname();
   const { data: session } = useSession();
-  // const user = session?.user;
-
-  const user = {
-    role: "restaurantOwner",
-  };
+  const user = session?.user;
 
   const linkStyle = (href) =>
     `block w-full px-4 py-2 rounded-md font-medium transition
@@ -25,7 +21,7 @@ export default function DashboardLinks() {
   return (
     <ul className="space-y-2 p-2">
       {/* admin links */}
-      {user.role === "admin" && (
+      {user?.role === "admin" && (
         <>
           <li>
             <Link
@@ -87,7 +83,7 @@ export default function DashboardLinks() {
       )}
 
       {/* moderator links */}
-      {user.role === "moderator" && (
+      {user?.role === "moderator" && (
         <>
           <li>
             <Link
@@ -133,7 +129,7 @@ export default function DashboardLinks() {
       )}
 
       {/* restaurant links */}
-      {user.role === "restaurantOwner" && (
+      {user?.role === "restaurantOwner" && (
         <>
           <li>
             <Link
@@ -159,13 +155,11 @@ export default function DashboardLinks() {
               Manage Menus
             </Link>
           </li>
-          
-          
         </>
       )}
 
       {/* rider links */}
-      {user.role === "rider" && (
+      {user?.role === "rider" && (
         <>
           <li>
             <Link
