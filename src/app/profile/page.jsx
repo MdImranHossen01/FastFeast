@@ -38,7 +38,7 @@ export default function ProfilePage() {
     const fetchOrders = async () => {
       if (!session?.user?.email) return;
       try {
-        const res = await fetch(`/api/orders?userEmail=${session.user.email}`);
+        const res = await fetch(`/api/user-orders/${session.user.email}`);
         const data = await res.json();
         setOrderCount(data?.orders?.length || 0);
       } catch (error) {
@@ -163,7 +163,7 @@ export default function ProfilePage() {
   ];
 
   const quickLinks = [
-    { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders", link: "/orders" },
+    { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders", link: "/my-orders" },
     { icon: <FaWallet />, title: "Transaction History", desc: "Track your payments & wallet usage", link: "/transactions" },
     { icon: <FaComments />, title: "Message Rider", desc: "Chat with your delivery partner", link: "/messages" },
     { icon: <FaHeart />, title: "Saved Restaurants", desc: "Manage your favorite spots", link: "/favorites" },
