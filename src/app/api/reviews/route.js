@@ -3,59 +3,59 @@ import connectMongooseDb from "@/lib/mongoose";
 import Review from "@/models/review.model";
 
 // GET all reviews or specific item reviews
-// export async function GET(request) {
-//   try {
-//     await connectMongooseDb();
+export async function GET(request) {
+  try {
+    await connectMongooseDb();
 
-//     // Extract query params
-//     const { searchParams } = new URL(request.url);
-//     const itemId = searchParams.get("itemId");
+    // Extract query params
+    const { searchParams } = new URL(request.url);
+    const itemId = searchParams.get("itemId");
 
-//     // If itemId is provided → calculate rating summary
-//     if (itemId) {
-//       const reviews = await Review.find({ "itemReviews.itemId": itemId });
+    // If itemId is provided → calculate rating summary
+    if (itemId) {
+      const reviews = await Review.find({ "itemReviews.itemId": itemId });
 
-//       if (!reviews.length) {
-//         return NextResponse.json({
-//           success: true,
-//           averageRating: 0,
-//           totalReviews: 0,
-//           reviews: [],
-//         });
-//       }
+      if (!reviews.length) {
+        return NextResponse.json({
+          success: true,
+          averageRating: 0,
+          totalReviews: 0,
+          reviews: [],
+        });
+      }
 
-//       // Flatten all item reviews that match this itemId
-//       const allItemReviews = reviews
-//         .flatMap((review) => review.itemReviews)
-//         .filter((itemReview) => itemReview.itemId.toString() === itemId);
+      // Flatten all item reviews that match this itemId
+      const allItemReviews = reviews
+        .flatMap((review) => review.itemReviews)
+        .filter((itemReview) => itemReview.itemId.toString() === itemId);
 
-//       // Compute average and total
-//       const totalReviews = allItemReviews.length;
-//       const totalRating = allItemReviews.reduce(
-//         (sum, review) => sum + review.rating,
-//         0
-//       );
-//       const averageRating = totalRating / totalReviews;
+      // Compute average and total
+      const totalReviews = allItemReviews.length;
+      const totalRating = allItemReviews.reduce(
+        (sum, review) => sum + review.rating,
+        0
+      );
+      const averageRating = totalRating / totalReviews;
 
-//       return NextResponse.json({
-//         success: true,
-//         averageRating: Number(averageRating.toFixed(1)),
-//         totalReviews,
-//         reviews: allItemReviews,
-//       });
-//     }
+      return NextResponse.json({
+        success: true,
+        averageRating: Number(averageRating.toFixed(1)),
+        totalReviews,
+        reviews: allItemReviews,
+      });
+    }
 
-//     // Default: return all reviews
-//     const allReviews = await Review.find();
-//     return NextResponse.json({ success: true, reviews: allReviews });
-//   } catch (error) {
-//     console.error("Error fetching reviews:", error);
-//     return NextResponse.json(
-//       { success: false, message: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
+    // Default: return all reviews
+    const allReviews = await Review.find();
+    return NextResponse.json({ success: true, reviews: allReviews });
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
+  }
+}
 
 // CREATE a new review
 export async function POST(req) {
