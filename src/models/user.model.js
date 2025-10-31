@@ -70,14 +70,8 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Prevent model overwrite upon initial compile
-if (mongoose.models.User) {
-  mongoose.deleteModel("User");
-}
-
 // This checks if the model already exists before compiling it again
-// const User = mongoose.models.User || mongoose.model("User", userSchema);
-const User = mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 // Export the User model
 export default User;
