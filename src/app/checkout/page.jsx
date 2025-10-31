@@ -73,11 +73,18 @@ const CheckOutPage = () => {
         postalCode: formData.postalCode || user?.postalCode,
       };
 
+      // Calculate the total using your function
+      const totalAmount = calculateTotal();
+
       const res = await fetch("/api/sslcommerz/initiate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // FIX: Send the cartItems array and the customer object for server-side processing
-        body: JSON.stringify({ cartItems, customer }),
+        // Send 'totalAmount' in the body
+        body: JSON.stringify({
+          cartItems,
+          customer,
+          totalAmount
+        }),
       });
 
       const data = await res.json();
@@ -85,7 +92,7 @@ const CheckOutPage = () => {
         window.location.href = data.GatewayPageURL;
       } else {
         console.error("SSLCommerz Error:", data);
-        setPaymentError(data.message || "Failed to initialize payment."); // Display error to user
+        setPaymentError(data.message || "Failed to initialize payment.");
       }
     } catch (err) {
       console.error("Payment error:", err);
