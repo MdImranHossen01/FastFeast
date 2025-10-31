@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ReviewModal from "./ReviewModal";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 // --- helpers ---
 const normalizeStatus = (status) => {
@@ -125,6 +126,8 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   const [fetchError, setFetchError] = useState(null);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [orderToReview, setOrderToReview] = useState(null);
+  const { data: session } = useSession();
+  const user = session?.user || {};
 
   // fetch orders
   const fetchUserOrders = async () => {
@@ -213,8 +216,8 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
       // Add riderId and orderId to the review data from the selected order
       const fullReviewData = {
         ...reviewData,
-        orderId: orderToReview.id,
-        riderId: orderToReview.riderInfo?.id, // CRITICAL: Add riderId
+        orderId: orderToReview._id,
+        userId: user?.id,
       };
 
       const response = await fetch("/api/reviews", {
