@@ -61,7 +61,7 @@ const MenuCard = ({
         });
 
         if (!res.ok) throw new Error("Favorite toggle failed");
-        
+
         toast.success(
           newState ? "Added to favorites!" : "Removed from favorites!"
         );

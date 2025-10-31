@@ -44,7 +44,6 @@ export default function MenuClient({ initialMenus, initialRestaurants }) {
     return "";
   };
 
-
   // Filter menus based on Redux state
   const filteredMenus = useMemo(() => {
     if (!initialMenus?.length) return [];
@@ -58,7 +57,8 @@ export default function MenuClient({ initialMenus, initialRestaurants }) {
       const rName = restaurant?.name?.toLowerCase() || "";
       const rLoc = getRestaurantLocation(restaurant);
 
-      const searchString = `${menu.title} ${menu.cuisine} ${menu.description} ${menu.category} ${rName}`.toLowerCase();
+      const searchString =
+        `${menu.title} ${menu.cuisine} ${menu.description} ${menu.category} ${rName}`.toLowerCase();
 
       const matchesSearch = !query || searchString.includes(query);
       const matchesLocation = !locationFilter || rLoc.includes(locationFilter);
@@ -66,7 +66,8 @@ export default function MenuClient({ initialMenus, initialRestaurants }) {
         !filters.selectedCuisines?.length ||
         filters.selectedCuisines.includes(menu.cuisine);
       const matchesRating =
-        !filters.selectedRating || Number(menu.rating) >= Number(filters.selectedRating);
+        !filters.selectedRating ||
+        Number(menu.rating) >= Number(filters.selectedRating);
       const price = Number(menu.price) || 0;
       const matchesPrice =
         !filters.selectedPrice ||
@@ -138,4 +139,4 @@ export default function MenuClient({ initialMenus, initialRestaurants }) {
       )}
     </div>
   );
-};
+}

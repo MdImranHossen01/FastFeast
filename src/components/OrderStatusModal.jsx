@@ -231,7 +231,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
       const data = await response.json();
 
       if (!data.success) {
-        throw new Error(data.message || "Failed to submit review");
+        toast.error("Failed to submit review");
       }
 
       // Refresh orders to update review status
