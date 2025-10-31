@@ -185,7 +185,8 @@ export default function ProfilePage() {
                 "https://cdn-icons-png.flaticon.com/512/747/747545.png"
               }
               alt="Profile"
-              fill
+              width={112}
+              height={112}
               className="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover"
             />
             <button
@@ -254,7 +255,8 @@ export default function ProfilePage() {
                   "https://cdn-icons-png.flaticon.com/512/747/747545.png"
                 }
                 alt="Preview"
-                fill
+                width={96}
+                height={96}
                 className="w-24 h-24 rounded-full border-2 border-orange-500 object-cover"
               />
               <input
@@ -265,10 +267,12 @@ export default function ProfilePage() {
               />
             </div>
 
+            {/* --- FORM  --- */}
             <div className="space-y-3">
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Name
+              {/* Name Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-gray-700 dark:text-gray-300">Name</span>
                 </label>
                 <input
                   type="text"
@@ -279,9 +283,10 @@ export default function ProfilePage() {
                 />
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Phone
+              {/* Phone Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-gray-700 dark:text-gray-300">Phone</span>
                 </label>
                 <div className="flex items-center gap-2">
                   <FaPhoneAlt className="text-orange-600" />
@@ -295,9 +300,10 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Location
+              {/* Location Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-gray-700 dark:text-gray-300">Location</span>
                 </label>
                 <div className="flex gap-2">
                   <input
