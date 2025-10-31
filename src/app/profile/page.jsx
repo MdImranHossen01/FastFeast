@@ -165,9 +165,7 @@ export default function ProfilePage() {
   const quickLinks = [
     { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders", link: "/my-orders" },
     { icon: <FaWallet />, title: "Transaction History", desc: "Track your payments & wallet usage", link: "/transactions" },
-    { icon: <FaComments />, title: "Message Rider", desc: "Chat with your delivery partner", link: "/messages" },
     { icon: <FaHeart />, title: "Saved Restaurants", desc: "Manage your favorite spots", link: "/favorites" },
-    { icon: <FaHistory />, title: "Order Activity", desc: "See delivery history & updates", link: "/order-activity" },
   ];
 
   return (
@@ -220,7 +218,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Quick Links */}
-      <div className="px-[10%] mx-auto mt-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div className="px-[10%] mx-auto mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
         {quickLinks.map((q, i) => (
           <div
             key={i}
