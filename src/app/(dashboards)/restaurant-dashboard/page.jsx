@@ -1,22 +1,15 @@
 import React from "react";
-import { FaUtensils, FaChartPie, FaUsers, FaShoppingBag, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaUtensils,
+  FaChartPie,
+  FaUsers,
+  FaShoppingBag,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 export default function RestaurantDashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <header className="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-50">
-        <h2 className="text-xl font-semibold text-gray-700">Restaurant Dashboard</h2>
-        <div className="flex items-center gap-4">
-          <span className="font-medium text-gray-600">Admin</span>
-          <img
-            src="https://i.ibb.co/MBtjqXQ/avatar.png"
-            alt="Admin Avatar"
-            className="w-10 h-10 rounded-full border"
-          />
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="p-6">
         {/* Hero Section */}
@@ -25,7 +18,8 @@ export default function RestaurantDashboard() {
             Welcome to Fast Feast Dashboard
           </h1>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Track your restaurant’s performance, manage orders, and view real-time analytics — all in one place.
+            Track your restaurant’s performance, manage orders, and view
+            real-time analytics — all in one place.
           </p>
           <button className="btn btn-primary">View All Orders</button>
         </section>
@@ -80,7 +74,9 @@ export default function RestaurantDashboard() {
                   <td>#12344</td>
                   <td>Jane Smith</td>
                   <td>
-                    <span className="badge badge-success text-white">Delivered</span>
+                    <span className="badge badge-success text-white">
+                      Delivered
+                    </span>
                   </td>
                   <td className="font-semibold">৳ 320</td>
                   <td>2025-10-29 08:30</td>
@@ -89,7 +85,9 @@ export default function RestaurantDashboard() {
                   <td>#12343</td>
                   <td>Arif Hasan</td>
                   <td>
-                    <span className="badge badge-warning text-white">Preparing</span>
+                    <span className="badge badge-warning text-white">
+                      Preparing
+                    </span>
                   </td>
                   <td className="font-semibold">৳ 600</td>
                   <td>2025-10-29 07:55</td>
@@ -105,7 +103,8 @@ export default function RestaurantDashboard() {
             Ready to update your menu?
           </h3>
           <p className="text-gray-700 mb-4 max-w-lg mx-auto">
-            Add, edit, or remove items anytime from your dashboard to attract more hungry customers.
+            Add, edit, or remove items anytime from your dashboard to attract
+            more hungry customers.
           </p>
           <button className="btn btn-primary">Manage Menu</button>
         </section>

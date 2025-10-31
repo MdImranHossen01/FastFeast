@@ -1,6 +1,6 @@
-// src/app/api/users/route.js
-import { getCollection, serializeDocument } from "@/lib/dbConnect";
-import { ObjectId } from "mongodb";
+import connectMongooseDb from "@/lib/mongoose";
+import User from "@/models/user.model";
+import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
@@ -8,36 +8,22 @@ export async function GET(request) {
     const role = searchParams.get("role");
 
     // Build query based on role parameter
-    let query = {};
-    if (role) {
-      query.role = role;
-    }
+    const query = role ? { role } : {};
 
-    // Get users collection
-    const usersCollection = await getCollection("users");
+    // Connect to MongoDB
+    await connectMongooseDb();
 
-    // Find users with the specified role
-    const users = await usersCollection
-      .find(query)
-      .project({ password: 0 }) // Exclude password field
+    // Find users by role (exclude password)
+    const users = await User.find(query)
+      .select("-password")
       .sort({ createdAt: -1 })
-      .toArray();
+      .lean(); // return plain JS objects
 
-    // Serialize documents to JSON-safe format
-    const serializedUsers = serializeDocument(users);
-
-    return Response.json({
-      success: true,
-      users: serializedUsers,
-    });
+    return NextResponse.json({ success: true, users }, { status: 200 });
   } catch (error) {
     console.error("Error fetching users:", error);
-    return Response.json(
-      {
-        success: false,
-        message: "Failed to fetch users",
-        error: error.message,
-      },
+    return NextResponse.json(
+      { success: false, message: error.message },
       { status: 500 }
     );
   }

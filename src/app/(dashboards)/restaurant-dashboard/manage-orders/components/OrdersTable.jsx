@@ -84,10 +84,10 @@ const OrdersTable = ({
                         <FiUsers className="mr-1" />
                         <div>
                           <div className="font-medium">
-                            {order.riderInfo.name}
+                            {order.riderInfo.riderName}
                           </div>
                           <div className="text-xs text-gray-500">
-                            {order.riderInfo.phone}
+                            {order.riderInfo.riderPhone}
                           </div>
                         </div>
                       </div>
