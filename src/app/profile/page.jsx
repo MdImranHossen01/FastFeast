@@ -38,7 +38,7 @@ export default function ProfilePage() {
     const fetchOrders = async () => {
       if (!session?.user?.email) return;
       try {
-        const res = await fetch(`/api/orders?userEmail=${session.user.email}`);
+        const res = await fetch(`/api/user-orders/${session.user.email}`);
         const data = await res.json();
         setOrderCount(data?.orders?.length || 0);
       } catch (error) {
@@ -61,15 +61,27 @@ export default function ProfilePage() {
     }
   }, [session]);
 
-  // GPS Detection
+  // --- THIS IS THE UPDATED FUNCTION ---
   const detectLocation = () => {
     if (!navigator.geolocation) {
       Swal.fire("Error", "Geolocation not supported!", "error");
       return;
     }
 
+    // 1. Show a loading popup immediately
+    Swal.fire({
+      title: "Fetching Location...",
+      text: "Please wait and check your browser for a permission prompt.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    // 2. Start the location request
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
+        // 3a. On SUCCESS, get the location name
         const { latitude, longitude } = pos.coords;
         const res = await fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
@@ -77,10 +89,27 @@ export default function ProfilePage() {
         const data = await res.json();
         const locationName = data.display_name || `${latitude}, ${longitude}`;
         setProfileData((p) => ({ ...p, location: locationName }));
+
+        // 4a. Close the loading popup
+        Swal.close();
       },
-      () => Swal.fire("Error", "Failed to get location", "error")
+      (error) => {
+        // 3b. On FAILURE, create a helpful error message
+        let errorMessage = "Failed to get location.";
+        if (error.code === 1) { // User clicked "Block"
+          errorMessage = "You denied the request for Geolocation. Please enable it in your browser's site settings.";
+        } else if (error.code === 2) {
+          errorMessage = "Location information is unavailable. Check your internet or GPS.";
+        } else if (error.code === 3) {
+          errorMessage = "The request to get your location timed out.";
+        }
+
+        // 4b. Show the error (this will replace the loading popup)
+        Swal.fire("Error", errorMessage, "error");
+      }
     );
   };
+  // --- END OF UPDATED FUNCTION ---
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,15 +160,23 @@ export default function ProfilePage() {
       const result = await res.json();
 
       if (res.ok) {
-        setProfileData((p) => ({ ...p, image: imageUrl }));
+        const { updated } = result;
 
+        setProfileData({
+          name: updated.name || "",
+          image: updated.image || "",
+          phone: updated.phone || "",
+          location: updated.location || "",
+        });
+
+        // Update the NextAuth session with the new data
         await updateSession({
           user: {
             ...session.user,
-            name: profileData.name,
-            image: imageUrl,
-            phone: profileData.phone,
-            location: profileData.location,
+            name: updated.name,
+            image: updated.image,
+            phone: updated.phone,
+            location: updated.location,
           },
         });
 
@@ -163,11 +200,9 @@ export default function ProfilePage() {
   ];
 
   const quickLinks = [
-    { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders", link: "/orders" },
+    { icon: <FaShoppingBag />, title: "My Orders", desc: "View all past and ongoing orders", link: "/my-orders" },
     { icon: <FaWallet />, title: "Transaction History", desc: "Track your payments & wallet usage", link: "/transactions" },
-    { icon: <FaComments />, title: "Message Rider", desc: "Chat with your delivery partner", link: "/messages" },
     { icon: <FaHeart />, title: "Saved Restaurants", desc: "Manage your favorite spots", link: "/favorites" },
-    { icon: <FaHistory />, title: "Order Activity", desc: "See delivery history & updates", link: "/order-activity" },
   ];
 
   return (
@@ -183,11 +218,12 @@ export default function ProfilePage() {
             <Image
               src={
                 previewImage ||
-                profileData.image ||
+                profileData?.image ||
                 "https://cdn-icons-png.flaticon.com/512/747/747545.png"
               }
               alt="Profile"
-              fill
+              width={112}
+              height={112}
               className="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover"
             />
             <button
@@ -220,7 +256,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Quick Links */}
-      <div className="px-[10%] mx-auto mt-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div className="px-[10%] mx-auto mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
         {quickLinks.map((q, i) => (
           <div
             key={i}
@@ -256,7 +292,8 @@ export default function ProfilePage() {
                   "https://cdn-icons-png.flaticon.com/512/747/747545.png"
                 }
                 alt="Preview"
-                fill
+                width={96}
+                height={96}
                 className="w-24 h-24 rounded-full border-2 border-orange-500 object-cover"
               />
               <input
@@ -267,10 +304,12 @@ export default function ProfilePage() {
               />
             </div>
 
+            {/* --- FORM --- */}
             <div className="space-y-3">
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Name
+              {/* Name Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-gray-700 dark:text-gray-300">Name</span>
                 </label>
                 <input
                   type="text"
@@ -281,9 +320,10 @@ export default function ProfilePage() {
                 />
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Phone
+              {/* Phone Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-gray-700 dark:text-gray-300">Phone</span>
                 </label>
                 <div className="flex items-center gap-2">
                   <FaPhoneAlt className="text-orange-600" />
@@ -297,9 +337,10 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Location
+              {/* Location Input */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text text-gray-700 dark:text-gray-300">Location</span>
                 </label>
                 <div className="flex gap-2">
                   <input

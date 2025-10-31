@@ -123,12 +123,32 @@ export const authOptions = {
       }
       return true;
     },
-    // Attach user data to JWT token
-    async jwt({ token, user }) {
+
+    async jwt({ token, user, trigger, session }) {
       await connectMongooseDb();
-      const dbUser = await User.findOne({
-        email: token?.user?.email || token?.email,
-      });
+
+      if (trigger === "update" && session?.user) {
+        const dbUser = await User.findOne({ email: session.user.email });
+
+        token.user = {
+          id: dbUser._id.toString(),
+          role: dbUser.role,
+          name: session.user.name,
+          image: session.user.image,
+          location: session.user.location,
+          phone: session.user.phone,
+        };
+        return token;
+      }
+
+      const emailToSearch = user?.email || token?.user?.email || token?.email;
+
+      if (!emailToSearch) {
+        return token;
+      }
+
+      const dbUser = await User.findOne({ email: emailToSearch });
+
       if (dbUser) {
         token.user = {
           id: dbUser._id.toString(),
@@ -142,8 +162,10 @@ export const authOptions = {
       } else if (user) {
         token.user = user;
       }
+
       return token;
     },
+
     // Attach token data to session
     async session({ session, token }) {
       session.user = token.user;
@@ -153,5 +175,6 @@ export const authOptions = {
   pages: { signIn: "/login" },
   secret: process.env.NEXTAUTH_SECRET,
 };
+
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

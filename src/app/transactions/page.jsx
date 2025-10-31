@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react"; 
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 
 export default function TransactionsPage() {
   const { data: session } = useSession();
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(null); 
+  const [isDeleting, setIsDeleting] = useState(null);
 
   // Memoized function to fetch transactions
   const fetchTransactions = useCallback(async (email) => {
@@ -66,7 +66,7 @@ export default function TransactionsPage() {
   // Loading UI
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-900 text-gray-300">
+      <div className="flex items-center justify-center h-screen text-gray-300">
         <div className="animate-pulse text-lg">Loading your transactions...</div>
       </div>
     );
@@ -75,7 +75,7 @@ export default function TransactionsPage() {
   // Empty state
   if (!transactions.length) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-gray-400">
+      <div className="flex flex-col items-center justify-center h-screen text-gray-400">
         <h2 className="text-3xl font-semibold">No Transactions Found</h2>
         <p className="text-gray-500 mt-3">
           Once you make a payment, your history will appear here.
@@ -93,7 +93,7 @@ export default function TransactionsPage() {
         {transactions.map((txn) => (
           <div
             key={txn._id}
-            className="bg-white p-6 rounded-2xl border border-gray-700 shadow-xl hover:shadow-orange-500/30 transition duration-300 flex flex-col justify-between" 
+            className="p-6 rounded-2xl border border-gray-700 shadow-xl hover:shadow-orange-500/30 transition duration-300 flex flex-col justify-between"
           >
             <div>
               <div className="flex justify-between items-center mb-4">
