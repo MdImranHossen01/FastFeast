@@ -1,4 +1,4 @@
-[
+export const jobs =[
   {
     "_id": "67103a1b1",
     "title": "Delivery Rider (Partner)",

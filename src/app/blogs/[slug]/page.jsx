@@ -1,20 +1,30 @@
 import Link from "next/link";
-import { FaHome, FaTags, FaEye } from "react-icons/fa";
+import { FaHome, FaTags, FaEye, FaUtensils, FaBriefcase } from "react-icons/fa";
 import getBlogs from "@/app/actions/blogs/getBlogs";
 import RelatedBlogSidebar from "../components/RelatedBlogSlider";
 import SocialIcons from "../components/SocialIcons";
 import Image from "next/image";
+import { FaBuilding } from "react-icons/fa6";
 
 export default async function BlogDetails({ params }) {
   const { slug } = await params;
   const blogs = await getBlogs();
+  const btns=
+[
+    { href: "/", label: "Home", icon: <FaHome className="mr-2" /> },
+    { href: "/blogs", label: "Blogs", icon: <FaHome className="mr-2" /> },
+    { href: "/menus", label: "Menu", icon: <FaUtensils className="mr-2" /> },
+    { href: "/restaurants", label: "Restaurant", icon: <FaBuilding className="mr-2" /> },
+    { href: "/careers", label: "Career", icon: <FaBriefcase className="mr-2" /> }
+  ]
+
 
   // find post by slug (assuming slug matches _id)
   const post = blogs.find((p) => p._id === slug);
 
   if (!post) {
     return (
-      <div className="container mx-auto py-20 text-center">
+      <div className="container mx-auto py-20 mt-10 text-center">
         <h2 className="text-2xl font-bold">Post not found</h2>
         <Link href="/blogs" className="btn mt-4">
           Back to Blogs
@@ -27,11 +37,11 @@ export default async function BlogDetails({ params }) {
   const relatedBlogs = blogs.filter((blog) => blog._id !== slug);
 
   return (
-    <main className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 bg-white shadow-lg rounded-lg mt-10 mb-20">
+    <main className="max-w-[1200px] mx-auto px-4 md:px-8 py-12 bg-white shadow-lg rounded-lg mt-20 mb-20">
       {/* Header Image */}
       <div className="relative w-full mb-8 overflow-hidden rounded-lg">
         <Image
-          src={post.coverImage || post.image}
+          src={post.coverImage || post.image || "/hero-privacy.jpg"}
           alt={post.title}
           width={1200}
           height={500}
@@ -59,7 +69,7 @@ export default async function BlogDetails({ params }) {
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div className="flex flex-col">
-                <span className="font-semibold text-gray-800">{post.author}</span>
+                <span className="font-semibold text-gray-800">Mr. Blogger</span>
                 <span className="text-gray-500">
                   {new Date(post.createdAt).toLocaleDateString("en-US", {
                     month: "long",
@@ -150,15 +160,27 @@ export default async function BlogDetails({ params }) {
         </aside>
       </div>
 
-      {/* Back Button */}
-      <div className="mt-12 text-center">
-        <Link
-          href="/blogs"
-          className="inline-flex items-center px-6 py-3 text-sm font-semibold border border-orange-500 text-orange-600 rounded-lg hover:bg-orange-500 hover:text-white transition-colors"
-        >
-          <FaHome className="mr-2" /> Back to Blogs
-        </Link>
-      </div>
+     {/* Navigation Buttons */}
+     {/* Navigation Buttons */}
+<div className="mt-12 text-center flex flex-wrap justify-center gap-4">
+  {btns.map((btn, idx) => (
+    <Link
+      key={idx}
+      href={btn.href}
+      className="group inline-flex items-center px-6 py-3 text-sm font-semibold border border-orange-500 text-orange-600 rounded-lg transition-all duration-300 ease-in-out hover:bg-orange-500 hover:text-white hover:shadow-lg hover:-translate-y-1"
+    >
+      {btn.icon}
+      <span className="relative">
+        {btn.label}
+        {/* subtle underline animation */}
+        <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300 ease-in-out"></span>
+      </span>
+    </Link>
+  ))}
+</div>
+
+
+
     </main>
   );
 }
