@@ -26,7 +26,6 @@ export default function PendingRestaurants({
       
       // if (!res.success) throw new Error("Failed to update");
 
-      console.log(res);
 
       // update state
       setRestaurants((prev) =>

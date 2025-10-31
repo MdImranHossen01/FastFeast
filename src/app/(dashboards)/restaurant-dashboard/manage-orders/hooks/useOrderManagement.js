@@ -24,7 +24,6 @@ export const useOrderManagement = () => {
     totalRevenue: 0,
   });
 
-  console.log("orders:", orders);
 
   // Fetch orders
   const fetchOrders = async () => {

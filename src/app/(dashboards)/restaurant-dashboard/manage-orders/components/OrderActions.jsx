@@ -95,7 +95,6 @@ const OrderActions = ({
                     <button
                       key={rider._id}
                       onClick={() => {
-                        console.log("Assigning rider:", rider._id, rider.name);
                         assignRiderToOrder(order._id, rider.id);
                       }}
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

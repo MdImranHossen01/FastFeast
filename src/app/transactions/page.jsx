@@ -50,7 +50,6 @@ export default function TransactionsPage() {
         setTransactions((prevTxns) =>
           prevTxns.filter((txn) => txn._id !== transactionId)
         );
-        console.log("Transaction successfully deleted.");
       } else {
         const errorData = await res.json();
         throw new Error(errorData.message || "Failed to delete transaction.");
