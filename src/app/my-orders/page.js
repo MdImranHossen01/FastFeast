@@ -43,7 +43,7 @@ function MyOrdersPage() {
     // 1. Handle Loading
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-20">
+            <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-25">
                 {/* REMOVED 'pt-30' from here */}
                 <div className="mx-auto px-[11%]">
                     <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">My Order History</h2>
@@ -56,7 +56,7 @@ function MyOrdersPage() {
     // 2. Handle Errors
     if (error) {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-20">
+            <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-25">
                 <div className="mx-auto px-[11%]">
                     <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">My Order History</h2>
                     <div style={{ color: 'red' }}>Error: {error}</div>
@@ -68,7 +68,7 @@ function MyOrdersPage() {
     // 3. Display Orders
     return (
         // This wrapper provides the main page styling
-        <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-20">
+        <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-black py-25">
 
             <div className="mx-auto px-[11%]">
                 <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
