@@ -1,4 +1,3 @@
-import getMenu from "@/app/actions/menus/getMenus";
 import getRestaurant from "@/app/actions/restaurants/getRestaurant";
 import React from "react";
 import { generateSlug } from "../components/generateSlug";
@@ -22,11 +21,12 @@ import {
 import { TbCurrencyTaka } from "react-icons/tb";
 import MenuCard from "@/app/(menulayout)/menus/components/MenuCard";
 import FavRestaurant from "../components/favRestaurant";
+import getMenus from "@/app/actions/menus/getMenus";
 
 export default async function RestaurantDetails({ params }) {
   const { slug } = await params;
   const restaurants = await getRestaurant();
-  const menuItems = await getMenu();
+  const menuItems = await getMenus();
 
   const restaurant = restaurants.find(
     (restaurant) =>
