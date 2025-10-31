@@ -24,8 +24,6 @@ export const useOrderManagement = () => {
     totalRevenue: 0,
   });
 
-  console.log("orders:", orders);
-
   // Fetch orders
   const fetchOrders = async () => {
     try {
@@ -112,14 +110,25 @@ export const useOrderManagement = () => {
     }
   };
 
-  // Update order status
+  // Update order status instantly
   const updateOrderStatus = async (orderId, newStatus) => {
+    // Instantly update UI
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+
+    setFilteredOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+
     try {
       const response = await fetch(`/api/orders/${orderId}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
       });
 
@@ -133,44 +142,77 @@ export const useOrderManagement = () => {
       const data = await response.json();
 
       if (data.success) {
-        // Update the order in the local state
-        setOrders((prevOrders) =>
-          prevOrders.map((order) =>
-            order.id === orderId ? { ...order, status: newStatus } : order
-          )
-        );
-
-        // Update filtered orders as well
-        setFilteredOrders((prevOrders) =>
-          prevOrders.map((order) =>
-            order.id === orderId ? { ...order, status: newStatus } : order
-          )
-        );
-
         toast.success(`Order status updated to ${newStatus}`);
       } else {
-        toast.error(data.message || "Failed to update order status");
+        throw new Error(data.message || "Failed to update order status");
       }
     } catch (error) {
       console.error("Error updating order status:", error);
-      toast.error(error.message || "Failed to update order status");
+      toast.error("Failed to update status");
+
+      // Revert change if update fails
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order._id === orderId ? { ...order, status: order.status } : order
+        )
+      );
     }
   };
 
   // Assign rider to order
-  const assignRiderToOrder = async (orderId, riderId) => {
+  const assignRiderToOrder = async (orderId, rider) => {
+    console.log(rider);
+    console.log(orderId);
+
+    // Optimistically update UI
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === orderId
+          ? {
+              ...order,
+              riderInfo: rider
+                ? {
+                    riderId: rider._id,
+                    riderName: rider.name,
+                    riderEmail: rider.email,
+                    riderPhone: rider.phone,
+                    photoUrl: rider.photoUrl || rider.image,
+                    vehicleType: rider.vehicleType || "Not specified",
+                  }
+                : null,
+            } // If rider is null/undefined, set riderInfo to null
+          : order
+      )
+    );
+    setFilteredOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order._id === orderId
+          ? {
+              ...order,
+              riderInfo: rider
+                ? {
+                    riderId: rider._id,
+                    riderName: rider.name,
+                    riderEmail: rider.email,
+                    riderPhone: rider.phone,
+                    photoUrl: rider.photoUrl || rider.image,
+                    vehicleType: rider.vehicleType || "Not specified",
+                  }
+                : null,
+            }
+          : order
+      )
+    );
+
     try {
       const response = await fetch(`/api/orders/${orderId}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ riderId }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ riderId: rider ? rider._id : null }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("API Error:", errorData);
         throw new Error(
           errorData.message || `HTTP error! status: ${response.status}`
         );
@@ -179,33 +221,18 @@ export const useOrderManagement = () => {
       const data = await response.json();
 
       if (data.success) {
-        // Update the order in the local state
-        setOrders((prevOrders) =>
-          prevOrders.map((order) =>
-            order.id === orderId
-              ? { ...order, riderInfo: data.riderInfo }
-              : order
-          )
-        );
-
-        // Update filtered orders as well
-        setFilteredOrders((prevOrders) =>
-          prevOrders.map((order) =>
-            order.id === orderId
-              ? { ...order, riderInfo: data.riderInfo }
-              : order
-          )
-        );
-
-        // Close the dropdown
-        setShowRiderDropdown(null);
-        toast.success("Rider assigned successfully");
+        // Optionally, you can use data.order to further refine the UI state
+        // setOrders((prev) => prev.map(o => o._id === orderId ? data.order : o));
+        // setFilteredOrders((prev) => prev.map(o => o._id === orderId ? data.order : o));
+        toast.success(`Assigned ${rider ? rider.name : "no one"} to order`);
       } else {
-        toast.error(data.message || "Failed to assign rider");
+        throw new Error(data.message || "Failed to assign rider");
       }
     } catch (error) {
-      console.error("Error assigning rider to order:", error);
-      toast.error(error.message || "Failed to assign rider");
+      console.error("Error assigning rider:", error);
+      toast.error("Failed to assign rider");
+      // Revert if API fails
+      fetchOrders(); // This is still a viable fallback
     }
   };
 

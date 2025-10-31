@@ -1,8 +1,8 @@
 "use server";
 import { getBaseUrl } from "@/lib/getBaseUrl";
 
-const FETCH_TTL = 300;           // ⬅️ match page ISR (or smaller)
-const FETCH_TAGS = ["menus"];    // optional
+const FETCH_TTL = 300; // ⬅️ match page ISR (or smaller)
+const FETCH_TAGS = ["menus"]; // optional
 
 export default async function getMenus() {
   try {
