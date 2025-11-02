@@ -15,6 +15,7 @@ import {
   setLocation,
   clearFilters,
 } from "@/lib/features/filtersSlice";
+import Image from "next/image";
 
 // SVG Icons - Memoized to prevent re-renders
 const LocationIcon = () => (
@@ -111,7 +112,7 @@ const ListeningIcon = () => (
 
 // Static background image
 const bannerImageUrl =
-  "https://images.unsplash.com/photo-1677175183792-e6a9b8b14305?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870";
+  "/banner.webp";
 
 // Slider text content, added back from original
 const sliderContent = [
@@ -298,9 +299,11 @@ const Banner = () => {
     <section className="relative h-screen w-full overflow-hidden">
       {/* Static Background Image */}
       <div className="absolute inset-0 overflow-hidden">
-        <img
+       <Image
           src={bannerImageUrl}
           alt="Food banner"
+          fill
+          priority
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
