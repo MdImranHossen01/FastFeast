@@ -65,7 +65,7 @@ export default function PopularBlogs() {
   ];
 
   return (
-    <section className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-orange-50 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors duration-500">
+    <section className="relative py-20 overflow-hidden transition-colors duration-500">
       {/* Background glow effect */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,179,71,0.15),transparent_50%)] dark:bg-[radial-gradient(circle_at_bottom_left,rgba(255,140,0,0.15),transparent_60%)] pointer-events-none"></div>
 

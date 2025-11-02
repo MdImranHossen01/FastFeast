@@ -41,7 +41,7 @@ export default function BlogCard({ blog }) {
       <figure className="relative h-60 md:h-72 overflow-hidden">
         {coverImage && (
           <Image
-            src={coverImage}
+            src={coverImage || "/hero-privacy.jpg"}
             alt={title}
             width={500}
             height={300}
@@ -89,7 +89,7 @@ export default function BlogCard({ blog }) {
             />
             <div className="flex flex-col">
               <span className="font-semibold text-xs">
-                {author || "Unknown"}
+                Mr. Blogger
               </span>
               {createdAt && (
                 <span className="text-xs">

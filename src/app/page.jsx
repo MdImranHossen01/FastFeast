@@ -20,7 +20,6 @@ const CustomersReview = lazy(() => import("./components/CustomersReview"));
 const TraditionalBeersSection = lazy(() =>
   import("./components/TraditionalBear")
 );
-const CategorySection = lazy(() => import("./components/Category"));
 const HowWeWork = lazy(() => import("./components/HowWeWork"));
 const FoodCompare = lazy(() => import("./components/FoodCompare"));
 const AiDrivenFoodSuggestion = lazy(() =>
@@ -73,9 +72,7 @@ export default function Home() {
         <TraditionalBeersSection />
       </Suspense>
 
-      <Suspense fallback={<SectionLoader />}>
-        <CategorySection />
-      </Suspense>
+     
 
       {/* Content Sections - Lower priority */}
       <Suspense fallback={<SectionLoader />}>
@@ -85,9 +82,9 @@ export default function Home() {
       {/* Uses its own dynamic wrapper; no Suspense needed here */}
       <RestaurantSectionDynamic />
 
-      <Suspense fallback={<SectionLoader />}>
+      {/* <Suspense fallback={<SectionLoader />}>
         <CTASection />
-      </Suspense>
+      </Suspense> */}
 
       <Suspense fallback={<SectionLoader />}>
         <Stats />
@@ -96,9 +93,9 @@ export default function Home() {
       
 
       {/* Informational Sections - Lowest priority */}
-      <Suspense fallback={<SectionLoader />}>
+      {/* <Suspense fallback={<SectionLoader />}>
         <HowWeWork />
-      </Suspense>
+      </Suspense> */}
 
       <Suspense fallback={<SectionLoader />}>
         <Services />

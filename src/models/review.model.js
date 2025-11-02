@@ -5,11 +5,9 @@ const riderReviewSchema = new mongoose.Schema(
     riderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Rider",
-      required: true,
     },
     rating: {
       type: Number,
-      required: true,
       min: 1,
       max: 5,
     },
@@ -31,7 +29,6 @@ const itemReviewsSchema = new mongoose.Schema(
     },
     rating: {
       type: Number,
-      required: true,
       min: 1,
       max: 5,
     },

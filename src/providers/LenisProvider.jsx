@@ -24,7 +24,7 @@ export default function LenisProvider({ children }) {
 
       // Add some event listeners for better UX
       lenis.on('scroll', (e) => {
-        console.log('Scrolling:', e);
+        // console.log('Scrolling:', e);
       });
 
       function raf(time) {

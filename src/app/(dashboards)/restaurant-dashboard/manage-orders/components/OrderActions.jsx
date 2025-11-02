@@ -11,11 +11,14 @@ const OrderActions = ({
   setShowRiderDropdown,
   showOrderDetailsModal,
 }) => {
+
+// console.log(riders);
+
   return (
     <div className="flex items-center gap-2">
       <button
         onClick={() => showOrderDetailsModal(order)}
-        className="text-orange-600 hover:text-orange-900"
+        className="text-orange-600 hover:text-orange-900 cursor-pointer"
       >
         View
       </button>
@@ -23,7 +26,7 @@ const OrderActions = ({
       {order.status === "pending" && (
         <button
           onClick={() => updateOrderStatus(order._id, "confirmed")}
-          className="text-blue-600 hover:text-blue-900"
+          className="text-blue-600 hover:text-blue-900 cursor-pointer"
         >
           Confirm
         </button>
@@ -32,7 +35,7 @@ const OrderActions = ({
       {order.status === "confirmed" && (
         <button
           onClick={() => updateOrderStatus(order._id, "preparing")}
-          className="text-purple-600 hover:text-purple-900"
+          className="text-purple-600 hover:text-purple-900 cursor-pointer"
         >
           Start Preparing
         </button>
@@ -41,7 +44,7 @@ const OrderActions = ({
       {order.status === "preparing" && (
         <button
           onClick={() => updateOrderStatus(order._id, "ready")}
-          className="text-indigo-600 hover:text-indigo-900"
+          className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
         >
           Mark Ready
         </button>
@@ -50,7 +53,7 @@ const OrderActions = ({
       {order.status === "ready" && (
         <button
           onClick={() => updateOrderStatus(order._id, "out-for-delivery")}
-          className="text-orange-600 hover:text-orange-900"
+          className="text-blue-600 hover:text-orange-900 cursor-pointer"
         >
           Out for Delivery
         </button>
@@ -59,7 +62,7 @@ const OrderActions = ({
       {order.status === "out-for-delivery" && (
         <button
           onClick={() => updateOrderStatus(order._id, "delivered")}
-          className="text-green-600 hover:text-green-900"
+          className="text-green-600 hover:text-green-900 cursor-pointer"
         >
           Mark Delivered
         </button>
@@ -68,7 +71,7 @@ const OrderActions = ({
       {order.status !== "delivered" && order.status !== "cancelled" && (
         <button
           onClick={() => updateOrderStatus(order._id, "cancelled")}
-          className="text-red-600 hover:text-red-900"
+          className="text-red-600 hover:text-red-900 cursor-pointer"
         >
           Cancel
         </button>
@@ -82,7 +85,7 @@ const OrderActions = ({
                 showRiderDropdown === order._id ? null : order._id
               )
             }
-            className="text-blue-600 hover:text-blue-900"
+            className="text-blue-600 hover:text-blue-900 cursor-pointer"
           >
             Assign Rider
           </button>
@@ -95,9 +98,9 @@ const OrderActions = ({
                     <button
                       key={rider._id}
                       onClick={() => {
-                        assignRiderToOrder(order._id, rider.id);
+                        assignRiderToOrder(order._id, rider);
                       }}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                     >
                       {rider.name}
                     </button>

@@ -72,7 +72,6 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
   useEffect(() => {
     const initializeReviews = async () => {
       if (order && order.items) {
-
         // Extract item titles to look up their IDs
         const itemTitles = order.items.map((item) => item.title);
 
@@ -142,11 +141,11 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
         })
         .filter((item) => item.rating > 0);
 
-
       // Prepare review data
       const reviewData = {
         riderReview: hasRiderRating
           ? {
+              riderId: order.riderInfo.riderId,
               rating: riderRating,
               comment: riderComment,
             }
@@ -154,11 +153,8 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
         itemReviews: itemReviewsData,
       };
 
-    
-
       // Call the onSubmit prop function
       const result = await onSubmit(reviewData);
-
 
       if (result.success) {
         toast.success("Review submitted successfully!");
@@ -227,9 +223,10 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                 <div className="relative flex items-center mb-3">
                   <Image
                     className="h-10 w-10 rounded-full object-cover mr-3"
-                    src={order.riderInfo.photoUrl || "/placeholder-image.jpg"}
-                    alt={order.riderInfo.name}
-                    fill
+                    src={order.riderInfo.photoUrl || "/user.png"}
+                    alt={order.riderInfo.name || "rider image"}
+                    width={40}
+                    height={40}
                     onError={(e) => {
                       e.target.src = "/placeholder-image.jpg";
                     }}
@@ -279,7 +276,7 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                   <textarea
                     id="riderComment"
                     rows="3"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors text-black"
                     value={riderComment}
                     onChange={(e) => setRiderComment(e.target.value)}
                     placeholder="Share your experience with the delivery rider..."
@@ -308,9 +305,9 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                           <Image
                             className="h-12 w-12 rounded-md object-cover mr-3"
                             src={getImageUrl(item.image)}
-                            fill
-                            alt={item.title}
-
+                            width={40}
+                            height={40}
+                            alt={item.title || "item image"}
                             onError={(e) => {
                               e.target.src = "/placeholder-image.jpg";
                             }}
@@ -367,7 +364,7 @@ const ReviewModal = ({ isOpen, onClose, order, onSubmit }) => {
                           <textarea
                             id={`itemComment-${itemId}`}
                             rows="2"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors text-black"
                             value={itemComments[itemId] || ""}
                             onChange={(e) =>
                               setItemComments((prev) => ({
