@@ -4,16 +4,21 @@ import ReactCompareImage from "react-compare-image";
 
 export default function FoodCompare() {
   return (
-    <section className="bg-orange-600 ">
+    <section>
       <div className=" container mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         
         {/* Left Side Content */}
         <div>
-           <h2 className="text-4xl text-white lg:text-5xl font-extrabold leading-tight mb-6">
-            Nothing But <br />The  Best Ingredients
+          {/* CHANGED: text-white to text-gray-900 */}
+          <h2 className="text-4xl text-gray-900 lg:text-5xl font-extrabold leading-tight mb-6">
+            Nothing But <br />
+            The <span className="text-orange-600">Best Ingredients</span>
           </h2>
-          <p className="text-lg leading-relaxed text-white max-w-xl mb-10">
-           We believe great food starts with great ingredients. That’s why we use only the freshest produce, quality grains, and carefully sourced proteins for every recipe.
+          {/* CHANGED: text-white to text-gray-700 */}
+          <p className="text-lg leading-relaxed text-gray-700 max-w-xl mb-10">
+            We believe great food starts with great ingredients. That’s why we
+            use only the freshest produce, quality grains, and carefully
+            sourced proteins for every recipe.
           </p>
         </div>
 
