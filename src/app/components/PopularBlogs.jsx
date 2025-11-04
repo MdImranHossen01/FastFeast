@@ -141,10 +141,10 @@ export default function PopularBlogs() {
       >
         <Link
           href="/blogs"
-          className="group flex items-center gap-2 px-10 py-3.5 bg-gradient-to-r from-orange-600 to-yellow-400 
-                     text-white font-semibold rounded-full shadow-lg shadow-orange-300/40 
+          className="absolute bottom-4 left-1/2 z-10 -translate-x-1/2 animate-pulse cursor-pointer group flex items-center gap-2 px-10 py-3.5  bg-transparent text-gray-900 hover:bg-orange-500 hover:bg-gradient-to-r from-orange-600 to-orange-400 
+                    hover:text-white font-semibold rounded-xl hover:shadow-lg shadow-none
                      hover:shadow-orange-400/60 hover:-translate-y-0.5
-                     transition-all duration-300"
+                     transition-all duration-300 my-8"
         >
           Show All
           <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
