@@ -1,11 +1,9 @@
 "use client";
 
-// Imports for Swiper, added back
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
-// CSS for Swiper, added back
 import "swiper/css";
 import "swiper/css/effect-fade";
 import { useRouter } from "next/navigation";
@@ -15,7 +13,6 @@ import {
   setLocation,
   clearFilters,
 } from "@/lib/features/filtersSlice";
-import Image from "next/image";
 
 // SVG Icons - Memoized to prevent re-renders
 const LocationIcon = () => (
@@ -110,13 +107,10 @@ const ListeningIcon = () => (
   </svg>
 );
 
-// Static background image
-const bannerImageUrl =
-  "/banner.webp";
-
-// Slider text content, added back from original
+// Memoized slider content with images
 const sliderContent = [
   {
+    image: "/banner1.webp",
     title: (
       <>
         Endless
@@ -127,9 +121,10 @@ const sliderContent = [
       "From burgers to biryani, pizza to pasta - discover new favorites and old classics with FastFeast delivery.",
   },
   {
+    image: "/banner2.webp",
     title: (
       <>
-        Craving Something
+        Craving Something 
         <span className="text-orange-600"> Delicious?</span>
       </>
     ),
@@ -137,6 +132,7 @@ const sliderContent = [
       "Get your favorite meals delivered in minutes. From local favorites to international cuisine, FastFeast brings the feast to you!",
   },
   {
+    image: "/banner3.webp",
     title: (
       <>
         <span className="text-orange-600">Fast</span> Food,{" "}
@@ -159,10 +155,10 @@ const Banner = () => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeechSupported, setIsSpeechSupported] = useState(false);
   const [transcript, setTranscript] = useState("");
-  // activeSlide state, added back
   const [activeSlide, setActiveSlide] = useState(0);
   const recognitionRef = useRef(null);
   const locationDropdownRef = useRef(null);
+  const swiperRef = useRef(null);
 
   // Memoize locations array
   const availableLocations = useMemo(
@@ -170,19 +166,25 @@ const Banner = () => {
     []
   );
 
-  // Check if speech recognition is supported
+  // Check if speech recognition is supported - FIXED MEMORY LEAK
   useEffect(() => {
+    let isMounted = true;
+    
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
-    setIsSpeechSupported(!!SpeechRecognition);
+    
+    if (isMounted) {
+      setIsSpeechSupported(!!SpeechRecognition);
+    }
 
-    if (SpeechRecognition) {
+    if (SpeechRecognition && isMounted) {
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = true;
       recognitionRef.current.lang = "en-US";
 
       recognitionRef.current.onresult = (event) => {
+        if (!isMounted) return;
         const currentTranscript = Array.from(event.results)
           .map((result) => result[0].transcript)
           .join("");
@@ -191,11 +193,13 @@ const Banner = () => {
       };
 
       recognitionRef.current.onend = () => {
+        if (!isMounted) return;
         setIsListening(false);
         setTranscript("");
       };
 
       recognitionRef.current.onerror = (event) => {
+        if (!isMounted) return;
         console.error("Speech recognition error:", event.error);
         setIsListening(false);
         setTranscript("");
@@ -203,8 +207,14 @@ const Banner = () => {
     }
 
     return () => {
+      isMounted = false;
       if (recognitionRef.current) {
-        recognitionRef.current.stop();
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          // Ignore errors during cleanup
+        }
+        recognitionRef.current = null;
       }
     };
   }, [dispatch]);
@@ -221,9 +231,11 @@ const Banner = () => {
   const handleSearch = useCallback(
     (e) => {
       if (e.type === "keydown" && e.key !== "Enter") return;
-      router.push("/menus");
+      if (searchQuery || location) {
+        router.push("/menus");
+      }
     },
-    [router]
+    [router, searchQuery, location]
   );
 
   const handleExploreMenu = useCallback(() => {
@@ -268,7 +280,7 @@ const Banner = () => {
     }
   }, [isListening, startListening, stopListening]);
 
-  // Click outside handler
+  // Click outside handler - FIXED MEMORY LEAK
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -278,8 +290,12 @@ const Banner = () => {
         setIsLocationOpen(false);
       }
     };
+    
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleScrollDown = useCallback(() => {
@@ -295,43 +311,57 @@ const Banner = () => {
     [searchQuery, location]
   );
 
+  // Cleanup swiper on unmount
+  useEffect(() => {
+    return () => {
+      if (swiperRef.current) {
+        swiperRef.current.destroy(true, true);
+        swiperRef.current = null;
+      }
+    };
+  }, []);
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Static Background Image */}
-      <div className="absolute inset-0 overflow-hidden">
-       <Image
-          src={bannerImageUrl}
-          alt="Food banner"
-          fill
-          priority
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/20"></div>
-      </div>
+      <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        effect={"fade"}
+        fadeEffect={{
+          crossFade: true,
+        }}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        speed={1200}
+        modules={[Autoplay, EffectFade]}
+        className="h-full w-full"
+        onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+      >        {sliderContent.map((slide, index) => (
+          <SwiperSlide key={index} className="relative">
+            {/* Background image with zoom effect */}
+            <div className="absolute inset-0 overflow-hidden">
+              <motion.div
+                className="w-full h-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${slide.image})`,
+                }}
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{
+                  duration: 10,
+                  ease: "easeOut",
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/20"></div>
+            </div>
 
-      {/* Content overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
-        {/* Title and Description - Swiper restored for text animation */}
-        <Swiper
-          spaceBetween={30}
-          centeredSlides={true}
-          effect={"fade"}
-          fadeEffect={{
-            crossFade: true,
-          }}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-          speed={1200}
-          modules={[Autoplay, EffectFade]}
-          className="w-full" // Swiper now only wraps the text
-          onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
-        >
-          {sliderContent.map((slide, index) => (
-            <SwiperSlide key={index}>
-              {/* This check ensures only the active slide's text is animated */}
+            {/* Content overlay */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
+              {/* Title and Description with fade-up animation */}
               <AnimatePresence mode="wait">
                 {activeSlide === index && (
                   <motion.div
@@ -346,8 +376,7 @@ const Banner = () => {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.2 }}
-                      // CHANGED: mb-4 to mb-2 and removed min-height style
-                      className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 leading-tight text-white"
+                      className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-white"
                     >
                       {slide.title}
                     </motion.h1>
@@ -356,7 +385,6 @@ const Banner = () => {
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.4 }}
-                      // CHANGED: removed min-height style
                       className="mb-6 opacity-90 text-white max-w-2xl mx-auto"
                     >
                       {slide.description}
@@ -364,178 +392,178 @@ const Banner = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </SwiperSlide>
-          ))}
-        </Swiper>
 
-        {/* Search Bar - Static */}
-        <div className="w-full max-w-3xl">
-          <div className="flex w-full items-center rounded-lg bg-orange-500/50 backdrop-blur-sm p-3 shadow-lg">
-            {/* Location Input */}
-            <div className="relative w-2/5" ref={locationDropdownRef}>
-              <div
-                className="flex items-center pr-2 cursor-pointer"
-                onClick={() => setIsLocationOpen(!isLocationOpen)}
-              >
-                <LocationIcon />
-                <input
-                  type="text"
-                  placeholder="Select Location"
-                  value={location}
-                  readOnly
-                  className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white cursor-pointer"
-                />
-                <CaretDownIcon />
-              </div>
+              {/* Search Bar - Static (no animation) */}
+              <div className="w-full max-w-3xl">
+                <div className="flex w-full items-center rounded-lg bg-orange-500/50 backdrop-blur-sm p-3 shadow-lg">
+                  {/* Location Input */}
+                  <div className="relative w-2/5" ref={locationDropdownRef}>
+                    <div
+                      className="flex items-center pr-2 cursor-pointer"
+                      onClick={() => setIsLocationOpen(!isLocationOpen)}
+                    >
+                      <LocationIcon />
+                      <input
+                        type="text"
+                        placeholder="Select Location"
+                        value={location}
+                        readOnly
+                        className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white cursor-pointer"
+                      />
+                      <CaretDownIcon />
+                    </div>
 
-              {isLocationOpen && (
-                <div className="absolute top-full mt-2 w-full rounded-md bg-orange-500/90 shadow-lg z-10 border border-orange-500/30">
-                  <ul>
-                    {availableLocations.map((loc) => (
-                      <li
-                        key={loc}
-                        onClick={() => handleLocationSelect(loc)}
-                        className="px-4 py-2 text-sm text-white hover:bg-orange-600 cursor-pointer"
+                    {isLocationOpen && (
+                      <div className="absolute top-full mt-2 w-full rounded-md bg-orange-500/90 shadow-lg z-10 border border-orange-500/30">
+                        <ul>
+                          {availableLocations.map((loc) => (
+                            <li
+                              key={loc}
+                              onClick={() => handleLocationSelect(loc)}
+                              className="px-4 py-2 text-sm text-white hover:bg-orange-600 cursor-pointer"
+                            >
+                              {loc}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="h-6 border-l border-gray-300"></div>
+
+                  {/* Search Input */}
+                  <div className="flex flex-1 items-center pl-4">
+                    <SearchIcon />
+                    <input
+                      type="text"
+                      placeholder="Search for restaurant, cuisine or a dish"
+                      value={searchQuery}
+                      onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+                      onKeyDown={handleSearch}
+                      className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white"
+                    />
+
+                    {/* Voice Search Button */}
+                    {isSpeechSupported && (
+                      <button
+                        onClick={toggleListening}
+                        className={`ml-2 p-1 rounded-full transition-all duration-300 ${
+                          isListening
+                            ? "bg-green-500 hover:bg-green-600"
+                            : "bg-white/20 hover:bg-white/30"
+                        }`}
+                        aria-label={
+                          isListening ? "Stop listening" : "Start voice search"
+                        }
                       >
-                        {loc}
-                      </li>
-                    ))}
-                  </ul>
+                        {isListening ? <ListeningIcon /> : <MicIcon />}
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Clear Filters Button */}
+                  {hasActiveFilters && (
+                    <button
+                      onClick={() => dispatch(clearFilters())}
+                      className="ml-2 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
+                      aria-label="Clear filters"
+                    >
+                      <ClearIcon />
+                    </button>
+                  )}
                 </div>
-              )}
-            </div>
 
-            <div className="h-6 border-l border-gray-300"></div>
+                {/* Voice Search Status */}
+                {isListening && (
+                  <div className="mt-2 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-500/30">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <p className="text-green-300 text-sm font-medium">
+                        Listening... {transcript && `"${transcript}"`}
+                      </p>
+                      <button
+                        onClick={stopListening}
+                        className="text-green-300 hover:text-white text-xs underline"
+                      >
+                        Stop
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-            {/* Search Input */}
-            <div className="flex flex-1 items-center pl-4">
-              <SearchIcon />
-              <input
-                type="text"
-                placeholder="Search for restaurant, cuisine or a dish"
-                value={searchQuery}
-                onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-                onKeyDown={handleSearch}
-                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white"
-              />
+                {/* Active Filters Display */}
+                {hasActiveFilters && !isListening && (
+                  <div className="mt-3 flex flex-wrap gap-2 justify-center">
+                    {searchQuery && (
+                      <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-white text-sm">
+                        <span>Search: {searchQuery}</span>
+                        <button
+                          onClick={handleClearSearch}
+                          className="ml-1"
+                          aria-label="Clear search"
+                        >
+                          <ClearIcon />
+                        </button>
+                      </div>
+                    )}
+                    {location && (
+                      <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-white text-sm">
+                        <span>Location: {location}</span>
+                        <button
+                          onClick={handleClearLocation}
+                          className="ml-1"
+                          aria-label="Clear location"
+                        >
+                          <ClearIcon />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
 
-              {/* Voice Search Button */}
-              {isSpeechSupported && (
+              {/* CTA Buttons - Static (no animation) */}
+              <div className="flex flex-wrap gap-4 mt-8 justify-center">
+                {/* Search Button */}
+                {(searchQuery || location) && (
+                  <button
+                    onClick={handleSearch}
+                    className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
+                  >
+                    Search Now
+                  </button>
+                )}
+
+                {/* Regular Explore Menu Button */}
                 <button
-                  onClick={toggleListening}
-                  className={`ml-2 p-1 rounded-full transition-all duration-300 ${
-                    isListening
-                      ? "bg-green-500 hover:bg-green-600"
-                      : "bg-white/20 hover:bg-white/30"
-                  }`}
-                  aria-label={
-                    isListening ? "Stop listening" : "Start voice search"
-                  }
+                  onClick={handleExploreMenu}
+                  className="relative inline-flex cursor-pointer items-center px-12 py-3 overflow-hidden text-lg font-medium text-orange-600 border-2 border-orange-600 rounded-full hover:text-white group hover:bg-gray-50"
                 >
-                  {isListening ? <ListeningIcon /> : <MicIcon />}
-                </button>
-              )}
-            </div>
-
-            {/* Clear Filters Button */}
-            {hasActiveFilters && (
-              <button
-                onClick={() => dispatch(clearFilters())}
-                className="ml-2 p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors"
-                aria-label="Clear filters"
-              >
-                <ClearIcon />
-              </button>
-            )}
-          </div>
-
-          {/* Voice Search Status */}
-          {isListening && (
-            <div className="mt-2 text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 rounded-full border border-green-500/30">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <p className="text-green-300 text-sm font-medium">
-                  Listening... {transcript && `"${transcript}"`}
-                </p>
-                <button
-                  onClick={stopListening}
-                  className="text-green-300 hover:text-white text-xs underline"
-                >
-                  Stop
+                  <span className="absolute left-0 block w-full h-0 transition-all bg-orange-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-500 ease"></span>
+                  <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                  </span>
+                  <span className="relative">Explore Menu</span>
                 </button>
               </div>
             </div>
-          )}
-
-          {/* Active Filters Display */}
-          {hasActiveFilters && !isListening && (
-            <div className="mt-3 flex flex-wrap gap-2 justify-center">
-              {searchQuery && (
-                <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-white text-sm">
-                  <span>Search: {searchQuery}</span>
-                  <button
-                    onClick={handleClearSearch}
-                    className="ml-1"
-                    aria-label="Clear search"
-                  >
-                    <ClearIcon />
-                  </button>
-                </div>
-              )}
-              {location && (
-                <div className="flex items-center gap-1 px-3 py-1 bg-white/20 rounded-full text-white text-sm">
-                  <span>Location: {location}</span>
-                  <button
-                    onClick={handleClearLocation}
-                    className="ml-1"
-                    aria-label="Clear location"
-                  >
-                    <ClearIcon />
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* CTA Buttons - Static */}
-        <div className="flex flex-wrap gap-4 mt-8 justify-center">
-          {/* Search Button */}
-          {(searchQuery || location) && (
-            <button
-              onClick={handleSearch}
-              className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer"
-            >
-              Search Now
-            </button>
-          )}
-
-          {/* Regular Explore Menu Button */}
-          <button
-            onClick={handleExploreMenu}
-            className="relative inline-flex cursor-pointer items-center px-12 py-3 overflow-hidden text-lg font-medium text-orange-600 border-2 border-orange-600 rounded-full hover:text-white group hover:bg-gray-50"
-          >
-            <span className="absolute left-0 block w-full h-0 transition-all bg-orange-600 opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-500 ease"></span>
-            <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
-            </span>
-            <span className="relative">Explore Menu</span>
-          </button>
-        </div>
-      </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
       {/* Scroll Down Button */}
       <div
