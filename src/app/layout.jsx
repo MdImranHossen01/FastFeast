@@ -124,13 +124,8 @@ export default function RootLayout({ children }) {
           body { 
             margin: 0; 
             font-family: var(--font-geist-sans), system-ui, sans-serif;
-            
           }
           * { box-sizing: border-box; }
-          
-          .slide-video {
-            transition: opacity 0.3s ease-in-out;
-          }
         `,
           }}
         />
@@ -240,24 +235,6 @@ export default function RootLayout({ children }) {
           id="gt-script"
           src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
           strategy="afterInteractive"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              document.addEventListener('DOMContentLoaded', function() {
-                // The problematic line criticalContent.style.visibility = 'visible'; has been removed.
-                // Critical content is now visible by default as there's no CSS hiding it.
-                
-                // Additional video preloading
-                const videos = ['/video1.mp4', '/video2.mp4', '/video3.mp4'];
-                videos.forEach(videoSrc => {
-                  const video = document.createElement('video');
-                  video.preload = 'auto';
-                  video.src = videoSrc;
-                });
-              });
-            `,
-          }}
         />
       </body>
     </html>
