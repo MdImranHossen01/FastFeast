@@ -13,9 +13,8 @@ export default function RestaurantOwnerSection({ owner, restaurant }) {
             <div className="relative">
               <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center border-2 border-orange-300">
                 <FaUser className="text-3xl text-orange-500" />
-                {owner.email && (
-              <p className="text-gray-600 text-sm">{owner.email}</p>
-            )}              {owner?.isOnline && (
+              </div>
+              {owner?.isOnline && (
                 <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
                   <FaCircle className="text-xs text-white" />
                 </div>
