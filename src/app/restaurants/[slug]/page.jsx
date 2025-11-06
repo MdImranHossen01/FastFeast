@@ -1,4 +1,5 @@
 import getRestaurant from "@/app/actions/restaurants/getRestaurant";
+import getUserById from "@/app/actions/users/getUserById";
 import React from "react";
 import { generateSlug } from "../components/generateSlug";
 import Image from "next/image";
@@ -22,6 +23,7 @@ import { TbCurrencyTaka } from "react-icons/tb";
 import MenuCard from "@/app/(menulayout)/menus/components/MenuCard";
 import FavRestaurant from "../components/favRestaurant";
 import getMenus from "@/app/actions/menus/getMenus";
+import RestaurantOwnerSection from "../components/RestaurantOwnerSection";
 
 export default async function RestaurantDetails({ params }) {
   const { slug } = await params;
@@ -32,6 +34,17 @@ export default async function RestaurantDetails({ params }) {
     (restaurant) =>
       generateSlug(restaurant.name, restaurant.location?.area) === slug
   );
+
+  // Get restaurant owner data
+  let owner = null;
+  if (restaurant?.ownerId) {
+    try {
+      owner = await getUserById(restaurant.ownerId);
+      console.log("Owner data for", restaurant.ownerId, ":", owner);
+    } catch (error) {
+      console.error("Error fetching owner data:", error);
+    }
+  }
 
   if (!restaurant) {
     return (
@@ -90,7 +103,7 @@ export default async function RestaurantDetails({ params }) {
   const isRestaurantOpen = () => {
     const now = new Date();
     const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-    const currentDay = days[now.getDay()]; // Get current day as 'sun', 'mon', etc.
+    const currentDay = days[now.getDay()];
     const currentTime = now.getHours() * 100 + now.getMinutes();
 
     const hours = restaurant.openingHours[currentDay];
@@ -193,6 +206,9 @@ export default async function RestaurantDetails({ params }) {
                     </span>
                   ))}
                 </div>
+
+                {/* Restaurant Owner Section - Updated */}
+                <RestaurantOwnerSection owner={owner} restaurant={restaurant} />
 
                 {/* Delivery Info Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
