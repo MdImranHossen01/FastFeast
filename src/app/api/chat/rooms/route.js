@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import connectMongooseDb from "@/lib/mongoose";
 import ChatRoom from "@/models/chatRoom.model";
 import Message from "@/models/message.model";
@@ -7,9 +8,20 @@ import User from "@/models/user.model";
 
 export async function GET(req) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
+    console.log("Session in GET:", session);
+    
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Get user ID from session - it's in session.user.id
+    const userId = session.user?.id;
+    console.log("User ID from session:", userId);
+    
+    if (!userId) {
+      console.error("User ID not found in session:", session);
+      return NextResponse.json({ error: "User ID not found in session" }, { status: 400 });
     }
 
     await connectMongooseDb();
@@ -18,7 +30,7 @@ export async function GET(req) {
     const restaurantId = searchParams.get("restaurantId");
 
     let query = {
-      participants: session.user.id,
+      participants: userId,
       isActive: true
     };
 
@@ -37,7 +49,7 @@ export async function GET(req) {
       rooms.map(async (room) => {
         const unreadCount = await Message.countDocuments({
           roomId: room._id.toString(),
-          receiverId: session.user.id,
+          receiverId: userId,
           isRead: false
         });
 
@@ -64,14 +76,27 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
+    console.log("Session in POST:", session);
+    
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Get user ID from session - it's in session.user.id
+    const userId = session.user?.id;
+    console.log("User ID from session:", userId);
+    
+    if (!userId) {
+      console.error("User ID not found in session:", session);
+      return NextResponse.json({ error: "User ID not found in session" }, { status: 400 });
     }
 
     await connectMongooseDb();
 
     const { receiverId, restaurantId, subject } = await req.json();
+    console.log("Request data:", { receiverId, restaurantId, subject });
+    console.log("Session user ID:", userId);
 
     if (!receiverId) {
       return NextResponse.json(
@@ -99,24 +124,30 @@ export async function POST(req) {
 
     // Check if room already exists
     let room = await ChatRoom.findOne({
-      participants: { $all: [session.user.id, receiverId] },
+      participants: { $all: [userId, receiverId] },
       restaurantId: restaurantId || null
     })
       .populate("participants", "name email image")
       .populate("lastMessage");
 
     if (!room) {
+      console.log("Creating new room with participants:", [userId, receiverId]);
+      
       // Create new room with proper participant IDs
       room = new ChatRoom({
-        participants: [session.user.id, receiverId],
+        participants: [userId, receiverId],
         restaurantId: restaurantId || null,
         metadata: {
           subject: subject || "General Inquiry"
         }
       });
 
+      console.log("Room to be saved:", room);
+      
       await room.save();
       await room.populate("participants", "name email image");
+      
+      console.log("Room created successfully:", room);
     }
 
     return NextResponse.json({
@@ -132,11 +163,12 @@ export async function POST(req) {
       console.error("Validation errors:", error.errors);
     }
     
-    
     return NextResponse.json(
-      { error: "Internal server error" },
+      { 
+        error: "Internal server error",
+        details: error.message 
+      },
       { status: 500 }
-    );      { status: 500 }
-    
+    );
   }
 }
