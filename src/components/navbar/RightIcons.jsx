@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { MdOutlineEmail, MdShoppingCart } from "react-icons/md";
@@ -7,7 +9,6 @@ import UserMenu from "./UserMenu";
 import NotificationDropdown from "./NotificationDropdown";
 
 const RightIcons = ({
-  cartCount,
   isUserMenuOpen,
   setIsUserMenuOpen,
   isNotificationDropdownOpen,
@@ -19,8 +20,19 @@ const RightIcons = ({
   unreadCount,
   markAsRead,
   markAllAsRead,
-  session,
 }) => {
+  const { data: session } = useSession();
+  const { cartItems } = useCart();
+  
+  const cartCount = cartItems?.length || 0;
+
+  const handleMessagesClick = (e) => {
+    if (!session) {
+      e.preventDefault();
+      window.location.href = `/login?callbackUrl=${encodeURIComponent('/messages')}`;
+    }
+  };
+
   return (
     <div className="flex gap-2 items-center">
       {/* Cart */}
@@ -29,7 +41,7 @@ const RightIcons = ({
         className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
       >
         {cartCount > 0 && (
-          <span className="absolute text-white text-xs font-bold">
+          <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
             {cartCount}
           </span>
         )}
@@ -49,10 +61,14 @@ const RightIcons = ({
         />
       </div>
 
-      {/* Email Icon */}
-      <div className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 cursor-pointer">
+      {/* Messages */}
+      <Link
+        href="/messages"
+        onClick={handleMessagesClick}
+        className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 cursor-pointer"
+      >
         <MdOutlineEmail size={25} />
-      </div>
+      </Link>
 
       {session ? (
         <UserMenu
