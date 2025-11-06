@@ -21,7 +21,7 @@ const RightIcons = ({
   markAsRead,
   markAllAsRead,
 }) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { cartItems } = useCart();
   
   const cartCount = cartItems?.length || 0;
@@ -29,8 +29,10 @@ const RightIcons = ({
   const handleMessagesClick = (e) => {
     if (!session) {
       e.preventDefault();
+      // Use window.location for full redirect to login
       window.location.href = `/login?callbackUrl=${encodeURIComponent('/messages')}`;
     }
+    // If session exists, the Link will handle navigation normally
   };
 
   return (
@@ -61,11 +63,11 @@ const RightIcons = ({
         />
       </div>
 
-      {/* Messages */}
+      {/* Messages - Fixed Link */}
       <Link
         href="/messages"
         onClick={handleMessagesClick}
-        className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105 cursor-pointer"
+        className="relative flex flex-col items-center rounded-full font-semibold text-orange-500 transition-all duration-300 hover:text-orange-600 transform hover:scale-105"
       >
         <MdOutlineEmail size={25} />
       </Link>
