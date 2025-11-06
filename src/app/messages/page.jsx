@@ -11,7 +11,7 @@ export default async function MessagesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-[calc(100vh-36px)] bg-gray-50 py-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -24,7 +24,7 @@ export default async function MessagesPage() {
                 }
               </p>
             </div>
-            <div className="p-6">
+            <div className="p-4">
               <ChatInterface />
             </div>
           </div>
