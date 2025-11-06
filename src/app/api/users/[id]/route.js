@@ -41,12 +41,12 @@ export async function GET(req, { params }) {
 // PATCH user by ID
 export async function PATCH(req, { params }) {
   try {
-    const restaurantId = await params;
+    const { id } = await params;
     const updateData = await req.json();
 
     await connectMongooseDb();
 
-    const restaurant = await Restaurant.findById(restaurantId);
+    const restaurant = await Restaurant.findById(id);
 
     if (!restaurant) {
       return NextResponse.json({

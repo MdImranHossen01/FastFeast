@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import connectMongooseDb from "@/lib/mongoose";
 import Message from "@/models/message.model";
 import ChatRoom from "@/models/chatRoom.model";
@@ -7,9 +8,17 @@ import User from "@/models/user.model";
 
 export async function GET(req) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
+    
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Get user ID from session
+    const userId = session.user?.id;
+    
+    if (!userId) {
+      return NextResponse.json({ error: "User ID not found in session" }, { status: 400 });
     }
 
     await connectMongooseDb();
@@ -27,7 +36,7 @@ export async function GET(req) {
 
     const messages = await Message.find({
       roomId,
-      deletedFor: { $ne: session.user.id }
+      deletedFor: { $ne: userId }
     })
       .populate("senderId", "name email image")
       .sort({ createdAt: -1 })
@@ -39,7 +48,7 @@ export async function GET(req) {
     await Message.updateMany(
       {
         roomId,
-        receiverId: session.user.id,
+        receiverId: userId,
         isRead: false
       },
       {
@@ -71,9 +80,17 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
+    
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Get user ID from session
+    const userId = session.user?.id;
+    
+    if (!userId) {
+      return NextResponse.json({ error: "User ID not found in session" }, { status: 400 });
     }
 
     await connectMongooseDb();
@@ -94,12 +111,12 @@ export async function POST(req) {
     }
 
     // Check if user is a participant in this room
-    const isParticipant = room.participants.some(p => p._id.toString() === session.user.id);
+    const isParticipant = room.participants.some(p => p._id.toString() === userId);
     if (!isParticipant) {
       return NextResponse.json({ error: "Access denied" }, { status: 403 });
     }
 
-    const receiver = room.participants.find(p => p._id.toString() !== session.user.id);
+    const receiver = room.participants.find(p => p._id.toString() !== userId);
 
     if (!receiver) {
       return NextResponse.json({ error: "Receiver not found in room" }, { status: 400 });
@@ -107,7 +124,7 @@ export async function POST(req) {
 
     const message = new Message({
       roomId,
-      senderId: session.user.id,
+      senderId: userId,
       receiverId: receiver._id,
       content,
       messageType,
