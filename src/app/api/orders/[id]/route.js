@@ -1,8 +1,47 @@
+// src/app/api/orders/[id]/route.js
 import connectMongooseDb from "@/lib/mongoose";
 import Order from "@/models/order.model";
 import User from "@/models/user.model";
 import { NextResponse } from "next/server";
 
+// GET - Fetch single order by ID
+export async function GET(request, { params }) {
+  try {
+    const { id } = await params;
+    
+    await connectMongooseDb();
+
+    const order = await Order.findById(id);
+
+    if (!order) {
+      return NextResponse.json(
+        { success: false, message: "Order not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Order fetched successfully",
+        order: order,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching order:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Failed to fetch order",
+        data: null,
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// PATCH - Update order
 export async function PATCH(request, { params }) {
   try {
     const { id } = await params;

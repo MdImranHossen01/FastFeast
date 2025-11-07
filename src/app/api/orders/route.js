@@ -86,3 +86,35 @@ export async function GET() {
     );
   }
 }
+
+export async function DELETE(req) {
+  try {
+    await connectMongooseDb();
+
+    // The {} filter means "match all documents"
+    const deleteResult = await Order.deleteMany({});
+
+    if (deleteResult.deletedCount === 0) {
+      return NextResponse.json(
+        { success: true, message: "No orders found to delete." },
+        { status: 200 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: `${deleteResult.deletedCount} orders deleted successfully.`,
+        deletedCount: deleteResult.deletedCount
+      },
+      { status: 200 }
+    );
+
+  } catch (error) {
+    console.error("Error deleting all orders:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

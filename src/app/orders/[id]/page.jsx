@@ -14,7 +14,7 @@ const OrderDetailsPage = () => {
   const router = useRouter();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [invoiceLoading, setInvoiceLoading] = useState(false); // NEW
+  const [invoiceLoading, setInvoiceLoading] = useState(false);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -26,7 +26,7 @@ const OrderDetailsPage = () => {
         if (data.success) {
           setOrder(data.order);
         } else {
-          console.error('Failed to fetch order details');
+          console.error('Failed to fetch order details:', data.message);
         }
       } catch (error) {
         console.error('Error fetching order details:', error);
@@ -41,6 +41,7 @@ const OrderDetailsPage = () => {
   }, [params.id]);
 
   const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
     const options = { 
       year: 'numeric', 
       month: 'short', 
@@ -55,6 +56,7 @@ const OrderDetailsPage = () => {
     const s = String(status || '').trim().toLowerCase();
     if (s === 'complete' || s === 'completed' || s === 'delivery-completed') return 'delivered';
     if (s === 'out for delivery' || s === 'out_for_delivery') return 'out-for-delivery';
+    if (s === 'assign to rider' || s === 'assigned_to_rider' || s === 'assigned') return 'assigned';
     return s;
   };
 
@@ -65,6 +67,7 @@ const OrderDetailsPage = () => {
       'confirmed': 'bg-blue-100 text-blue-800',
       'preparing': 'bg-purple-100 text-purple-800',
       'ready': 'bg-indigo-100 text-indigo-800',
+      'assigned': 'bg-cyan-100 text-cyan-800',
       'out-for-delivery': 'bg-orange-100 text-orange-800',
       'delivered': 'bg-green-100 text-green-800',
       'cancelled': 'bg-red-100 text-red-800',
@@ -76,6 +79,7 @@ const OrderDetailsPage = () => {
       'confirmed': 'Confirmed',
       'preparing': 'Preparing',
       'ready': 'Ready',
+      'assigned': 'Assigned to Rider',
       'out-for-delivery': 'Out for Delivery',
       'delivered': 'Delivered',
       'cancelled': 'Cancelled',
@@ -86,40 +90,16 @@ const OrderDetailsPage = () => {
     return <span className={`px-3 py-1 text-sm font-medium rounded-full ${cls}`}>{label}</span>;
   };
 
-  // NEW: Download invoice handler
   const handleDownloadInvoice = async () => {
     try {
       setInvoiceLoading(true);
-      const res = await fetch(`/api/orders/${params.id}/invoice`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/pdf'
-        }
-      });
-
-      if (!res.ok) {
-        // চেষ্টা: যদি API JSON এরর দেয়
-        try {
-          const err = await res.json();
-          throw new Error(err?.message || 'Failed to download invoice');
-        } catch {
-          throw new Error('Failed to download invoice');
-        }
-      }
-
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      const fileName = `invoice-${order?.id || params.id}.pdf`;
-      link.setAttribute('download', fileName);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
+      // Your invoice download logic here
+      console.log('Download invoice for order:', order?._id);
+      // For now, just show a message
+      alert('Invoice download feature coming soon!');
     } catch (e) {
       console.error(e);
-      alert(e.message || 'Could not download invoice. Please try again later.');
+      alert('Could not download invoice. Please try again later.');
     } finally {
       setInvoiceLoading(false);
     }
@@ -172,14 +152,16 @@ const OrderDetailsPage = () => {
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-1">Order #{order.id}</h2>
-              <p className="text-sm text-gray-500">Placed on {formatDate(order.orderDate)}</p>
+              <h2 className="text-xl font-semibold text-gray-800 mb-1">
+                Order #{order.orderId || order._id}
+              </h2>
+              <p className="text-sm text-gray-500">
+                Placed on {formatDate(order.createdAt)}
+              </p>
             </div>
 
             <div className="flex items-center gap-3">
               {getStatusBadge(order.status)}
-
-              {/* NEW: Download Invoice Button */}
               <button
                 onClick={handleDownloadInvoice}
                 disabled={invoiceLoading}
@@ -205,19 +187,28 @@ const OrderDetailsPage = () => {
                     <div className="flex items-center">
                       <div className="relative w-12 h-12 rounded-md overflow-hidden mr-3">
                         <Image
-                          src={item.image || 'https://via.placeholder.com/48'} 
-                          alt={item.name} 
+                          src={item.image || '/placeholder-food.jpg'} 
+                          alt={item.title || 'Food item'} 
                           fill
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-800">{item.name}</h4>
-                        <p className="text-sm text-gray-500">Qty: {item.quantity || 1}</p>
+                        <h4 className="font-medium text-gray-800">{item.title || 'Unknown Item'}</h4>
+                        <p className="text-sm text-gray-500">
+                          Qty: {item.quantity || 1} • ৳{item.price || 0} each
+                        </p>
+                        {item.specialInstructions && (
+                          <p className="text-xs text-gray-500 mt-1">
+                            Note: {item.specialInstructions}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-gray-800">৳{item.price || 0}</p>
+                      <p className="font-medium text-gray-800">
+                        ৳{((item.price || 0) * (item.quantity || 1)).toFixed(2)}
+                      </p>
                     </div>
                   </div>
                 ))
@@ -251,24 +242,60 @@ const OrderDetailsPage = () => {
           </div>
         </div>
 
+        {/* Customer Information */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+          <h3 className="text-lg font-medium text-gray-800 mb-3">Customer Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-start">
+              <FiUser className="mt-1 mr-2 text-gray-500" />
+              <div>
+                <p className="font-medium text-gray-800">Customer Name</p>
+                <p className="text-sm text-gray-600">
+                  {order.customerInfo?.fullName || 'N/A'}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <FiPhone className="mt-1 mr-2 text-gray-500" />
+              <div>
+                <p className="font-medium text-gray-800">Phone Number</p>
+                <p className="text-sm text-gray-600">
+                  {order.customerInfo?.phone || 'N/A'}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start md:col-span-2">
+              <FiMapPin className="mt-1 mr-2 text-gray-500" />
+              <div>
+                <p className="font-medium text-gray-800">Delivery Address</p>
+                <p className="text-sm text-gray-600">
+                  {order.customerInfo?.address || 'N/A'}, {order.customerInfo?.city || 'N/A'}, {order.customerInfo?.postalCode || 'N/A'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Delivery Information */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           <h3 className="text-lg font-medium text-gray-800 mb-3">Delivery Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-start">
-              <FiMapPin className="mt-1 mr-2 text-gray-500" />
+              <FiCalendar className="mt-1 mr-2 text-gray-500" />
               <div>
-                <p className="font-medium text-gray-800">Delivery Address</p>
+                <p className="font-medium text-gray-800">Estimated Delivery</p>
                 <p className="text-sm text-gray-600">
-                  {order.deliveryAddress?.street || 'N/A'}, {order.deliveryAddress?.city || 'N/A'}, {order.deliveryAddress?.postalCode || 'N/A'}
+                  {formatDate(order.estimatedDelivery)}
                 </p>
               </div>
             </div>
             <div className="flex items-start">
-              <FiCalendar className="mt-1 mr-2 text-gray-500" />
+              <FiClock className="mt-1 mr-2 text-gray-500" />
               <div>
-                <p className="font-medium text-gray-800">Estimated Delivery</p>
-                <p className="text-sm text-gray-600">{formatDate(order.estimatedDelivery)}</p>
+                <p className="font-medium text-gray-800">Last Updated</p>
+                <p className="text-sm text-gray-600">
+                  {formatDate(order.updatedAt)}
+                </p>
               </div>
             </div>
           </div>
@@ -279,23 +306,25 @@ const OrderDetailsPage = () => {
           <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
             <h3 className="text-lg font-medium text-gray-800 mb-3">Delivery Rider</h3>
             <div className="flex items-center justify-between">
-              <div className="relative flex items-center">
-                <Image
-                  className="h-12 w-12 rounded-full object-cover mr-3"
-                  src={order.riderInfo.photoUrl || `https://avatar.vercel.sh/${order.riderInfo.email}`}
-                  alt={order.riderInfo.name}
-                  fill
-                />
+              <div className="flex items-center">
+                <div className="relative h-12 w-12 rounded-full overflow-hidden mr-3">
+                  <Image
+                    src={order.riderInfo.photoUrl || order.riderInfo.image || `https://avatar.vercel.sh/${order.riderInfo.riderEmail}`}
+                    alt={order.riderInfo.riderName}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 <div>
-                  <p className="font-medium text-gray-800">{order.riderInfo.name}</p>
+                  <p className="font-medium text-gray-800">{order.riderInfo.riderName}</p>
                   <div className="flex items-center text-sm text-gray-500">
                     <FiPhone className="mr-1" />
-                    {order.riderInfo.phone}
+                    {order.riderInfo.riderPhone || 'Not provided'}
                   </div>
                 </div>
               </div>
               <button
-                onClick={() => router.push(`/riders/${order.riderInfo.id}`)}
+                onClick={() => router.push(`/riders/${order.riderInfo.riderId}`)}
                 className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors flex items-center gap-1"
               >
                 <FiUser className="h-4 w-4" />
@@ -322,7 +351,7 @@ const OrderDetailsPage = () => {
               <FiCheck className="mr-2 text-gray-500" />
               <div>
                 <p className="font-medium text-gray-800">Payment Status</p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 capitalize">
                   {order.paymentStatus || 'Pending'}
                 </p>
               </div>
