@@ -12,7 +12,7 @@ let cached = global.mongoose;
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
-
+ 
 // ✅ OPTIMIZED connection function for MongoDB Atlas
 const connectMongooseDb = async () => {
   try {
