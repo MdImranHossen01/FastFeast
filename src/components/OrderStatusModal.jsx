@@ -29,6 +29,8 @@ const normalizeStatus = (status) => {
     return "delivered";
   if (s === "out for delivery" || s === "out_for_delivery")
     return "out-for-delivery";
+  if (s === "assign to rider" || s === "assigned_to_rider" || s === "assigned")
+    return "assigned";
   return s;
 };
 
@@ -37,6 +39,7 @@ const statusPercent = {
   confirmed: 25,
   preparing: 50,
   ready: 75,
+  assigned: 80,
   "out-for-delivery": 90,
   delivered: 100,
   cancelled: 0,
@@ -49,6 +52,7 @@ const StatusBadge = ({ status }) => {
     confirmed: "bg-blue-100 text-blue-800",
     preparing: "bg-purple-100 text-purple-800",
     ready: "bg-indigo-100 text-indigo-800",
+    assigned: "bg-cyan-100 text-cyan-800",
     "out-for-delivery": "bg-orange-100 text-orange-800",
     delivered: "bg-green-100 text-green-800",
     cancelled: "bg-red-100 text-red-800",
@@ -60,6 +64,7 @@ const StatusBadge = ({ status }) => {
       confirmed: "Confirmed",
       preparing: "Preparing",
       ready: "Ready",
+      assigned: "Assigned to Rider",
       "out-for-delivery": "Out for Delivery",
       delivered: "Delivered",
       cancelled: "Cancelled",
@@ -85,6 +90,8 @@ const StatusIcon = ({ status }) => {
       return <FiPackage className="text-purple-600" />;
     case "ready":
       return <FiPackage className="text-indigo-600" />;
+    case "assigned":
+      return <FiUser className="text-cyan-600" />;
     case "out-for-delivery":
       return <FiTruck className="text-orange-600" />;
     case "delivered":
@@ -121,7 +128,6 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const [selectedOrder, setSelectedOrder] = useState(null);
   const [showRiderDetails, setShowRiderDetails] = useState(null);
   const [fetchError, setFetchError] = useState(null);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
@@ -145,10 +151,10 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
 
       const data = await res.json();
 
-      // normalize shape & status
+      // FIX: Use _id instead of id, and ensure proper normalization
       const list = (data.orders || []).map((o) => ({
         ...o,
-        id: String(o.id ?? o._id ?? ""),
+        id: String(o._id || o.id || ""), // Use _id as primary
         status: normalizeStatus(o.status),
         orderDate: o.orderDate ?? o.createdAt ?? Date.now(),
         pricing: o.pricing || {},
@@ -157,7 +163,8 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
         riderInfo: o.riderInfo
           ? {
               ...o.riderInfo,
-              id: o.riderInfo.id || o.riderInfo._id || "",
+              id: o.riderInfo.riderId || o.riderInfo.id || o.riderInfo._id || "",
+              name: o.riderInfo.riderName || o.riderInfo.name || "Unknown Rider",
             }
           : null,
       }));
@@ -197,23 +204,34 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   }, [searchTerm, orders]);
 
   const showOrderDetails = (order) => {
-    // Navigate to order details page
-    router.push(`/orders/${order.id}`);
-  };
-
-  const handleRiderClick = (riderId, riderName) => {
-    if (!riderId) {
-      toast.error("Rider information is not available");
+    console.log('Opening order details for:', order.id);
+    if (!order.id) {
+      toast.error('Order ID is missing');
       return;
     }
-    // Navigate to rider details page
-    router.push(`/riders/${riderId}`);
+    router.push(`/orders/${order.id}`);
+    onClose(); // Close modal after navigation
   };
 
-  // UPDATED: This function now correctly passes the riderId
+  const handleRiderClick = (riderId, riderName, e) => {
+    if (e) {
+      e.stopPropagation(); // Prevent event bubbling
+    }
+    
+    console.log('Opening rider details for:', riderId);
+    
+    if (!riderId) {
+      toast.error('Rider information is not available');
+      return;
+    }
+    
+    // Navigate to rider details page
+    router.push(`/riders/${riderId}`);
+    onClose(); // Close modal after navigation
+  };
+
   const handleReviewSubmit = async (reviewData) => {
     try {
-      // Add riderId and orderId to the review data from the selected order
       const fullReviewData = {
         ...reviewData,
         orderId: orderToReview._id,
@@ -234,9 +252,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
         toast.error("Failed to submit review");
       }
 
-      // Refresh orders to update review status
       fetchUserOrders();
-
       return data;
     } catch (error) {
       console.error("Error submitting review:", error);
@@ -254,6 +270,12 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
     setOrderToReview(null);
   };
 
+  // Check if rider should be shown (for assigned status and beyond)
+  const shouldShowRider = (order) => {
+    const status = normalizeStatus(order.status);
+    return order.riderInfo && ["assigned", "out-for-delivery", "delivered"].includes(status);
+  };
+
   // Prevent modal from closing when clicking inside the modal content
   const handleModalContentClick = (e) => {
     e.stopPropagation();
@@ -264,7 +286,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
   return (
     <>
       <div
-        className="fixed inset-0 z-50 overflow-y-auto bg-black/30  flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 overflow-y-auto bg-black/30 flex items-center justify-center p-4"
         onClick={onClose}
       >
         <div
@@ -342,7 +364,7 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                       <div className="flex justify-between items-start mb-3">
                         <div>
                           <h4 className="font-medium text-gray-900">
-                            Order #{order.id}
+                            Order #{order.orderId || order.id}
                           </h4>
                           <p className="text-sm text-gray-500">
                             {fmtDate(order.orderDate)}
@@ -398,21 +420,19 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                         </div>
                       </div>
 
-                      {/* Rider Information (if assigned) */}
-                      {order.riderInfo && (
+                      {/* Rider Information (if assigned or beyond) */}
+                      {shouldShowRider(order) && (
                         <div className="mt-3 p-3 bg-white rounded-lg">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center">
-                              <FiTruck className="text-orange-500 mr-2" />
-                              {/* Make the rider name clickable */}
+                              <FiUser className="text-cyan-500 mr-2" />
                               <span
                                 className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline cursor-pointer flex items-center gap-1"
-                                onClick={() =>
-                                  handleRiderClick(
-                                    order.riderInfo.id,
-                                    order.riderInfo.name
-                                  )
-                                }
+                                onClick={(e) => handleRiderClick(
+                                  order.riderInfo.id,
+                                  order.riderInfo.name,
+                                  e
+                                )}
                               >
                                 {order.riderInfo.name}
                                 <FiExternalLink className="h-3 w-3" />
@@ -421,12 +441,11 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                             <div className="flex items-center gap-2">
                               <button
                                 className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1"
-                                onClick={() =>
-                                  handleRiderClick(
-                                    order.riderInfo.id,
-                                    order.riderInfo.name
-                                  )
-                                }
+                                onClick={(e) => handleRiderClick(
+                                  order.riderInfo.id,
+                                  order.riderInfo.name,
+                                  e
+                                )}
                               >
                                 <FiUser className="h-4 w-4" />
                                 Profile
@@ -451,28 +470,30 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
 
                           {showRiderDetails === order.id && (
                             <div className="mt-3 pt-3 border-t border-gray-200">
-                              <div className="relative flex items-center space-x-3">
-                                <Image
-                                  className="h-10 w-10 rounded-full object-cover"
-                                  src={
-                                    order.riderInfo.photoUrl ||
-                                    `https://avatar.vercel.sh/${order.riderInfo.email}`
-                                  }
-                                  alt={order.riderInfo.name}
-                                  fill
-                                  onError={(e) => {
-                                    e.target.src = `https://avatar.vercel.sh/${
-                                      order.riderInfo.name || "rider"
-                                    }`;
-                                  }}
-                                />
+                              <div className="flex items-center space-x-3">
+                                <div className="relative h-10 w-10">
+                                  <Image
+                                    className="rounded-full object-cover"
+                                    src={
+                                      order.riderInfo.photoUrl ||
+                                      `https://avatar.vercel.sh/${order.riderInfo.riderEmail || order.riderInfo.email}`
+                                    }
+                                    alt={order.riderInfo.name}
+                                    fill
+                                    onError={(e) => {
+                                      e.target.src = `https://avatar.vercel.sh/${
+                                        order.riderInfo.name || "rider"
+                                      }`;
+                                    }}
+                                  />
+                                </div>
                                 <div className="flex-grow">
                                   <div className="font-medium">
                                     {order.riderInfo.name}
                                   </div>
                                   <div className="flex items-center text-sm text-gray-500">
                                     <FiPhone className="mr-1" />
-                                    {order.riderInfo.phone}
+                                    {order.riderInfo.riderPhone || order.riderInfo.phone || "Not provided"}
                                   </div>
                                   <div className="flex items-center text-sm text-gray-500">
                                     <FiMapPin className="mr-1" />
@@ -488,12 +509,11 @@ const OrderStatusModal = ({ isOpen, onClose, userEmail }) => {
                                 </div>
                                 <button
                                   className="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 transition-colors flex items-center gap-1"
-                                  onClick={() =>
-                                    handleRiderClick(
-                                      order.riderInfo.id,
-                                      order.riderInfo.name
-                                    )
-                                  }
+                                  onClick={(e) => handleRiderClick(
+                                    order.riderInfo.id,
+                                    order.riderInfo.name,
+                                    e
+                                  )}
                                 >
                                   <FiExternalLink className="h-3 w-3" />
                                   View Profile
